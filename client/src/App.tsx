@@ -1,9 +1,10 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { RootLayout } from './pages';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RootLayout } from "./pages";
+import { ThemeProvider } from "@/context/ThemeProvider";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <RootLayout />,
     errorElement: false, // add an error page later
     children: [],
@@ -11,7 +12,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  );
 }
 
 export default App;

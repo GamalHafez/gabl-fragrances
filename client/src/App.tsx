@@ -1,5 +1,17 @@
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { RootLayout } from './pages';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <RootLayout />,
+    errorElement: false, // add an error page later
+    children: [],
+  },
+]);
+
 function App() {
-  return <h1 className='text-4xl'>Gabl Frag</h1>;
+  return <RouterProvider router={router} />;
 }
 
 export default App;

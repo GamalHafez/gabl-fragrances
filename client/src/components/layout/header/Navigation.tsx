@@ -15,13 +15,13 @@ const navLinkStyles = (isActive: boolean, isDark: boolean) =>
       ? clsx(
           "font-medium",
           isDark
-            ? "text-red-300  hover:text-red-200"
-            : "text-red-500 hover:text-red-800",
+            ? "text-brand-300  hover:text-red-400"
+            : "text-brand-600 hover:text-brand-700",
         )
       : clsx(
           "relative after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:transition-all after:duration-300 hover:after:w-full",
           isDark
-            ? "text-zinc-300 after:bg-red-400 hover:after:bg-red-300"
+            ? "text-zinc-300 after:bg-brand-600 hover:after:bg-brand-400"
             : "text-zinc-800 hover:text-zinc-950 after:bg-red-700 hover:after:bg-red-600",
         ),
   );

@@ -4,7 +4,7 @@ import { Footer } from "../components/layout/Footer";
 
 export const RootLayout = () => {
   return (
-    <div className="font-poppins flex min-h-screen flex-col">
+    <div className="font-inter flex min-h-screen flex-col">
       <Header />
 
       <main className="flex-1">

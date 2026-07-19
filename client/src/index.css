@@ -7,7 +7,24 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-poppins: "Inter", sans-serif;
+  --font-inter: "Inter", sans-serif;
+
+  /* Brand Colors */
+  --color-brand-50: #fdf5f5;
+  --color-brand-100: #f8e6e6;
+  --color-brand-200: #efc3c3;
+  --color-brand-300: #df9494;
+  --color-brand-400: #c95f5f;
+  --color-brand-500: #a11515;
+  --color-brand-600: #8b1212;
+  --color-brand-700: #701010;
+  --color-brand-800: #561010;
+  --color-brand-900: #3b0d0d;
+
+  /* Neutral Colors */
+  --color-surface: #ffffff;
+  --color-background: #faf9f8;
+  --color-border: #e5e5e5;
 }
 
 @theme inline {

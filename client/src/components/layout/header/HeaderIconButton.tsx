@@ -23,8 +23,8 @@ export const HeaderIconButton = ({
           className={clsx(
             "flex h-10 w-10 cursor-pointer items-center justify-center rounded-full transition-colors",
             isDark
-              ? "text-red-300 hover:bg-zinc-900/10 hover:text-red-200"
-              : "hover:bg-red-50 hover:text-red-700",
+              ? "text-brand-300 hover:bg-zinc-900/10 hover:text-red-200"
+              : "hover:text-brand-600 hover:bg-red-50",
           )}
           onClick={onClick}
         >

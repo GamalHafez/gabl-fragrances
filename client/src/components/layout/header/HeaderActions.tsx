@@ -1,69 +1,28 @@
 import { LogIn, User, Search, ShoppingCart, Moon, Sun } from "lucide-react";
-import { TooltipCard } from "@/components/ui/hover-card";
-import { useState } from "react";
+import { useTheme } from "@/context/useTheme";
+import { HeaderIconButton } from "./HeaderIconButton";
 
 export const HeaderActions = () => {
   const user = null; // to be replaced
-  const [isDark, setIsDark] = useState(false); // to be inside a context;
+  const { isDark, toggle } = useTheme();
 
   return (
     <div className="flex place-items-center items-center gap-2">
-      <TooltipCard
-        trigger={
-          <button
-            type="button"
-            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full transition-colors hover:bg-red-50 hover:text-red-700"
-          >
-            <Search size={20} />
-          </button>
-        }
-        content={<p className="text-zinc-900 capitalize">Search</p>}
-      />
+      <HeaderIconButton tooltip="Search">
+        <Search size={20} />
+      </HeaderIconButton>
 
-      <TooltipCard
-        trigger={
-          <button
-            type="button"
-            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full transition-colors hover:bg-red-50 hover:text-red-700"
-          >
-            {user ? <User size={20} /> : <LogIn size={20} />}
-          </button>
-        }
+      <HeaderIconButton tooltip={user ? "Proile" : "Log in"}>
+        {user ? <User size={20} /> : <LogIn size={20} />}
+      </HeaderIconButton>
 
-        content={
-          user ? (
-            <p className="text-zinc-900 capitalize">Proile</p>
-          ) : (
-            <p className="text-zinc-900 capitalize">Log in</p>
-          )
-        }
-      />
+      <HeaderIconButton tooltip="Your Cart" contentClassName="w-22">
+        <ShoppingCart size={20} />
+      </HeaderIconButton>
 
-      <TooltipCard
-        trigger={
-          <button
-            type="button"
-            className="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-full transition-colors hover:bg-red-50 hover:text-red-700"
-          >
-            <ShoppingCart />
-          </button>
-        }
-        content={<p className="text-zinc-900 capitalize">Your Cart</p>}
-        contentClassName="w-22"
-      />
-
-      <TooltipCard
-        trigger={
-          <button
-            type="button"
-            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full transition-colors hover:bg-red-50 hover:text-red-700"
-            onClick={() => setIsDark((prevDark) => !prevDark)}
-          >
-            {isDark ? <Sun /> : <Moon />}
-          </button>
-        }
-        content={<p className="text-zinc-900 capitalize">Theme</p>}
-      />
+      <HeaderIconButton tooltip="Theme" onClick={toggle}>
+        {isDark ? <Sun size={20} /> : <Moon size={20} />}
+      </HeaderIconButton>
     </div>
   );
 };

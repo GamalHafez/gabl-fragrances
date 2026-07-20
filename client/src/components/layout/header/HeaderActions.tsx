@@ -12,7 +12,7 @@ export const HeaderActions = () => {
         <Search size={20} />
       </HeaderIconButton>
 
-      <HeaderIconButton tooltip={user ? "Proile" : "Log in"}>
+      <HeaderIconButton tooltip={user ? "Profile" : "Log in"}>
         {user ? <User size={20} /> : <LogIn size={20} />}
       </HeaderIconButton>
 

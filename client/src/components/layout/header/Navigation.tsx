@@ -26,17 +26,23 @@ const navLinkStyles = (isActive: boolean, isDark: boolean) =>
         ),
   );
 
-export const Navigation = () => {
+export const Navigation = ({ isMobile }: { isMobile?: boolean }) => {
   const { isDark } = useTheme();
 
   return (
-    <nav className="flex items-center gap-8">
+    <nav
+      className={clsx(
+        "flex",
+        isMobile ? "flex-col gap-2 px-6 pt-5" : "flex-row items-center gap-8",
+      )}
+    >
       {navLinks.map((link) => (
         <NavLink
           key={link.href}
           to={link.href}
           className={({ isActive }) => navLinkStyles(isActive, isDark)}
         >
+          {isMobile}
           {link.name}
         </NavLink>
       ))}

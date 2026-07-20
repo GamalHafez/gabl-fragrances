@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom";
 import { Container } from "../../ui";
-import { Navigation } from "./Navigation";
-import { HeaderActions } from "./HeaderActions";
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
+import { DesktopHeader } from "./index";
+import { MobileHeader } from "./mobile/index";
 
 export const Header = () => {
   const { isDark } = useTheme();
@@ -18,21 +17,9 @@ export const Header = () => {
       )}
     >
       <Container>
-        <div className="flex items-center justify-between">
-          <Link
-            to="/"
-            className={clsx(
-              "flex items-center gap-2 text-xl font-semibold capitalize",
-              isDark ? "text-zinc-100" : "text-zinc-900",
-            )}
-          >
-            Gabal fragrances
-          </Link>
+          <DesktopHeader />
 
-          <Navigation />
-
-          <HeaderActions />
-        </div>
+          <MobileHeader />
       </Container>
     </header>
   );

@@ -2,6 +2,7 @@ import Hero from "@/components/home/Hero";
 import FeaturedCategories from "@/components/home/FeaturedCategories";
 import { Container } from "@/components/ui";
 import FAQ from "@/components/home/FAQ";
+import SocialLinks from "@/components/home/SocialLinks";
 
 export const HomePage = () => {
   return (
@@ -15,6 +16,8 @@ export const HomePage = () => {
           <FAQ />
         </main>
       </Container>
+
+      <SocialLinks />
     </>
   );
 };

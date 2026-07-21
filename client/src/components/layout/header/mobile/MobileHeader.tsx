@@ -20,6 +20,12 @@ export const MobileHeader = () => {
 
       <Link
         to="/"
+        onClick={() =>
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          })
+        }
         className={clsx(
           "text-md flex items-center gap-2 font-semibold capitalize",
           isDark ? "text-zinc-100" : "text-zinc-900",

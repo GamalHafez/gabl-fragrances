@@ -10,6 +10,12 @@ export const DesktopHeader = () => {
     <div className="hidden items-center justify-between md:flex">
       <Link
         to="/"
+        onClick={() =>
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          })
+        }
         className={clsx(
           "flex items-center gap-2 text-xl font-semibold capitalize",
           isDark ? "text-zinc-100" : "text-zinc-900",

@@ -21,6 +21,11 @@ body {
   position: relative;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding: 4rem;
+}
+
 @theme {
   --font-inter: "Inter", sans-serif;
 

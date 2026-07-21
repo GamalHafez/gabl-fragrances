@@ -1,40 +1,14 @@
-import { ArrowUpRight, MessageCircle, Music2 } from "lucide-react";
-import { FaFacebook, FaInstagram } from "react-icons/fa";
-
-const socials = [
-  {
-    name: "Instagram",
-    username: "@gabal_fragrances",
-    href: "https://www.instagram.com/gabal_fragrances?igsh=Z2N4NjUxOTdwNmlq",
-    icon: FaInstagram,
-  },
-  {
-    name: "TikTok",
-    username: "@gabal_fragrances",
-    href: "https://www.tiktok.com/@gabal_fragrances",
-    icon: Music2,
-  },
-  {
-    name: "Facebook",
-    username: "Gabal Fragrances",
-    href: "https://www.facebook.com/share/19FRqHbERb/",
-    icon: FaFacebook,
-  },
-  {
-    name: "WhatsApp",
-    username: "Chat With Us",
-    href: "https://wa.me/201035636549",
-    icon: MessageCircle,
-  },
-];
+import { SOCIALS } from "@/constants/socialLinks";
+import { ArrowUpRight } from "lucide-react";
 
 const SocialLinks = () => {
   return (
-    <section className="relative isolate overflow-hidden rounded-[2.5rem] py-24">
-      {/* Background */}
+    <section
+      id="contact"
+      className="relative isolate overflow-hidden rounded-[2.5rem] py-24"
+    >
       <div className="from-brand-50 to-brand-100 absolute inset-0 -z-20 bg-linear-to-br via-white dark:from-zinc-950 dark:via-zinc-900 dark:to-zinc-950" />
 
-      {/* Glow */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="bg-brand-500/20 absolute top-1/2 left-1/2 h-175 w-175 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[160px]" />
 
@@ -43,7 +17,6 @@ const SocialLinks = () => {
         <div className="bg-brand-500/20 absolute -right-40 bottom-0 h-105 w-105 rounded-full blur-[150px]" />
       </div>
 
-      {/* Grid */}
       <div
         className="absolute inset-0 -z-10 opacity-[0.035]"
         style={{
@@ -72,7 +45,7 @@ const SocialLinks = () => {
         </div>
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {socials.map((social) => {
+          {SOCIALS.map((social) => {
             const Icon = social.icon;
 
             return (

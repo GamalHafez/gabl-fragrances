@@ -2,7 +2,7 @@ import { HomeAccordion } from "./HomeAccordion";
 
 const FAQ = () => {
   return (
-    <section className="py-28">
+    <section id="faq" className="py-28">
       <div className="mx-auto max-w-3xl text-center">
         <span className="text-brand-500 text-sm font-semibold tracking-[0.35em] uppercase">
           FAQ

@@ -4,7 +4,7 @@ import { useTheme } from "@/context/useTheme";
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "Catalog", href: "/catalog" },
+  { name: "Catalog", href: "/collections" },
   { name: "Contact", href: "/contact" },
 ];
 

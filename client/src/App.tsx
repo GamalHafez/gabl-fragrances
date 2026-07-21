@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { RootLayout, HomePage } from "./pages";
+import { RootLayout, HomePage, Collections, Contact } from "./pages";
 import { ThemeProvider } from "@/context/ThemeProvider";
 
 const router = createBrowserRouter([
@@ -11,6 +11,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+      },
+      {
+        path: "/collections",
+        element: <Collections />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
       },
     ],
   },

@@ -1,1 +1,3 @@
-export * from "./CollectionsHeader";
+export * from "./CollectionsHero";
+export * from "./CollectionsGrid";
+export * from "./ProductCard";

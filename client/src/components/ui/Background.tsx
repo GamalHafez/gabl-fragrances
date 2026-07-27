@@ -1,4 +1,4 @@
-const HeroBackground = () => {
+const Background = () => {
   return (
     <>
       <div className="from-brand-50 to-brand-100 absolute inset-0 -z-20 bg-linear-to-br via-white dark:from-zinc-950 dark:via-zinc-900 dark:to-zinc-950" />
@@ -32,4 +32,4 @@ const HeroBackground = () => {
   );
 };
 
-export default HeroBackground;
+export default Background;

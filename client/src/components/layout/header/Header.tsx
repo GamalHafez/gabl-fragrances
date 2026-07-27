@@ -10,16 +10,16 @@ export const Header = () => {
   return (
     <header
       className={clsx(
-        "sticky top-0 z-50 border-b py-4 backdrop-blur-md",
+        "border-b-brand-500 sticky top-0 z-50 border-b py-4 backdrop-blur-md",
         isDark
           ? "border-zinc-600 bg-zinc-900/80"
           : "border-zinc-300 bg-white/30",
       )}
     >
       <Container>
-          <DesktopHeader />
+        <DesktopHeader />
 
-          <MobileHeader />
+        <MobileHeader />
       </Container>
     </header>
   );

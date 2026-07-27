@@ -3,6 +3,7 @@ import desktopBanner from "../../../assets/desktop-banner.png";
 import tabletBanner from "../../../assets/tablet-banner.png";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
+import { AnnouncementBar } from "./AnnouncementBar";
 
 const Hero = () => {
   return (
@@ -23,11 +24,13 @@ const Hero = () => {
 
       <Link
         to="/collections"
-        className="bg-brand-500 md:bg-brand-600 hover:bg-brand-600 absolute top-[78%] left-1/2 flex -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-between gap-1 rounded-xl px-6 py-4 text-sm font-semibold text-white shadow-xl transition-all duration-300 hover:translate-y-[-55%] hover:shadow-2xl md:top-[72%] md:left-[25%] md:gap-2 md:px-8 md:text-base"
+        className="bg-brand-700 hover:bg-brand-600 absolute top-[80%] left-1/2 inline-flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold tracking-wide whitespace-nowrap text-white shadow-lg transition-all duration-300 ease-out hover:translate-y-[-54%] hover:shadow-2xl active:scale-95 md:top-[72%] md:left-[25%] md:px-8 md:py-4 md:text-base"
       >
         Shop Collection
-        <ChevronRight className="h-5 w-5" />
+        <ChevronRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />{" "}
       </Link>
+
+      <AnnouncementBar />
     </section>
   );
 };

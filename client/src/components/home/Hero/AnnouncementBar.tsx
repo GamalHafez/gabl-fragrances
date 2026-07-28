@@ -1,5 +1,7 @@
 import { Marquee } from "@/components/ui/marquee";
 import { TicketPercent } from "lucide-react";
+import { useTheme } from "@/context/useTheme";
+import clsx from "clsx";
 
 const offers = [
   "ENJOY 20% OFF ON ALL FRAGRANCES",
@@ -8,15 +10,27 @@ const offers = [
 ];
 
 export const AnnouncementBar = () => {
+  const { isDark } = useTheme();
+
   return (
-    <article className="bg-brand-900 relative overflow-hidden py-3 text-white">
-      <Marquee pauseOnHover reverse className="[--duration:20s]">
+    <article
+      className={clsx(
+        "relative overflow-hidden py-1",
+        isDark ? "bg-brand-900 text-white" : "text-brand-900 bg-amber-100",
+      )}
+    >
+      <Marquee pauseOnHover reverse className="[--duration:25s]">
         {offers.map((offer) => (
           <p
             key={offer}
-            className="mx-8 flex gap-4 font-medium tracking-wide whitespace-nowrap uppercase"
+            className="md:text-md mx-8 flex items-center gap-2 text-sm font-semibold tracking-wide whitespace-nowrap uppercase"
           >
-            <TicketPercent className="text-brand-300" />
+            <TicketPercent
+              className={clsx(
+                "h-4 w-4",
+                isDark ? "text-brand-300" : "text-brand-500",
+              )}
+            />
             {offer}
           </p>
         ))}

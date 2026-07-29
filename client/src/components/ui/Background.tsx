@@ -10,7 +10,7 @@ export const Background = () => {
         className={`absolute inset-0 -z-20 bg-linear-to-br ${
           isDark
             ? "from-zinc-800 via-zinc-950 to-zinc-950"
-            : "from-brand-50 to-brand-100 via-white"
+            : "from-white to-zinc-300 via-zinc-200"
         }`}
       />
 

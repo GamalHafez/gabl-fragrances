@@ -23,7 +23,7 @@ export const AnnouncementBar = () => {
         {offers.map((offer) => (
           <p
             key={offer}
-            className="md:text-md mx-8 flex items-center gap-2 text-sm font-semibold tracking-wide whitespace-nowrap uppercase"
+            className="mx-8 flex items-center gap-2 text-sm font-semibold tracking-wide whitespace-nowrap uppercase md:text-base lg:text-lg"
           >
             <TicketPercent
               className={clsx(

@@ -16,14 +16,14 @@ const BestSellers = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category>("men");
 
   return (
-    <section className="py-24">
+    <section className=" pt-24">
       <Background />
 
       <div className="relative mx-auto max-w-6xl px-6">
         {/* Section heading */}
         <p
           className={clsx(
-            "mb-3 text-center text-sm font-semibold tracking-[0.25em] uppercase lg:text-xl",
+            "mb-3 text-center text-sm font-semibold tracking-[0.25em] uppercase lg:text-base",
             isDark ? "text-brand-100" : "text-brand-500",
           )}
         >

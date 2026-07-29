@@ -20,8 +20,8 @@ export const RightProductPreview = ({
         "mt-2 flex flex-col items-center rounded-3xl border p-8 px-8 transition-all duration-300 md:mt-0 lg:w-3/5",
         "lg:p-10",
         isDark
-          ? "border-white/10 bg-white/5"
-          : "border-zinc-200 bg-white shadow-sm",
+          ? "border-white/10 bg-transparent"
+          : "border-zinc-200 bg-white/10 shadow-sm",
       )}
     >
       <div className="mb-8 flex items-center gap-6 md:mb-10 md:flex-col">

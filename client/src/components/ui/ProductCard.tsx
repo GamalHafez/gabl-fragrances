@@ -1,6 +1,7 @@
 import type { Product } from "@/mockProducts";
 import placeholder from "@/assets/placeholder.webp";
-import { Plus, ShoppingCart, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { AddToCart } from "./AddToCart";
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const { name, size, price, collection, description } = product;
@@ -47,13 +48,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
             Add to cart
           </button>
 
-          <div className="relative inline-block md:hidden">
-            <ShoppingCart size={20} />
-            <Plus
-              size={12}
-              className="bg-brand-500 absolute -top-1 -right-1 rounded-full text-white"
-            />
-          </div>
+          <AddToCart isMobile />
         </div>
       </div>
     </article>

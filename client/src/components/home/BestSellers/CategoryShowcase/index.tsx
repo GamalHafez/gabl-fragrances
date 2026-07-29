@@ -10,7 +10,7 @@ const CategoryShowcase = ({ category }: { category: Category }) => {
   const products = bestSellers[category];
 
   return (
-    <article className="mt-2 flex justify-center px-2">
+    <article className="mt-2 flex flex-col justify-center px-2 md:flex-row">
       <LeftProductList
         products={products}
         selectedProduct={selectedProduct}

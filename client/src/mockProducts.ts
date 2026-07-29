@@ -1,3 +1,5 @@
+// will be deleted...
+
 export type Product = {
   id: number;
   slug: string;

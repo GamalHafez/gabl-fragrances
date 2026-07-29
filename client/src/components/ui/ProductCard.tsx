@@ -1,5 +1,5 @@
-import type { Product } from "./mockProducts";
-import placeholder from "../../assets/placeholder.webp";
+import type { Product } from "@/mockProducts";
+import placeholder from "@/assets/placeholder.webp";
 import { Plus, ShoppingCart, ArrowRight } from "lucide-react";
 
 export const ProductCard = ({ product }: { product: Product }) => {

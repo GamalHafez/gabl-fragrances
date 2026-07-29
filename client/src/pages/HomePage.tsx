@@ -4,6 +4,7 @@ import { Container } from "@/components/ui";
 import FAQ from "@/components/home/FAQ";
 import SocialLinks from "@/components/home/SocialLinks";
 import BestSellers from "@/components/home/BestSellers";
+import { Testimonials } from "@/components/home/Testimonials";
 
 export const HomePage = () => {
   return (
@@ -11,9 +12,12 @@ export const HomePage = () => {
       <Hero />
 
       <BestSellers />
+
       <Container>
         <main className="pag-14 mt-14 flex flex-col md:mt-20 md:gap-20 lg:mt-20 lg:gap-20">
           <FeaturedCategories />
+
+          <Testimonials />
 
           <FAQ />
         </main>

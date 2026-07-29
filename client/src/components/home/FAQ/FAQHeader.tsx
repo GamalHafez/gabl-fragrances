@@ -5,7 +5,7 @@ const FAQHeader = () => {
         FAQ
       </span>
 
-      <h2 className="mt-4 text-4xl font-bold tracking-tight lg:text-5xl">
+      <h2 className="mt-2 text-xl font-bold tracking-tight md:text-4xl lg:text-5xl">
         Frequently Asked Questions
       </h2>
 

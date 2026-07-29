@@ -44,7 +44,7 @@ function TabsList({ className, ...props }: TabsListProps) {
         className={cn(
           "mx-auto inline-flex h-12 w-fit items-center justify-center gap-2 rounded-xl p-1",
           "text-sm md:text-base lg:text-lg",
-          isDark ? "bg-zinc-800" : "bg-zinc-100 backdrop-blur-sm",
+          isDark ? "bg-zinc-800" : "bg-transparent backdrop-blur-sm",
           className,
         )}
         {...props}

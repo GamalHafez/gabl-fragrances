@@ -16,7 +16,7 @@ export const LeftProductList = ({
   const { isDark } = useTheme();
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 rounded-2xl pt-8">
       {products.map((product, index) => {
         const isActive = product.id === selectedProduct.id;
 
@@ -25,14 +25,14 @@ export const LeftProductList = ({
             key={product.id}
             onClick={() => onSelectProduct(product)}
             className={clsx(
-              "group flex items-center gap-3 rounded-xl border px-5 py-4 text-left transition-all duration-300 hover:translate-x-1",
+              "group flex cursor-pointer border-r-0 items-center gap-3 rounded-xl border px-5 py-4 text-left transition-all duration-300",
               isActive
                 ? isDark
                   ? "border-brand-300/20 bg-brand-300/5"
                   : "border-brand-300/30 bg-brand-50"
                 : isDark
                   ? "border-transparent hover:bg-white/5"
-                  : "hover:bg-brand-100/40 border-transparent",
+                  : "hover:bg-brand-100/40 border-transparent hover:translate-x-1",
             )}
           >
             <p

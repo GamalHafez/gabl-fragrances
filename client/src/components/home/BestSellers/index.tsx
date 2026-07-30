@@ -16,7 +16,7 @@ const BestSellers = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category>("men");
 
   return (
-    <section className=" pt-24">
+    <section id="best-sellers" className="pt-15 md:pt-24">
       <Background />
 
       <div className="relative mx-auto max-w-6xl px-6">

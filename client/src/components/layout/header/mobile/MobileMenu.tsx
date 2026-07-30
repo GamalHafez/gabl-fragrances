@@ -37,7 +37,7 @@ export const MobileMenu = () => {
       >
         <MobileMenuHeader />
 
-        <Separator color={isDark ? "zinc-400" : "brand-700"} />
+        <Separator className="mt-4 bg-zinc-400" />
 
         <Navigation isMobile />
 

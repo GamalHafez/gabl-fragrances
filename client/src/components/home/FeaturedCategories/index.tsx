@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { CategoryCard } from "./CategoryCard";
 import menImage from "@/assets/men.jfif";
 import womenImage from "@/assets/women.jfif";
-import FeaturedCategoriesHeader from "./FeaturedCategoriesHeader";
+import { SectionHeader } from "@/components/ui/home/SectionHeader";
 
 const featuredCategories = [
   {
@@ -19,12 +19,19 @@ const featuredCategories = [
   },
 ];
 
+const featuredCategoriesHeader = {
+  eyebrow: "Shop by Collection",
+  title: "Discover Your Signature Scent",
+  description:
+    "Explore our carefully curated fragrance collections crafted for every personality and occasion.",
+};
+
 const FeaturedCategories = () => {
   return (
     <section className="py-24">
-      <FeaturedCategoriesHeader />
+      <SectionHeader content={featuredCategoriesHeader} />
 
-      <div className="grid gap-8 md:grid-cols-2">
+      <div className="mt-18 grid gap-8 md:grid-cols-2">
         {featuredCategories.map((category) => (
           <Link
             key={category.id}

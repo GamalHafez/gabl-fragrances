@@ -1,7 +1,14 @@
 import { SOCIALS } from "@/constants/socialLinks";
 import { ArrowUpRight } from "lucide-react";
 import SocialLinksBackground from "./SocialLinksBackground";
-import SocialLinksHeader from "./SocialLinksHeader";
+import { SectionHeader } from "@/components/ui/home/SectionHeader";
+
+const socialLinksHeader = {
+  eyebrow: "Stay Connected",
+  title: "Follow Our Journey",
+  description:
+    "Discover exclusive launches, behind-the-scenes moments, fragrance tips, and special offers by joining our growing community.",
+};
 
 const SocialLinks = () => {
   return (
@@ -12,7 +19,7 @@ const SocialLinks = () => {
       <SocialLinksBackground />
 
       <div className="mx-auto max-w-6xl px-6">
-        <SocialLinksHeader />
+        <SectionHeader content={socialLinksHeader} />
 
         <div className="mt-10 grid gap-4 md:mt-16 md:grid-cols-2 lg:grid-cols-4">
           {SOCIALS.map((social) => {

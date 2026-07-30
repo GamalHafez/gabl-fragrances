@@ -8,11 +8,9 @@ import { CategoriesTabs } from "./CategoriesTabs";
 import { categoryNames, type Category } from "./bestSellers";
 import CategoryShowcase from "./CategoryShowcase";
 import { TabsContent } from "@/components/animate-ui/primitives/animate/tabs";
-import clsx from "clsx";
-import { useTheme } from "@/context/useTheme";
+import { Eyebrow } from "@/components/ui/home";
 
 const BestSellers = () => {
-  const { isDark } = useTheme();
   const [selectedCategory, setSelectedCategory] = useState<Category>("men");
 
   return (
@@ -20,15 +18,7 @@ const BestSellers = () => {
       <Background />
 
       <div className="relative mx-auto max-w-6xl px-6">
-        {/* Section heading */}
-        <p
-          className={clsx(
-            "mb-3 text-center text-sm font-semibold tracking-[0.25em] uppercase lg:text-base",
-            isDark ? "text-brand-100" : "text-brand-500",
-          )}
-        >
-          Our best sellers
-        </p>
+        <Eyebrow eyebrow="Our best sellers" />
 
         {/* Tabs */}
         <Tabs

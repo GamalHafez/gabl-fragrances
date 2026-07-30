@@ -3,6 +3,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { HashScrollHandler } from "@/components/ui/common";
+import { BottomNavigation } from "@/components/layout/BottomNavigation";
 
 export const RootLayout = () => {
   return (
@@ -17,6 +18,8 @@ export const RootLayout = () => {
 
       <Footer />
 
+      {/* Floating UI */}
+      <BottomNavigation />
       <WhatsAppButton />
     </div>
   );

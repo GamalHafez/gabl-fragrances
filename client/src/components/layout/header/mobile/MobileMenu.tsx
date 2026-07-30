@@ -1,11 +1,10 @@
 import {
   Drawer,
   DrawerContent,
-  DrawerFooter,
   DrawerTrigger,
 } from "@/components/ui/shadcn/drawer";
 import { Menu } from "lucide-react";
-import { HeaderActions, Navigation } from "../index";
+import { Navigation } from "../index";
 import { MobileMenuHeader } from "./index";
 import { Separator } from "@/components/ui/common";
 import clsx from "clsx";
@@ -31,7 +30,7 @@ export const MobileMenu = () => {
 
       <DrawerContent
         className={clsx(
-          "font-inter mt-18 h-[40vh] w-58 pt-2",
+          "font-inter mt-18 h-[30vh] w-58 pt-2",
           isDark ? "bg-zinc-900/80" : "bg-zinc-50",
         )}
       >
@@ -40,10 +39,6 @@ export const MobileMenu = () => {
         <Separator className="mt-4 bg-zinc-400" />
 
         <Navigation isMobile />
-
-        <DrawerFooter>
-          <HeaderActions />
-        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   );

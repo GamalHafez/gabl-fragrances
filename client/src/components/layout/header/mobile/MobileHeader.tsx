@@ -1,4 +1,4 @@
-import { LogIn, Search, ShoppingCart, User } from "lucide-react";
+import { LogIn, Moon, Search, Sun, User } from "lucide-react";
 import { HeaderIconButton } from "../index";
 import { MobileMenu } from "./index";
 import { Link } from "react-router-dom";
@@ -7,7 +7,7 @@ import clsx from "clsx";
 
 export const MobileHeader = () => {
   const user = null; // to be replaced
-  const { isDark } = useTheme();
+  const { isDark, toggle } = useTheme();
 
   return (
     <div className="flex items-center justify-between md:hidden">
@@ -39,8 +39,8 @@ export const MobileHeader = () => {
           {user ? <User size={20} /> : <LogIn size={20} />}
         </HeaderIconButton>
 
-        <HeaderIconButton tooltip="Your Cart" contentClassName="w-22">
-          <ShoppingCart size={20} />
+        <HeaderIconButton tooltip="Theme" onClick={toggle}>
+          {isDark ? <Sun size={20} /> : <Moon size={20} />}
         </HeaderIconButton>
       </div>
     </div>

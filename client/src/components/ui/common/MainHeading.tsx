@@ -12,8 +12,8 @@ export const MainHeading = ({ title, highlighted }: MainHeadingProps) => {
   return (
     <h1
       className={clsx(
-        "text-3xl leading-[1.05] font-extrabold tracking-tight md:mb-5 lg:text-5xl",
-        isDark ? "text-zinc-50" : "text-zinc-900",
+        "text-3xl leading-[1.05] font-extrabold tracking-tight md:mb-5 lg:text-4xl",
+        isDark ? "text-zinc-100" : "text-zinc-900",
       )}
     >
       {title}{" "}

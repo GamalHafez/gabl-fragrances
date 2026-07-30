@@ -20,10 +20,10 @@ export const Header = () => {
   return (
     <header
       className={clsx(
-        "border-b-brand-500 fixed inset-x-0 top-0 z-50 w-full border-b py-4 backdrop-blur-md transition-all duration-300",
+        "fixed inset-x-0 top-0 z-50 w-full border-b py-4 backdrop-blur-md transition-all duration-300",
         isDark
           ? "border-zinc-600 bg-zinc-900/80"
-          : "border-zinc-300 bg-white/30",
+          : "border-b-brand-500 border-zinc-300 bg-white/30",
         scrolled ? "shadow-md backdrop-blur-md" : "bg-transparent",
       )}
     >

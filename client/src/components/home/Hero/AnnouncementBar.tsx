@@ -16,7 +16,7 @@ export const AnnouncementBar = () => {
     <article
       className={clsx(
         "relative overflow-hidden py-1",
-        isDark ? "bg-brand-900 text-white" : "text-brand-900 bg-amber-100",
+        isDark ? "bg-zinc-800 text-white" : "text-brand-900 bg-amber-100",
       )}
     >
       <Marquee pauseOnHover reverse className="[--duration:25s]">

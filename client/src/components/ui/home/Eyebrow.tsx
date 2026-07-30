@@ -1,5 +1,5 @@
 import { useTheme } from "@/context/useTheme";
-import clsx from "clsx";
+import { cn } from "@/utils";
 
 export const Eyebrow = ({
   eyebrow,
@@ -12,10 +12,10 @@ export const Eyebrow = ({
 
   return (
     <h3
-      className={clsx(
+      className={cn(
         "mb-3 text-center text-sm font-semibold tracking-[0.25em] uppercase lg:text-base",
-        className,
         isDark ? "text-brand-100" : "text-brand-500",
+        className,
       )}
     >
       {eyebrow}

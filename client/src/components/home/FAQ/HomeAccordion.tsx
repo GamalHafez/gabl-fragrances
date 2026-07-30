@@ -4,6 +4,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useTheme } from "@/context/useTheme";
+import clsx from "clsx";
 
 const items = [
   {
@@ -33,19 +35,34 @@ const items = [
 ];
 
 export const HomeAccordion = () => {
+  const { isDark } = useTheme();
+
   return (
     <Accordion className="space-y-5" defaultValue={["item-1"]}>
       {items.map((item) => (
         <AccordionItem
           key={item.value}
           value={item.value}
-          className="overflow-hidden rounded-2xl border border-zinc-200 bg-white px-6 shadow-sm transition-all duration-300 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900"
+          className={clsx(
+            "overflow-hidden rounded-2xl border px-6 shadow-sm transition-all duration-300 hover:shadow-lg",
+            isDark ? "border-zinc-800 bg-zinc-900" : "border-zinc-200 bg-white",
+          )}
         >
-          <AccordionTrigger className="py-6 text-left text-lg font-semibold hover:no-underline">
+          <AccordionTrigger
+            className={clsx(
+              "py-6 text-left text-lg font-semibold hover:no-underline",
+              isDark ? "text-zinc-100" : "text-zinc-900",
+            )}
+          >
             {item.trigger}
           </AccordionTrigger>
 
-          <AccordionContent className="pb-6 text-base leading-7 text-zinc-600 dark:text-zinc-400">
+          <AccordionContent
+            className={clsx(
+              "pb-6 text-base leading-7",
+              isDark ? "text-zinc-400" : "text-zinc-600",
+            )}
+          >
             {item.content}
           </AccordionContent>
         </AccordionItem>

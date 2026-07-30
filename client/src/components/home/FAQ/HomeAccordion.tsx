@@ -3,7 +3,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@/components/ui/shadcn/accordion";
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
 

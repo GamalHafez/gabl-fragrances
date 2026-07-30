@@ -2,7 +2,7 @@ import {
   CollectionsHero,
   CollectionsGrid,
 } from "@/components/collections/index";
-import { Container } from "@/components/ui";
+import { Container } from "@/components/ui/common";
 
 export const Collections = () => {
   return (

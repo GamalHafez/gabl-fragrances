@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
-import { HashScrollHandler } from "@/components/ui";
+import { HashScrollHandler } from "@/components/ui/common";
 
 export const RootLayout = () => {
   return (

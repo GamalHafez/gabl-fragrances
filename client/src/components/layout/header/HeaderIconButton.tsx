@@ -1,4 +1,4 @@
-import { TooltipCard } from "@/components/ui/hover-card";
+import { TooltipCard } from "@/components/ui/shadcn/hover-card";
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
 

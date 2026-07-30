@@ -1,4 +1,4 @@
-import { Background } from "@/components/ui";
+import { Background } from "@/components/ui/common";
 import {
   Tabs,
   TabsContents,

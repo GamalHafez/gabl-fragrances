@@ -3,11 +3,11 @@ import {
   DrawerContent,
   DrawerFooter,
   DrawerTrigger,
-} from "@/components/ui/drawer";
+} from "@/components/ui/shadcn/drawer";
 import { Menu } from "lucide-react";
 import { HeaderActions, Navigation } from "../index";
 import { MobileMenuHeader } from "./index";
-import { Separator } from "@/components/ui";
+import { Separator } from "@/components/ui/common";
 import clsx from "clsx";
 import { useTheme } from "@/context/useTheme";
 

@@ -23,7 +23,7 @@ const SocialLinks = () => {
 
         <div className="mt-10 grid gap-4 md:mt-16 md:grid-cols-2 lg:grid-cols-4">
           {SOCIALS.map((social) => (
-            <SocialLinkCard social={social} />
+            <SocialLinkCard key={social.href} social={social} />
           ))}
         </div>
       </div>

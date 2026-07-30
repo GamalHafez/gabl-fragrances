@@ -1,4 +1,4 @@
-import { Container } from "../../ui";
+import { Container } from "@/components/ui/common";
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
 import { DesktopHeader } from "./index";

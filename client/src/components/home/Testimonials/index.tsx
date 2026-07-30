@@ -1,6 +1,6 @@
 import { ReviewCard } from "./ReviewCard";
 import { testimonials } from "./testimonials";
-import { Marquee } from "@/components/ui/marquee";
+import { Marquee } from "@/components/ui/shadcn/marquee";
 import { Eyebrow, SectionHeading } from "@/components/ui/home";
 
 export const Testimonials = () => {

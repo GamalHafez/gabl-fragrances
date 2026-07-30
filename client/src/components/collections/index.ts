@@ -1,3 +1,3 @@
 export * from "./CollectionsHero";
 export * from "./CollectionsGrid";
-export * from "../ui/ProductCard";
+export * from "../ui/products/ProductCard";

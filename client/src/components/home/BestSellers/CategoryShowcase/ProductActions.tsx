@@ -1,4 +1,4 @@
-import { AddToCart } from "@/components/ui";
+import { AddToCart } from "@/components/ui/products";
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
 import { ExternalLink } from "lucide-react";

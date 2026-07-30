@@ -1,4 +1,4 @@
-import { Container } from "@/components/ui";
+import { Container } from "@/components/ui/common";
 
 export const Contact = () => {
   return (

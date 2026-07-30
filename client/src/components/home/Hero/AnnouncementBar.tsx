@@ -1,4 +1,4 @@
-import { Marquee } from "@/components/ui/marquee";
+import { Marquee } from "@/components/ui/shadcn/marquee";
 import { TicketPercent } from "lucide-react";
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";

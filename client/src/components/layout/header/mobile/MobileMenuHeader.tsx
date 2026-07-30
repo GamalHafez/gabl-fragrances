@@ -3,7 +3,7 @@ import {
   DrawerTitle,
   DrawerDescription,
   DrawerClose,
-} from "@/components/ui/drawer";
+} from "@/components/ui/shadcn/drawer";
 import clsx from "clsx";
 import { X } from "lucide-react";
 import { useTheme } from "@/context/useTheme";

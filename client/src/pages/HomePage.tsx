@@ -1,6 +1,6 @@
 import Hero from "@/components/home/Hero";
 import FeaturedCategories from "@/components/home/FeaturedCategories";
-import { Container } from "@/components/ui";
+import { Container } from "@/components/ui/common";
 import FAQ from "@/components/home/FAQ";
 import SocialLinks from "@/components/home/SocialLinks";
 import BestSellers from "@/components/home/BestSellers";

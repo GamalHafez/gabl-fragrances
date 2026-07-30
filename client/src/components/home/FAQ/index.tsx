@@ -10,7 +10,7 @@ const faqHeader = {
 
 const FAQ = () => {
   return (
-    <section id="faq" className="mt-10 pb-28">
+    <section id="faq" className="mt-14 pb-28 md:mt-10">
       <SectionHeader content={faqHeader} />
 
       <div className="mx-auto mt-16 max-w-3xl">

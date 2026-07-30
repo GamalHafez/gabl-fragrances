@@ -1,7 +1,16 @@
+import type { ComponentType } from "react";
+import type { LucideProps } from "lucide-react";
 import { MessageCircle, Music2 } from "lucide-react";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 
-export const SOCIALS = [
+export interface SocialLink {
+  name: string;
+  username: string;
+  href: string;
+  icon: ComponentType<{ className?: string; size?: number } | LucideProps>;
+}
+
+export const SOCIALS: SocialLink[] = [
   {
     name: "Instagram",
     username: "@gabal_fragrances",

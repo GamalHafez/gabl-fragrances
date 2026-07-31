@@ -22,9 +22,8 @@ export const LeftProductList = ({
         const isActive = product.id === selectedProduct.id;
 
         return (
-          <Reveal>
+          <Reveal key={product.id}>
             <button
-              key={product.id}
               onClick={() => onSelectProduct(product)}
               className={clsx(
                 "group flex cursor-pointer items-center justify-center gap-3 rounded-xl border px-5 py-2 text-center transition-all duration-300 md:justify-start md:border-r-0 md:py-4 md:text-left",

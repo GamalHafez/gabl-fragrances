@@ -34,9 +34,8 @@ const FeaturedCategories = () => {
 
       <div className="mt-18 grid gap-8 md:grid-cols-2">
         {featuredCategories.map((category) => (
-          <Reveal>
+          <Reveal key={category.id}>
             <Link
-              key={category.id}
               to="/"
               className="block transition-transform duration-300 hover:-translate-y-2"
             >

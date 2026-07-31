@@ -41,9 +41,8 @@ export const HomeAccordion = () => {
   return (
     <Accordion className="space-y-5" defaultValue={["item-1"]}>
       {items.map((item) => (
-        <Reveal>
+        <Reveal key={item.value}>
           <AccordionItem
-            key={item.value}
             value={item.value}
             className={clsx(
               "overflow-hidden rounded-2xl border px-6 shadow-sm transition-all duration-300 hover:shadow-lg",

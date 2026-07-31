@@ -3,6 +3,7 @@ import { CategoryCard } from "./CategoryCard";
 import menImage from "@/assets/men.jfif";
 import womenImage from "@/assets/women.jfif";
 import { SectionHeader } from "@/components/ui/home/SectionHeader";
+import Reveal from "@/components/ui/animation/Reveal";
 
 const featuredCategories = [
   {
@@ -33,17 +34,19 @@ const FeaturedCategories = () => {
 
       <div className="mt-18 grid gap-8 md:grid-cols-2">
         {featuredCategories.map((category) => (
-          <Link
-            key={category.id}
-            to="/"
-            className="block transition-transform duration-300 hover:-translate-y-2"
-          >
-            <CategoryCard
-              name={category.name}
-              description={category.description}
-              image={category.image}
-            />
-          </Link>
+          <Reveal>
+            <Link
+              key={category.id}
+              to="/"
+              className="block transition-transform duration-300 hover:-translate-y-2"
+            >
+              <CategoryCard
+                name={category.name}
+                description={category.description}
+                image={category.image}
+              />
+            </Link>
+          </Reveal>
         ))}
       </div>
     </section>

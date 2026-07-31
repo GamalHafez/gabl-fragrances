@@ -1,3 +1,4 @@
+import Reveal from "@/components/ui/animation/Reveal";
 import {
   Accordion,
   AccordionContent,
@@ -40,32 +41,36 @@ export const HomeAccordion = () => {
   return (
     <Accordion className="space-y-5" defaultValue={["item-1"]}>
       {items.map((item) => (
-        <AccordionItem
-          key={item.value}
-          value={item.value}
-          className={clsx(
-            "overflow-hidden rounded-2xl border px-6 shadow-sm transition-all duration-300 hover:shadow-lg",
-            isDark ? "border-zinc-800 bg-zinc-900" : "border-zinc-200 bg-white",
-          )}
-        >
-          <AccordionTrigger
+        <Reveal>
+          <AccordionItem
+            key={item.value}
+            value={item.value}
             className={clsx(
-              "py-6 text-left text-lg font-semibold hover:no-underline",
-              isDark ? "text-zinc-100" : "text-zinc-900",
+              "overflow-hidden rounded-2xl border px-6 shadow-sm transition-all duration-300 hover:shadow-lg",
+              isDark
+                ? "border-zinc-800 bg-zinc-900"
+                : "border-zinc-200 bg-white",
             )}
           >
-            {item.trigger}
-          </AccordionTrigger>
+            <AccordionTrigger
+              className={clsx(
+                "py-6 text-left text-lg font-semibold hover:no-underline",
+                isDark ? "text-zinc-100" : "text-zinc-900",
+              )}
+            >
+              {item.trigger}
+            </AccordionTrigger>
 
-          <AccordionContent
-            className={clsx(
-              "pb-6 text-base leading-7",
-              isDark ? "text-zinc-400" : "text-zinc-600",
-            )}
-          >
-            {item.content}
-          </AccordionContent>
-        </AccordionItem>
+            <AccordionContent
+              className={clsx(
+                "pb-6 text-base leading-7",
+                isDark ? "text-zinc-400" : "text-zinc-600",
+              )}
+            >
+              {item.content}
+            </AccordionContent>
+          </AccordionItem>
+        </Reveal>
       ))}
     </Accordion>
   );

@@ -9,6 +9,7 @@ import { categoryNames, type Category } from "./bestSellers";
 import CategoryShowcase from "./CategoryShowcase";
 import { TabsContent } from "@/components/animate-ui/primitives/animate/tabs";
 import { Eyebrow } from "@/components/ui/home";
+import Reveal from "@/components/ui/animation/Reveal";
 
 const BestSellers = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category>("men");
@@ -17,27 +18,29 @@ const BestSellers = () => {
     <section id="best-sellers" className="pt-15 md:pt-24">
       <Background />
 
-      <div className="relative mx-auto max-w-6xl px-6">
-        <Eyebrow eyebrow="Our best sellers" />
+      <Reveal>
+        <div className="relative mx-auto max-w-6xl px-6">
+          <Eyebrow eyebrow="Our best sellers" />
 
-        {/* Tabs */}
-        <Tabs
-          value={selectedCategory}
-          onValueChange={(value) => setSelectedCategory(value as Category)}
-        >
-          <CategoriesTabs categories={categoryNames} />
+          {/* Tabs */}
+          <Tabs
+            value={selectedCategory}
+            onValueChange={(value) => setSelectedCategory(value as Category)}
+          >
+            <CategoriesTabs categories={categoryNames} />
 
-          <TabsContents>
-            <TabsContent value="men">
-              <CategoryShowcase key="men" category="men" />
-            </TabsContent>
+            <TabsContents>
+              <TabsContent value="men">
+                <CategoryShowcase key="men" category="men" />
+              </TabsContent>
 
-            <TabsContent value="women">
-              <CategoryShowcase key="women" category="women" />
-            </TabsContent>
-          </TabsContents>
-        </Tabs>
-      </div>
+              <TabsContent value="women">
+                <CategoryShowcase key="women" category="women" />
+              </TabsContent>
+            </TabsContents>
+          </Tabs>
+        </div>
+      </Reveal>
     </section>
   );
 };

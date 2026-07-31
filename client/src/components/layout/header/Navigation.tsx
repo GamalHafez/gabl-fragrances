@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import clsx from "clsx";
 import { useTheme } from "@/context/useTheme";
+import { scrollToTop } from "@/utils";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -41,6 +42,9 @@ export const Navigation = ({ isMobile }: { isMobile?: boolean }) => {
           key={link.href}
           to={link.href}
           className={({ isActive }) => navLinkStyles(isActive, isDark)}
+          onClick={() => {
+            scrollToTop();
+          }}
         >
           {isMobile}
           {link.name}

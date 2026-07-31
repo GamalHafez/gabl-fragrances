@@ -11,7 +11,7 @@ export const Testimonials = () => {
         <SectionHeading title="What Our Customers Say" />
       </div>
 
-      <Marquee pauseOnHover className="mb-10 [--duration:25s] md:mb-3">
+      <Marquee pauseOnHover className="my-10 [--duration:25s] md:mb-3">
         {testimonials.map((testimonial) => (
           <ReviewCard key={testimonial.id} testimonial={testimonial} />
         ))}

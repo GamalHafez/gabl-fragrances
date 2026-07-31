@@ -2,6 +2,7 @@ import {
   CollectionsHero,
   CollectionsGrid,
 } from "@/components/collections/index";
+import Reveal from "@/components/ui/animation/Reveal";
 import { Container } from "@/components/ui/common";
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
@@ -24,7 +25,9 @@ export const Collections = () => {
         {/**  WIll ADD FILTERING BUTTONS ... */}
 
         {/**  Products... */}
-        <CollectionsGrid />
+        <Reveal>
+          <CollectionsGrid />
+        </Reveal>
       </Container>
     </div>
   );

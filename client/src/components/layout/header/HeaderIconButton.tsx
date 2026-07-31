@@ -24,7 +24,7 @@ export const HeaderIconButton = ({
             "flex h-10 w-10 cursor-pointer items-center justify-center rounded-full transition-colors",
             isDark
               ? "text-brand-300 hover:bg-zinc-900/10 hover:text-red-200"
-              : "hover:text-brand-600 hover:bg-red-50",
+              : "hover:text-brand-600 hover:bg-brand-100/10",
           )}
           onClick={onClick}
         >

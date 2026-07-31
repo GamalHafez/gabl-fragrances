@@ -1,16 +1,21 @@
-import { House, ShoppingBag, ShoppingCart } from "lucide-react";
+import { House, LogIn, ShoppingBag, User } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import clsx from "clsx";
 import { useTheme } from "@/context/useTheme";
 
-const links = [
-  { label: "Home", to: "/", icon: House },
-  { label: "Shop", to: "/collections", icon: ShoppingBag },
-  { label: "Cart", to: "/cart", icon: ShoppingCart },
-];
-
 export const BottomNavigation = () => {
+  const user = null; // to be replaced
   const { isDark } = useTheme();
+
+  const links = [
+    { label: "Home", to: "/", icon: House },
+    { label: "Shop", to: "/collections", icon: ShoppingBag },
+    {
+      label: user ? "Profile" : "Login",
+      to: user ? "/profile" : "/login",
+      icon: user ? User : LogIn,
+    },
+  ];
 
   return (
     <nav

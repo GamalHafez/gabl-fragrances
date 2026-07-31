@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { Plus, ShoppingCart } from "lucide-react";
 import { useTheme } from "@/context/useTheme";
 
-export const AddToCart = ({ isMobile }: { isMobile?: boolean }) => {
+export const AddToCart = () => {
   const { isDark } = useTheme();
 
   return (
@@ -16,7 +16,6 @@ export const AddToCart = ({ isMobile }: { isMobile?: boolean }) => {
         isDark
           ? "hover:border-brand-300/40 hover:bg-brand-300/10 hover:text-brand-200 border-white/10 bg-white/5 text-zinc-300"
           : "hover:border-brand-300 hover:bg-brand-50 hover:text-brand-500 border-zinc-200 bg-white text-zinc-700",
-        isMobile && "inline-flex md:hidden",
       )}
     >
       <ShoppingCart

@@ -4,10 +4,13 @@ import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { HashScrollHandler } from "@/components/ui/common";
 import { BottomNavigation } from "@/components/layout/BottomNavigation";
+import { ScrollToTop } from "@/components/ui/animation";
 
 export const RootLayout = () => {
   return (
     <div className="font-inter flex min-h-screen flex-col">
+      <ScrollToTop />
+
       <Header />
 
       <HashScrollHandler />

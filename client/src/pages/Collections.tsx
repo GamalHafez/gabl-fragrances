@@ -3,22 +3,11 @@ import {
   CollectionsGrid,
 } from "@/components/collections/index";
 import Reveal from "@/components/ui/animation/Reveal";
-import { Container } from "@/components/ui/common";
-import { useTheme } from "@/context/useTheme";
-import clsx from "clsx";
+import { Container, PageWrapper } from "@/components/ui/common";
 
 export const Collections = () => {
-  const { isDark } = useTheme();
-
   return (
-    <div
-      className={clsx(
-        "pb-10",
-        isDark
-          ? "bg-linear-to-b from-zinc-950 via-zinc-900 to-zinc-950"
-          : "bg-brand-100",
-      )}
-    >
+    <PageWrapper>
       <Container>
         <CollectionsHero />
 
@@ -29,6 +18,6 @@ export const Collections = () => {
           <CollectionsGrid />
         </Reveal>
       </Container>
-    </div>
+    </PageWrapper>
   );
 };

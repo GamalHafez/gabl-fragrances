@@ -1,23 +1,33 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { RootLayout, HomePage, Collections, Contact } from "./pages";
 import { ThemeProvider } from "@/context/ThemeProvider";
+import {
+  RootLayout,
+  HomePage,
+  Collections,
+  ProductDetails,
+  Contact,
+} from "./pages";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
-    errorElement: false, // add an error page later
+    // errorElement: <ErrorPage />, Later
     children: [
       {
-        path: "/",
+        index: true,
         element: <HomePage />,
       },
       {
-        path: "/collections",
+        path: "collections",
         element: <Collections />,
       },
       {
-        path: "/contact",
+        path: "products/:productSlug",
+        element: <ProductDetails />,
+      },
+      {
+        path: "contact",
         element: <Contact />,
       },
     ],

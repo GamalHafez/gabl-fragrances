@@ -7,6 +7,7 @@ export type Product = {
   name: string;
   description: string;
   image: string;
+  inspiredBy: string;
 
   collection: "Men" | "Women";
 
@@ -15,6 +16,11 @@ export type Product = {
   price: number;
 
   inStock: boolean;
+  topNotes: string[];
+  midNotes: string[];
+  baseNotes: string[];
+  vibes: string;
+  bestWeather: string;
 
   isNew?: boolean;
   isBestSeller?: boolean;
@@ -28,10 +34,16 @@ export const products: Product[] = [
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, impedit natus quos veritatis quasi nemo amet ipsa",
     image: "https://picsum.photos/300/400?random=1",
+    inspiredBy: "Acqua di Gio",
     collection: "Men",
     size: 50,
     price: 45,
     inStock: true,
+    topNotes: ["Bergamot", "Lemon", "Marine Accord"],
+    midNotes: ["Lavender", "Jasmine"],
+    baseNotes: ["Amber", "Musk", "Cedarwood"],
+    vibes: "Fresh & Aquatic",
+    bestWeather: "Spring & Summer",
     isNew: true,
   },
   {
@@ -41,10 +53,16 @@ export const products: Product[] = [
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, impedit natus quos veritatis quasi nemo amet ipsa",
     image: "https://picsum.photos/300/400?random=2",
+    inspiredBy: "Acqua di Gio",
     collection: "Men",
     size: 100,
     price: 75,
     inStock: true,
+    topNotes: ["Bergamot", "Lemon", "Marine Accord"],
+    midNotes: ["Lavender", "Jasmine"],
+    baseNotes: ["Amber", "Musk", "Cedarwood"],
+    vibes: "Fresh & Aquatic",
+    bestWeather: "Spring & Summer",
     isBestSeller: true,
   },
   {
@@ -54,10 +72,16 @@ export const products: Product[] = [
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, impedit natus quos veritatis quasi nemo amet ipsa",
     image: "https://picsum.photos/300/400?random=3",
+    inspiredBy: "Delina",
     collection: "Women",
     size: 50,
     price: 50,
     inStock: false,
+    topNotes: ["Lychee", "Rhubarb", "Bergamot"],
+    midNotes: ["Rose", "Peony", "Lily of the Valley"],
+    baseNotes: ["Vanilla", "Cashmeran", "White Musk"],
+    vibes: "Floral & Elegant",
+    bestWeather: "Spring",
   },
   {
     id: 4,
@@ -66,10 +90,16 @@ export const products: Product[] = [
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, impedit natus quos veritatis quasi nemo amet ipsa",
     image: "https://picsum.photos/300/400?random=4",
+    inspiredBy: "Delina",
     collection: "Women",
     size: 100,
     price: 85,
     inStock: true,
+    topNotes: ["Lychee", "Rhubarb", "Bergamot"],
+    midNotes: ["Rose", "Peony", "Lily of the Valley"],
+    baseNotes: ["Vanilla", "Cashmeran", "White Musk"],
+    vibes: "Floral & Elegant",
+    bestWeather: "Spring",
     isBestSeller: true,
   },
   {
@@ -79,10 +109,16 @@ export const products: Product[] = [
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, impedit natus quos veritatis quasi nemo amet ipsa",
     image: "https://picsum.photos/300/400?random=5",
+    inspiredBy: "Bleu de Chanel",
     collection: "Men",
     size: 50,
     price: 40,
     inStock: true,
+    topNotes: ["Grapefruit", "Mint", "Pink Pepper"],
+    midNotes: ["Ginger", "Nutmeg"],
+    baseNotes: ["Incense", "Sandalwood", "Vetiver"],
+    vibes: "Energetic & Modern",
+    bestWeather: "Summer",
   },
   {
     id: 6,
@@ -91,10 +127,16 @@ export const products: Product[] = [
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, impedit natus quos veritatis quasi nemo amet ipsa",
     image: "https://picsum.photos/300/400?random=6",
+    inspiredBy: "Bleu de Chanel",
     collection: "Men",
     size: 100,
     price: 70,
     inStock: true,
+    topNotes: ["Grapefruit", "Mint", "Pink Pepper"],
+    midNotes: ["Ginger", "Nutmeg"],
+    baseNotes: ["Incense", "Sandalwood", "Vetiver"],
+    vibes: "Energetic & Modern",
+    bestWeather: "Summer",
     isNew: true,
   },
   {
@@ -104,10 +146,16 @@ export const products: Product[] = [
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, impedit natus quos veritatis quasi nemo amet ipsa",
     image: "https://picsum.photos/300/400?random=7",
+    inspiredBy: "Black Opium",
     collection: "Women",
     size: 50,
     price: 55,
     inStock: true,
+    topNotes: ["Pear", "Pink Pepper", "Orange Blossom"],
+    midNotes: ["Coffee", "Jasmine"],
+    baseNotes: ["Vanilla", "Patchouli", "Cedarwood"],
+    vibes: "Warm & Sweet",
+    bestWeather: "Autumn & Winter",
   },
   {
     id: 8,
@@ -116,10 +164,16 @@ export const products: Product[] = [
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, impedit natus quos veritatis quasi nemo amet ipsa",
     image: "https://picsum.photos/300/400?random=8",
+    inspiredBy: "Black Opium",
     collection: "Women",
     size: 100,
     price: 90,
     inStock: true,
+    topNotes: ["Pear", "Pink Pepper", "Orange Blossom"],
+    midNotes: ["Coffee", "Jasmine"],
+    baseNotes: ["Vanilla", "Patchouli", "Cedarwood"],
+    vibes: "Warm & Sweet",
+    bestWeather: "Autumn & Winter",
     isBestSeller: true,
   },
 ];

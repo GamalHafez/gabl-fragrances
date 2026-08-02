@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Container, PageWrapper } from "@/components/ui/common";
 import placeholder from "@/assets/placeholder.webp";
-import { ProductInfo } from "@/components/products";
+import { ProductInfo } from "@/components/products/ProductInfo";
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
 import { products } from "@/mockProducts";

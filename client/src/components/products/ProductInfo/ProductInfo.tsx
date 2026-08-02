@@ -1,4 +1,5 @@
 import type { Product } from "@/mockProducts";
+import { ProductBadges, type ProductBadge } from "./ProductBadges/index";
 
 type ProductInfoProps = {
   product: Product;
@@ -16,17 +17,25 @@ export const ProductInfo = ({ product }: ProductInfoProps) => {
     size: productSize,
   } = product;
 
+  // Will be deleted and get it from BackEnd
+  const badges: ProductBadge[] = [
+    {
+      label: inStock ? "In Stock" : "Out of Stock",
+      status: inStock ? "stock" : "out-of-stock",
+    },
+    {
+      label: `${collection}'s Collection`,
+      status: "collection",
+    },
+  ];
+
   return (
     <div className="flex h-full flex-col justify-center space-y-5">
       {/** Product badges */}
-      <div className="flex gap-2">
-        <p className="text-sm tracking-widest text-amber-600 uppercase">
-          {collection.toUpperCase()}'s Collection
-        </p>
-        <p className="text-sm tracking-widest text-amber-600 uppercase">
-          {inStock ? "In Stock" : "Out of Stock"}
-        </p>
-      </div>
+      <ProductBadges
+        // To be dynamic later ...
+        badges={badges}
+      />
 
       <header>
         <h1 className="text-4xl font-semibold">{name}</h1>

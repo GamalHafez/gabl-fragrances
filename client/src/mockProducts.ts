@@ -1,4 +1,5 @@
 // will be deleted...
+// add badges in BackEnd
 
 export type Product = {
   id: number;

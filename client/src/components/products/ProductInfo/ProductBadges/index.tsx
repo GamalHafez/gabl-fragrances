@@ -5,6 +5,7 @@ import {
   PRODUCT_BADGE_CONFIG,
   type ProductBadgeStatus,
 } from "./productBadgeConfig";
+import Reveal from "@/components/ui/animation/Reveal";
 
 export type ProductBadge = {
   label: string;
@@ -25,16 +26,18 @@ export const ProductBadges = ({ badges }: ProductBadgesProps) => {
         const Icon = config?.icon;
 
         return (
-          <Badge
-            key={badge.label}
-            className={clsx(
-              "inline-flex items-center gap-1.5 rounded-full md:my-1",
-              config && (isDark ? config.styles.dark : config.styles.light),
-            )}
-          >
-            {Icon && <Icon className="h-4 w-4" />}
-            {badge.label}
-          </Badge>
+          <Reveal>
+            <Badge
+              key={badge.label}
+              className={clsx(
+                "inline-flex items-center gap-1.5 rounded-full md:my-1",
+                config && (isDark ? config.styles.dark : config.styles.light),
+              )}
+            >
+              {Icon && <Icon className="h-4 w-4" />}
+              {badge.label}
+            </Badge>
+          </Reveal>
         );
       })}
     </div>

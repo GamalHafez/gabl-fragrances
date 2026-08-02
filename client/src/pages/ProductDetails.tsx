@@ -7,6 +7,7 @@ import clsx from "clsx";
 import { products } from "@/mockProducts";
 import { ProductTrustInfo } from "@/components/products/ProductTrustInfo";
 import { CustomerReviews } from "@/components/products/CustomerReviews";
+import Reveal from "@/components/ui/animation/Reveal";
 
 export const ProductDetails = () => {
   const { isDark } = useTheme();
@@ -29,11 +30,13 @@ export const ProductDetails = () => {
                 : "border-white/20 bg-white/10",
             )}
           >
-            <img
-              src={placeholder}
-              alt="Product"
-              className="aspect-square w-full rounded-2xl object-cover"
-            />
+            <Reveal>
+              <img
+                src={placeholder}
+                alt="Product"
+                className="aspect-square w-full rounded-2xl object-cover"
+              />
+            </Reveal>
           </div>
 
           <ProductInfo product={product} />

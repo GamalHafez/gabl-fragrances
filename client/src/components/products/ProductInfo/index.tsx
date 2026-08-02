@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { ProductOptions } from "./ProductOptions";
 import { useState } from "react";
 import { ProductActions } from "./ProductActions";
+import { ProductQuickLinks } from "./ProductQuickLinks";
 
 type ProductInfoProps = {
   product: Product;
@@ -31,13 +32,11 @@ export const ProductInfo = ({ product }: ProductInfoProps) => {
 
   return (
     <div className="flex h-full flex-col justify-center space-y-5">
-      {/** Product badges */}
       <ProductBadges
         // To be dynamic later ...
         badges={badges}
       />
 
-      {/** Product Title and Description */}
       <ProductHeader
         name={name}
         inspiredBy={inspiredBy}
@@ -55,23 +54,15 @@ export const ProductInfo = ({ product }: ProductInfoProps) => {
         {description}
       </p>
 
-      {/** Size Selection + Quantity Selector      */}
       <ProductOptions
         size={size}
         quantity={quantity}
         onQuantityChange={setQuantity}
       />
 
-      {/** Product Actions */}
       <ProductActions />
 
-      {/** Delivery / Stock Info */}
-
-      {/** will be refered to different sections in the rpoduct page but down */}
-      <div>
-        <a>Product Details</a>
-        <a>Customer Reviews</a>
-      </div>
+      <ProductQuickLinks />
     </div>
   );
 };

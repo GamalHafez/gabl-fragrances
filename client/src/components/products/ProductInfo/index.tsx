@@ -1,5 +1,6 @@
 import type { Product } from "@/mockProducts";
 import { ProductBadges, type ProductBadge } from "./ProductBadges/index";
+import { ProductHeader } from "./ProductHeader";
 
 type ProductInfoProps = {
   product: Product;
@@ -37,12 +38,14 @@ export const ProductInfo = ({ product }: ProductInfoProps) => {
         badges={badges}
       />
 
-      <header>
-        <h1 className="text-4xl font-semibold">{name}</h1>
-        <h3>{inspiredBy}</h3>
-        {/** Reviews */}
-        <p className="">Le {price.toFixed(2)} EGP</p>
-      </header>
+      {/** Product Title and Description */}
+      <ProductHeader
+        name={name}
+        inspiredBy={inspiredBy}
+        rating={4} // To be dynamic later ...
+        reviewCount={2} // To be dynamic later ...
+        price={price}
+      />
 
       <p className="text-muted-foreground leading-7">{description}</p>
 

@@ -5,6 +5,7 @@ import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
 import { ProductOptions } from "./ProductOptions";
 import { useState } from "react";
+import { ProductActions } from "./ProductActions";
 
 type ProductInfoProps = {
   product: Product;
@@ -62,14 +63,7 @@ export const ProductInfo = ({ product }: ProductInfoProps) => {
       />
 
       {/** Product Actions */}
-      <div>
-        <button className="w-full rounded-full bg-black px-6 py-3 font-medium text-white transition hover:opacity-90 lg:w-fit dark:bg-amber-700">
-          Add to Cart
-        </button>
-        <button className="w-full rounded-full bg-black px-6 py-3 font-medium text-white transition hover:opacity-90 lg:w-fit dark:bg-amber-700">
-          Buy it now
-        </button>
-      </div>
+      <ProductActions />
 
       {/** Delivery / Stock Info */}
 

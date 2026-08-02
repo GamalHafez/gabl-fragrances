@@ -21,7 +21,7 @@ export const ProductHeader = ({
   const { isDark } = useTheme();
 
   return (
-    <header className="flex flex-col items-start justify-between gap-1">
+    <header className="mb-0 flex flex-col items-start justify-between gap-1">
       <MainHeading title={name} className="md:mb-0" />
       <p
         className={clsx(

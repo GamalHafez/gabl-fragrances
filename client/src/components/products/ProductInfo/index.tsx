@@ -1,12 +1,15 @@
 import type { Product } from "@/mockProducts";
 import { ProductBadges, type ProductBadge } from "./ProductBadges/index";
 import { ProductHeader } from "./ProductHeader";
+import { useTheme } from "@/context/useTheme";
+import clsx from "clsx";
 
 type ProductInfoProps = {
   product: Product;
 };
 
 export const ProductInfo = ({ product }: ProductInfoProps) => {
+  const { isDark } = useTheme();
   const sizes = [30, 50, 100];
   const {
     collection,
@@ -47,7 +50,14 @@ export const ProductInfo = ({ product }: ProductInfoProps) => {
         price={price}
       />
 
-      <p className="text-muted-foreground leading-7">{description}</p>
+      <p
+        className={clsx(
+          "mt-3 mb-5 text-sm",
+          isDark ? "text-zinc-400" : "text-zinc-600",
+        )}
+      >
+        {description}
+      </p>
 
       {/** Size Selection + Quantity Selector      */}
       <div>

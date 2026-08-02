@@ -58,9 +58,10 @@ export const ProductInfo = ({ product }: ProductInfoProps) => {
         size={size}
         quantity={quantity}
         onQuantityChange={setQuantity}
+        inStock={inStock}
       />
 
-      <ProductActions />
+      <ProductActions inStock={inStock} />
 
       <ProductQuickLinks />
     </div>

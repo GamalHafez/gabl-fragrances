@@ -4,11 +4,13 @@ import { Minus, Plus } from "lucide-react";
 import type { Dispatch, SetStateAction } from "react";
 
 type QuantitySelectorProps = {
+  inStock: boolean;
   quantity: number;
   onQuantityChange: Dispatch<SetStateAction<number>>;
 };
 
 export const QuantitySelector = ({
+  inStock,
   quantity,
   onQuantityChange,
 }: QuantitySelectorProps) => {
@@ -17,16 +19,22 @@ export const QuantitySelector = ({
   return (
     <div
       className={clsx(
-        "inline-flex items-center rounded-full border p-1 shadow-sm",
+        "inline-flex items-center rounded-full border p-1 shadow-sm transition-opacity",
+        !inStock && "pointer-events-none opacity-50 grayscale",
+
         isDark ? "border-zinc-700 bg-zinc-900" : "border-zinc-300 bg-white",
       )}
     >
       <button
+        disabled={!inStock}
         onClick={() =>
           onQuantityChange((prev: number) => Math.max(prev - 1, 1))
         }
         className={clsx(
-          "flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition-colors",
+          "flex h-9 w-9 items-center justify-center rounded-full transition-colors disabled:cursor-not-allowed",
+
+          inStock && "cursor-pointer",
+
           isDark
             ? "text-zinc-300 hover:bg-zinc-800"
             : "text-zinc-700 hover:bg-zinc-100",
@@ -45,9 +53,13 @@ export const QuantitySelector = ({
       </span>
 
       <button
+        disabled={!inStock}
         onClick={() => onQuantityChange((prev: number) => prev + 1)}
         className={clsx(
-          "flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition-colors",
+          "flex h-9 w-9 items-center justify-center rounded-full transition-colors",
+
+          inStock && "cursor-pointer",
+
           isDark
             ? "text-zinc-300 hover:bg-zinc-800"
             : "text-zinc-700 hover:bg-zinc-100",

@@ -28,7 +28,7 @@ export const ProductBadges = ({ badges }: ProductBadgesProps) => {
           <Badge
             key={badge.label}
             className={clsx(
-              "inline-flex items-center gap-1.5 rounded-full px-3 py-1",
+              "inline-flex items-center gap-1.5 rounded-full md:my-1",
               config && (isDark ? config.styles.dark : config.styles.light),
             )}
           >

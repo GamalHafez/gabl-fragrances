@@ -17,7 +17,7 @@ export const ProductOptions = ({
   const { isDark } = useTheme();
 
   return (
-    <div className="flex flex-col items-center gap-2 md:flex-row">
+    <div className="flex items-center gap-2">
       <p
         className={clsx(
           "text-md font-medium capitalize",

@@ -31,7 +31,7 @@ export const ProductInfo = ({ product }: ProductInfoProps) => {
   ];
 
   return (
-    <div className="flex h-full flex-col justify-center space-y-5">
+    <div className="flex h-full flex-col justify-center space-y-5 px-4 md:px-0">
       <ProductBadges
         // To be dynamic later ...
         badges={badges}

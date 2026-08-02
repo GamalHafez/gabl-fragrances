@@ -12,7 +12,7 @@ export const ProductQuickLinks = () => {
   const { isDark } = useTheme();
 
   return (
-    <div className="mt-6 flex flex-wrap items-center gap-3 pt-2">
+    <div className="mt-2 flex flex-wrap items-center gap-3 pt-2 md:mt-6">
       {links.map((link) => (
         <a
           key={link.href}

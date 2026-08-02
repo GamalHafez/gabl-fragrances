@@ -19,10 +19,10 @@ export const ProductDetails = () => {
   return (
     <PageWrapper>
       <Container>
-        <section className="grid gap-10 py-10 lg:grid-cols-2 lg:items-start">
+        <section className="grid gap-10 md:py-10 lg:grid-cols-2 lg:items-start">
           <div
             className={clsx(
-              "overflow-hidden rounded-2xl border p-8 shadow-xl backdrop-blur-xl",
+              "mx-auto w-4/5 overflow-hidden rounded-2xl border p-4 shadow-xl backdrop-blur-xl md:w-full md:p-8",
               isDark
                 ? "border-zinc-700/30 bg-zinc-900/30"
                 : "border-white/20 bg-white/10",

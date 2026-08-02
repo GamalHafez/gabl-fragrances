@@ -12,7 +12,7 @@ export type Product = {
 
   collection: "Men" | "Women";
 
-  size: 50 | 100;
+  size: 50;
 
   price: number;
 
@@ -56,7 +56,7 @@ export const products: Product[] = [
     image: "https://picsum.photos/300/400?random=2",
     inspiredBy: "Acqua di Gio",
     collection: "Men",
-    size: 100,
+    size: 50,
     price: 75,
     inStock: true,
     topNotes: ["Bergamot", "Lemon", "Marine Accord"],
@@ -93,7 +93,7 @@ export const products: Product[] = [
     image: "https://picsum.photos/300/400?random=4",
     inspiredBy: "Delina",
     collection: "Women",
-    size: 100,
+    size: 50,
     price: 85,
     inStock: true,
     topNotes: ["Lychee", "Rhubarb", "Bergamot"],
@@ -130,7 +130,7 @@ export const products: Product[] = [
     image: "https://picsum.photos/300/400?random=6",
     inspiredBy: "Bleu de Chanel",
     collection: "Men",
-    size: 100,
+    size: 50,
     price: 70,
     inStock: true,
     topNotes: ["Grapefruit", "Mint", "Pink Pepper"],
@@ -167,7 +167,7 @@ export const products: Product[] = [
     image: "https://picsum.photos/300/400?random=8",
     inspiredBy: "Black Opium",
     collection: "Women",
-    size: 100,
+    size: 50,
     price: 90,
     inStock: true,
     topNotes: ["Pear", "Pink Pepper", "Orange Blossom"],

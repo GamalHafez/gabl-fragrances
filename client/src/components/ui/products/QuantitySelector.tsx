@@ -1,0 +1,60 @@
+import { useTheme } from "@/context/useTheme";
+import clsx from "clsx";
+import { Minus, Plus } from "lucide-react";
+import type { Dispatch, SetStateAction } from "react";
+
+type QuantitySelectorProps = {
+  quantity: number;
+  onQuantityChange: Dispatch<SetStateAction<number>>;
+};
+
+export const QuantitySelector = ({
+  quantity,
+  onQuantityChange,
+}: QuantitySelectorProps) => {
+  const { isDark } = useTheme();
+
+  return (
+    <div
+      className={clsx(
+        "inline-flex items-center rounded-full border p-1 shadow-sm",
+        isDark ? "border-zinc-700 bg-zinc-900" : "border-zinc-300 bg-white",
+      )}
+    >
+      <button
+        onClick={() =>
+          onQuantityChange((prev: number) => Math.max(prev - 1, 1))
+        }
+        className={clsx(
+          "flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition-colors",
+          isDark
+            ? "text-zinc-300 hover:bg-zinc-800"
+            : "text-zinc-700 hover:bg-zinc-100",
+        )}
+      >
+        <Minus className="h-4 w-4" />
+      </button>
+
+      <span
+        className={clsx(
+          "min-w-10 text-center text-base font-semibold",
+          isDark ? "text-zinc-100" : "text-zinc-900",
+        )}
+      >
+        {quantity}
+      </span>
+
+      <button
+        onClick={() => onQuantityChange((prev: number) => prev + 1)}
+        className={clsx(
+          "flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition-colors",
+          isDark
+            ? "text-zinc-300 hover:bg-zinc-800"
+            : "text-zinc-700 hover:bg-zinc-100",
+        )}
+      >
+        <Plus className="h-4 w-4" />
+      </button>
+    </div>
+  );
+};

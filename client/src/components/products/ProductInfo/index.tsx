@@ -3,6 +3,8 @@ import { ProductBadges, type ProductBadge } from "./ProductBadges/index";
 import { ProductHeader } from "./ProductHeader";
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
+import { ProductOptions } from "./ProductOptions";
+import { useState } from "react";
 
 type ProductInfoProps = {
   product: Product;
@@ -10,16 +12,9 @@ type ProductInfoProps = {
 
 export const ProductInfo = ({ product }: ProductInfoProps) => {
   const { isDark } = useTheme();
-  const sizes = [30, 50, 100];
-  const {
-    collection,
-    inStock,
-    name,
-    inspiredBy,
-    price,
-    description,
-    size: productSize,
-  } = product;
+  const [quantity, setQuantity] = useState(1);
+  const { collection, inStock, name, inspiredBy, price, description, size } =
+    product;
 
   // Will be deleted and get it from BackEnd
   const badges: ProductBadge[] = [
@@ -60,21 +55,11 @@ export const ProductInfo = ({ product }: ProductInfoProps) => {
       </p>
 
       {/** Size Selection + Quantity Selector      */}
-      <div>
-        <p>size:</p>
-        <div className="flex gap-2">
-          {sizes.map((size) => (
-            <button
-              key={size}
-              disabled={!inStock || size !== productSize}
-              className="rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
-            >
-              {size}
-            </button>
-          ))}
-        </div>
-        {/** + 1 - button */}
-      </div>
+      <ProductOptions
+        size={size}
+        quantity={quantity}
+        onQuantityChange={setQuantity}
+      />
 
       {/** Product Actions */}
       <div>

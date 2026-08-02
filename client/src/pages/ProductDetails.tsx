@@ -5,6 +5,7 @@ import { ProductInfo } from "@/components/products/ProductInfo";
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
 import { products } from "@/mockProducts";
+import { ProductTrustInfo } from "@/components/products/ProductTrustInfo";
 
 export const ProductDetails = () => {
   const { isDark } = useTheme();
@@ -36,6 +37,8 @@ export const ProductDetails = () => {
 
           <ProductInfo product={product} />
         </section>
+
+        <ProductTrustInfo />
       </Container>
     </PageWrapper>
   );

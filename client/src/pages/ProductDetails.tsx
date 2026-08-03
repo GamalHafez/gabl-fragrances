@@ -42,7 +42,7 @@ export const ProductDetails = () => {
           <ProductInfo product={product} />
         </section>
 
-        <CustomerReviews />
+        <CustomerReviews product={product}/>
 
         <ProductTrustInfo />
       </Container>

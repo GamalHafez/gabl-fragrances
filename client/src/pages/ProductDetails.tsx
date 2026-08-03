@@ -8,6 +8,7 @@ import { products } from "@/mockProducts";
 import { ProductTrustInfo } from "@/components/products/ProductTrustInfo";
 import { CustomerReviews } from "@/components/products/CustomerReviews";
 import Reveal from "@/components/ui/animation/Reveal";
+import { reviews } from "@/components/products/CustomerReviews/mockReviews";
 
 export const ProductDetails = () => {
   const { isDark } = useTheme();
@@ -42,7 +43,7 @@ export const ProductDetails = () => {
           <ProductInfo product={product} />
         </section>
 
-        <CustomerReviews product={product}/>
+        <CustomerReviews reviews={reviews}/>
 
         <ProductTrustInfo />
       </Container>

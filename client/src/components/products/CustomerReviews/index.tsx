@@ -1,18 +1,24 @@
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
 import { Rating } from "@/components/ui/products";
-import type { Product } from "@/mockProducts";
 import { ReviewsFilter } from "./ReviewsFilter";
 import { useState } from "react";
 import { PencilLine } from "lucide-react";
+import { Reviews } from "./Reviews";
+import type { Review } from "./mockReviews";
 
 type CustomerReviewsProps = {
-  product: Product;
+  reviews: Review[];
 };
 
-export const CustomerReviews = ({ product }: CustomerReviewsProps) => {
+export const CustomerReviews = ({ reviews }: CustomerReviewsProps) => {
   const { isDark } = useTheme();
   const [selectedRating, setSelectedRating] = useState<number | "all">("all");
+
+  const filteredReviews =
+    selectedRating === "all"
+      ? reviews
+      : reviews.filter((review) => review.rating === selectedRating);
 
   return (
     <section
@@ -52,6 +58,8 @@ export const CustomerReviews = ({ product }: CustomerReviewsProps) => {
 
       {/* Filters */}
       <ReviewsFilter value={selectedRating} onChange={setSelectedRating} />
+
+      <Reviews reviews={filteredReviews} />
     </section>
   );
 };

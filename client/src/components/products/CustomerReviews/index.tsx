@@ -2,6 +2,8 @@ import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
 import { Rating } from "@/components/ui/products";
 import type { Product } from "@/mockProducts";
+import { ReviewsFilter } from "./ReviewsFilter";
+import { useState } from "react";
 
 type CustomerReviewsProps = {
   product: Product;
@@ -9,10 +11,14 @@ type CustomerReviewsProps = {
 
 export const CustomerReviews = ({ product }: CustomerReviewsProps) => {
   const { isDark } = useTheme();
+  const [selectedRating, setSelectedRating] = useState<number | "all">("all");
 
   return (
-    <section id="customer-reviews" className="mt-20 pl-4 md:mt-10 md:pl-0">
-      <div className="mx-auto max-w-3xl">
+    <section
+      id="customer-reviews"
+      className="mt-20 flex flex-col gap-8 px-3 md:mt-10"
+    >
+      <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center md:gap-0">
         <div>
           <h2
             className={clsx(
@@ -29,10 +35,12 @@ export const CustomerReviews = ({ product }: CustomerReviewsProps) => {
           />
         </div>
 
-        {/* Filters */}
-
         {/* Write a review */}
+        <button>Write a review</button>
       </div>
+
+      {/* Filters */}
+      <ReviewsFilter value={selectedRating} onChange={setSelectedRating} />
     </section>
   );
 };

@@ -4,7 +4,7 @@ import { useTheme } from "@/context/useTheme";
 
 type RatingProps = {
   rating: number;
-  reviewCount: number;
+  reviewCount?: number;
 };
 
 export const Rating = ({ rating, reviewCount }: RatingProps) => {
@@ -26,18 +26,22 @@ export const Rating = ({ rating, reviewCount }: RatingProps) => {
         ))}
       </div>
 
-      <span
-        className={clsx(
-          "text-sm font-medium",
-          isDark ? "text-zinc-300" : "text-zinc-800",
-        )}
-      >
-        {rating.toFixed(1)}
-      </span>
+      {reviewCount && (
+        <>
+          <span
+            className={clsx(
+              "text-sm font-medium",
+              isDark ? "text-zinc-300" : "text-zinc-800",
+            )}
+          >
+            {rating.toFixed(1)}
+          </span>
 
-      <span className="text-muted-foreground text-sm">
-        ({reviewCount} {reviewCount === 1 ? "Review" : "Reviews"})
-      </span>
+          <span className="text-muted-foreground text-sm">
+            ({reviewCount} {reviewCount === 1 ? "Review" : "Reviews"})
+          </span>
+        </>
+      )}
     </div>
   );
 };

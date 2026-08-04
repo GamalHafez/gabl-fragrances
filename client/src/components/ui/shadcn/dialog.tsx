@@ -59,7 +59,9 @@ function DialogContent({
         {showCloseButton && (
           <DialogPrimitive.Close
             data-slot="dialog-close"
-            render={<button className="absolute top-2 right-2"></button>}
+            render={
+              <button className="absolute top-2 right-2 cursor-pointer"></button>
+            }
           >
             <XIcon />
             <span className="sr-only">Close</span>

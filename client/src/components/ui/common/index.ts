@@ -5,3 +5,4 @@ export * from "./HashScrollHandler";
 export * from "./MainHeading";
 export * from "./PageWrapper";
 export * from "./FormLabel";
+export * from "./ErrorMessage";

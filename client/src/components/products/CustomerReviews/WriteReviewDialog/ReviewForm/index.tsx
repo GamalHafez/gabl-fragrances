@@ -1,9 +1,11 @@
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
 import { Controller, useForm } from "react-hook-form";
-import { FormLabel } from "@/components/ui/common";
+import { ErrorMessage, FormLabel } from "@/components/ui/common";
 import { ReviewFormButton } from "./ReviewFormButton";
 import { RatingField } from "./RatingField";
+import { reviewSchema } from "@shared/validators/reviewSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type ReviewFormData = {
   name: string;
@@ -12,7 +14,13 @@ type ReviewFormData = {
 };
 
 export const ReviewForm = () => {
-  const { register, handleSubmit, control } = useForm<ReviewFormData>({
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<ReviewFormData>({
+    resolver: zodResolver(reviewSchema),
     defaultValues: {
       name: "",
       comment: "",
@@ -34,9 +42,14 @@ export const ReviewForm = () => {
         control={control}
         name="rating"
         render={({ field }) => (
-          <RatingField value={field.value} onChange={field.onChange} />
+          <RatingField
+            value={field.value}
+            onChange={field.onChange}
+            error={errors.rating ? (errors.rating.message ?? "") : ""}
+          />
         )}
       />
+
       <div className="flex flex-col gap-1">
         <FormLabel id="name">Your Name</FormLabel>
         <input
@@ -52,6 +65,7 @@ export const ReviewForm = () => {
               : "border-zinc-300 bg-white text-zinc-900 placeholder:text-zinc-400 focus:border-amber-400 focus:ring-amber-200/50",
           )}
         />
+        {errors.name && <ErrorMessage message={errors?.name.message ?? ""} />}
       </div>
 
       <div className="flex flex-col gap-2">
@@ -69,6 +83,9 @@ export const ReviewForm = () => {
               : "border-zinc-300 bg-white text-zinc-900 placeholder:text-zinc-400 focus:border-amber-400 focus:ring-amber-200/50",
           )}
         />
+        {errors.comment && (
+          <ErrorMessage message={errors?.comment.message ?? ""} />
+        )}
       </div>
 
       <ReviewFormButton />

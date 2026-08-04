@@ -1,15 +1,17 @@
 import clsx from "clsx";
 import { Star } from "lucide-react";
 import { useTheme } from "@/context/useTheme";
+import { ErrorMessage } from "@/components/ui/common";
 
 type RatingFieldProps = {
   value: number;
   onChange: (rating: number) => void;
+  error: string;
 };
 
 const ratingLabels = ["", "Poor", "Fair", "Good", "Very Good", "Excellent"];
 
-export const RatingField = ({ value, onChange }: RatingFieldProps) => {
+export const RatingField = ({ value, onChange, error }: RatingFieldProps) => {
   const { isDark } = useTheme();
 
   return (
@@ -50,6 +52,8 @@ export const RatingField = ({ value, onChange }: RatingFieldProps) => {
           );
         })}
       </div>
+
+      {error && <ErrorMessage message={error ?? ""} />}
     </div>
   );
 };

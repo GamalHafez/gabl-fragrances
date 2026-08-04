@@ -1,8 +1,6 @@
 import {
   Dialog,
-  DialogClose,
   DialogContent,
-  DialogFooter,
   DialogTrigger,
 } from "@/components/ui/shadcn/dialog";
 import { WriteReviewTrigger } from "./WriteReviewTrigger";
@@ -34,9 +32,6 @@ export const WriteReviewDialog = () => {
         <ReviewProductCard />
 
         <ReviewForm />
-        <DialogFooter>
-          <DialogClose render={<button>Close</button>} />{" "}
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

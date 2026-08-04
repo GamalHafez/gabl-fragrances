@@ -1,16 +1,24 @@
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { FormLabel } from "@/components/ui/common";
 import { ReviewFormButton } from "./ReviewFormButton";
+import { RatingField } from "./RatingField";
 
 type ReviewFormData = {
   name: string;
   comment: string;
+  rating: number;
 };
 
 export const ReviewForm = () => {
-  const { register, handleSubmit } = useForm<ReviewFormData>();
+  const { register, handleSubmit, control } = useForm<ReviewFormData>({
+    defaultValues: {
+      name: "",
+      comment: "",
+      rating: 0,
+    },
+  });
   const { isDark } = useTheme();
 
   const onSubmit = (data: ReviewFormData) => {
@@ -22,6 +30,13 @@ export const ReviewForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="mt-2 flex flex-col gap-4"
     >
+      <Controller
+        control={control}
+        name="rating"
+        render={({ field }) => (
+          <RatingField value={field.value} onChange={field.onChange} />
+        )}
+      />
       <div className="flex flex-col gap-1">
         <FormLabel id="name">Your Name</FormLabel>
         <input

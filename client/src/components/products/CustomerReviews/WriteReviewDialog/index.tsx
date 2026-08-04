@@ -10,6 +10,7 @@ import { WriteReviewHeader } from "./WriteReviewHeader";
 import clsx from "clsx";
 import { useTheme } from "@/context/useTheme";
 import { ReviewProductCard } from "./ReviewProductCard";
+import { ReviewForm } from "./ReviewForm";
 
 export const WriteReviewDialog = () => {
   const { isDark } = useTheme();
@@ -31,6 +32,8 @@ export const WriteReviewDialog = () => {
         <WriteReviewHeader />
 
         <ReviewProductCard />
+
+        <ReviewForm />
         <DialogFooter>
           <DialogClose render={<button>Close</button>} />{" "}
         </DialogFooter>

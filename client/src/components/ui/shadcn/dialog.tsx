@@ -3,6 +3,8 @@ import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 
 import { cn } from "@/lib/utils";
 import { XIcon } from "lucide-react";
+import { useTheme } from "@/context/useTheme";
+import clsx from "clsx";
 
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
@@ -44,6 +46,7 @@ function DialogContent({
 }: DialogPrimitive.Popup.Props & {
   showCloseButton?: boolean;
 }) {
+  const { isDark } = useTheme();
   return (
     <DialogPortal>
       <DialogOverlay />
@@ -63,7 +66,7 @@ function DialogContent({
               <button className="absolute top-2 right-2 cursor-pointer"></button>
             }
           >
-            <XIcon />
+            <XIcon className={clsx(isDark ? "text-white" : "text-black")} />
             <span className="sr-only">Close</span>
           </DialogPrimitive.Close>
         )}

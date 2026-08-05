@@ -30,7 +30,10 @@ export const ProductTrustInfo = () => {
   const { isDark } = useTheme();
 
   return (
-    <section className="mt-20 mb-18 flex flex-col gap-8 md:mt-30 md:gap-2">
+    <section
+      id="trust-information"
+      className="mt-20 mb-18 flex flex-col gap-8 md:mt-30 md:gap-2"
+    >
       <MainHeading title="Why Shop With Us" className="self-start" />
 
       <div className="grid gap-4 sm:grid-cols-2">

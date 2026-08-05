@@ -8,6 +8,7 @@ import { products } from "@/mockProducts";
 import { ProductTrustInfo } from "@/components/products/ProductTrustInfo";
 import { CustomerReviews } from "@/components/products/CustomerReviews";
 import { reviews } from "@/components/products/CustomerReviews/mockReviews";
+import { RelatedProducts } from "@/components/products/RelatedProducts";
 
 export const ProductDetails = () => {
   const { isDark } = useTheme();
@@ -43,6 +44,8 @@ export const ProductDetails = () => {
         <CustomerReviews reviews={reviews} />
 
         <ProductTrustInfo />
+
+        <RelatedProducts product={product}/>
       </Container>
     </PageWrapper>
   );

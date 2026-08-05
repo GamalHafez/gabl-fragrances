@@ -49,8 +49,8 @@ export const products: Product[] = [
   },
   {
     id: 2,
-    slug: "fresh-ocean-men-100",
-    name: "Fresh Ocean",
+    slug: "new-frag-men-100",
+    name: "new frag",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, impedit natus quos veritatis quasi nemo amet ipsa",
     image: "https://picsum.photos/300/400?random=2",
@@ -123,8 +123,8 @@ export const products: Product[] = [
   },
   {
     id: 6,
-    slug: "citrus-energy-men-100",
-    name: "Citrus Energy",
+    slug: "frag-men-100",
+    name: "frag",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, impedit natus quos veritatis quasi nemo amet ipsa",
     image: "https://picsum.photos/300/400?random=6",
@@ -157,24 +157,5 @@ export const products: Product[] = [
     baseNotes: ["Vanilla", "Patchouli", "Cedarwood"],
     vibes: "Warm & Sweet",
     bestWeather: "Autumn & Winter",
-  },
-  {
-    id: 8,
-    slug: "vanilla-dream-women-100",
-    name: "Vanilla Dream",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, impedit natus quos veritatis quasi nemo amet ipsa",
-    image: "https://picsum.photos/300/400?random=8",
-    inspiredBy: "Black Opium",
-    collection: "Women",
-    size: 50,
-    price: 90,
-    inStock: true,
-    topNotes: ["Pear", "Pink Pepper", "Orange Blossom"],
-    midNotes: ["Coffee", "Jasmine"],
-    baseNotes: ["Vanilla", "Patchouli", "Cedarwood"],
-    vibes: "Warm & Sweet",
-    bestWeather: "Autumn & Winter",
-    isBestSeller: true,
   },
 ];

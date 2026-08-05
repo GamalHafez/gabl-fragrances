@@ -4,14 +4,12 @@ import { Controller, useForm } from "react-hook-form";
 import { ErrorMessage, FormLabel } from "@/components/ui/common";
 import { ReviewFormButton } from "./ReviewFormButton";
 import { RatingField } from "./RatingField";
-import { reviewSchema } from "@shared/validators/reviewSchema";
+import {
+  reviewSchema,
+  type ReviewFormData,
+} from "@shared/validators/reviewSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-type ReviewFormData = {
-  name: string;
-  comment: string;
-  rating: number;
-};
+import { FormField } from "@/components/ui/forms";
 
 export const ReviewForm = () => {
   const {
@@ -50,23 +48,13 @@ export const ReviewForm = () => {
         )}
       />
 
-      <div className="flex flex-col gap-1">
-        <FormLabel id="name">Your Name</FormLabel>
-        <input
-          {...register("name")}
-          id="name"
-          type="text"
-          placeholder="Enter your name"
-          className={clsx(
-            "rounded-2xl border px-4 py-3 text-sm transition-all duration-300 outline-none",
-            "focus:ring-4",
-            isDark
-              ? "border-zinc-700 bg-zinc-900 text-zinc-100 placeholder:text-zinc-500 focus:border-amber-500 focus:ring-amber-500/20"
-              : "border-zinc-300 bg-white text-zinc-900 placeholder:text-zinc-400 focus:border-amber-400 focus:ring-amber-200/50",
-          )}
-        />
-        {errors.name && <ErrorMessage message={errors?.name.message ?? ""} />}
-      </div>
+      <FormField
+        field="name"
+        register={register}
+        errors={errors}
+        label="Your Name"
+        placeholder="Enter your name"
+      />
 
       <div className="flex flex-col gap-2">
         <FormLabel id="comment">Your Review</FormLabel>

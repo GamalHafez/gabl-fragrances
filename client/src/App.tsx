@@ -6,6 +6,7 @@ import {
   Collections,
   ProductDetails,
   Contact,
+  AboutUs,
 } from "./pages";
 
 const router = createBrowserRouter([
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "contact",
         element: <Contact />,
+      },
+      {
+        path: "about-us",
+        element: <AboutUs />,
       },
     ],
   },

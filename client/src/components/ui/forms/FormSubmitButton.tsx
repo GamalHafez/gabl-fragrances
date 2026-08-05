@@ -2,7 +2,11 @@ import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
 import { SendHorizontal } from "lucide-react";
 
-export const ReviewFormButton = () => {
+type FormSubmitButtonProps = {
+  label: string;
+};
+
+export const FormSubmitButton = ({ label }: FormSubmitButtonProps) => {
   const { isDark } = useTheme();
 
   return (
@@ -16,7 +20,7 @@ export const ReviewFormButton = () => {
       )}
     >
       <SendHorizontal className="h-4 w-4" />
-      Submit Review
+      {label}
     </button>
   );
 };

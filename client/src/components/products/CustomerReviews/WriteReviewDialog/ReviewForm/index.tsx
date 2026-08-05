@@ -1,12 +1,11 @@
 import { Controller, useForm } from "react-hook-form";
-import { ReviewFormButton } from "./ReviewFormButton";
 import { RatingField } from "./RatingField";
 import {
   reviewSchema,
   type ReviewFormData,
 } from "@shared/validators/reviewSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormField } from "@/components/ui/forms";
+import { FormField, FormSubmitButton } from "@/components/ui/forms";
 
 export const ReviewForm = () => {
   const {
@@ -61,7 +60,7 @@ export const ReviewForm = () => {
         placeholder="Tell others what you liked about this fragrance..."
       />
 
-      <ReviewFormButton />
+      <FormSubmitButton label="Submit Review" />
     </form>
   );
 };

@@ -34,7 +34,7 @@ export const ProductTrustInfo = () => {
       id="trust-information"
       className="mt-20 mb-18 flex flex-col gap-8 md:mt-30 md:gap-2"
     >
-      <MainHeading title="Why Shop With Us" className="self-start" />
+      <MainHeading title="Why Shop With Us" className="md:self-start" />
 
       <div className="grid gap-4 sm:grid-cols-2">
         {trustItems.map((item) => (

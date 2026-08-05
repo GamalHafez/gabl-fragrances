@@ -3,9 +3,9 @@ import clsx from "clsx";
 import { ChevronRight } from "lucide-react";
 
 const links = [
-  { label: "Product Details", href: "#product-details" },
   { label: "Customer Reviews", href: "#customer-reviews" },
   { label: "Trust Information", href: "#trust-information" },
+  { label: "Related Products", href: "#related-products" },
 ];
 
 export const ProductQuickLinks = () => {

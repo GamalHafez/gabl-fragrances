@@ -4,14 +4,19 @@ import { SendHorizontal } from "lucide-react";
 
 type FormSubmitButtonProps = {
   label: string;
+  disabled: boolean;
 };
 
-export const FormSubmitButton = ({ label }: FormSubmitButtonProps) => {
+export const FormSubmitButton = ({
+  label,
+  disabled,
+}: FormSubmitButtonProps) => {
   const { isDark } = useTheme();
 
   return (
     <button
       type="submit"
+      disabled={disabled}
       className={clsx(
         "mt-2 flex cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300",
         isDark

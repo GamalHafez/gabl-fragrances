@@ -12,7 +12,8 @@ export const ReviewForm = () => {
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitting },
   } = useForm<ReviewFormData>({
     resolver: zodResolver(reviewSchema),
     defaultValues: {
@@ -23,10 +24,12 @@ export const ReviewForm = () => {
   });
   const onSubmit = (data: ReviewFormData) => {
     console.log(data);
+    reset();
   };
 
   return (
     <form
+      noValidate
       onSubmit={handleSubmit(onSubmit)}
       className="mt-2 flex flex-col gap-4"
     >
@@ -60,7 +63,10 @@ export const ReviewForm = () => {
         placeholder="Tell others what you liked about this fragrance..."
       />
 
-      <FormSubmitButton label="Submit Review" />
+      <FormSubmitButton
+        disabled={isSubmitting}
+        label={isSubmitting ? "Sending..." : "Submit Review"}
+      />
     </form>
   );
 };

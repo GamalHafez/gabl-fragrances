@@ -13,7 +13,7 @@ export const AboutSection = ({ title, children }: AboutSectionProps) => {
     <section className="mt-8">
       <h3
         className={clsx(
-          "mb-1 text-xl font-medium capitalize",
+          "text-xl font-semibold capitalize",
           isDark ? "text-zinc-200" : "text-zinc-800",
         )}
       >

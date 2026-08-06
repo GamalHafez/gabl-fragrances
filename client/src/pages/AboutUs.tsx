@@ -1,4 +1,4 @@
-import { AboutSection } from "@/components/brand";
+import { DocumentSection } from "@/components/brand";
 import { ProductTrustInfo } from "@/components/products/ProductTrustInfo";
 import { Container, MainHeading, PageWrapper } from "@/components/ui/common";
 import { useTheme } from "@/context/useTheme";
@@ -18,17 +18,17 @@ export const AboutUs = () => {
             <MainHeading title="About Us" className="md:mb-0" />
           </div>
 
-          <AboutSection title="Our Story">
+          <DocumentSection title="Our Story">
             Content will be provided by the brand owner.
-          </AboutSection>
+          </DocumentSection>
 
-          <AboutSection title="Mission">
+          <DocumentSection title="Mission">
             Content will be provided by the brand owner.
-          </AboutSection>
+          </DocumentSection>
 
-          <AboutSection title="Our promise to you">
+          <DocumentSection title="Our promise to you">
             Content will be provided by the brand owner.
-          </AboutSection>
+          </DocumentSection>
 
           <ProductTrustInfo />
 

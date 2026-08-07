@@ -8,6 +8,9 @@ import morgan from 'morgan';
 // Middlewares imports
 import { routeNotFound, errorHandler } from '@/middlewares/app/index.js';
 
+// Routes imports
+import healthRoutes from '@routes/health.routes.js';
+
 const app = express();
 
 // Global middlewares
@@ -21,6 +24,9 @@ app.use(
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
+
+// Routes
+app.use('/api/health', healthRoutes);
 
 // Middlewares
 app.use(routeNotFound);

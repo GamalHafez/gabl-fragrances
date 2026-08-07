@@ -28,6 +28,20 @@ enum Gender {
   UNISEX
 }
 
+enum OrderStatus {
+  PENDING
+  PAID
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum DiscountType {
+  FIXED
+  PERCENTAGE
+}
+
 // USER
 // ______________________________________
 
@@ -41,6 +55,10 @@ model User {
   // Track timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  // Relationships
+  addresses Address[]
+  orders    Order[]
 }
 
 // CATALOG
@@ -117,9 +135,101 @@ model ProductVariant {
   updatedAt DateTime @updatedAt
 
   // Relationships
-  productId String
-  product   Product @relation(fields: [productId], references: [id])
+  productId  String
+  product    Product     @relation(fields: [productId], references: [id])
+  orderItems OrderItem[]
 
   @@unique([productId, sizeML])
   @@index([productId])
+}
+
+// ORDERS
+// ______________________________________
+
+model Address {
+  id          String  @id @default(uuid())
+  address     String  @db.VarChar(255)
+  country     String  @db.VarChar(50)
+  city        String  @db.VarChar(50)
+  apartment   String? @db.VarChar(50)
+  governorate String  @db.VarChar(50)
+  postalCode  String? @db.VarChar(20)
+  isDefault   Boolean @default(false)
+
+  // Track timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationships
+  userId String
+  user   User    @relation(fields: [userId], references: [id])
+  orders Order[]
+
+  @@index([userId])
+}
+
+model Discount {
+  id    String       @id @default(uuid())
+  code  String       @unique @db.VarChar(50)
+  type  DiscountType
+  value Decimal      @db.Decimal(10, 2)
+
+  // Track timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationships
+  orders Order[]
+}
+
+model Order {
+  id          String      @id @default(uuid())
+  orderNumber Int         @unique
+  status      OrderStatus @default(PENDING)
+  subTotal    Decimal     @db.Decimal(10, 2)
+  shipping    Decimal     @db.Decimal(10, 2)
+  total       Decimal     @db.Decimal(10, 2)
+  userId      String
+  addressId   String
+  discountId  String?
+
+  // Track timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Address snapshot
+  shippingAddress     String
+  shippingCity        String
+  shippingGovernorate String
+  shippingCountry     String
+  shippingPostalCode  String?
+
+  // Relationships
+  user     User        @relation(fields: [userId], references: [id])
+  address  Address     @relation(fields: [addressId], references: [id])
+  discount Discount?   @relation(fields: [discountId], references: [id])
+  items    OrderItem[]
+
+  @@index([userId])
+  @@index([addressId])
+  @@index([discountId])
+}
+
+model OrderItem {
+  id               String  @id @default(uuid())
+  quantity         Int
+  unitPrice        Decimal @db.Decimal(10, 2)
+  orderId          String
+  productVariantId String
+
+  // Track timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationships
+  order          Order          @relation(fields: [orderId], references: [id])
+  productVariant ProductVariant @relation(fields: [productVariantId], references: [id])
+
+  @@index([orderId])
+  @@index([productVariantId])
 }

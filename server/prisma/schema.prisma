@@ -233,3 +233,21 @@ model OrderItem {
   @@index([orderId])
   @@index([productVariantId])
 }
+
+// ContactMessage
+// ______________________________________
+
+model ContactMessage {
+  id      String    @id @default(uuid())
+  name    String    @db.VarChar(100)
+  email   String    @db.VarChar(255)
+  phone   String?   @db.VarChar(30)
+  message String    @db.Text
+  
+  isRead  Boolean   @default(false)
+  readAt  DateTime?
+
+  // Track timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

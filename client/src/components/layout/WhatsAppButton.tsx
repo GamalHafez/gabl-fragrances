@@ -1,4 +1,4 @@
-import { SOCIALS } from "@/constants/socialLinks";
+import { SOCIALS } from "@/data/socialLinks";
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
 import { FaWhatsapp } from "react-icons/fa";

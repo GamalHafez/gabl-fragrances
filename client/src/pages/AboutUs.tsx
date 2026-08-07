@@ -1,4 +1,4 @@
-import { DocumentSection } from "@/components/brand";
+import { DocumentSection } from "@/components/legal";
 import { ProductTrustInfo } from "@/components/products/ProductTrustInfo";
 import { Container, MainHeading, PageWrapper } from "@/components/ui/common";
 import { useTheme } from "@/context/useTheme";

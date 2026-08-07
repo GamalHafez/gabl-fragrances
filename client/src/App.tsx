@@ -7,6 +7,7 @@ import {
   ProductDetails,
   Contact,
   AboutUs,
+  PrivacyPolicy,
 } from "./pages";
 
 const router = createBrowserRouter([
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "about-us",
         element: <AboutUs />,
+      },
+      {
+        path: "privacy-policy",
+        element: <PrivacyPolicy />,
       },
     ],
   },

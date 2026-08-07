@@ -1,4 +1,4 @@
-import { SOCIALS } from "@/constants/socialLinks";
+import { SOCIALS } from "@/data/socialLinks";
 import SocialLinksBackground from "./SocialLinksBackground";
 import { SectionHeader } from "@/components/ui/home/SectionHeader";
 import { SocialLinkCard } from "./SocialLinkCard";

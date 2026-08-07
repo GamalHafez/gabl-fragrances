@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { SOCIALS } from "@/constants/socialLinks";
+import { SOCIALS } from "@/data/socialLinks";
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
 import { footerLinks } from "./footerLinks";

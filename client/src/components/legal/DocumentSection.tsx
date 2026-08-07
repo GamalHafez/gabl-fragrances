@@ -10,11 +10,11 @@ export const DocumentSection = ({ title, children }: AboutSectionProps) => {
   const { isDark } = useTheme();
 
   return (
-    <section className="mt-8">
+    <section className="mt-4">
       {title && (
         <h3
           className={clsx(
-            "text-xl font-semibold capitalize",
+            "mb-1 text-xl font-semibold capitalize",
             isDark ? "text-zinc-200" : "text-zinc-800",
           )}
         >
@@ -23,7 +23,7 @@ export const DocumentSection = ({ title, children }: AboutSectionProps) => {
       )}
       <div
         className={clsx(
-          "text-base",
+          "mb-8 text-base",
           isDark ? "text-zinc-400" : "text-zinc-600",
         )}
       >

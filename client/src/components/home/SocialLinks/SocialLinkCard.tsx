@@ -1,4 +1,4 @@
-import type { SocialLink } from "@/constants/socialLinks";
+import type { SocialLink } from "@/data/socialLinks";
 import { useTheme } from "@/context/useTheme";
 import { ArrowUpRight } from "lucide-react";
 import clsx from "clsx";

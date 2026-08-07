@@ -8,13 +8,14 @@ import {
   Contact,
   AboutUs,
   PrivacyPolicy,
+  ErrorPage,
 } from "./pages";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
-    // errorElement: <ErrorPage />, Later
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,

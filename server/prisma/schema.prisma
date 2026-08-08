@@ -42,6 +42,18 @@ enum DiscountType {
   PERCENTAGE
 }
 
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  CASH_ON_DELIVERY
+  CARD
+}
+
 // USER
 // ______________________________________
 
@@ -209,6 +221,7 @@ model Order {
   address  Address     @relation(fields: [addressId], references: [id])
   discount Discount?   @relation(fields: [discountId], references: [id])
   items    OrderItem[]
+  payments Payment[]
 
   @@index([userId])
   @@index([addressId])
@@ -238,16 +251,47 @@ model OrderItem {
 // ______________________________________
 
 model ContactMessage {
-  id      String    @id @default(uuid())
-  name    String    @db.VarChar(100)
-  email   String    @db.VarChar(255)
-  phone   String?   @db.VarChar(30)
-  message String    @db.Text
-  
-  isRead  Boolean   @default(false)
-  readAt  DateTime?
+  id      String  @id @default(uuid())
+  name    String  @db.VarChar(100)
+  email   String  @db.VarChar(255)
+  phone   String? @db.VarChar(30)
+  message String  @db.Text
+
+  isRead Boolean   @default(false)
+  readAt DateTime?
 
   // Track timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// Payment
+// ______________________________________
+
+model Payment {
+  id String @id @default(uuid())
+
+  amount   Decimal @db.Decimal(10, 2)
+  currency String  @db.VarChar(3)
+
+  status PaymentStatus
+  method PaymentMethod
+
+  transactionId String? @unique @db.VarChar(255)
+
+  // Payment provider information
+  provider        String? @db.VarChar(50)
+  providerOrderId String? @db.VarChar(255)
+
+  // Track timestamps
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  paidAt    DateTime?
+
+  // Relationships
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id])
+
+  @@index([status])
+  @@index([orderId])
 }

@@ -71,6 +71,7 @@ model User {
   // Relationships
   addresses Address[]
   orders    Order[]
+  reviews   Review[]
 }
 
 // CATALOG
@@ -115,6 +116,7 @@ model Product {
   categories Category[]
   images     ProductImage[]
   variants   ProductVariant[]
+  reviews    Review[]
 }
 
 model ProductImage {
@@ -305,4 +307,33 @@ model Payment {
 
   @@index([status])
   @@index([orderId])
+}
+
+// Review
+// ______________________________________
+
+model Review {
+  id     String  @id @default(uuid())
+  name   String  @db.VarChar(100)
+  imgUrl String?
+  review String  @db.Text
+  rating Int     @default(5)
+
+  // For preventing spam/abusive content.
+  isApproved Boolean @default(false)
+
+  // Track timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Optional authenticated user
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
+
+  // Product being reviewed
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@index([productId])
+  @@index([userId])
 }

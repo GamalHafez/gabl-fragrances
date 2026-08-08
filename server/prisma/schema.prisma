@@ -100,10 +100,11 @@ model Product {
   inspiredBy  String? @db.VarChar(100)
 
   // Fragrance profile
-  topNotes  String[]
-  midNotes  String[]
-  baseNotes String[]
-  vibes     String   @db.VarChar(255)
+  topNotes    String[]
+  midNotes    String[]
+  baseNotes   String[]
+  vibes       String    @db.VarChar(255)
+  bestSeasons Weather[]
 
   // Marketing flags
   isBestSeller Boolean @default(false)
@@ -188,6 +189,8 @@ model Discount {
   type  DiscountType
   value Decimal      @db.Decimal(10, 2)
 
+  isActive Boolean @default(true)
+
   // Track timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -248,6 +251,10 @@ model OrderItem {
   orderId          String
   productVariantId String
 
+  // Product snapshot
+  productName String @db.VarChar(150)
+  sizeML      Int    @db.SmallInt
+
   // Track timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -307,17 +314,18 @@ model Payment {
 
   @@index([status])
   @@index([orderId])
+  @@index([providerOrderId])
 }
 
 // Review
 // ______________________________________
 
 model Review {
-  id     String  @id @default(uuid())
-  name   String  @db.VarChar(100)
-  imgUrl String?
-  review String  @db.Text
-  rating Int     @default(5)
+  id       String  @id @default(uuid())
+  name     String  @db.VarChar(100)
+  imageUrl String? @db.Text
+  review   String  @db.Text
+  rating   Int     @default(5)
 
   // For preventing spam/abusive content.
   isApproved Boolean @default(false)

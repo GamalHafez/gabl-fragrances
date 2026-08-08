@@ -149,7 +149,7 @@ model ProductImage {
 
 model ProductVariant {
   id     String  @id @default(uuid())
-  sizeML Int     @default(50) @db.SmallInt
+  sizeML Int     @db.SmallInt
   stock  Int     @default(0)
   price  Decimal @db.Decimal(10, 2)
 

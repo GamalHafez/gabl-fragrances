@@ -198,27 +198,38 @@ model Order {
   id          String      @id @default(uuid())
   orderNumber Int         @unique
   status      OrderStatus @default(PENDING)
-  subTotal    Decimal     @db.Decimal(10, 2)
-  shipping    Decimal     @db.Decimal(10, 2)
-  total       Decimal     @db.Decimal(10, 2)
-  userId      String
-  addressId   String
-  discountId  String?
+
+  subTotal Decimal @db.Decimal(10, 2)
+  shipping Decimal @db.Decimal(10, 2)
+  total    Decimal @db.Decimal(10, 2)
+
+  // Customer information
+  customerName  String @db.VarChar(100)
+  customerEmail String @db.VarChar(255)
+  customerPhone String @db.VarChar(30)
+
+  // Optional registered account
+  userId String?
+
+  // Original saved address used for this order
+  addressId String?
+
+  discountId String?
+
+  // Shipping address snapshot
+  shippingAddress     String  @db.VarChar(255)
+  shippingCity        String  @db.VarChar(50)
+  shippingGovernorate String  @db.VarChar(50)
+  shippingCountry     String  @db.VarChar(50)
+  shippingPostalCode  String? @db.VarChar(20)
 
   // Track timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Address snapshot
-  shippingAddress     String
-  shippingCity        String
-  shippingGovernorate String
-  shippingCountry     String
-  shippingPostalCode  String?
-
   // Relationships
-  user     User        @relation(fields: [userId], references: [id])
-  address  Address     @relation(fields: [addressId], references: [id])
+  user     User?       @relation(fields: [userId], references: [id])
+  address  Address?    @relation(fields: [addressId], references: [id])
   discount Discount?   @relation(fields: [discountId], references: [id])
   items    OrderItem[]
   payments Payment[]

@@ -3,6 +3,8 @@ import { prisma } from '@/config/db.js';
 import bcrypt from 'bcrypt';
 import { sendError, sendSuccess } from '@/utils/response.js';
 
+const SALT_ROUNDS = 12;
+
 export const signUp = async (
   req: Request,
   res: Response,
@@ -24,7 +26,7 @@ export const signUp = async (
     }
 
     // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
     // Create customer
     const user = await prisma.user.create({
@@ -55,6 +57,60 @@ export const signUp = async (
       statusCode: 201,
       message: 'Registration Successful',
       data: { user },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const login = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { email, password: customerInputPassword } = req.body;
+
+  try {
+    // Find User
+    const user = await prisma.user.findUnique({
+      where: { email },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        password: true,
+        role: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+
+    if (!user) {
+      return sendError(res, {
+        statusCode: 401,
+        message: 'Invalid email or password',
+      });
+    }
+
+    const isMatch = await bcrypt.compare(customerInputPassword, user.password);
+
+    if (!isMatch) {
+      return sendError(res, {
+        statusCode: 401,
+        message: 'Invalid email or password',
+      });
+    }
+
+    /* handle tokens later
+    generateToken(user.id, res);
+    */
+
+    const { password, ...safeUser } = user;
+
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Logged in successfully',
+      data: { user: safeUser },
     });
   } catch (error) {
     next(error);

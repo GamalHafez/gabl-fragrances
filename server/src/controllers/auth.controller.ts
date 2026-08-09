@@ -11,7 +11,7 @@ export const signUp = async (
   const { name, email, password } = req.body;
 
   try {
-    // Check if user already exists
+    // Check existing user
     const existingUser = await prisma.user.findUnique({
       where: { email },
     });
@@ -26,13 +26,17 @@ export const signUp = async (
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create the user
+    // Create customer
     const user = await prisma.user.create({
       data: {
         name,
         email,
         password: hashedPassword,
-        role: 'CUSTOMER', // ???
+        role: {
+          connect: {
+            name: 'CUSTOMER',
+          },
+        },
       },
       select: {
         id: true,
@@ -44,7 +48,7 @@ export const signUp = async (
       },
     });
 
-    /*  // generate a token
+    /*  // handle tokens later
     generateToken(user.id, res); */
 
     sendSuccess(res, {

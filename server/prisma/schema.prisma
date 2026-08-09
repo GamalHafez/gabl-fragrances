@@ -72,11 +72,12 @@ model User {
   updatedAt DateTime @updatedAt
 
   // Relationships
-  roleId    Int
-  role      Role      @relation(fields: [roleId], references: [id])
-  addresses Address[]
-  orders    Order[]
-  reviews   Review[]
+  roleId        Int
+  role          Role           @relation(fields: [roleId], references: [id])
+  addresses     Address[]
+  orders        Order[]
+  reviews       Review[]
+  refreshTokens RefreshToken[]
 }
 
 // RBAC models
@@ -402,4 +403,21 @@ model InventoryTransaction {
 
   @@index([productVariantId])
   @@index([orderId])
+}
+
+// RefreshToken
+// ______________________________________
+
+model RefreshToken {
+  id        String @id @default(uuid())
+  tokenHash String @unique
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  expiresAt DateTime
+  createdAt DateTime  @default(now())
+  revokedAt DateTime?
+
+  @@index([userId])
 }

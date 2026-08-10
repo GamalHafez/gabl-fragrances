@@ -11,6 +11,7 @@ import { routeNotFound, errorHandler } from '@/middlewares/app/index.js';
 // Routes imports
 import healthRoutes from '@routes/health.routes.js';
 import authRoutes from '@routes/auth.routes.js';
+import productsRoutes from '@routes/products.routes.js';
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(cookieParser());
 // Routes
 app.use('/api/health', healthRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/products', productsRoutes);
 
 // Middlewares
 app.use(routeNotFound);

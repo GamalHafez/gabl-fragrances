@@ -3,6 +3,13 @@ import { AppError, sendSuccess } from '@/utils/response.js';
 import { setCookie } from '@/utils/tokens.js';
 import { authService } from '@/services/auth.service.js';
 
+export const getCurrentUser = async (req: Request, res: Response) => {
+  return sendSuccess(res, {
+    statusCode: 200,
+    message: 'Current user retrieved successfully',
+    data: { user: req.user },
+  });
+};
 export const signUp = async (
   req: Request,
   res: Response,

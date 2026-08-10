@@ -4,6 +4,13 @@ import type { User } from '@shared/types/index.js';
 import crypto from 'node:crypto';
 import ms, { type StringValue } from 'ms';
 
+import type { JwtPayload } from 'jsonwebtoken';
+import { AppError } from './response.js';
+
+export interface AuthTokenPayload extends JwtPayload {
+  sub: string;
+}
+
 export const generateAccessToken = (user: User) => {
   const {
     id,
@@ -11,9 +18,11 @@ export const generateAccessToken = (user: User) => {
   } = user;
   const payload = { sub: id, role };
 
-  const secret = process.env.JWT_SECRET;
+  const secret = process.env.ACCESS_TOKEN_SECRET;
   if (!secret) {
-    throw new Error('JWT_SECRET is not defined in environment variables');
+    throw new Error(
+      'ACCESS_TOKEN_SECRET is not defined in environment variables',
+    );
   }
 
   const expiresIn =
@@ -76,4 +85,26 @@ export const verifyRefreshToken = (token: string) => {
   }
 
   return jwt.verify(token, secret);
+};
+
+export const verifyAccessToken = (token: string): AuthTokenPayload => {
+  const secret = process.env.ACCESS_TOKEN_SECRET;
+
+  if (!secret) {
+    throw new Error(
+      'ACCESS_TOKEN_SECRET is not defined in environment variables',
+    );
+  }
+
+  const payload = jwt.verify(token, secret);
+
+  if (
+    typeof payload === 'string' ||
+    !payload.sub ||
+    typeof payload.sub !== 'string'
+  ) {
+    throw new AppError(401, 'Invalid access token');
+  }
+
+  return payload as AuthTokenPayload;
 };

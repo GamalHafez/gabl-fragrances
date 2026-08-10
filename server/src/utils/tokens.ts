@@ -1,8 +1,10 @@
 import jwt, { type SignOptions } from 'jsonwebtoken';
 import type { Response } from 'express';
 import type { User } from '@shared/types/index.js';
+import crypto from 'node:crypto';
+import ms, { type StringValue } from 'ms';
 
-export const generateAccessToken = (user: User, res: Response) => {
+export const generateAccessToken = (user: User) => {
   const {
     id,
     role: { name: role },
@@ -19,15 +21,10 @@ export const generateAccessToken = (user: User, res: Response) => {
 
   const accessToken = jwt.sign(payload, secret, { expiresIn });
 
-  res.cookie('accessToken', accessToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
-    maxAge: 1000 * 60 * 15,
-  });
+  return accessToken;
 };
 
-export const generateRefreshToken = (user: User, res: Response) => {
+export const generateRefreshToken = (user: User) => {
   const payload = { sub: user.id };
 
   const secret = process.env.JWT_SECRET;
@@ -40,10 +37,29 @@ export const generateRefreshToken = (user: User, res: Response) => {
 
   const refreshToken = jwt.sign(payload, secret, { expiresIn });
 
-  res.cookie('refreshToken', refreshToken, {
+  return refreshToken;
+};
+
+export const setCookie = (
+  res: Response,
+  name: string,
+  value: string,
+  maxAge: number,
+) => {
+  res.cookie(name, value, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',
-    maxAge: 30 * 24 * 60 * 60 * 1000,
+    maxAge,
   });
+};
+
+export const hashToken = (token: string) => {
+  return crypto.createHash('sha256').update(token).digest('hex');
+};
+
+export const getTokenExpiresAt = (expiresIn: StringValue) => {
+  const milliseconds = ms(expiresIn);
+
+  return new Date(Date.now() + milliseconds);
 };

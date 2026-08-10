@@ -2,6 +2,15 @@ import type { Request, Response, NextFunction } from 'express';
 import { prisma } from '@/config/db.js';
 import bcrypt from 'bcrypt';
 import { sendError, sendSuccess } from '@/utils/response.js';
+import {
+  generateAccessToken,
+  generateRefreshToken,
+  getTokenExpiresAt,
+  hashToken,
+  setCookie,
+} from '@/utils/tokens.js';
+import { authConfig } from '@/config/auth.js';
+import { authService } from '@/services/auth.service.js';
 
 const SALT_ROUNDS = 12;
 
@@ -44,14 +53,38 @@ export const signUp = async (
         id: true,
         name: true,
         email: true,
-        role: true,
+        role: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
         createdAt: true,
         updatedAt: true,
       },
     });
 
-    /*  // handle tokens later
-    generateToken(user.id, res); */
+    // Generate access token
+    const accessToken = generateAccessToken(user, res);
+
+    // Generate refresh token
+    const refreshToken = generateRefreshToken(user, res);
+
+    // Hash refresh token
+    const tokenHash = hashToken(refreshToken);
+
+    // Store hash in DB
+    await prisma.refreshToken.create({
+      data: {
+        tokenHash,
+        userId: user.id,
+        expiresAt: getTokenExpiresAt(authConfig.refreshTokenExpiresIn),
+      },
+    });
+
+    // set the cookies
+    setCookie(res, 'accessToken', accessToken, 15 * 60 * 1000);
+    setCookie(res, 'refreshToken', refreshToken, 30 * 24 * 60 * 60 * 1000);
 
     sendSuccess(res, {
       statusCode: 201,
@@ -68,49 +101,19 @@ export const login = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const { email, password: customerInputPassword } = req.body;
-
   try {
-    // Find User
-    const user = await prisma.user.findUnique({
-      where: { email },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        password: true,
-        role: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
+    const { user, accessToken, refreshToken } = await authService.login(
+      req.body,
+    );
 
-    if (!user) {
-      return sendError(res, {
-        statusCode: 401,
-        message: 'Invalid email or password',
-      });
-    }
-
-    const isMatch = await bcrypt.compare(customerInputPassword, user.password);
-
-    if (!isMatch) {
-      return sendError(res, {
-        statusCode: 401,
-        message: 'Invalid email or password',
-      });
-    }
-
-    /* handle tokens later
-    generateToken(user.id, res);
-    */
-
-    const { password, ...safeUser } = user;
+    // set the cookies
+    setCookie(res, 'accessToken', accessToken, 15 * 60 * 1000);
+    setCookie(res, 'refreshToken', refreshToken, 30 * 24 * 60 * 60 * 1000);
 
     return sendSuccess(res, {
       statusCode: 200,
       message: 'Logged in successfully',
-      data: { user: safeUser },
+      data: { user },
     });
   } catch (error) {
     next(error);

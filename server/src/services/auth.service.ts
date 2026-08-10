@@ -17,6 +17,7 @@ import { Prisma } from '@/generated/prisma/client.js';
 
 type LoginInput = z.infer<typeof loginSchema>;
 type SignUpInput = z.infer<typeof signupSchema>;
+
 const SALT_ROUNDS = 12;
 
 export const authService = {
@@ -77,6 +78,10 @@ export const authService = {
 
     const user = await this.findUser({ email }, true);
 
+    if (!user) {
+      throw new AppError(401, 'Invalid email or password');
+    }
+
     const isMatch = await bcrypt.compare(userPassword, user.password);
 
     if (!isMatch) {
@@ -96,7 +101,7 @@ export const authService = {
     };
   },
 
-  async findUser<T>(
+  async findUser(
     searchBy: Prisma.UserWhereUniqueInput,
     includeDetails: boolean,
   ) {
@@ -122,10 +127,6 @@ export const authService = {
           },
     });
 
-    if (!user) {
-      throw new AppError(401, 'Invalid email or password');
-    }
-
     return user;
   },
 
@@ -140,7 +141,7 @@ export const authService = {
   },
 
   async createRefreshToken(tokenHash: string, userId: string) {
-    await prisma.refreshToken.create({
+    return await prisma.refreshToken.create({
       data: {
         tokenHash,
         userId,
@@ -149,7 +150,7 @@ export const authService = {
     });
   },
 
-  async refresh(refreshToken: string) {
+  verifyAndValidateRefreshToken(refreshToken: string): JwtPayload {
     let payload: JwtPayload;
 
     try {
@@ -162,13 +163,23 @@ export const authService = {
       throw new AppError(401, 'Invalid refresh token');
     }
 
-    const tokenHash = hashToken(refreshToken);
+    return payload;
+  },
 
-    const storedToken = await prisma.refreshToken.findUnique({
+  async findStoredToken(tokenHash: string) {
+    return await prisma.refreshToken.findUnique({
       where: {
         tokenHash,
       },
     });
+  },
+
+  async refresh(refreshToken: string) {
+    const payload = this.verifyAndValidateRefreshToken(refreshToken);
+
+    const tokenHash = hashToken(refreshToken);
+
+    const storedToken = await this.findStoredToken(tokenHash);
 
     if (!storedToken) {
       throw new AppError(401, 'Invalid refresh token');
@@ -187,6 +198,10 @@ export const authService = {
     }
 
     const user = await this.findUser({ id: payload.sub }, true);
+
+    if (!user) {
+      throw new AppError(401, 'User not Found');
+    }
 
     const { password, ...safeUser } = user;
 
@@ -218,5 +233,26 @@ export const authService = {
       accessToken,
       refreshToken: newRefreshToken,
     };
+  },
+
+  async logout(refreshToken: string) {
+    this.verifyAndValidateRefreshToken(refreshToken);
+
+    const tokenHash = hashToken(refreshToken);
+
+    const storedToken = await this.findStoredToken(tokenHash);
+
+    if (!storedToken) {
+      throw new AppError(401, 'Invalid refresh token');
+    }
+
+    if (storedToken.revokedAt) {
+      throw new AppError(401, 'Refresh token has already been revoked');
+    }
+
+    await prisma.refreshToken.update({
+      where: { id: storedToken.id },
+      data: { revokedAt: new Date() },
+    });
   },
 };

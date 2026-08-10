@@ -1,5 +1,5 @@
 import { authService } from '@/services/auth.service.js';
-import { AppError, sendError } from '@/utils/response.js';
+import { AppError } from '@/utils/response.js';
 import { verifyAccessToken } from '@/utils/tokens.js';
 import type { Request, Response, NextFunction } from 'express';
 

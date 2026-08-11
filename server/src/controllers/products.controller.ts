@@ -19,6 +19,25 @@ export const getProducts = async (
     next(error);
   }
 };
+
+export const createProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const product = await productsService.createProduct(req.body);
+
+    return sendSuccess(res, {
+      statusCode: 201,
+      message: 'Created a product',
+      data: { product },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getProduct = async (
   req: Request,
   res: Response,

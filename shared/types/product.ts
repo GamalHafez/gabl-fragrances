@@ -46,7 +46,7 @@ export type Product = {
   bestSeasons?: Weather[];
 
   isBestSeller: boolean;
-  categories: ProductCategory[];
+  isNew: boolean;
   images: ProductImage[];
   variants: ProductVariant[];
   reviews?: ProductReview[];

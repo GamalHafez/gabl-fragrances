@@ -1,6 +1,6 @@
 import { prisma } from '@/config/db.js';
 import { createProductSchema } from '@shared/validators/productsSchema.js';
-import z, { email } from 'zod';
+import z from 'zod';
 import { Prisma } from '@/generated/prisma/client.js';
 import { AppError } from '@/utils/response.js';
 
@@ -17,8 +17,7 @@ export const productsService = {
         gender: true,
         inspiredBy: true,
         isBestSeller: true,
-
-        categories: true,
+        isNew: true,
 
         images: {
           select: {
@@ -40,23 +39,6 @@ export const productsService = {
     });
   },
 
-  async validateCategories(categoryIds: string[]) {
-    const categories = await prisma.category.findMany({
-      where: {
-        id: {
-          in: categoryIds,
-        },
-      },
-      select: {
-        id: true,
-      },
-    });
-
-    if (categories.length !== categoryIds.length) {
-      throw new AppError(400, 'One or more categories do not exist');
-    }
-  },
-
   async createProduct(data: CreateProductBody) {
     const {
       slug,
@@ -70,7 +52,7 @@ export const productsService = {
       vibes,
       bestSeasons,
       isBestSeller,
-      categoryIds,
+      isNew,
       images,
       variants,
     } = data;
@@ -80,8 +62,6 @@ export const productsService = {
     if (existingProduct) {
       throw new AppError(409, 'Product already exists with this slug');
     }
-
-    await this.validateCategories(categoryIds);
 
     const product = await prisma.$transaction(async (tx) => {
       // create product
@@ -98,12 +78,7 @@ export const productsService = {
           vibes,
           bestSeasons,
           isBestSeller,
-
-          categories: {
-            connect: categoryIds.map((id) => ({
-              id,
-            })),
-          },
+          isNew,
 
           images: {
             create: images.map((image) => ({
@@ -135,8 +110,8 @@ export const productsService = {
           vibes: true,
           bestSeasons: true,
           isBestSeller: true,
+          isNew: true,
 
-          categories: true,
           images: true,
           variants: true,
 

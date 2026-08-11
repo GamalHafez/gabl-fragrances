@@ -55,9 +55,7 @@ export const createProductSchema = z.object({
 
   isBestSeller: z.boolean().default(false),
 
-  categoryIds: z
-    .array(z.string().uuid('Invalid category ID.'))
-    .min(1, 'At least one category is required.'),
+  isNew: z.boolean().default(false),
 
   images: z
     .array(

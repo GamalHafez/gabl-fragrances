@@ -27,8 +27,8 @@ export const getProductBySlug = async (
         vibes: true,
         bestSeasons: true,
         isBestSeller: true,
+        isNew: true,
 
-        categories: true,
         images: true,
         variants: true,
 

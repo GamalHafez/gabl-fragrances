@@ -118,3 +118,29 @@ export const addImage = async (
     next(error);
   }
 };
+
+export const updateImage = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const {
+      params: { imageId },
+      body,
+    } = req;
+
+    const updatedImage = await productsService.updateImage(
+      String(imageId),
+      body,
+    );
+
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Product image updated successfully',
+      data: { image: updatedImage },
+    });
+  } catch (error) {
+    next(error);
+  }
+};

@@ -1,6 +1,7 @@
 import {
   addImageSchema,
   createProductSchema,
+  updateImageSchema,
   updateProductSchema,
 } from '@shared/validators/productsSchema.js';
 import { Router } from 'express';
@@ -11,6 +12,7 @@ import {
   updateProduct,
   deleteProduct,
   addImage,
+  updateImage,
 } from '@/controllers/products.controller.js';
 import { getProductBySlug } from '@/middlewares/products/index.js';
 import {
@@ -50,6 +52,15 @@ router
     validateRequest(addImageSchema),
     requirePermission('products:update'),
     addImage,
+  );
+
+router
+  .route('/:productSlug/images/:imageId')
+  .patch(
+    requireAuth,
+    validateRequest(updateImageSchema),
+    requirePermission('products:update'),
+    updateImage,
   );
 
 export default router;

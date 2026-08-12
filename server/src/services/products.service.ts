@@ -2,6 +2,7 @@ import { prisma } from '@/config/db.js';
 import {
   addImageSchema,
   createProductSchema,
+  updateImageSchema,
   updateProductSchema,
 } from '@shared/validators/productsSchema.js';
 import z from 'zod';
@@ -11,6 +12,7 @@ import { AppError } from '@/utils/response.js';
 type CreateProductBody = z.infer<typeof createProductSchema>;
 type UpdateProductBody = z.infer<typeof updateProductSchema>;
 type AddImageBody = z.infer<typeof addImageSchema>;
+type UpdateImageBody = z.infer<typeof updateImageSchema>;
 
 export const productsService = {
   async getProducts() {
@@ -195,6 +197,7 @@ export const productsService = {
       where: searchBy,
       select: {
         id: true,
+        productId: true,
       },
     });
   },
@@ -224,6 +227,34 @@ export const productsService = {
           productId,
           ...data,
         },
+      });
+    });
+  },
+
+  async updateImage(imageId: string, data: UpdateImageBody) {
+    const existingImage = await this.findImage({ id: imageId });
+
+    if (!existingImage) {
+      throw new AppError(404, 'Product image not found');
+    }
+
+    return prisma.$transaction(async (tx) => {
+      if (data.isMain === true) {
+        await tx.productImage.updateMany({
+          where: {
+            productId: existingImage.productId,
+            id: { not: imageId },
+            isMain: true,
+          },
+          data: {
+            isMain: false,
+          },
+        });
+      }
+
+      return tx.productImage.update({
+        where: { id: imageId },
+        data,
       });
     });
   },

@@ -166,3 +166,30 @@ export const deleteImage = async (
     next(error);
   }
 };
+
+export const restockInventory = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const {
+      params: { productSlug, variantId },
+      body,
+    } = req;
+
+    const variant = await productsService.restock(
+      String(productSlug),
+      String(variantId),
+      body,
+    );
+
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Inventory restocked successfully',
+      data: { variant },
+    });
+  } catch (error) {
+    next(error);
+  }
+};

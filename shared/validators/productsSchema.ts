@@ -61,6 +61,7 @@ export const createProductSchema = z.object({
     .array(
       z.object({
         url: z.url('Invalid image URL.'),
+        publicId: z.string().trim().min(1, 'Cloudinary public ID is required.'),
         description: z
           .string()
           .trim()
@@ -176,6 +177,8 @@ export const updateProductSchema = z.object({
 export const addImageSchema = z.object({
   url: z.url('Invalid image URL.'),
 
+  publicId: z.string().trim().min(1, 'Cloudinary public ID is required.'),
+
   description: z
     .string()
     .trim()
@@ -195,4 +198,13 @@ export const updateImageSchema = z.object({
     .optional(),
 
   isMain: z.boolean().optional(),
+});
+
+export const restockSchema = z.object({
+  quantity: z
+    .number()
+    .int()
+    .positive('Restock quantity must be greater than 0.'),
+
+  reason: z.string().trim().max(255).optional(),
 });

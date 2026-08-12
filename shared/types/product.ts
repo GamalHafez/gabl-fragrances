@@ -11,9 +11,10 @@ export type ProductCategory = {
 export type ProductImage = {
   id: string;
   url: string;
+  publicId: string;
   description?: string | null;
   isMain: boolean;
-  productId: string;
+  productId?: string;
 };
 
 export type ProductVariant = {

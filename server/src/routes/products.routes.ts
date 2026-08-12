@@ -1,6 +1,7 @@
 import {
   addImageSchema,
   createProductSchema,
+  restockSchema,
   updateImageSchema,
   updateProductSchema,
 } from '@shared/validators/productsSchema.js';
@@ -14,6 +15,7 @@ import {
   addImage,
   updateImage,
   deleteImage,
+  restockInventory,
 } from '@/controllers/products.controller.js';
 import { getProductBySlug } from '@/middlewares/products/index.js';
 import {
@@ -64,5 +66,14 @@ router
     updateImage,
   )
   .delete(requireAuth, requirePermission('products:update'), deleteImage);
+
+router
+  .route('/:productSlug/variants/:variantId/restock')
+  .post(
+    requireAuth,
+    requirePermission('inventory:update'),
+    validateRequest(restockSchema),
+    restockInventory,
+  );
 
 export default router;

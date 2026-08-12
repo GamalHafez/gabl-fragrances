@@ -2,6 +2,7 @@ import { prisma } from '@/config/db.js';
 import {
   addImageSchema,
   createProductSchema,
+  restockSchema,
   updateImageSchema,
   updateProductSchema,
 } from '@shared/validators/productsSchema.js';
@@ -14,6 +15,7 @@ type CreateProductBody = z.infer<typeof createProductSchema>;
 type UpdateProductBody = z.infer<typeof updateProductSchema>;
 type AddImageBody = z.infer<typeof addImageSchema>;
 type UpdateImageBody = z.infer<typeof updateImageSchema>;
+type RestockBody = z.infer<typeof restockSchema>;
 
 export const productsService = {
   async getProducts() {
@@ -278,6 +280,50 @@ export const productsService = {
 
     return await prisma.productImage.delete({
       where: { id: imageId },
+    });
+  },
+
+  async validateVariant(productSlug: string, variantId: string) {
+    const variant = await prisma.productVariant.findFirst({
+      where: {
+        id: variantId,
+        product: {
+          slug: productSlug,
+          isActive: true,
+        },
+      },
+    });
+
+    if (!variant) {
+      throw new AppError(404, 'Product variant not found');
+    }
+
+    return variant;
+  },
+
+  async restock(productSlug: string, variantId: string, data: RestockBody) {
+    await this.validateVariant(productSlug, variantId);
+
+    return prisma.$transaction(async (tx) => {
+      const variant = await tx.productVariant.update({
+        where: { id: variantId },
+        data: {
+          stock: {
+            increment: data.quantity,
+          },
+        },
+      });
+
+      await tx.inventoryTransaction.create({
+        data: {
+          quantity: data.quantity,
+          type: 'RESTOCK',
+          reason: data.reason,
+          productVariantId: variantId,
+        },
+      });
+
+      return variant;
     });
   },
 };

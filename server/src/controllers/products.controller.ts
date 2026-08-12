@@ -55,3 +55,26 @@ export const getProduct = async (
     next(error);
   }
 };
+
+export const updateProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { productSlug } = req.params;
+
+    const updatedProduct = await productsService.updateProduct(
+      String(productSlug),
+      req.body,
+    );
+
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Product updated successfully',
+      data: { product: updatedProduct },
+    });
+  } catch (error) {
+    next(error);
+  }
+};

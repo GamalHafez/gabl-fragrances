@@ -1,10 +1,14 @@
 import { prisma } from '@/config/db.js';
-import { createProductSchema } from '@shared/validators/productsSchema.js';
+import {
+  createProductSchema,
+  updateProductSchema,
+} from '@shared/validators/productsSchema.js';
 import z from 'zod';
 import { Prisma } from '@/generated/prisma/client.js';
 import { AppError } from '@/utils/response.js';
 
 type CreateProductBody = z.infer<typeof createProductSchema>;
+type UpdateProductBody = z.infer<typeof updateProductSchema>;
 
 export const productsService = {
   async getProducts() {
@@ -152,5 +156,23 @@ export const productsService = {
     });
 
     return product;
+  },
+
+  async updateProduct(productSlug: string, data: UpdateProductBody) {
+    if (data.slug && data.slug !== productSlug) {
+      const existingProduct = await prisma.product.findUnique({
+        where: { slug: data.slug },
+        select: { id: true },
+      });
+
+      if (existingProduct) {
+        throw new AppError(409, 'A product already exists with this slug');
+      }
+    }
+
+    return prisma.product.update({
+      where: { slug: productSlug },
+      data,
+    });
   },
 };

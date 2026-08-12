@@ -1,9 +1,13 @@
-import { createProductSchema } from '@shared/validators/productsSchema.js';
+import {
+  createProductSchema,
+  updateProductSchema,
+} from '@shared/validators/productsSchema.js';
 import { Router } from 'express';
 import {
   getProducts,
   getProduct,
   createProduct,
+  updateProduct,
 } from '@/controllers/products.controller.js';
 import { getProductBySlug } from '@/middlewares/products/index.js';
 import {
@@ -25,6 +29,13 @@ router
   );
 
 router.param('productSlug', getProductBySlug);
-router.route('/:productSlug').get(getProduct); // For Product Details page
-
+router
+  .route('/:productSlug')
+  .get(getProduct) // For Product Details page
+  .patch(
+    requireAuth,
+    validateRequest(updateProductSchema),
+    requirePermission('products:update'),
+    updateProduct,
+  );
 export default router;

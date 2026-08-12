@@ -131,6 +131,9 @@ model Product {
   isBestSeller Boolean @default(false)
   isNew        Boolean @default(false)
 
+  // Availability
+  isActive Boolean @default(true)
+
   // Track timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

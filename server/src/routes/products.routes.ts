@@ -8,6 +8,7 @@ import {
   getProduct,
   createProduct,
   updateProduct,
+  deleteProduct,
 } from '@/controllers/products.controller.js';
 import { getProductBySlug } from '@/middlewares/products/index.js';
 import {
@@ -37,5 +38,6 @@ router
     validateRequest(updateProductSchema),
     requirePermission('products:update'),
     updateProduct,
-  );
+  )
+  .delete(requireAuth, requirePermission('products:delete'), deleteProduct);
 export default router;

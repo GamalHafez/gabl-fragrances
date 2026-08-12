@@ -13,6 +13,7 @@ type UpdateProductBody = z.infer<typeof updateProductSchema>;
 export const productsService = {
   async getProducts() {
     return prisma.product.findMany({
+      where: { isActive: true },
       orderBy: { createdAt: 'asc' },
       select: {
         id: true,
@@ -22,6 +23,7 @@ export const productsService = {
         inspiredBy: true,
         isBestSeller: true,
         isNew: true,
+        isActive: true,
 
         images: {
           select: {
@@ -149,7 +151,7 @@ export const productsService = {
 
   async findProduct(searchBy: Prisma.ProductWhereUniqueInput) {
     const product = await prisma.product.findUnique({
-      where: searchBy,
+      where: { ...searchBy, isActive: true },
       select: {
         id: true,
       },
@@ -161,7 +163,7 @@ export const productsService = {
   async updateProduct(productSlug: string, data: UpdateProductBody) {
     if (data.slug && data.slug !== productSlug) {
       const existingProduct = await prisma.product.findUnique({
-        where: { slug: data.slug },
+        where: { slug: data.slug, isActive: true },
         select: { id: true },
       });
 
@@ -171,8 +173,18 @@ export const productsService = {
     }
 
     return prisma.product.update({
-      where: { slug: productSlug },
+      where: { slug: productSlug, isActive: true },
       data,
+    });
+  },
+
+  async deleteProduct(productSlug: string) {
+    // Deactivate the product
+    return await prisma.product.update({
+      where: { slug: productSlug },
+      data: {
+        isActive: false,
+      },
     });
   },
 };

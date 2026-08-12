@@ -78,3 +78,23 @@ export const updateProduct = async (
     next(error);
   }
 };
+
+export const deleteProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { productSlug } = req.params;
+
+    const product = await productsService.deleteProduct(String(productSlug));
+
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Product archived successfully',
+      data: { product },
+    });
+  } catch (error) {
+    next(error);
+  }
+};

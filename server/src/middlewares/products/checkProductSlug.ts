@@ -13,6 +13,7 @@ export const getProductBySlug = async (
     const product = await prisma.product.findUnique({
       where: {
         slug: productSlug as string,
+        isActive: true,
       },
       select: {
         id: true,

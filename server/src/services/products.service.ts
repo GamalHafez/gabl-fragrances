@@ -8,6 +8,7 @@ import {
 import z from 'zod';
 import { Prisma } from '@/generated/prisma/client.js';
 import { AppError } from '@/utils/response.js';
+import cloudinary from '@/config/cloudinary.js';
 
 type CreateProductBody = z.infer<typeof createProductSchema>;
 type UpdateProductBody = z.infer<typeof updateProductSchema>;
@@ -93,6 +94,7 @@ export const productsService = {
           images: {
             create: images.map((image) => ({
               url: image.url,
+              publicId: image.publicId,
               description: image.description,
               isMain: image.isMain,
             })),
@@ -198,6 +200,8 @@ export const productsService = {
       select: {
         id: true,
         productId: true,
+        publicId: true,
+        isMain: true,
       },
     });
   },
@@ -256,6 +260,24 @@ export const productsService = {
         where: { id: imageId },
         data,
       });
+    });
+  },
+
+  async deleteImage(imageId: string) {
+    const existingImage = await this.findImage({ id: imageId });
+
+    if (!existingImage) {
+      throw new AppError(404, 'Product image not found');
+    }
+
+    const result = await cloudinary.uploader.destroy(existingImage.publicId);
+
+    if (result.result !== 'ok' && result.result !== 'not found') {
+      throw new AppError(500, 'Failed to delete image from Cloudinary');
+    }
+
+    return await prisma.productImage.delete({
+      where: { id: imageId },
     });
   },
 };

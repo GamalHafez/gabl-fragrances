@@ -148,6 +148,7 @@ model ProductImage {
   id          String  @id @default(uuid())
   url         String  @unique @db.Text
   description String? @db.VarChar(100)
+  publicId    String  @unique
 
   // Main img of the product
   isMain Boolean @default(false)

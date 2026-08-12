@@ -144,3 +144,25 @@ export const updateImage = async (
     next(error);
   }
 };
+
+export const deleteImage = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const {
+      params: { imageId },
+    } = req;
+
+    const image = await productsService.deleteImage(String(imageId));
+
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Product image deleted successfully',
+      data: { image },
+    });
+  } catch (error) {
+    next(error);
+  }
+};

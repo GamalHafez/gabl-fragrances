@@ -13,6 +13,7 @@ import {
   deleteProduct,
   addImage,
   updateImage,
+  deleteImage,
 } from '@/controllers/products.controller.js';
 import { getProductBySlug } from '@/middlewares/products/index.js';
 import {
@@ -61,6 +62,7 @@ router
     validateRequest(updateImageSchema),
     requirePermission('products:update'),
     updateImage,
-  );
+  )
+  .delete(requireAuth, requirePermission('products:update'), deleteImage);
 
 export default router;

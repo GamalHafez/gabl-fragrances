@@ -172,3 +172,16 @@ export const updateProductSchema = z.object({
 
   isNew: z.boolean().optional(),
 });
+
+export const addImageSchema = z.object({
+  url: z.url('Invalid image URL.'),
+
+  description: z
+    .string()
+    .trim()
+    .max(100, 'Image description cannot exceed 100 characters.')
+    .nullable()
+    .optional(),
+
+  isMain: z.boolean().default(false),
+});

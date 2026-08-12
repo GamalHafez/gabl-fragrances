@@ -98,3 +98,23 @@ export const deleteProduct = async (
     next(error);
   }
 };
+
+export const addImage = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { product, body } = req;
+
+    const image = await productsService.addImage(product.id, body);
+
+    return sendSuccess(res, {
+      statusCode: 201,
+      message: 'Product image added successfully',
+      data: { image },
+    });
+  } catch (error) {
+    next(error);
+  }
+};

@@ -1,5 +1,6 @@
 import { prisma } from '@/config/db.js';
 import {
+  addImageSchema,
   createProductSchema,
   updateProductSchema,
 } from '@shared/validators/productsSchema.js';
@@ -9,6 +10,7 @@ import { AppError } from '@/utils/response.js';
 
 type CreateProductBody = z.infer<typeof createProductSchema>;
 type UpdateProductBody = z.infer<typeof updateProductSchema>;
+type AddImageBody = z.infer<typeof addImageSchema>;
 
 export const productsService = {
   async getProducts() {
@@ -185,6 +187,44 @@ export const productsService = {
       data: {
         isActive: false,
       },
+    });
+  },
+
+  async findImage(searchBy: Prisma.ProductImageWhereUniqueInput) {
+    return await prisma.productImage.findUnique({
+      where: searchBy,
+      select: {
+        id: true,
+      },
+    });
+  },
+
+  async addImage(productId: string, data: AddImageBody) {
+    const existingImage = await this.findImage({ url: data.url });
+
+    if (existingImage) {
+      throw new AppError(409, 'Image already exists with this URL');
+    }
+
+    return prisma.$transaction(async (tx) => {
+      if (data.isMain) {
+        await tx.productImage.updateMany({
+          where: {
+            productId,
+            isMain: true,
+          },
+          data: {
+            isMain: false,
+          },
+        });
+      }
+
+      return tx.productImage.create({
+        data: {
+          productId,
+          ...data,
+        },
+      });
     });
   },
 };

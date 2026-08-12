@@ -1,4 +1,5 @@
 import {
+  addImageSchema,
   createProductSchema,
   updateProductSchema,
 } from '@shared/validators/productsSchema.js';
@@ -9,6 +10,7 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
+  addImage,
 } from '@/controllers/products.controller.js';
 import { getProductBySlug } from '@/middlewares/products/index.js';
 import {
@@ -40,4 +42,14 @@ router
     updateProduct,
   )
   .delete(requireAuth, requirePermission('products:delete'), deleteProduct);
+
+router
+  .route('/:productSlug/images')
+  .post(
+    requireAuth,
+    validateRequest(addImageSchema),
+    requirePermission('products:update'),
+    addImage,
+  );
+
 export default router;

@@ -52,6 +52,7 @@ export const productVariantsService = {
   async validateVariant(productSlug: string, variantId: string) {
     const variant = await prisma.productVariant.findFirst({
       where: {
+        isActive: true,
         id: variantId,
         product: {
           slug: productSlug,
@@ -101,6 +102,21 @@ export const productVariantsService = {
         productId: product.id,
       },
       data,
+    });
+  },
+
+  async deleteVariant(product: Product, variantId: string) {
+    await this.validateVariant(product.slug, variantId);
+
+    // Deactivate the Variant
+    return prisma.productVariant.update({
+      where: {
+        id: variantId,
+        productId: product.id,
+      },
+      data: {
+        isActive: false,
+      },
     });
   },
 

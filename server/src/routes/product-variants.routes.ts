@@ -1,5 +1,6 @@
 import {
   createVariant,
+  deleteVariant,
   restockInventory,
   updateVariant,
 } from '@/controllers/product-variants.controller.js';
@@ -31,7 +32,8 @@ router
     requirePermission('products:update'),
     validateRequest(updateVariantSchema),
     updateVariant,
-  );
+  )
+  .delete(requireAuth, requirePermission('products:delete'), deleteVariant);
 
 router
   .route('/:variantId/restock')

@@ -56,6 +56,32 @@ export const updateVariant = async (
   }
 };
 
+export const deleteVariant = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const {
+      product,
+      params: { variantId },
+    } = req;
+
+    const variant = await productVariantsService.deleteVariant(
+      product!,
+      String(variantId),
+    );
+
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Variant archived successfully',
+      data: { variant },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const restockInventory = async (
   req: Request,
   res: Response,

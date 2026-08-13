@@ -1,8 +1,5 @@
 import {
-  addImageSchema,
   createProductSchema,
-  restockSchema,
-  updateImageSchema,
   updateProductSchema,
 } from '@shared/validators/productsSchema.js';
 import { Router } from 'express';
@@ -12,10 +9,6 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
-  addImage,
-  updateImage,
-  deleteImage,
-  restockInventory,
 } from '@/controllers/products.controller.js';
 import { getProductBySlug } from '@/middlewares/products/index.js';
 import {
@@ -23,6 +16,8 @@ import {
   requirePermission,
   validateRequest,
 } from '@/middlewares/auth/index.js';
+import productImagesRoute from '@/routes/product-images.routes.js';
+import productVariantsRoute from '@/routes/product-variants.routes.js';
 
 const router = Router();
 
@@ -48,32 +43,7 @@ router
   )
   .delete(requireAuth, requirePermission('products:delete'), deleteProduct);
 
-router
-  .route('/:productSlug/images')
-  .post(
-    requireAuth,
-    validateRequest(addImageSchema),
-    requirePermission('products:update'),
-    addImage,
-  );
-
-router
-  .route('/:productSlug/images/:imageId')
-  .patch(
-    requireAuth,
-    validateRequest(updateImageSchema),
-    requirePermission('products:update'),
-    updateImage,
-  )
-  .delete(requireAuth, requirePermission('products:update'), deleteImage);
-
-router
-  .route('/:productSlug/variants/:variantId/restock')
-  .post(
-    requireAuth,
-    requirePermission('inventory:update'),
-    validateRequest(restockSchema),
-    restockInventory,
-  );
+router.use('/:productSlug/images', productImagesRoute);
+router.use('/:productSlug/variants', productVariantsRoute);
 
 export default router;

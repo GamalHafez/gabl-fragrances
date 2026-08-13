@@ -28,6 +28,34 @@ export const createVariant = async (
   }
 };
 
+export const updateVariant = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const {
+      product,
+      params: { variantId },
+      body,
+    } = req;
+
+    const variant = await productVariantsService.updateVariant(
+      product!,
+      String(variantId),
+      body,
+    );
+
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Variant updated successfully',
+      data: { variant },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const restockInventory = async (
   req: Request,
   res: Response,

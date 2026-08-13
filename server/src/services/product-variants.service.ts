@@ -3,12 +3,15 @@ import { AppError } from '@/utils/response.js';
 import {
   createVariantSchema,
   restockSchema,
+  updateVariantSchema,
 } from '@shared/validators/productsSchema.js';
-import z, { check } from 'zod';
+import z from 'zod';
 import { productsService } from './products.service.js';
+import { Product } from '@shared/types/index.js';
 
 type CreateVariantBody = z.infer<typeof createVariantSchema>;
 type RestockBody = z.infer<typeof restockSchema>;
+type UpdateVariantBody = z.infer<typeof updateVariantSchema>;
 
 export const productVariantsService = {
   async productVariantExists(productId: string, sizeML: number) {
@@ -62,6 +65,43 @@ export const productVariantsService = {
     }
 
     return variant;
+  },
+
+  async updateVariant(
+    product: Product,
+    variantId: string,
+    data: UpdateVariantBody,
+  ) {
+    await this.validateVariant(product.slug, variantId);
+
+    if (data.sizeML !== undefined) {
+      const existingVariant = await prisma.productVariant.findUnique({
+        where: {
+          productId_sizeML: {
+            productId: product.id,
+            sizeML: data.sizeML,
+          },
+        },
+        select: {
+          id: true,
+        },
+      });
+
+      if (existingVariant && existingVariant.id !== variantId) {
+        throw new AppError(
+          409,
+          `This product already has a ${data.sizeML}ml variant`,
+        );
+      }
+    }
+
+    return prisma.productVariant.update({
+      where: {
+        id: variantId,
+        productId: product.id,
+      },
+      data,
+    });
   },
 
   async restock(productSlug: string, variantId: string, data: RestockBody) {

@@ -222,3 +222,13 @@ export const createVariantSchema = z.object({
     .int('Stock must be a whole number.')
     .min(0, 'Stock cannot be negative.'),
 });
+
+export const updateVariantSchema = z.object({
+  sizeML: z
+    .number()
+    .int('Size must be a whole number.')
+    .positive('Size must be greater than 0.')
+    .optional(),
+
+  price: z.number().positive('Price must be greater than 0.').optional(),
+});

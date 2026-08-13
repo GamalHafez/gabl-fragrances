@@ -1,10 +1,15 @@
-import { createVariant, restockInventory } from '@/controllers/product-variants.controller.js';
+import {
+  createVariant,
+  restockInventory,
+  updateVariant,
+} from '@/controllers/product-variants.controller.js';
 import { requireAuth } from '@/middlewares/auth/requireAuth.js';
 import { requirePermission } from '@/middlewares/auth/requirePermission.js';
 import { validateRequest } from '@/middlewares/auth/validateRequest.js';
 import {
   createVariantSchema,
   restockSchema,
+  updateVariantSchema,
 } from '@shared/validators/productsSchema.js';
 import { Router } from 'express';
 
@@ -17,6 +22,15 @@ router
     requirePermission('products:update'),
     validateRequest(createVariantSchema),
     createVariant,
+  );
+
+router
+  .route('/:variantId')
+  .patch(
+    requireAuth,
+    requirePermission('products:update'),
+    validateRequest(updateVariantSchema),
+    updateVariant,
   );
 
 router

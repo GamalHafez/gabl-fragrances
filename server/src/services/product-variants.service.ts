@@ -14,6 +14,23 @@ type RestockBody = z.infer<typeof restockSchema>;
 type UpdateVariantBody = z.infer<typeof updateVariantSchema>;
 
 export const productVariantsService = {
+  async getVariants(productId: string) {
+    return await prisma.productVariant.findMany({
+      where: { isActive: true, productId },
+
+      select: {
+        id: true,
+        sizeML: true,
+        price: true,
+        stock: true,
+        isActive: true,
+      },
+      orderBy: {
+        sizeML: 'asc',
+      },
+    });
+  },
+
   async productVariantExists(productId: string, sizeML: number) {
     return await prisma.productVariant.findUnique({
       where: {

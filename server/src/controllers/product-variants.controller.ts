@@ -2,6 +2,25 @@ import { productVariantsService } from '@/services/product-variants.service.js';
 import { sendSuccess } from '@/utils/response.js';
 import type { NextFunction, Request, Response } from 'express';
 
+export const getVariants = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { product } = req;
+
+    const variants = await productVariantsService.getVariants(product!.id);
+
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Variants retrieved successfully',
+      data: { variants },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 export const createVariant = async (
   req: Request,
   res: Response,

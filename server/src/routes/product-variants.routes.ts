@@ -1,6 +1,7 @@
 import {
   createVariant,
   deleteVariant,
+  getVariants,
   restockInventory,
   updateVariant,
 } from '@/controllers/product-variants.controller.js';
@@ -18,6 +19,7 @@ const router = Router();
 
 router
   .route('/')
+  .get(requireAuth, requirePermission('products:read'), getVariants)
   .post(
     requireAuth,
     requirePermission('products:update'),

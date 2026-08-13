@@ -208,3 +208,17 @@ export const restockSchema = z.object({
 
   reason: z.string().trim().max(255).optional(),
 });
+
+export const createVariantSchema = z.object({
+  sizeML: z
+    .number()
+    .int('Size must be a whole number.')
+    .positive('Size must be greater than 0.'),
+
+  price: z.number().positive('Price must be greater than 0.'),
+
+  stock: z
+    .number()
+    .int('Stock must be a whole number.')
+    .min(0, 'Stock cannot be negative.'),
+});

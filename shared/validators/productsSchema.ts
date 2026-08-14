@@ -87,6 +87,8 @@ export const createProductSchema = z.object({
           .number()
           .int('Stock must be a whole number.')
           .min(0, 'Stock cannot be negative.'),
+
+        label: z.string().trim().min(1).max(100).nullable().optional(),
       }),
     )
     .min(1, 'At least one product variant is required.')
@@ -221,6 +223,8 @@ export const createVariantSchema = z.object({
     .number()
     .int('Stock must be a whole number.')
     .min(0, 'Stock cannot be negative.'),
+
+  label: z.string().trim().min(1).max(100).nullable().optional(),
 });
 
 export const updateVariantSchema = z.object({
@@ -231,4 +235,6 @@ export const updateVariantSchema = z.object({
     .optional(),
 
   price: z.number().positive('Price must be greater than 0.').optional(),
+
+  label: z.string().trim().min(1).max(100).nullable().optional(),
 });

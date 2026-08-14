@@ -22,6 +22,7 @@ export type ProductVariant = {
   sizeML: number;
   price: number;
   stock: number;
+  label?: string;
 };
 
 export type ProductReview = {

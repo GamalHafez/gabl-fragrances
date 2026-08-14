@@ -24,6 +24,7 @@ export const productVariantsService = {
         price: true,
         stock: true,
         isActive: true,
+        label: true,
       },
       orderBy: {
         sizeML: 'asc',
@@ -31,13 +32,16 @@ export const productVariantsService = {
     });
   },
 
-  async productVariantExists(productId: string, sizeML: number) {
-    return await prisma.productVariant.findUnique({
+  async productVariantExists(
+    productId: string,
+    sizeML: number,
+    label?: string,
+  ) {
+    return await prisma.productVariant.findFirst({
       where: {
-        productId_sizeML: {
-          productId,
-          sizeML,
-        },
+        productId,
+        sizeML,
+        label: label ?? undefined,
       },
     });
   },
@@ -52,12 +56,15 @@ export const productVariantsService = {
     const existingVariant = await this.productVariantExists(
       product.id,
       data.sizeML,
+      data.label ?? undefined,
     );
 
     if (existingVariant) {
       throw new AppError(
         409,
-        `This product already has a ${data.sizeML}ml variant`,
+        data.label
+          ? `This product already has a ${data.label} ${data.sizeML}ml variant`
+          : `This product already has a ${data.sizeML}ml variant`,
       );
     }
 
@@ -90,27 +97,24 @@ export const productVariantsService = {
     variantId: string,
     data: UpdateVariantBody,
   ) {
-    await this.validateVariant(product.slug, variantId);
+    const variant = await this.validateVariant(product.slug, variantId);
 
-    if (data.sizeML !== undefined) {
-      const existingVariant = await prisma.productVariant.findUnique({
-        where: {
-          productId_sizeML: {
-            productId: product.id,
-            sizeML: data.sizeML,
-          },
-        },
-        select: {
-          id: true,
-        },
-      });
+    const sizeML = data.sizeML ?? variant.sizeML;
+    const label = data.label !== undefined ? data.label : variant.label;
 
-      if (existingVariant && existingVariant.id !== variantId) {
-        throw new AppError(
-          409,
-          `This product already has a ${data.sizeML}ml variant`,
-        );
-      }
+    const existingVariant = await this.productVariantExists(
+      product.id,
+      sizeML,
+      label ?? undefined,
+    );
+
+    if (existingVariant && existingVariant.id !== variantId) {
+      throw new AppError(
+        409,
+        label
+          ? `This product already has a ${label} ${sizeML}ml variant`
+          : `This product already has a ${sizeML}ml variant`,
+      );
     }
 
     return prisma.productVariant.update({

@@ -10,7 +10,7 @@ export const addImage = async (
   try {
     const { product, body } = req;
 
-    const image = await productImagesService.addImage(product.id, body);
+    const image = await productImagesService.addImage(product!.id, body);
 
     return sendSuccess(res, {
       statusCode: 201,

@@ -166,6 +166,7 @@ model ProductImage {
 
 model ProductVariant {
   id     String  @id @default(uuid())
+  label  String? @db.VarChar(100)
   sizeML Int     @db.SmallInt
   stock  Int     @default(0)
   price  Decimal @db.Decimal(10, 2)
@@ -183,7 +184,7 @@ model ProductVariant {
   orderItems            OrderItem[]
   inventoryTransactions InventoryTransaction[]
 
-  @@unique([productId, sizeML])
+  @@unique([productId, label, sizeML])
   @@index([productId])
 }
 

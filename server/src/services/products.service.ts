@@ -86,17 +86,20 @@ export const productsService = {
           isBestSeller,
           isNew,
 
-          images: {
-            create: images.map((image) => ({
-              url: image.url,
-              publicId: image.publicId,
-              description: image.description,
-              isMain: image.isMain,
-            })),
-          },
+          images: images.length
+            ? {
+                create: images.map((image) => ({
+                  url: image.url,
+                  publicId: image.publicId,
+                  description: image.description,
+                  isMain: image.isMain,
+                })),
+              }
+            : undefined,
 
           variants: {
             create: variants.map((variant) => ({
+              label: variant.label,
               sizeML: variant.sizeML,
               price: variant.price,
               stock: variant.stock,

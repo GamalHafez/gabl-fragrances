@@ -71,7 +71,8 @@ export const createProductSchema = z.object({
         isMain: z.boolean().default(false),
       }),
     )
-    .min(1, 'At least one product image is required.'),
+    .optional()
+    .default([]),
 
   variants: z
     .array(

@@ -1,3 +1,5 @@
+import { Decimal } from "@/generated/prisma/internal/prismaNamespace";
+
 export type ProductGender = 'MEN' | 'WOMEN' | 'UNISEX';
 
 export type Weather = 'SUMMER' | 'WINTER' | 'SPRING' | 'AUTUMN' | 'ALL_SEASONS';
@@ -12,23 +14,29 @@ export type ProductImage = {
   id: string;
   url: string;
   publicId: string;
-  description?: string | null;
+  description?: string | undefined | null;
   isMain: boolean;
   productId?: string;
+
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export type ProductVariant = {
   id: string;
   sizeML: number;
-  price: number;
+  price: Decimal;
   stock: number;
-  label?: string;
+  label?: string | null;
+
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export type ProductReview = {
   id: string;
   rating: number;
-  comment: string | null;
+  comment?: string | null;
 };
 
 export type Product = {
@@ -43,7 +51,7 @@ export type Product = {
   topNotes?: string[];
   midNotes?: string[];
   baseNotes?: string[];
-  vibes?: string[];
+  vibes?: string;
 
   bestSeasons?: Weather[];
 
@@ -53,6 +61,6 @@ export type Product = {
   variants: ProductVariant[];
   reviews?: ProductReview[];
 
-  createdAt?: string;
-  updatedAt?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 };

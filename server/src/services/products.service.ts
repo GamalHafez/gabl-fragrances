@@ -20,6 +20,12 @@ export const productsService = {
         slug: true,
         name: true,
         gender: true,
+        description: true,
+        topNotes: true,
+        midNotes: true,
+        baseNotes: true,
+        bestSeasons: true,
+        vibes: true,
         inspiredBy: true,
         isBestSeller: true,
         isNew: true,
@@ -29,13 +35,16 @@ export const productsService = {
           select: {
             id: true,
             url: true,
-            alt: true,
+            description: true,
+            isMain: true,
+            publicId: true,
           },
         },
 
         variants: {
           select: {
             id: true,
+            label: true,
             sizeML: true,
             price: true,
             stock: true,

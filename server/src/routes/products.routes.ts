@@ -1,8 +1,8 @@
+import { Router } from 'express';
 import {
   createProductSchema,
   updateProductSchema,
 } from '@shared/validators/productsSchema.js';
-import { Router } from 'express';
 import {
   getProducts,
   getProduct,
@@ -19,9 +19,11 @@ import {
 } from '@/middlewares/auth/index.js';
 import productImagesRoute from '@/routes/product-images.routes.js';
 import productVariantsRoute from '@/routes/product-variants.routes.js';
+import productReviewsRoute from '@/routes/product-reviews.routes.js';
 
 const router = Router();
 
+/* Product collection */
 router
   .route('/')
   .get(getProducts)
@@ -32,7 +34,9 @@ router
     createProduct,
   );
 
+/* Product resources */
 router.param('productSlug', getProductBySlug);
+
 router
   .route('/:productSlug')
   .get(getProduct) // For Product Details page
@@ -44,9 +48,11 @@ router
   )
   .delete(requireAuth, requirePermission('products:delete'), deleteProduct);
 
+// Product sub-resources
 router.get('/:productSlug/related', getRelatedProducts);
 
 router.use('/:productSlug/images', productImagesRoute);
 router.use('/:productSlug/variants', productVariantsRoute);
+router.use('/:productSlug/reviews', productReviewsRoute);
 
 export default router;

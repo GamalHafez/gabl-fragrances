@@ -15,8 +15,8 @@ type ProductInfoProps = {
 
 export const ProductInfo = ({ product }: ProductInfoProps) => {
   const { isDark } = useTheme();
-  const [quantity, setQuantity] = useState(1);
   const { name, inspiredBy, variants, description } = product;
+  const [quantity, setQuantity] = useState(1);
   const badges = getProductBadges(product);
   const inStock = product.variants.some(
     (variant) => variant.isActive && variant.stock > 0,
@@ -50,6 +50,7 @@ export const ProductInfo = ({ product }: ProductInfoProps) => {
         <ProductOptions
           key={v.id}
           size={v.sizeML}
+          stock={v.stock}
           quantity={quantity}
           onQuantityChange={setQuantity}
           inStock={inStock}

@@ -6,6 +6,7 @@ import type { Dispatch, SetStateAction } from "react";
 type ProductOptionsProps = {
   size: number;
   quantity: number;
+  stock: number;
   inStock: boolean;
   onQuantityChange: Dispatch<SetStateAction<number>>;
 };
@@ -13,6 +14,7 @@ type ProductOptionsProps = {
 export const ProductOptions = ({
   size,
   quantity,
+  stock,
   inStock,
   onQuantityChange,
 }: ProductOptionsProps) => {
@@ -47,12 +49,13 @@ export const ProductOptions = ({
                 : "border-zinc-300 bg-zinc-100 text-zinc-400"),
           )}
         >
-          {size} ml
+          {size} ML
         </button>
       </div>
 
       <QuantitySelector
         inStock={inStock}
+        stock={stock}
         quantity={quantity}
         onQuantityChange={onQuantityChange}
       />

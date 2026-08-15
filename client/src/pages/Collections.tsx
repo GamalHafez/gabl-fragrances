@@ -1,27 +1,15 @@
 import {
   CollectionsHero,
   CollectionsGrid,
+  ProductsError,
 } from "@/components/collections/index";
+import { CollectionsSkeleton } from "@/components/skeleton/CollectionsSkeleton";
 import Reveal from "@/components/ui/animation/Reveal";
 import { Container, PageWrapper } from "@/components/ui/common";
 import { useProducts } from "@/hooks/products";
 
 export const Collections = () => {
-  const { data: products, isLoading, error } = useProducts();
-
-  if (isLoading) {
-    return;
-    //<ProductsSkeleton />;
-  }
-
-  if (error) {
-    return;
-    //<ProductsError />;
-  }
-
-  if (!products) {
-    return null;
-  }
+  const { data: products, isPending, isError, refetch } = useProducts();
 
   return (
     <PageWrapper>
@@ -31,9 +19,15 @@ export const Collections = () => {
         {/**  WIll ADD FILTERING BUTTONS ... */}
 
         {/**  Products... */}
-        <Reveal>
-          <CollectionsGrid products={products} />
-        </Reveal>
+        {isPending ? (
+          <CollectionsSkeleton />
+        ) : isError ? (
+          <ProductsError onRetry={() => refetch()} />
+        ) : (
+          <Reveal>
+            <CollectionsGrid products={products ?? []} />
+          </Reveal>
+        )}
       </Container>
     </PageWrapper>
   );

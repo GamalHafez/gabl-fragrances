@@ -14,7 +14,7 @@ export default function Reveal({ children }: RevealProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40, scale: 0.98 }}
+      initial={{ opacity: 0, y: 20, scale: 0.98 }}
       whileInView={{
         opacity: 1,
         y: 0,

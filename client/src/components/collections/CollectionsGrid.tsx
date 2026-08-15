@@ -11,7 +11,7 @@ export const CollectionsGrid = ({ products }: CollectionsGridProps) => {
     <section className="py-12 pt-8">
       <div className="grid grid-cols-2 gap-6 md:grid-cols-3 md:gap-22 xl:grid-cols-4 xl:gap-x-20">
         {products &&
-          products.map((product) => (
+          products?.map((product) => (
             <Link
               key={product.id}
               to={`/products/${product.slug}`}

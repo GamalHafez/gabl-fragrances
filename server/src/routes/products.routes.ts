@@ -9,6 +9,7 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
+  getRelatedProducts,
 } from '@/controllers/products.controller.js';
 import { getProductBySlug } from '@/middlewares/products/index.js';
 import {
@@ -42,6 +43,8 @@ router
     updateProduct,
   )
   .delete(requireAuth, requirePermission('products:delete'), deleteProduct);
+
+router.get('/:productSlug/related', getRelatedProducts);
 
 router.use('/:productSlug/images', productImagesRoute);
 router.use('/:productSlug/variants', productVariantsRoute);

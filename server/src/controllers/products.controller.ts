@@ -98,3 +98,22 @@ export const deleteProduct = async (
     next(error);
   }
 };
+
+export const getRelatedProducts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { product } = req;
+    const relatedProducts = await productsService.getRelatedProducts(product!);
+
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Related Products retrieved successfully',
+      data: { relatedProducts },
+    });
+  } catch (error) {
+    next(error);
+  }
+};

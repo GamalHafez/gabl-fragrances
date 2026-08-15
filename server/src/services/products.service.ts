@@ -6,6 +6,7 @@ import {
 import z from 'zod';
 import { Prisma } from '@/generated/prisma/client.js';
 import { AppError } from '@/utils/response.js';
+import { Product } from '@shared/types/product.js';
 
 type CreateProductBody = z.infer<typeof createProductSchema>;
 type UpdateProductBody = z.infer<typeof updateProductSchema>;
@@ -197,6 +198,58 @@ export const productsService = {
       where: { slug: productSlug },
       data: {
         isActive: false,
+      },
+    });
+  },
+
+  async getRelatedProducts(product: Product) {
+    return await prisma.product.findMany({
+      where: {
+        isActive: true,
+        id: {
+          not: product.id,
+        },
+        gender: product.gender,
+        bestSeasons: {
+          hasSome: product.bestSeasons,
+        },
+      },
+      take: 8,
+      orderBy: {
+        createdAt: 'desc',
+      },
+
+      select: {
+        id: true,
+        slug: true,
+        name: true,
+        gender: true,
+        isBestSeller: true,
+        isNew: true,
+        images: {
+          where: {
+            isMain: true,
+          },
+          select: {
+            id: true,
+            url: true,
+            publicId: true,
+            isMain: true,
+            description: true,
+          },
+        },
+        variants: {
+          where: {
+            isActive: true,
+          },
+          select: {
+            id: true,
+            sizeML: true,
+            price: true,
+            stock: true,
+            label: true,
+          },
+        },
       },
     });
   },

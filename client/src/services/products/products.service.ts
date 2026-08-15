@@ -9,6 +9,10 @@ type GetProductResponse = {
   product: Product;
 };
 
+type GetRelatedProductsResponse = {
+  relatedProducts: Product[];
+};
+
 export const productsService = {
   async getProducts(): Promise<Product[]> {
     const data = await apiClient.get<GetProductsResponse>(
@@ -23,5 +27,12 @@ export const productsService = {
     const data = await apiClient.get<GetProductResponse>(url);
 
     return data.product;
+  },
+
+  async getRelatedProducts(productSlug: string): Promise<Product[]> {
+    const url = `${API_ENDPOINTS.PRODUCTS}/${productSlug}/related`;
+    const data = await apiClient.get<GetRelatedProductsResponse>(url);
+
+    return data.relatedProducts;
   },
 };

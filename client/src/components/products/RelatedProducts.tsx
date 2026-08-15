@@ -9,13 +9,26 @@ import { ProductCard } from "../collections";
 import { MainHeading } from "@/components/ui/common";
 import { Link } from "react-router-dom";
 import type { Product } from "@shared/types/product";
+import { RelatedProductsSkeleton } from "../skeleton";
 
 type RelatedProductsProps = {
   relatedProducts: Product[];
+  isLoading: boolean;
+  isError: boolean;
 };
 
-export const RelatedProducts = ({ relatedProducts }: RelatedProductsProps) => {
-  if (relatedProducts.length === 0) {
+export const RelatedProducts = ({
+  relatedProducts,
+  isLoading,
+  isError,
+}: RelatedProductsProps) => {
+  console.log(relatedProducts);
+
+  if (isLoading) {
+    return <RelatedProductsSkeleton />;
+  }
+
+  if (isError || !relatedProducts?.length) {
     return null;
   }
 

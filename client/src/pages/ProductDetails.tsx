@@ -6,8 +6,8 @@ import clsx from "clsx";
 import { ProductTrustInfo } from "@/components/products/ProductTrustInfo";
 import { CustomerReviews } from "@/components/products/CustomerReviews";
 import { reviews } from "@/components/products/CustomerReviews/mockReviews";
-// import { RelatedProducts } from "@/components/products/RelatedProducts";
-import { useProduct } from "@/hooks/products";
+import { RelatedProducts } from "@/components/products/RelatedProducts";
+import { useProduct, useRelatedProducts } from "@/hooks/products";
 import { ProductDetailsSkeleton } from "@/components/skeleton";
 import { DataError } from "@/components/ui/errors/DataError";
 
@@ -16,14 +16,21 @@ export const ProductDetails = () => {
   const { productSlug } = useParams();
   const {
     data: product,
-    isPending,
-    isError,
-    refetch,
-  } = useProduct(String(productSlug));
+    isPending: isProductPending,
+    isError: isProductError,
+    refetch: refetchProduct,
+  } = useProduct(productSlug);
+
+  const {
+    data: relatedProducts,
+    isPending: isRelatedPending,
+    isError: isRelatedError,
+  } = useRelatedProducts(productSlug);
+
   const productMainImage =
     product?.images.find((image) => image.isMain) ?? product?.images[0];
 
-  if (isPending) {
+  if (isProductPending) {
     return (
       <PageWrapper>
         <Container>
@@ -33,13 +40,13 @@ export const ProductDetails = () => {
     );
   }
 
-  if (isError || !product) {
+  if (isProductError || !product) {
     return (
       <PageWrapper>
         <Container>
           <DataError
             message="We couldn't load this fragrance right now."
-            onRetry={() => refetch()}
+            onRetry={() => refetchProduct()}
           />
         </Container>
       </PageWrapper>
@@ -67,12 +74,13 @@ export const ProductDetails = () => {
 
           <ProductInfo product={product} />
         </section>
-
         <CustomerReviews reviews={reviews} />
-
         <ProductTrustInfo />
-
-        {/** <RelatedProducts relatedProducts={relatedProducts} /> */}
+        <RelatedProducts
+          relatedProducts={relatedProducts ?? []}
+          isLoading={isRelatedPending}
+          isError={isRelatedError}
+        />
       </Container>
     </PageWrapper>
   );

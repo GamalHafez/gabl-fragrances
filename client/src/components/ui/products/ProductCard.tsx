@@ -1,4 +1,3 @@
-import placeholder from "@/assets/placeholder.webp";
 import { ArrowRight } from "lucide-react";
 import { AddToCart } from "./AddToCart";
 import { Eyebrow } from "@/components/ui/home";
@@ -13,6 +12,8 @@ type ProductCardProps = {
 export const ProductCard = ({ product }: ProductCardProps) => {
   const { isDark } = useTheme();
   const { name, gender, variants } = product;
+  const productMainImage =
+    product?.images.find((image) => image.isMain) ?? product?.images[0];
 
   return (
     <article className="group flex cursor-pointer flex-col items-center overflow-hidden rounded-3xl">
@@ -24,8 +25,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         )}
       >
         <img
-          src={placeholder}
-          alt={name}
+          src={productMainImage?.url}
+          alt={productMainImage?.description ?? product?.name}
           className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
         />
       </div>

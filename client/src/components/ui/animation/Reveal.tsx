@@ -20,7 +20,7 @@ export default function Reveal({ children }: RevealProps) {
         y: 0,
         scale: 1,
       }}
-      viewport={{ once: false, amount: 0.2 }}
+      viewport={{ once: false, amount: 0.05 }}
       transition={{
         duration: 0.8,
         ease: "easeOut",

@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import { Container, PageWrapper } from "@/components/ui/common";
-import placeholder from "@/assets/placeholder.webp";
 import { ProductInfo } from "@/components/products/ProductInfo";
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
@@ -9,24 +8,42 @@ import { CustomerReviews } from "@/components/products/CustomerReviews";
 import { reviews } from "@/components/products/CustomerReviews/mockReviews";
 // import { RelatedProducts } from "@/components/products/RelatedProducts";
 import { useProduct } from "@/hooks/products";
+import { ProductDetailsSkeleton } from "@/components/skeleton";
+import { DataError } from "@/components/ui/errors/DataError";
 
 export const ProductDetails = () => {
   const { isDark } = useTheme();
   const { productSlug } = useParams();
-  const { data: product, isLoading, error } = useProduct(String(productSlug));
+  const {
+    data: product,
+    isPending,
+    isError,
+    refetch,
+  } = useProduct(String(productSlug));
+  const productMainImage =
+    product?.images.find((image) => image.isMain) ?? product?.images[0];
 
-  if (isLoading) {
-    return;
-    //<ProductSkeleton />;
+  if (isPending) {
+    return (
+      <PageWrapper>
+        <Container>
+          <ProductDetailsSkeleton />
+        </Container>
+      </PageWrapper>
+    );
   }
 
-  if (error) {
-    return;
-    //<ProductError />;
-  }
-
-  if (!product) {
-    return null;
+  if (isError || !product) {
+    return (
+      <PageWrapper>
+        <Container>
+          <DataError
+            message="We couldn't load this fragrance right now."
+            onRetry={() => refetch()}
+          />
+        </Container>
+      </PageWrapper>
+    );
   }
 
   return (
@@ -42,8 +59,8 @@ export const ProductDetails = () => {
             )}
           >
             <img
-              src={placeholder}
-              alt="Product"
+              src={productMainImage?.url}
+              alt={productMainImage?.description ?? product?.name}
               className="aspect-square w-full rounded-2xl object-cover"
             />
           </div>

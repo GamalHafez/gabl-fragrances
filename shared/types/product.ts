@@ -36,8 +36,12 @@ export type ProductVariant = {
 
 export type ProductReview = {
   id: string;
+  name: string;
   rating: number;
-  comment?: string | null;
+  review: string;
+  imageUrl: string | null;
+
+  createdAt?: string;
 };
 
 export type Product = {

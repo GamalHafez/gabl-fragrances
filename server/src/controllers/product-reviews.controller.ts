@@ -21,3 +21,28 @@ export const getReviews = async (
     next(error);
   }
 };
+
+export const createReview = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { product, body, user } = req;
+    const userId = user?.id ?? null;
+
+    const review = await productReviewsService.createReview(
+      product!.id,
+      userId,
+      body,
+    );
+
+    return sendSuccess(res, {
+      statusCode: 201,
+      message: 'Review created successfully',
+      data: { review },
+    });
+  } catch (error) {
+    next(error);
+  }
+};

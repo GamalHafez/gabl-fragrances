@@ -4,21 +4,24 @@ import {
 } from "@/components/collections/index";
 import Reveal from "@/components/ui/animation/Reveal";
 import { Container, PageWrapper } from "@/components/ui/common";
-import { productsService } from "@/services/products/products.service";
-import type { Product } from "@shared/types/product";
-import { useEffect, useState } from "react";
+import { useProducts } from "@/hooks/products";
 
 export const Collections = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const { data: products, isLoading, error } = useProducts();
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const products = await productsService.getProducts();
-      setProducts(products);
-    };
+  if (isLoading) {
+    return;
+    //<ProductsSkeleton />;
+  }
 
-    fetchProducts();
-  }, []);
+  if (error) {
+    return;
+    //<ProductsError />;
+  }
+
+  if (!products) {
+    return null;
+  }
 
   return (
     <PageWrapper>

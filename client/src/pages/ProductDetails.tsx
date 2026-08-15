@@ -7,29 +7,26 @@ import clsx from "clsx";
 import { ProductTrustInfo } from "@/components/products/ProductTrustInfo";
 import { CustomerReviews } from "@/components/products/CustomerReviews";
 import { reviews } from "@/components/products/CustomerReviews/mockReviews";
-import { RelatedProducts } from "@/components/products/RelatedProducts";
-import { useEffect, useState } from "react";
-import { productsService } from "@/services/products/products.service";
-import type { Product } from "@shared/types/product";
+// import { RelatedProducts } from "@/components/products/RelatedProducts";
+import { useProduct } from "@/hooks/products";
 
 export const ProductDetails = () => {
   const { isDark } = useTheme();
   const { productSlug } = useParams();
-  const [displayedProduct, setDisplayedProduct] = useState<Product>();
+  const { data: product, isLoading, error } = useProduct(String(productSlug));
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      const fetchProduct = await productsService.getProduct(
-        String(productSlug),
-      );
-      setDisplayedProduct(fetchProduct);
-    };
+  if (isLoading) {
+    return;
+    //<ProductSkeleton />;
+  }
 
-    fetchProduct();
-  }, [productSlug]);
+  if (error) {
+    return;
+    //<ProductError />;
+  }
 
-  if (!displayedProduct) {
-    return; // will be handled later
+  if (!product) {
+    return null;
   }
 
   return (
@@ -51,7 +48,7 @@ export const ProductDetails = () => {
             />
           </div>
 
-          <ProductInfo product={displayedProduct} />
+          <ProductInfo product={product} />
         </section>
 
         <CustomerReviews reviews={reviews} />

@@ -1,4 +1,4 @@
-import type { Prisma } from '../../server/src/generated/prisma/client.js';
+import { Decimal } from './../../server/src/generated/prisma/internal/prismaNamespace';
 
 export type ProductGender = 'MEN' | 'WOMEN' | 'UNISEX';
 
@@ -25,9 +25,10 @@ export type ProductImage = {
 export type ProductVariant = {
   id: string;
   sizeML: number;
-  price: Prisma.Decimal;
+  price: Decimal | string;
   stock: number;
   label?: string | null;
+  isActive?: boolean;
 
   createdAt?: Date;
   updatedAt?: Date;

@@ -1,14 +1,18 @@
-import type { Product } from "@/mockProducts";
 import placeholder from "@/assets/placeholder.webp";
 import { ArrowRight } from "lucide-react";
 import { AddToCart } from "./AddToCart";
 import { Eyebrow } from "@/components/ui/home";
 import clsx from "clsx";
 import { useTheme } from "@/context/useTheme";
+import type { Product } from "@shared/types/product";
 
-export const ProductCard = ({ product }: { product: Product }) => {
+type ProductCardProps = {
+  product: Product;
+};
+
+export const ProductCard = ({ product }: ProductCardProps) => {
   const { isDark } = useTheme();
-  const { name, size, price, collection } = product;
+  const { name, gender, variants } = product;
 
   return (
     <article className="group flex cursor-pointer flex-col items-center overflow-hidden rounded-3xl">
@@ -42,7 +46,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
           )}
         >
           <Eyebrow
-            eyebrow={collection}
+            eyebrow={gender}
             className="text-xs tracking-widest lg:text-xs"
           />
           <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 md:h-5 md:w-5" />
@@ -50,7 +54,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
 
         <h2
           className={clsx(
-            "font-semibold transition-colors duration-300 md:text-lg",
+            "font-semibold capitalize transition-colors duration-300 md:text-lg",
             isDark
               ? "group-hover:text-brand-100 text-zinc-100"
               : "group-hover:text-brand-500 text-zinc-900",
@@ -59,26 +63,31 @@ export const ProductCard = ({ product }: { product: Product }) => {
           {name}
         </h2>
 
-        <p
-          className={clsx(
-            "text-sm uppercase",
-            isDark ? "text-zinc-400" : "text-zinc-500",
-          )}
-        >
-          {size} ml
-        </p>
+        {variants.map((v) => (
+          <span key={v.id}>
+            <p
+              className={clsx(
+                "text-sm uppercase",
+                isDark ? "text-zinc-400" : "text-zinc-500",
+              )}
+            >
+              {v.sizeML} ml
+            </p>
 
-        <div className="mt-3 flex items-center justify-between md:mt-3">
-          <p
-            className={clsx(
-              "text-xl font-bold md:text-xl",
-              isDark ? "text-zinc-100" : "text-zinc-900",
-            )}
-          >
-            ${price}
-          </p>
-          <AddToCart />
-        </div>
+            <div className="mt-3 flex items-center justify-between md:mt-3">
+              <p
+                className={clsx(
+                  "text-xl font-bold md:text-xl",
+                  isDark ? "text-zinc-100" : "text-zinc-900",
+                )}
+              >
+                {v.price.toString()}
+                <span className="ml-1 text-sm">EGP</span>
+              </p>
+              <AddToCart />
+            </div>
+          </span>
+        ))}
       </div>
     </article>
   );

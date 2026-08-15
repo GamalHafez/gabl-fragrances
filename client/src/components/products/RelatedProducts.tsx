@@ -1,4 +1,3 @@
-import { products, type Product } from "@/mockProducts";
 import {
   Carousel,
   CarouselContent,
@@ -9,16 +8,13 @@ import {
 import { ProductCard } from "../collections";
 import { MainHeading } from "@/components/ui/common";
 import { Link } from "react-router-dom";
+import type { Product } from "@shared/types/product";
 
 type RelatedProductsProps = {
-  product: Product;
+  relatedProducts: Product[];
 };
 
-export const RelatedProducts = ({ product }: RelatedProductsProps) => {
-  const relatedProducts = products
-    .filter((p) => p.collection === product.collection && p.id !== product.id)
-    .slice(0, 8);
-
+export const RelatedProducts = ({ relatedProducts }: RelatedProductsProps) => {
   if (relatedProducts.length === 0) {
     return null;
   }

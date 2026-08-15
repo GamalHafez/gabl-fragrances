@@ -1,5 +1,5 @@
-import type { Product } from "@/mockProducts";
-import { ProductBadges, type ProductBadge } from "./ProductBadges/index";
+import type { Product } from "@shared/types/product";
+import { ProductBadges } from "./ProductBadges/index";
 import { ProductHeader } from "./ProductHeader";
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
@@ -7,6 +7,7 @@ import { ProductOptions } from "./ProductOptions";
 import { useState } from "react";
 import { ProductActions } from "./ProductActions";
 import { ProductQuickLinks } from "./ProductQuickLinks";
+import { getProductBadges } from "@/utils";
 
 type ProductInfoProps = {
   product: Product;
@@ -15,35 +16,26 @@ type ProductInfoProps = {
 export const ProductInfo = ({ product }: ProductInfoProps) => {
   const { isDark } = useTheme();
   const [quantity, setQuantity] = useState(1);
-  const { collection, inStock, name, inspiredBy, price, description, size } =
-    product;
-
-  // Will be deleted and get it from BackEnd
-  const badges: ProductBadge[] = [
-    {
-      label: inStock ? "In Stock" : "Out of Stock",
-      status: inStock ? "stock" : "out-of-stock",
-    },
-    {
-      label: `${collection}'s Collection`,
-      status: "collection",
-    },
-  ];
+  const { name, inspiredBy, variants, description } = product;
+  const badges = getProductBadges(product);
+  const inStock = product.variants.some(
+    (variant) => variant.isActive && variant.stock > 0,
+  );
 
   return (
     <div className="flex h-full flex-col justify-center space-y-5 px-4 md:px-0">
-      <ProductBadges
-        // To be dynamic later ...
-        badges={badges}
-      />
+      <ProductBadges badges={badges} />
 
-      <ProductHeader
-        name={name}
-        inspiredBy={inspiredBy}
-        rating={4} // To be dynamic later ...
-        reviewCount={2} // To be dynamic later ...
-        price={price}
-      />
+      {variants.map((v) => (
+        <ProductHeader
+          key={v.id}
+          name={name}
+          inspiredBy={String(inspiredBy)}
+          rating={4} // To be dynamic later ...
+          reviewCount={2} // To be dynamic later ...
+          price={Number(v.price)}
+        />
+      ))}
 
       <p
         className={clsx(
@@ -54,12 +46,15 @@ export const ProductInfo = ({ product }: ProductInfoProps) => {
         {description}
       </p>
 
-      <ProductOptions
-        size={size}
-        quantity={quantity}
-        onQuantityChange={setQuantity}
-        inStock={inStock}
-      />
+      {variants.map((v) => (
+        <ProductOptions
+          key={v.id}
+          size={v.sizeML}
+          quantity={quantity}
+          onQuantityChange={setQuantity}
+          inStock={inStock}
+        />
+      ))}
 
       <ProductActions inStock={inStock} />
 

@@ -4,18 +4,31 @@ import placeholder from "@/assets/placeholder.webp";
 import { ProductInfo } from "@/components/products/ProductInfo";
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
-import { products } from "@/mockProducts";
 import { ProductTrustInfo } from "@/components/products/ProductTrustInfo";
 import { CustomerReviews } from "@/components/products/CustomerReviews";
 import { reviews } from "@/components/products/CustomerReviews/mockReviews";
 import { RelatedProducts } from "@/components/products/RelatedProducts";
+import { useEffect, useState } from "react";
+import { productsService } from "@/services/products/products.service";
+import type { Product } from "@shared/types/product";
 
 export const ProductDetails = () => {
   const { isDark } = useTheme();
   const { productSlug } = useParams();
-  const product = products.find((p) => p.slug === productSlug);
+  const [displayedProduct, setDisplayedProduct] = useState<Product>();
 
-  if (!product) {
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const fetchProduct = await productsService.getProduct(
+        String(productSlug),
+      );
+      setDisplayedProduct(fetchProduct);
+    };
+
+    fetchProduct();
+  }, [productSlug]);
+
+  if (!displayedProduct) {
     return; // will be handled later
   }
 
@@ -38,14 +51,14 @@ export const ProductDetails = () => {
             />
           </div>
 
-          <ProductInfo product={product} />
+          <ProductInfo product={displayedProduct} />
         </section>
 
         <CustomerReviews reviews={reviews} />
 
         <ProductTrustInfo />
 
-        <RelatedProducts product={product}/>
+        {/** <RelatedProducts relatedProducts={relatedProducts} /> */}
       </Container>
     </PageWrapper>
   );

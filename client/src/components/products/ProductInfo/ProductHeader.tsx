@@ -25,7 +25,7 @@ export const ProductHeader = ({
       <MainHeading title={name} className="md:mb-0" />
       <p
         className={clsx(
-          "text-muted-foreground text-sm",
+          "text-muted-foreground text-sm mt-1",
           isDark ? "text-zinc-300" : "text-zinc-700",
         )}
       >

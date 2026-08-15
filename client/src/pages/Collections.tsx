@@ -4,8 +4,22 @@ import {
 } from "@/components/collections/index";
 import Reveal from "@/components/ui/animation/Reveal";
 import { Container, PageWrapper } from "@/components/ui/common";
+import { productsService } from "@/services/products/products.service";
+import type { Product } from "@shared/types/product";
+import { useEffect, useState } from "react";
 
 export const Collections = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const products = await productsService.getProducts();
+      setProducts(products);
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <PageWrapper>
       <Container>
@@ -15,7 +29,7 @@ export const Collections = () => {
 
         {/**  Products... */}
         <Reveal>
-          <CollectionsGrid />
+          <CollectionsGrid products={products} />
         </Reveal>
       </Container>
     </PageWrapper>

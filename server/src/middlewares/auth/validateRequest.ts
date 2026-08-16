@@ -2,16 +2,23 @@ import { sendError } from '@/utils/response.js';
 import type { Request, Response, NextFunction } from 'express';
 import { ZodType } from 'zod';
 
-export const validateRequest = <T>(schema: ZodType<T>) => {
+type RequestPart = 'body' | 'query';
+
+export const validateRequest = <T>(
+  schema: ZodType<T>,
+  part: RequestPart = 'body',
+) => {
   return (req: Request, res: Response, next: NextFunction) => {
-    if (!req.body) {
+    const data = req[part];
+
+    if (!data) {
       return sendError(res, {
         statusCode: 400,
-        message: 'Request body is missing',
+        message: `Request ${part} is missing`,
       });
     }
 
-    const result = schema.safeParse(req.body);
+    const result = schema.safeParse(data);
 
     if (!result.success) {
       return sendError(res, {
@@ -20,7 +27,11 @@ export const validateRequest = <T>(schema: ZodType<T>) => {
       });
     }
 
-    req.body = result.data;
+    if (part === 'body') {
+      req.body = result.data;
+    } else {
+      Object.assign(req.query, result.data);
+    }
 
     next();
   };

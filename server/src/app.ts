@@ -12,6 +12,7 @@ import { routeNotFound, errorHandler } from '@/middlewares/app/index.js';
 import healthRoutes from '@routes/health.routes.js';
 import authRoutes from '@routes/auth.routes.js';
 import productsRoutes from '@routes/products.routes.js';
+import reviewsRoutes from '@routes/reviews.routes.js';
 import uploadRoutes from '@routes/upload.routes.js';
 
 const app = express();
@@ -33,6 +34,7 @@ app.use('/api/health', healthRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productsRoutes);
 app.use('/api/uploads', uploadRoutes);
+app.use('/api/reviews', reviewsRoutes);
 
 // Middlewares
 app.use(routeNotFound);

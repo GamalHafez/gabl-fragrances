@@ -5,6 +5,7 @@ declare global {
     interface Request {
       user?: User;
       product?: Product;
+      validatedQuery?: unknown;
     }
   }
 }

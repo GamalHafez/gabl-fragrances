@@ -44,4 +44,6 @@ export const createReviewSchema = z.object({
   imageUrl: z.url('Please provide a valid image URL.').optional().nullable(),
 });
 
-export type ReviewFormData = z.infer<typeof reviewSchema>;
+export const approvedReviewsQuerySchema = z.object({
+  limit: z.coerce.number().int().min(1).max(50).default(10),
+});

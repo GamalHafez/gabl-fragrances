@@ -10,16 +10,16 @@ import {
   updateProduct,
   deleteProduct,
   getRelatedProducts,
-} from '@/controllers/products.controller.js';
+} from '@/modules/products/products.controller.js';
 import { getProductBySlug } from '@/middlewares/products/index.js';
 import {
   requireAuth,
   requirePermission,
   validateRequest,
 } from '@/middlewares/auth/index.js';
-import productImagesRoute from '@/routes/product-images.routes.js';
-import productVariantsRoute from '@/routes/product-variants.routes.js';
-import productReviewsRoute from '@/routes/product-reviews.routes.js';
+import productImagesRoute from '@/modules/products/images/product-images.routes.js';
+import productVariantsRoute from '@/modules/products/variants/product-variants.routes.js';
+import productReviewsRoute from '@/modules/products/reviews/product-reviews.routes.js';
 
 const router = Router();
 

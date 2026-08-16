@@ -2,7 +2,7 @@ import {
   addImage,
   deleteImage,
   updateImage,
-} from '@/controllers/product-images.controller.js';
+} from '@/modules/products/images/product-images.controller.js';
 import { requireAuth } from '@/middlewares/auth/requireAuth.js';
 import { requirePermission } from '@/middlewares/auth/requirePermission.js';
 import { validateRequest } from '@/middlewares/auth/validateRequest.js';

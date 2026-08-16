@@ -1,4 +1,4 @@
-import { getApprovedReviews } from '@/controllers/reviews.controller.js';
+import { getApprovedReviews } from '@/modules/reviews/reviews.controller.js';
 import { validateRequest } from '@/middlewares/auth/validateRequest.js';
 import { approvedReviewsQuerySchema } from '@shared/validators/reviewSchema.js';
 import { Router } from 'express';

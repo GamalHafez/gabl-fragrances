@@ -9,11 +9,11 @@ import morgan from 'morgan';
 import { routeNotFound, errorHandler } from '@/middlewares/app/index.js';
 
 // Routes imports
-import healthRoutes from '@routes/health.routes.js';
-import authRoutes from '@routes/auth.routes.js';
-import productsRoutes from '@routes/products.routes.js';
-import reviewsRoutes from '@routes/reviews.routes.js';
-import uploadRoutes from '@routes/upload.routes.js';
+import healthRoutes from '@/modules/health/health.routes.js';
+import authRoutes from '@/modules/auth/auth.routes.js';
+import productsRoutes from '@/modules/products/products.routes.js';
+import reviewsRoutes from '@/modules/reviews/reviews.routes.js';
+import uploadRoutes from '@/modules/uploads/upload.routes.js';
 
 const app = express();
 

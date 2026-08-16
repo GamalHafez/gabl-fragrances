@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { uploadProductImage } from '@/controllers/upload.controller.js';
+import { uploadProductImage } from '@/modules/uploads/upload.controller.js';
 import { requireAuth } from '@/middlewares/auth/index.js';
 import { requirePermission } from '@/middlewares/auth/requirePermission.js';
 import upload from '@/middlewares/app/upload.js';

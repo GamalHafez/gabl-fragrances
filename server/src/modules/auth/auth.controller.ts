@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
 import { AppError, sendSuccess } from '@/utils/response.js';
 import { setCookie } from '@/utils/tokens.js';
-import { authService } from '@/services/auth.service.js';
+import { authService } from '@/modules/auth/auth.service.js';
 
 export const getCurrentUser = async (req: Request, res: Response) => {
   return sendSuccess(res, {

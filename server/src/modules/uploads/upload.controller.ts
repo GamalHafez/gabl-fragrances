@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import { uploadService } from '@/services/upload.service.js';
+import { uploadService } from '@/modules/uploads/upload.service.js';
 import { sendSuccess } from '@/utils/response.js';
 
 export const uploadProductImage = async (

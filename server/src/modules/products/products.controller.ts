@@ -1,4 +1,4 @@
-import { productsService } from '@/services/products.service.js';
+import { productsService } from '@/modules/products/products.service.js';
 import { sendSuccess } from '@/utils/response.js';
 import type { NextFunction, Request, Response } from 'express';
 

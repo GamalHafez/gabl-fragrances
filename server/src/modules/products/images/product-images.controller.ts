@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express';
 import { sendSuccess } from '@/utils/response.js';
-import { productImagesService } from '@/services/product-images.service.js';
+import { productImagesService } from '@/modules/products/images/product-images.service.js';
 
 export const addImage = async (
   req: Request,

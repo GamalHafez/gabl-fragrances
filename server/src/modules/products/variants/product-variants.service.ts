@@ -6,7 +6,7 @@ import {
   updateVariantSchema,
 } from '@shared/validators/productsSchema.js';
 import z from 'zod';
-import { productsService } from './products.service.js';
+import { productsService } from '../products.service.js';
 import { Product } from '@shared/types/index.js';
 
 type CreateVariantBody = z.infer<typeof createVariantSchema>;

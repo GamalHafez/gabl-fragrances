@@ -4,7 +4,7 @@ import {
   getVariants,
   restockInventory,
   updateVariant,
-} from '@/controllers/product-variants.controller.js';
+} from '@/modules/products/variants/product-variants.controller.js';
 import { requireAuth } from '@/middlewares/auth/requireAuth.js';
 import { requirePermission } from '@/middlewares/auth/requirePermission.js';
 import { validateRequest } from '@/middlewares/auth/validateRequest.js';

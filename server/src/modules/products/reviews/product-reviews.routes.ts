@@ -3,7 +3,7 @@ import { createReviewSchema } from '@shared/validators/reviewSchema.js';
 import {
   createReview,
   getReviews,
-} from '@/controllers/product-reviews.controller.js';
+} from '@/modules/products/reviews/product-reviews.controller.js';
 import { validateRequest } from '@/middlewares/auth/validateRequest.js';
 import { optionalAuth } from '@/middlewares/auth/optionalAuth.js';
 

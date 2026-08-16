@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import { sendSuccess } from '@/utils/response.js';
-import { reviewsService } from '@/services/reviews.service.js';
+import { reviewsService } from '@/modules/reviews/reviews.service.js';
 import { approvedReviewsQuerySchema } from '@shared/validators/reviewSchema.js';
 
 export const getApprovedReviews = async (

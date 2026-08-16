@@ -5,7 +5,7 @@ import {
   refresh,
   logout,
   getCurrentUser,
-} from '@/controllers/auth.controller.js';
+} from '@/modules/auth/auth.controller.js';
 import { loginSchema, signupSchema } from '@shared/schemas/auth.validators.js';
 import { validateRequest, requireAuth } from '@/middlewares/auth/index.js';
 

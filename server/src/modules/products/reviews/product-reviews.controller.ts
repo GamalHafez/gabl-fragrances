@@ -1,4 +1,4 @@
-import { productReviewsService } from '@/services/product-reviews.service.js';
+import { productReviewsService } from '@/modules/products/reviews/product-reviews.service.js';
 import { sendSuccess } from '@/utils/response.js';
 import type { NextFunction, Request, Response } from 'express';
 

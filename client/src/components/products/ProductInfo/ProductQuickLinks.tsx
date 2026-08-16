@@ -1,6 +1,7 @@
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
 import { ChevronRight } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const links = [
   { label: "Customer Reviews", href: "#customer-reviews" },
@@ -10,10 +11,36 @@ const links = [
 
 export const ProductQuickLinks = () => {
   const { isDark } = useTheme();
+  const [visibleLinks, setVisibleLinks] = useState(links);
+
+  useEffect(() => {
+    const updateLinks = () => {
+      setVisibleLinks(
+        links.filter((link) => document.querySelector(link.href)),
+      );
+    };
+
+    // Initial check
+    updateLinks();
+
+    // Watch for sections being added/removed
+    const observer = new MutationObserver(updateLinks);
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  if (!visibleLinks.length) {
+    return null;
+  }
 
   return (
     <div className="mt-2 flex flex-wrap items-center gap-3 pt-2 md:mt-6">
-      {links.map((link) => (
+      {visibleLinks.map((link) => (
         <a
           key={link.href}
           href={link.href}

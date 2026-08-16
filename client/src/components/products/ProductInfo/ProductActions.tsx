@@ -57,7 +57,7 @@ export const ProductActions = ({ inStock }: { inStock: boolean }) => {
           <CreditCard className="h-4 w-4" />
           Buy it Now
         </Link>
-      </div>{" "}
+      </div>
     </Reveal>
   );
 };

@@ -1,17 +1,30 @@
+import { TriangleAlert } from "lucide-react";
 import { useTheme } from "@/context/useTheme";
-import clsx from "clsx";
+import { cn } from "@/utils";
 
 type ErrorMessageProps = {
-  message: string;
+  message?: string;
+  className?: string;
 };
-export const ErrorMessage = ({ message }: ErrorMessageProps) => {
+
+export const ErrorMessage = ({ message, className }: ErrorMessageProps) => {
   const { isDark } = useTheme();
 
+  if (!message) {
+    return null;
+  }
+
   return (
-    message && (
-      <p className={clsx("text-sm", isDark ? "text-red-600" : "text-red-500")}>
-        {message}
-      </p>
-    )
+    <p
+      role="alert"
+      className={cn(
+        "flex items-center gap-1.5 text-sm font-medium",
+        isDark ? "text-red-400" : "text-red-600",
+        className,
+      )}
+    >
+      <TriangleAlert className="h-3.5 w-3.5 shrink-0" />
+      <span>{message}</span>
+    </p>
   );
 };

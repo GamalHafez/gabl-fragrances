@@ -5,14 +5,21 @@ export const reviewSchema = z.object({
     .string()
     .trim()
     .min(2, 'Name must be at least 2 characters.')
-    .max(50, 'Name cannot exceed 50 characters.'),
+    .max(100, 'Name cannot exceed 100 characters.'),
 
-  rating: z.number().min(1, 'Please select a rating.').max(5),
+  rating: z
+    .number()
+    .int('Rating must be a whole number.')
+    .min(1, 'Please select a rating.')
+    .max(5),
 
-  comment: z
+  review: z
     .string()
+    .trim()
     .min(10, 'Review must be at least 10 characters.')
     .max(1000, 'Review is too long.'),
+
+  imageUrl: z.url('Please provide a valid image URL.').optional().nullable(),
 });
 
 export const createReviewSchema = z.object({

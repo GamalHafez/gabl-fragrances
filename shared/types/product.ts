@@ -39,7 +39,7 @@ export type ProductReview = {
   name: string;
   rating: number;
   review: string;
-  imageUrl: string | null;
+  imageUrl?: string | null;
 
   createdAt?: string;
 };

@@ -6,26 +6,46 @@ import {
 } from "@shared/validators/reviewSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormField, FormSubmitButton } from "@/components/ui/forms";
+import { useCreateReview } from "@/hooks/reviews";
+import { useParams } from "react-router-dom";
+import { ErrorMessage } from "@/components/ui/common";
+import { ReviewSuccess } from "./ReviewSuccess";
 
 export const ReviewForm = () => {
+  const { productSlug } = useParams();
   const {
     register,
     handleSubmit,
     control,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<ReviewFormData>({
     resolver: zodResolver(reviewSchema),
     defaultValues: {
       name: "",
-      comment: "",
+      review: "",
       rating: 0,
     },
   });
+
+  const {
+    mutate: createReview,
+    isPending,
+    isError,
+    isSuccess,
+  } = useCreateReview(productSlug!);
+
   const onSubmit = (data: ReviewFormData) => {
-    console.log(data);
-    reset();
+    createReview(data, {
+      onSuccess: () => {
+        reset();
+      },
+    });
   };
+
+  if (isSuccess) {
+    return <ReviewSuccess />;
+  }
 
   return (
     <form
@@ -56,16 +76,20 @@ export const ReviewForm = () => {
       <FormField
         isTextarea
         rows={5}
-        name="comment"
+        name="review"
         register={register}
         errors={errors}
         label="Your Review"
         placeholder="Tell others what you liked about this fragrance..."
       />
 
+      {isError && (
+        <ErrorMessage message="We couldn't submit your review. Please try again." />
+      )}
+
       <FormSubmitButton
-        disabled={isSubmitting}
-        label={isSubmitting ? "Sending..." : "Submit Review"}
+        disabled={isPending}
+        label={isPending ? "Sending..." : "Submit Review"}
       />
     </form>
   );

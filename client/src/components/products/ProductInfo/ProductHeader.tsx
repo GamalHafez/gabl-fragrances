@@ -25,7 +25,7 @@ export const ProductHeader = ({
       <MainHeading title={name} className="md:mb-0" />
       <p
         className={clsx(
-          "text-muted-foreground text-sm mt-1",
+          "text-muted-foreground mt-1 text-sm",
           isDark ? "text-zinc-300" : "text-zinc-700",
         )}
       >
@@ -39,7 +39,7 @@ export const ProductHeader = ({
           {inspiredBy}
         </span>
       </p>
-      <Rating rating={rating} reviewCount={reviewCount} />
+      {<Rating rating={rating} reviewCount={reviewCount} />}
       <p
         className={clsx(
           "mt-2 text-3xl font-bold",

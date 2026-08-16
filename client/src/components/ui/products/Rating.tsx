@@ -26,7 +26,7 @@ export const Rating = ({ rating, reviewCount }: RatingProps) => {
         ))}
       </div>
 
-      {reviewCount && (
+      {typeof reviewCount === "number" && (
         <>
           <span
             className={clsx(

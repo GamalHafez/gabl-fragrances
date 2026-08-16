@@ -5,11 +5,11 @@ import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
 import { ProductTrustInfo } from "@/components/products/ProductTrustInfo";
 import { CustomerReviews } from "@/components/products/CustomerReviews";
-import { reviews } from "@/components/products/CustomerReviews/mockReviews";
 import { RelatedProducts } from "@/components/products/RelatedProducts";
 import { useProduct, useRelatedProducts } from "@/hooks/products";
 import { ProductDetailsSkeleton } from "@/components/skeleton";
 import { DataError } from "@/components/ui/errors/DataError";
+import { useReviews } from "@/hooks/reviews";
 
 export const ProductDetails = () => {
   const { isDark } = useTheme();
@@ -20,6 +20,12 @@ export const ProductDetails = () => {
     isError: isProductError,
     refetch: refetchProduct,
   } = useProduct(productSlug);
+
+  const {
+    data: reviews,
+    isPending: isReviewsPending,
+    isError: isReviewsError,
+  } = useReviews(productSlug);
 
   const {
     data: relatedProducts,
@@ -72,9 +78,11 @@ export const ProductDetails = () => {
             />
           </div>
 
-          <ProductInfo product={product} />
+          <ProductInfo product={product} reviews={reviews ?? []} />
         </section>
-        <CustomerReviews reviews={reviews} />
+        {!isReviewsError && !isReviewsPending && (
+          <CustomerReviews reviews={reviews ?? []} />
+        )}
         <ProductTrustInfo />
         <RelatedProducts
           relatedProducts={relatedProducts ?? []}

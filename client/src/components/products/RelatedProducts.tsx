@@ -22,8 +22,6 @@ export const RelatedProducts = ({
   isLoading,
   isError,
 }: RelatedProductsProps) => {
-  console.log(relatedProducts);
-
   if (isLoading) {
     return <RelatedProductsSkeleton />;
   }

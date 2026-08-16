@@ -1,5 +1,5 @@
 import type { ProductBadge } from "@/components/products/ProductInfo/ProductBadges";
-import type { Product } from "@shared/types/product";
+import type { Product, ProductReview } from "@shared/types/product";
 
 export const getProductBadges = (product: Product): ProductBadge[] => {
   const badges: ProductBadge[] = [];
@@ -42,3 +42,20 @@ export const getProductBadges = (product: Product): ProductBadge[] => {
 
   return badges;
 };
+
+export const getAverageRating = (reviews: ProductReview[]): number => {
+  if (reviews.length === 0) {
+    return 0;
+  }
+
+  const total = reviews.reduce((sum, review) => sum + review.rating, 0);
+
+  return total / reviews.length;
+};
+
+export const formatDate = (date: string | Date) =>
+  new Date(date).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });

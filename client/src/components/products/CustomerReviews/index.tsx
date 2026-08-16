@@ -4,11 +4,12 @@ import { Rating } from "@/components/ui/products";
 import { ReviewsFilter } from "./ReviewsFilter";
 import { useState } from "react";
 import { Reviews } from "./Reviews";
-import type { Review } from "./mockReviews";
 import { WriteReviewDialog } from "./WriteReviewDialog";
+import type { ProductReview } from "@shared/types/product";
+import { getAverageRating } from "@/utils";
 
 type CustomerReviewsProps = {
-  reviews: Review[];
+  reviews: ProductReview[];
 };
 
 export const CustomerReviews = ({ reviews }: CustomerReviewsProps) => {
@@ -37,8 +38,8 @@ export const CustomerReviews = ({ reviews }: CustomerReviewsProps) => {
           </h2>
 
           <Rating
-            rating={4} // To be dynamic later ...
-            reviewCount={2} // To be dynamic later ...
+            rating={getAverageRating(reviews)}
+            reviewCount={reviews.length}
           />
         </div>
 

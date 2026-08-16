@@ -1,10 +1,11 @@
 import { Rating } from "@/components/ui/products";
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
-import type { Review } from "./mockReviews";
+import type { ProductReview } from "@shared/types/product";
+import { formatDate } from "@/utils";
 
 type ReviewsProps = {
-  reviews: Review[];
+  reviews: ProductReview[];
 };
 
 export const Reviews = ({ reviews }: ReviewsProps) => {
@@ -27,8 +28,8 @@ export const Reviews = ({ reviews }: ReviewsProps) => {
 
   return (
     <article className="space-y-5 lg:px-20">
-      {reviews.map((review) => {
-        const { id, userName, rating, comment, createdAt } = review;
+      {reviews.map((rev) => {
+        const { id, name, rating, review, createdAt } = rev;
 
         return (
           <div
@@ -49,7 +50,7 @@ export const Reviews = ({ reviews }: ReviewsProps) => {
                     isDark ? "text-zinc-100" : "text-zinc-900",
                   )}
                 >
-                  {userName}
+                  {name}
                 </h3>
 
                 <p
@@ -58,7 +59,7 @@ export const Reviews = ({ reviews }: ReviewsProps) => {
                     isDark ? "text-zinc-500" : "text-zinc-500",
                   )}
                 >
-                  {createdAt}
+                  {formatDate(String(createdAt))}
                 </p>
               </div>
 
@@ -71,7 +72,7 @@ export const Reviews = ({ reviews }: ReviewsProps) => {
                 isDark ? "text-zinc-300" : "text-zinc-700",
               )}
             >
-              {comment}
+              {review}
             </p>
           </div>
         );

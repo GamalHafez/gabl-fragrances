@@ -1,4 +1,4 @@
-import type { Product } from "@shared/types/product";
+import type { Product, ProductReview } from "@shared/types/product";
 import { ProductBadges } from "./ProductBadges/index";
 import { ProductHeader } from "./ProductHeader";
 import { useTheme } from "@/context/useTheme";
@@ -7,13 +7,14 @@ import { ProductOptions } from "./ProductOptions";
 import { useState } from "react";
 import { ProductActions } from "./ProductActions";
 import { ProductQuickLinks } from "./ProductQuickLinks";
-import { getProductBadges } from "@/utils";
+import { getAverageRating, getProductBadges } from "@/utils";
 
 type ProductInfoProps = {
   product: Product;
+  reviews: ProductReview[];
 };
 
-export const ProductInfo = ({ product }: ProductInfoProps) => {
+export const ProductInfo = ({ product, reviews }: ProductInfoProps) => {
   const { isDark } = useTheme();
   const { name, inspiredBy, variants, description } = product;
   const [quantity, setQuantity] = useState(1);
@@ -31,8 +32,8 @@ export const ProductInfo = ({ product }: ProductInfoProps) => {
           key={v.id}
           name={name}
           inspiredBy={String(inspiredBy)}
-          rating={4} // To be dynamic later ...
-          reviewCount={2} // To be dynamic later ...
+          rating={getAverageRating(reviews)}
+          reviewCount={reviews.length}
           price={Number(v.price)}
         />
       ))}

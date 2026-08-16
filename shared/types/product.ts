@@ -41,6 +41,11 @@ export type ProductReview = {
   review: string;
   imageUrl?: string | null;
 
+  product?: {
+    slug: string;
+    name: string;
+  };
+
   createdAt?: string;
 };
 

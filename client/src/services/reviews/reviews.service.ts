@@ -27,4 +27,11 @@ export const reviewsService = {
 
     return data.review;
   },
+
+  async getApprovedReviews(limit: number) {
+    const url = `${API_ENDPOINTS.REVIEWS}/approved?limit=${limit}`;
+    const data = await apiClient.get<GetReviewsResponse>(url);
+
+    return data.reviews;
+  },
 };

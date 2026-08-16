@@ -1,10 +1,10 @@
 import clsx from "clsx";
 import { ExternalLink, Star } from "lucide-react";
-import type { Testimonial } from "./testimonials";
 import { useTheme } from "@/context/useTheme";
 import { Link } from "react-router-dom";
+import type { ProductReview } from "@shared/types/product";
 
-export const ReviewCard = ({ testimonial }: { testimonial: Testimonial }) => {
+export const ReviewCard = ({ testimonial }: { testimonial: ProductReview }) => {
   const { name, review, product, rating } = testimonial;
   const { isDark } = useTheme();
 
@@ -60,7 +60,7 @@ export const ReviewCard = ({ testimonial }: { testimonial: Testimonial }) => {
           </span>
 
           <Link
-            to={`/products/${product}`} // Replace with the actual product slug later
+            to={`/products/${product?.slug}`} // Replace with the actual product slug later
             className={clsx(
               "inline-flex items-center gap-1 font-medium transition-colors",
               isDark
@@ -69,7 +69,7 @@ export const ReviewCard = ({ testimonial }: { testimonial: Testimonial }) => {
             )}
           >
             <ExternalLink size={14} strokeWidth={2} />
-            {product}
+            {product?.name}
           </Link>
         </p>
       </figcaption>

@@ -117,3 +117,21 @@ export const getRelatedProducts = async (
     next(error);
   }
 };
+
+export const getSamples = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const samples = await productsService.getSamples();
+
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Samples retrieved successfully',
+      data: { samples },
+    });
+  } catch (error) {
+    next(error);
+  }
+};

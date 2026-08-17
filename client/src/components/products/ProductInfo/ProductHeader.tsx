@@ -46,7 +46,7 @@ export const ProductHeader = ({
           isDark ? "text-zinc-300" : "text-zinc-800",
         )}
       >
-        LE {price.toFixed(2)}
+        {price.toFixed(2)} <span className="ml-1 text-xl">EGP</span>
       </p>
     </header>
   );

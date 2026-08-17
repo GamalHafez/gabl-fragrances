@@ -253,4 +253,55 @@ export const productsService = {
       },
     });
   },
+
+  async getSamples() {
+    return prisma.product.findMany({
+      where: {
+        isActive: true,
+        variants: {
+          some: {
+            sizeML: 5,
+            isActive: true,
+          },
+        },
+      },
+      orderBy: { createdAt: 'asc' },
+      select: {
+        id: true,
+        slug: true,
+        name: true,
+        gender: true,
+        bestSeasons: true,
+        inspiredBy: true,
+        isBestSeller: true,
+        isNew: true,
+        isActive: true,
+
+        images: {
+          where: {
+            isMain: true,
+          },
+          select: {
+            id: true,
+            url: true,
+            description: true,
+          },
+        },
+
+        variants: {
+          where: {
+            sizeML: 5,
+            isActive: true,
+          },
+          select: {
+            id: true,
+            label: true,
+            sizeML: true,
+            price: true,
+            stock: true,
+          },
+        },
+      },
+    });
+  },
 };

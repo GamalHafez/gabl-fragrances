@@ -10,6 +10,7 @@ import {
   updateProduct,
   deleteProduct,
   getRelatedProducts,
+  getSamples,
 } from '@/modules/products/products.controller.js';
 import { getProductBySlug } from '@/middlewares/products/index.js';
 import {
@@ -33,6 +34,8 @@ router
     requirePermission('products:create'),
     createProduct,
   );
+
+router.get('/samples', getSamples);
 
 /* Product resources */
 router.param('productSlug', getProductBySlug);

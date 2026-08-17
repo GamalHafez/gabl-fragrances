@@ -4,6 +4,7 @@ import { Eyebrow } from "@/components/ui/home";
 import clsx from "clsx";
 import { useTheme } from "@/context/useTheme";
 import type { Product } from "@shared/types/product";
+import { getMainProductVariant } from "@/utils";
 
 type ProductCardProps = {
   product: Product;
@@ -11,9 +12,11 @@ type ProductCardProps = {
 
 export const ProductCard = ({ product }: ProductCardProps) => {
   const { isDark } = useTheme();
-  const { name, gender, variants } = product;
+  const { name, gender } = product;
   const productMainImage =
     product?.images.find((image) => image.isMain) ?? product?.images[0];
+
+  const mainVariant = getMainProductVariant(product.variants);
 
   return (
     <article className="group flex cursor-pointer flex-col items-center overflow-hidden rounded-3xl">
@@ -64,15 +67,15 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           {name}
         </h2>
 
-        {variants.map((v) => (
-          <span key={v.id}>
+        {mainVariant && (
+          <span>
             <p
               className={clsx(
                 "text-sm uppercase",
                 isDark ? "text-zinc-400" : "text-zinc-500",
               )}
             >
-              {v.sizeML} ml
+              {mainVariant.sizeML} ml
             </p>
 
             <div className="mt-3 flex items-center justify-between md:mt-3">
@@ -82,13 +85,13 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                   isDark ? "text-zinc-100" : "text-zinc-900",
                 )}
               >
-                {v.price.toString()}
+                {mainVariant.price.toString()}
                 <span className="ml-1 text-sm">EGP</span>
               </p>
               <AddToCart />
             </div>
           </span>
-        ))}
+        )}
       </div>
     </article>
   );

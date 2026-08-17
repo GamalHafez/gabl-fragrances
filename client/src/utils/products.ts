@@ -59,3 +59,7 @@ export const formatDate = (date: string | Date) =>
     day: "numeric",
     year: "numeric",
   });
+
+export const getMainProductVariant = (variants: Product["variants"]) => {
+  return variants.find((variant) => variant.sizeML !== 5) ?? variants[0];
+};

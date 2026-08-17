@@ -10,6 +10,8 @@ import { useProduct, useRelatedProducts } from "@/hooks/products";
 import { ProductDetailsSkeleton } from "@/components/skeleton";
 import { DataError } from "@/components/ui/errors/DataError";
 import { useReviews } from "@/hooks/reviews";
+import sample5mlImage from "@/assets/sample-5ml.webp";
+import { useState } from "react";
 
 export const ProductDetails = () => {
   const { isDark } = useTheme();
@@ -33,8 +35,20 @@ export const ProductDetails = () => {
     isError: isRelatedError,
   } = useRelatedProducts(productSlug);
 
+  const [selectedVariantId, setSelectedVariantId] = useState<string | null>(
+    null,
+  );
+
+  const selectedVariant =
+    product?.variants.find((variant) => variant.id === selectedVariantId) ??
+    product?.variants.find((variant) => variant.sizeML !== 5) ??
+    product?.variants[0];
+
   const productMainImage =
     product?.images.find((image) => image.isMain) ?? product?.images[0];
+
+  const productImage =
+    selectedVariant?.sizeML === 5 ? sample5mlImage : productMainImage?.url;
 
   if (isProductPending) {
     return (
@@ -72,13 +86,24 @@ export const ProductDetails = () => {
             )}
           >
             <img
-              src={productMainImage?.url}
-              alt={productMainImage?.description ?? product?.name}
+              src={productImage}
+              alt={
+                selectedVariant?.sizeML === 5
+                  ? "5ML sample"
+                  : (productMainImage?.description ?? product.name)
+              }
               className="aspect-square w-full rounded-2xl object-cover"
             />
           </div>
 
-          <ProductInfo product={product} reviews={reviews ?? []} />
+          {selectedVariant && (
+            <ProductInfo
+              product={product}
+              reviews={reviews ?? []}
+              selectedVariant={selectedVariant}
+              setSelectedVariantId={setSelectedVariantId}
+            />
+          )}
         </section>
         {!isReviewsError && !isReviewsPending && (
           <CustomerReviews reviews={reviews ?? []} />

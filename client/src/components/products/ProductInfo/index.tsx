@@ -12,16 +12,19 @@ import { getAverageRating, getProductBadges } from "@/utils";
 type ProductInfoProps = {
   product: Product;
   reviews: ProductReview[];
+  selectedVariant: Product["variants"][number];
+  setSelectedVariantId: (variant: string) => void;
 };
 
-export const ProductInfo = ({ product, reviews }: ProductInfoProps) => {
+export const ProductInfo = ({
+  product,
+  reviews,
+  selectedVariant,
+  setSelectedVariantId,
+}: ProductInfoProps) => {
   const { isDark } = useTheme();
-  const { name, inspiredBy, variants, description } = product;
+  const { name, variants, inspiredBy, description } = product;
 
-  const mainVariant =
-    variants.find((variant) => variant.sizeML !== 5) ?? variants[0];
-
-  const [selectedVariant, setSelectedVariant] = useState(mainVariant);
   const [quantity, setQuantity] = useState(1);
 
   const badges = getProductBadges(product);
@@ -30,18 +33,13 @@ export const ProductInfo = ({ product, reviews }: ProductInfoProps) => {
   );
 
   const handleVariantChange = (variantId: string) => {
-    setQuantity(1); // Reset quantity when switching variants
-
     const variant = variants.find((variant) => variant.id === variantId);
 
     if (!variant) return;
 
-    setSelectedVariant(variant);
+    setQuantity(1);
+    setSelectedVariantId(variantId);
   };
-
-  if (!selectedVariant) {
-    return null;
-  }
 
   return (
     <div className="flex h-full flex-col justify-center space-y-5 px-4 md:px-0">

@@ -49,6 +49,21 @@ export type ProductReview = {
   createdAt?: string;
 };
 
+export type ProductSample = {
+  id: string;
+  slug: string;
+  name: string;
+  gender: ProductGender;
+  bestSeasons: Weather[];
+  inspiredBy?: string | null;
+  isBestSeller: boolean;
+  isNew: boolean;
+
+  images: ProductImage[];
+
+  variants: ProductVariant[];
+};
+
 export type Product = {
   id: string;
   slug: string;

@@ -1,6 +1,7 @@
 import type { Product } from "@shared/types/index.ts";
 import { API_ENDPOINTS } from "../api/endpoints";
 import { apiClient } from "../api/apiClient";
+import type { ProductSample } from "@shared/types/product";
 type GetProductsResponse = {
   products: Product[];
 };
@@ -11,6 +12,10 @@ type GetProductResponse = {
 
 type GetRelatedProductsResponse = {
   relatedProducts: Product[];
+};
+
+type GetSamplesResponse = {
+  samples: ProductSample[];
 };
 
 export const productsService = {
@@ -34,5 +39,12 @@ export const productsService = {
     const data = await apiClient.get<GetRelatedProductsResponse>(url);
 
     return data.relatedProducts;
+  },
+
+  async getSamples(): Promise<ProductSample[]> {
+    const url = `${API_ENDPOINTS.PRODUCTS}/samples`;
+    const data = await apiClient.get<GetSamplesResponse>(url);
+
+    return data.samples;
   },
 };

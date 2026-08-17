@@ -5,7 +5,7 @@ import type { Request, Response, NextFunction } from 'express';
 
 export const requireAuth = async (
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction,
 ) => {
   try {

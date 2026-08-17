@@ -6,7 +6,6 @@ import {
   updateVariantSchema,
 } from '@shared/validators/productsSchema.js';
 import z from 'zod';
-import { productsService } from '../products.service.js';
 import { Product } from '@shared/types/index.js';
 
 type CreateVariantBody = z.infer<typeof createVariantSchema>;
@@ -46,15 +45,9 @@ export const productVariantsService = {
     });
   },
 
-  async createVariant(productSlug: string, data: CreateVariantBody) {
-    const product = await productsService.findProduct({ slug: productSlug });
-
-    if (!product) {
-      throw new AppError(404, 'Product not found');
-    }
-
+  async createVariant(productId: string, data: CreateVariantBody) {
     const existingVariant = await this.productVariantExists(
-      product.id,
+      productId,
       data.sizeML,
       data.label ?? undefined,
     );
@@ -69,7 +62,7 @@ export const productVariantsService = {
     }
 
     return await prisma.productVariant.create({
-      data: { ...data, productId: product.id },
+      data: { ...data, productId },
     });
   },
 

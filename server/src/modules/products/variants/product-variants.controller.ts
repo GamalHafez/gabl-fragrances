@@ -1,5 +1,5 @@
 import { productVariantsService } from '@/modules/products/variants/product-variants.service.js';
-import { sendSuccess } from '@/utils/response.js';
+import { AppError, sendSuccess } from '@/utils/response.js';
 import type { NextFunction, Request, Response } from 'express';
 
 export const getVariants = async (
@@ -27,13 +27,14 @@ export const createVariant = async (
   next: NextFunction,
 ) => {
   try {
-    const {
-      params: { productSlug },
-      body,
-    } = req;
+    const { product, body } = req;
+
+    if (!product?.id) {
+      throw new AppError(404, 'Product not found');
+    }
 
     const variant = await productVariantsService.createVariant(
-      String(productSlug),
+      product?.id,
       body,
     );
 

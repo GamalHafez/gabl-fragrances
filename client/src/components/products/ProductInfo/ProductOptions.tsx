@@ -1,18 +1,23 @@
 import { QuantitySelector } from "@/components/ui/products";
 import { useTheme } from "@/context/useTheme";
+import type { Product } from "@shared/types";
 import clsx from "clsx";
 import type { Dispatch, SetStateAction } from "react";
 
 type ProductOptionsProps = {
-  size: number;
-  quantity: number;
+  variants: Product["variants"];
+  selectedVariantId: string;
+  onVariantChange: (variantId: string) => void;
   stock: number;
+  quantity: number;
   inStock: boolean;
   onQuantityChange: Dispatch<SetStateAction<number>>;
 };
 
 export const ProductOptions = ({
-  size,
+  variants,
+  selectedVariantId,
+  onVariantChange,
   quantity,
   stock,
   inStock,
@@ -30,28 +35,38 @@ export const ProductOptions = ({
       >
         size:
       </p>
-      <div className="mr-10 flex gap-2">
-        <button
-          disabled={!inStock}
-          className={clsx(
-            "rounded-md border px-3 py-1 text-sm font-medium transition-all duration-200",
+      {variants.map((variant) => {
+        const isSelected = variant.id === selectedVariantId;
+        const isVariantInStock = variant.isActive && variant.stock > 0;
 
-            !inStock && "cursor-not-allowed opacity-50 grayscale",
+        return (
+          <button
+            key={variant.id}
+            type="button"
+            disabled={!isVariantInStock}
+            onClick={() => onVariantChange(variant.id)}
+            className={clsx(
+              "cursor-pointer rounded-md border px-3 py-1 text-sm font-medium transition-all duration-200",
 
-            inStock &&
-              (isDark
-                ? "border-amber-500 bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/20"
-                : "border-zinc-900 bg-zinc-800 text-white shadow-sm"),
+              !isVariantInStock && "cursor-not-allowed opacity-50 grayscale",
 
-            !inStock &&
-              (isDark
-                ? "border-zinc-700 bg-zinc-900 text-zinc-500"
-                : "border-zinc-300 bg-zinc-100 text-zinc-400"),
-          )}
-        >
-          {size} ML
-        </button>
-      </div>
+              isSelected &&
+                isVariantInStock &&
+                (isDark
+                  ? "border-amber-500 bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/20"
+                  : "border-zinc-900 bg-zinc-800 text-white shadow-sm"),
+
+              !isSelected &&
+                isVariantInStock &&
+                (isDark
+                  ? "border-zinc-700 bg-zinc-900 text-zinc-300 hover:border-amber-500"
+                  : "border-zinc-300 bg-white text-zinc-700 hover:border-zinc-900"),
+            )}
+          >
+            {variant.sizeML} ML
+          </button>
+        );
+      })}
 
       <QuantitySelector
         inStock={inStock}

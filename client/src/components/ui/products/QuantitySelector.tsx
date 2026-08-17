@@ -20,7 +20,7 @@ export const QuantitySelector = ({
   const { isDark } = useTheme();
 
   return (
-    <div className="flex gap-2">
+    <div className="ml-3 flex gap-2">
       <div
         className={clsx(
           "mx-auto inline-flex items-center rounded-full border p-1 shadow-sm transition-opacity",

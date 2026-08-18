@@ -1,12 +1,16 @@
-import { Moon, Search, ShoppingCart, Sun } from "lucide-react";
+import { Moon, Search, Sun } from "lucide-react";
 import { HeaderIconAction } from "../index";
 import { MobileMenu } from "./index";
 import { Link } from "react-router-dom";
 import { useTheme } from "@/context/useTheme";
 import clsx from "clsx";
+import { CartTrigger } from "@/components/cart/CartTrigger";
+import { CartSheet } from "@/components/cart/CartSheet";
+import { useState } from "react";
 
 export const MobileHeader = () => {
   const { isDark, toggle } = useTheme();
+  const [cartOpen, setCartOpen] = useState(false);
 
   return (
     <div className="flex items-center justify-between md:hidden">
@@ -34,9 +38,8 @@ export const MobileHeader = () => {
       </Link>
 
       <div className="flex items-center">
-        <HeaderIconAction tooltip="Your Cart" href="/cart">
-          <ShoppingCart size={20} />
-        </HeaderIconAction>
+        <CartTrigger onOpenChange={setCartOpen} />
+        <CartSheet open={cartOpen} onOpenChange={setCartOpen} />
 
         <HeaderIconAction tooltip="Theme" onClick={toggle}>
           {isDark ? <Sun size={20} /> : <Moon size={20} />}

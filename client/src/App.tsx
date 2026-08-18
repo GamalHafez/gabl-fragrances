@@ -1,16 +1,16 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "@/context/ThemeProvider";
+import { RootLayout } from "@/pages/layouts/RootLayout";
+import { ErrorPage } from "@/pages";
 import {
-  RootLayout,
-  HomePage,
-  Collections,
-  ProductDetails,
-  Contact,
   AboutUs,
+  Collections,
+  HomePage,
   PrivacyPolicy,
-  ErrorPage,
+  ProductDetails,
   SamplesPage,
-} from "./pages";
+} from "@/pages/public";
+import { Contact } from "lucide-react";
 
 const router = createBrowserRouter([
   {

@@ -6,14 +6,16 @@ import clsx from "clsx";
 type ProductHeaderProps = {
   name: string;
   inspiredBy: string;
-  rating: number;
-  reviewCount: number;
+  isSample?: boolean;
+  rating?: number;
+  reviewCount?: number;
   price: number;
 };
 
 export const ProductHeader = ({
   name,
   inspiredBy,
+  isSample,
   rating,
   reviewCount,
   price,
@@ -39,7 +41,7 @@ export const ProductHeader = ({
           {inspiredBy}
         </span>
       </p>
-      {<Rating rating={rating} reviewCount={reviewCount} />}
+      {!isSample && <Rating rating={rating ?? 0} reviewCount={reviewCount} />}
       <p
         className={clsx(
           "mt-2 text-3xl font-bold",

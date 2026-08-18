@@ -20,10 +20,10 @@ export const QuantitySelector = ({
   const { isDark } = useTheme();
 
   return (
-    <div className="ml-3 flex gap-2">
+    <div className="ml-3 flex w-3/6 gap-2">
       <div
         className={clsx(
-          "mx-auto inline-flex items-center rounded-full border p-1 shadow-sm transition-opacity",
+          "mr-auto inline-flex items-center rounded-full border p-1 shadow-sm transition-opacity",
           !inStock && "pointer-events-none opacity-50 grayscale",
 
           isDark ? "border-zinc-700 bg-zinc-900" : "border-zinc-300 bg-white",

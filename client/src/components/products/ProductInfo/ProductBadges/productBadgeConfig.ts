@@ -1,6 +1,7 @@
 import {
   Ban,
   CircleCheckBig,
+  FlaskConical,
   Footprints,
   Gem,
   Sparkles,
@@ -14,7 +15,8 @@ export type ProductBadgeStatus =
   | "collection"
   | "best-seller"
   | "new"
-  | "limited-edition";
+  | "limited-edition"
+  | "sample";
 
 type BadgeStyle = {
   light: string;
@@ -72,6 +74,14 @@ export const PRODUCT_BADGE_CONFIG: Record<ProductBadgeStatus, BadgeConfig> = {
     styles: {
       light: "bg-purple-100 text-purple-700",
       dark: "bg-purple-900/40 text-purple-300",
+    },
+  },
+
+  sample: {
+    icon: FlaskConical,
+    styles: {
+      light: "bg-rose-100 text-rose-700",
+      dark: "bg-rose-900/40 text-rose-300",
     },
   },
 };

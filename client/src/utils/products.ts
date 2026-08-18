@@ -1,8 +1,22 @@
 import type { ProductBadge } from "@/components/products/ProductInfo/ProductBadges";
-import type { Product, ProductReview } from "@shared/types/product";
+import type {
+  Product,
+  ProductReview,
+  ProductSample,
+} from "@shared/types/product";
 
-export const getProductBadges = (product: Product): ProductBadge[] => {
+export const getProductBadges = (
+  product: Product | ProductSample,
+  isSample?: boolean,
+): ProductBadge[] => {
   const badges: ProductBadge[] = [];
+
+  if (isSample) {
+    badges.push({
+      label: `Sample`,
+      status: "sample",
+    });
+  }
 
   const genderLabel =
     product.gender === "MEN"

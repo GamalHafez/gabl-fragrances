@@ -1,5 +1,5 @@
 import { useTheme } from "@/context/useTheme";
-import SplitText from "@/components/ui/shadcn/SplitText";
+import { SplitText } from "@/components/ui/shadcn/SplitText";
 import { cn } from "@/utils";
 
 type MainHeadingProps = {
@@ -17,6 +17,7 @@ export const MainHeading = ({
 
   return (
     <SplitText
+      key={`${title}-${highlighted ?? ""}`}
       tag="h1"
       text={title}
       highlighted={highlighted}

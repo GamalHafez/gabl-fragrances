@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { ProductTrustInfo } from "@/components/products/ProductTrustInfo";
 import { CustomerReviews } from "@/components/products/CustomerReviews";
 import { RelatedProducts } from "@/components/products/RelatedProducts";
-import { useProduct, useRelatedProducts } from "@/hooks/products";
+import { useProduct } from "@/hooks/products";
 import { ProductDetailsSkeleton } from "@/components/skeleton";
 import { DataError } from "@/components/ui/errors/DataError";
 import { useReviews } from "@/hooks/reviews";
@@ -20,6 +20,7 @@ export const ProductDetails = () => {
     data: product,
     isPending: isProductPending,
     isError: isProductError,
+    isFetching: isProductFetching,
     refetch: refetchProduct,
   } = useProduct(productSlug);
 
@@ -28,12 +29,6 @@ export const ProductDetails = () => {
     isPending: isReviewsPending,
     isError: isReviewsError,
   } = useReviews(productSlug);
-
-  const {
-    data: relatedProducts,
-    isPending: isRelatedPending,
-    isError: isRelatedError,
-  } = useRelatedProducts(productSlug);
 
   const [selectedVariantId, setSelectedVariantId] = useState<string | null>(
     null,
@@ -50,7 +45,7 @@ export const ProductDetails = () => {
   const productImage =
     selectedVariant?.sizeML === 5 ? sample5mlImage : productMainImage?.url;
 
-  if (isProductPending) {
+  if (isProductPending || isProductFetching) {
     return (
       <PageWrapper>
         <Container>
@@ -109,11 +104,7 @@ export const ProductDetails = () => {
           <CustomerReviews reviews={reviews ?? []} />
         )}
         <ProductTrustInfo />
-        <RelatedProducts
-          relatedProducts={relatedProducts ?? []}
-          isLoading={isRelatedPending}
-          isError={isRelatedError}
-        />
+        <RelatedProducts productSlug={productSlug ?? ""} />
       </Container>
     </PageWrapper>
   );

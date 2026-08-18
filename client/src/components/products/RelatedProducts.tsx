@@ -8,21 +8,22 @@ import {
 import { ProductCard } from "../collections";
 import { MainHeading } from "@/components/ui/common";
 import { Link } from "react-router-dom";
-import type { Product } from "@shared/types/product";
 import { RelatedProductsSkeleton } from "../skeleton";
+import { useRelatedProducts } from "@/hooks/products";
 
 type RelatedProductsProps = {
-  relatedProducts: Product[];
-  isLoading: boolean;
-  isError: boolean;
+  productSlug: string;
 };
 
-export const RelatedProducts = ({
-  relatedProducts,
-  isLoading,
-  isError,
-}: RelatedProductsProps) => {
-  if (isLoading) {
+export const RelatedProducts = ({ productSlug }: RelatedProductsProps) => {
+  const {
+    data: relatedProducts,
+    isPending,
+    isFetching,
+    isError,
+  } = useRelatedProducts(productSlug);
+
+  if (isPending || isFetching) {
     return <RelatedProductsSkeleton />;
   }
 

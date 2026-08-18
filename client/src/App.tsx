@@ -9,6 +9,7 @@ import {
   AboutUs,
   PrivacyPolicy,
   ErrorPage,
+  SamplesPage,
 } from "./pages";
 
 const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "collections",
         element: <Collections />,
+      },
+      {
+        path: "collections/samples",
+        element: <SamplesPage />,
       },
       {
         path: "products/:productSlug",

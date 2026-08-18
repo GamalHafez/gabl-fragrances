@@ -296,6 +296,7 @@ export const productsService = {
           select: {
             id: true,
             label: true,
+            isActive: true,
             sizeML: true,
             price: true,
             stock: true,

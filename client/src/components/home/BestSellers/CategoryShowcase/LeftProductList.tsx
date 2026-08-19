@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import type { BestSeller } from "../bestSellers";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import Reveal from "@/components/ui/animation/Reveal";
 
 interface LeftProductListProps {

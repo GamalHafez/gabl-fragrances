@@ -1,4 +1,4 @@
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 import { Headphones, Lock, RotateCcw, Truck } from "lucide-react";
 import { MainHeading } from "@/components/ui/common";

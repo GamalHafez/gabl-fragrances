@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { Plus, ShoppingCart } from "lucide-react";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import { getItem, setItem } from "@/utils";
 import { useRef } from "react";
 import type { StoredCart, StoredCartItem } from "@shared/types";

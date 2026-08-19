@@ -1,5 +1,5 @@
 import type { SocialLink } from "@/data/socialLinks";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import { ArrowUpRight } from "lucide-react";
 import clsx from "clsx";
 

@@ -1,5 +1,5 @@
 import Reveal from "@/components/ui/animation/Reveal";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 import { CreditCard, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";

@@ -5,7 +5,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/shadcn/tooltip";
 import { ShoppingCart } from "lucide-react";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 import { getItem } from "@/utils";
 import type { StoredCart } from "@shared/types";

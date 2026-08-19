@@ -1,5 +1,5 @@
 import { LogIn, User, Search, Moon, Sun } from "lucide-react";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import { HeaderIconAction } from "./HeaderIconAction";
 import { useState } from "react";
 import { CartTrigger } from "@/components/cart/CartTrigger";

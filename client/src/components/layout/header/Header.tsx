@@ -1,5 +1,5 @@
 import { Container } from "@/components/ui/common";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 import { DesktopHeader } from "./index";
 import { MobileHeader } from "./mobile/index";

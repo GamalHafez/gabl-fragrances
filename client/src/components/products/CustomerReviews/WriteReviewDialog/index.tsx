@@ -6,7 +6,7 @@ import {
 import { WriteReviewTrigger } from "./WriteReviewTrigger";
 import { WriteReviewHeader } from "./WriteReviewHeader";
 import clsx from "clsx";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import { ReviewProductCard } from "./ReviewProductCard";
 import { ReviewForm } from "./ReviewForm";
 

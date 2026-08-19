@@ -1,7 +1,7 @@
 import { Container, PageWrapper } from "@/components/ui/common";
 import sample5mlImage from "@/assets/sample-5ml.webp";
 import clsx from "clsx";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import { useSamples } from "@/hooks/products";
 import { ProductBadges } from "@/components/products/ProductInfo/ProductBadges";
 import { useState } from "react";

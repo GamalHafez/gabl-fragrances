@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { Link } from "react-router-dom";
 import { Navigation, HeaderActions } from "./index";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import { scrollToTop } from "@/utils";
 
 export const DesktopHeader = () => {

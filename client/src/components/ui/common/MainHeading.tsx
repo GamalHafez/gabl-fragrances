@@ -1,4 +1,4 @@
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import { SplitText } from "@/components/ui/shadcn/SplitText";
 import { cn } from "@/utils";
 

@@ -12,7 +12,7 @@ import {
   type TabsContentProps as TabsContentPrimitiveProps,
   type TabsContentsProps as TabsContentsPrimitiveProps,
 } from "@/components/animate-ui/primitives/animate/tabs";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import { cn } from "@/lib/utils";
 
 type TabsProps = TabsPrimitiveProps;

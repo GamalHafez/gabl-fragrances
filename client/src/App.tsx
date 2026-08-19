@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ThemeProvider } from "@/context/ThemeProvider";
+import { ThemeProvider } from "@/context/theme/ThemeProvider";
 import { RootLayout } from "@/pages/layouts/RootLayout";
 import { ErrorPage } from "@/pages";
 import {

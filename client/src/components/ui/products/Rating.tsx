@@ -1,6 +1,6 @@
 import { Star } from "lucide-react";
 import clsx from "clsx";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 
 type RatingProps = {
   rating: number;

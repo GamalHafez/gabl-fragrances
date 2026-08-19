@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { reviewsService } from "@/services/reviews/reviews.service";
-import type { ReviewFormData } from "@shared/validators/reviewSchema";
+import type { ProductReview } from "@shared/types/product";
 
 export const useCreateReview = (productSlug: string) => {
   const queryClient = useQueryClient();
@@ -9,7 +9,7 @@ export const useCreateReview = (productSlug: string) => {
   }
 
   return useMutation({
-    mutationFn: (data: ReviewFormData) =>
+    mutationFn: (data: ProductReview) =>
       reviewsService.createReview(productSlug, data),
 
     onSuccess: () => {

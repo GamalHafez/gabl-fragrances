@@ -1,7 +1,7 @@
 import { House, LogIn, ShoppingBag, User } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import clsx from "clsx";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 
 export const BottomNavigation = () => {
   const user = null; // to be replaced

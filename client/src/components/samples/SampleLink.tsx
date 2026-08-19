@@ -1,4 +1,4 @@
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";

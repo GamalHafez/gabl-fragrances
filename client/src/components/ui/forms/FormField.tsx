@@ -1,4 +1,4 @@
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import { FormLabel } from "./FormLabel";
 import type {
   FieldErrors,

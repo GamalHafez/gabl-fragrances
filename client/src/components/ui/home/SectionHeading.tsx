@@ -1,4 +1,4 @@
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 
 export const SectionHeading = ({ title }: { title: string }) => {

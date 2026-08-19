@@ -1,7 +1,7 @@
 import { Sheet, SheetContent, SheetFooter } from "@/components/ui/shadcn/sheet";
 import { CartHeader } from "./CartHeader";
 import clsx from "clsx";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 
 type CartSheetProps = {
   open: boolean;

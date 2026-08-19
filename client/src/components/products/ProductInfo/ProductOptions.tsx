@@ -1,5 +1,5 @@
 import { QuantitySelector } from "@/components/ui/products";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import type { Product } from "@shared/types";
 import clsx from "clsx";
 import type { Dispatch, SetStateAction } from "react";

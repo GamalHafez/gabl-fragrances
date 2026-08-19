@@ -1,4 +1,4 @@
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import type { LegalListData } from "@/data/privacyPolicy";
 import clsx from "clsx";
 import { GitCommitHorizontal } from "lucide-react";

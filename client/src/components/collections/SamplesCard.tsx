@@ -1,5 +1,5 @@
 import sample5mlImage from "@/assets/sample-5ml.webp";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 import { Eyebrow } from "../ui/home";
 import { ArrowRight } from "lucide-react";

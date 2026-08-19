@@ -1,6 +1,6 @@
 import placeholder from "@/assets/placeholder.webp";
 import { Eyebrow } from "@/components/ui/home";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 
 export const ReviewProductCard = () => {

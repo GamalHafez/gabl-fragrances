@@ -6,6 +6,4 @@ export type StoredCartItem = {
 
 export type StoredCart = {
   items: StoredCartItem[];
-  totalQuantity: number;
-  totalPrice: number;
 };

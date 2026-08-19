@@ -1,5 +1,5 @@
 import { AddToCart } from "@/components/ui/products";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 import { ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";

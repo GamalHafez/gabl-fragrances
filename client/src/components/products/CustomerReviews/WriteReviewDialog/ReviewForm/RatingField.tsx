@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { Star } from "lucide-react";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import { ErrorMessage } from "@/components/ui/common";
 
 type RatingFieldProps = {

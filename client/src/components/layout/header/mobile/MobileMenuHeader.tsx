@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/shadcn/drawer";
 import clsx from "clsx";
 import { X } from "lucide-react";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 
 export const MobileMenuHeader = () => {
   const { isDark } = useTheme();

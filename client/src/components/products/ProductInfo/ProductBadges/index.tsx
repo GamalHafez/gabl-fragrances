@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/shadcn/badge";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 import {
   PRODUCT_BADGE_CONFIG,

@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Container, PageWrapper } from "@/components/ui/common";
 import { ProductInfo } from "@/components/products/ProductInfo";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 import { ProductTrustInfo } from "@/components/products/ProductTrustInfo";
 import { CustomerReviews } from "@/components/products/CustomerReviews";

@@ -1,4 +1,4 @@
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 
 export const Background = () => {
   const { isDark } = useTheme();
@@ -10,7 +10,7 @@ export const Background = () => {
         className={`absolute inset-0 -z-20 bg-linear-to-br ${
           isDark
             ? "from-zinc-800 via-zinc-950 to-zinc-950"
-            : "from-white to-zinc-300 via-zinc-200"
+            : "from-white via-zinc-200 to-zinc-300"
         }`}
       />
 

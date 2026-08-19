@@ -2,7 +2,7 @@ import { Moon, Search, Sun } from "lucide-react";
 import { HeaderIconAction } from "../index";
 import { MobileMenu } from "./index";
 import { Link } from "react-router-dom";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 import { CartTrigger } from "@/components/cart/CartTrigger";
 import { CartSheet } from "@/components/cart/CartSheet";

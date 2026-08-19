@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { SampleSelector } from "@/components/samples/SampleSelector";
 import type { ProductSample } from "@shared/types/product";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 
 type SampleSelectionProps = {
   samples: ProductSample[];

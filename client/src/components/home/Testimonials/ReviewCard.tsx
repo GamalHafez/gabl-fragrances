@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { ExternalLink, Star } from "lucide-react";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import { Link } from "react-router-dom";
 import type { ProductReview } from "@shared/types/product";
 

@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { AddToCart } from "./AddToCart";
 import { Eyebrow } from "@/components/ui/home";
 import clsx from "clsx";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import type { Product } from "@shared/types/product";
 import { getMainProductVariant } from "@/utils";
 

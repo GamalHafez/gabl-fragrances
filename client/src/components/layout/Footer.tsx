@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { SOCIALS } from "@/data/socialLinks";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 import { footerLinks } from "./footerLinks";
 import { scrollToTop } from "@/utils";

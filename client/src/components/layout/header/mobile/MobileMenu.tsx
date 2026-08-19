@@ -8,7 +8,7 @@ import { Navigation } from "../index";
 import { MobileMenuHeader } from "./index";
 import { Separator } from "@/components/ui/common";
 import clsx from "clsx";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 
 export const MobileMenu = () => {
   const { isDark } = useTheme();

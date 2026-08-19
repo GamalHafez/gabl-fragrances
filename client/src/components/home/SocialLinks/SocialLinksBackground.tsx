@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 
 const SocialLinksBackground = () => {
   const { isDark } = useTheme();

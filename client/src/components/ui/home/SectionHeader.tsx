@@ -1,4 +1,4 @@
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 import { SectionHeading } from "./SectionHeading";
 import { Eyebrow } from "./Eyebrow";

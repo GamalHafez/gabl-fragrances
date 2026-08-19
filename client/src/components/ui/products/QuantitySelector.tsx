@@ -1,4 +1,4 @@
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 import { Minus, Plus } from "lucide-react";
 import type { Dispatch, SetStateAction } from "react";

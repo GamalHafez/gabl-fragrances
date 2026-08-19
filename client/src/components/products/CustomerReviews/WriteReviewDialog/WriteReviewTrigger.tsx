@@ -1,6 +1,6 @@
 import { forwardRef, type ComponentPropsWithoutRef } from "react";
 import { PencilLine } from "lucide-react";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import { cn } from "@/utils";
 
 type WriteReviewTriggerProps = ComponentPropsWithoutRef<"button">;

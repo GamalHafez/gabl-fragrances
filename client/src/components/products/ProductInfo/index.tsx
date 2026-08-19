@@ -1,7 +1,7 @@
 import type { Product, ProductReview } from "@shared/types/product";
 import { ProductBadges } from "./ProductBadges/index";
 import { ProductHeader } from "./ProductHeader";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 import { ProductOptions } from "./ProductOptions";
 import { useState } from "react";

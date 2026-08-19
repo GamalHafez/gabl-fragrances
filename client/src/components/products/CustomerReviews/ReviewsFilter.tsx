@@ -1,5 +1,5 @@
 import { Rating } from "@/components/ui/products";
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 import { ListFilter } from "lucide-react";
 

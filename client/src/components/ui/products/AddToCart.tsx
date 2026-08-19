@@ -1,15 +1,19 @@
 import clsx from "clsx";
 import { Plus, ShoppingCart } from "lucide-react";
 import { useTheme } from "@/context/useTheme";
-import { getItem, setItem } from "@/utils";
+import { animateToCart, getItem, setItem } from "@/utils";
+import { useRef } from "react";
 
 type StoredCartItem = {
   variantId: string;
   quantity: number;
 };
 
-export const AddToCart = ({ variantId, quantity }: StoredCartItem) => {
+type AddToCartProps = StoredCartItem & { image: string };
+
+export const AddToCart = ({ variantId, quantity, image }: AddToCartProps) => {
   const { isDark } = useTheme();
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -30,11 +34,16 @@ export const AddToCart = ({ variantId, quantity }: StoredCartItem) => {
       : [...cart, { variantId, quantity }];
 
     setItem("cart", updatedCart);
+
+    if (buttonRef.current) {
+      animateToCart(buttonRef.current, image);
+    }
   };
 
   return (
     <button
       onClick={onClick}
+      ref={buttonRef}
       type="button"
       aria-label="Add to cart"
       className={clsx(

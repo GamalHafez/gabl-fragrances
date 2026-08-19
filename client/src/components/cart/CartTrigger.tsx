@@ -22,6 +22,7 @@ export const CartTrigger = ({ onOpenChange }: CartTriggerProps) => {
           render={
             <button
               type="button"
+              data-cart-trigger
               className={clsx(
                 "flex h-10 w-10 cursor-pointer items-center justify-center rounded-full transition-colors",
                 isDark

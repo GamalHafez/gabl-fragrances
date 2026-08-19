@@ -91,6 +91,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               <AddToCart
                 variantId={mainVariant.id}
                 quantity={1}
+                price={mainVariant.price.toString()}
                 image={productMainImage.url}
               />
             </div>

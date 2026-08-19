@@ -1,29 +1,41 @@
 import clsx from "clsx";
 import { Plus, ShoppingCart } from "lucide-react";
 import { useTheme } from "@/context/useTheme";
-import { animateToCart, getItem, setItem } from "@/utils";
+import { getItem, setItem } from "@/utils";
 import { useRef } from "react";
-
-type StoredCartItem = {
-  variantId: string;
-  quantity: number;
-};
+import type { StoredCart, StoredCartItem } from "@shared/types";
+import {
+  animateToCart,
+  getCartTotalPrice,
+  getCartTotalQuantity,
+} from "@/utils/cart";
 
 type AddToCartProps = StoredCartItem & { image: string };
 
-export const AddToCart = ({ variantId, quantity, image }: AddToCartProps) => {
+export const AddToCart = ({
+  variantId,
+  quantity,
+  price,
+  image,
+}: AddToCartProps) => {
   const { isDark } = useTheme();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const cart = getItem<StoredCartItem[]>("cart") ?? [];
+    const cart = getItem<StoredCart>("cart") ?? {
+      items: [],
+      totalQuantity: 0,
+      totalPrice: 0,
+    };
 
-    const existingItem = cart.find((item) => item.variantId === variantId);
+    const existingItem = cart.items.find(
+      (item) => item.variantId === variantId,
+    );
 
-    const updatedCart = existingItem
-      ? cart.map((item) =>
+    const updatedItems = existingItem
+      ? cart.items.map((item) =>
           item.variantId === variantId
             ? {
                 ...item,
@@ -31,9 +43,16 @@ export const AddToCart = ({ variantId, quantity, image }: AddToCartProps) => {
               }
             : item,
         )
-      : [...cart, { variantId, quantity }];
+      : [...cart.items, { variantId, quantity, price }];
 
-    setItem("cart", updatedCart);
+    const totalQuantity = getCartTotalQuantity(updatedItems);
+    const totalPrice = getCartTotalPrice(updatedItems);
+
+    setItem("cart", {
+      items: updatedItems,
+      totalQuantity,
+      totalPrice,
+    });
 
     if (buttonRef.current) {
       animateToCart(buttonRef.current, image);

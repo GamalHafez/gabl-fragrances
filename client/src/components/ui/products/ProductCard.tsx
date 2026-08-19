@@ -88,7 +88,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                 {mainVariant.price.toString()}
                 <span className="ml-1 text-sm">EGP</span>
               </p>
-              <AddToCart />
+              <AddToCart variantId={mainVariant.id} quantity={1} />
             </div>
           </span>
         )}

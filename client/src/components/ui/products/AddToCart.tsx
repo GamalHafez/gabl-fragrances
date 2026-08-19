@@ -1,12 +1,40 @@
 import clsx from "clsx";
 import { Plus, ShoppingCart } from "lucide-react";
 import { useTheme } from "@/context/useTheme";
+import { getItem, setItem } from "@/utils";
 
-export const AddToCart = () => {
+type StoredCartItem = {
+  variantId: string;
+  quantity: number;
+};
+
+export const AddToCart = ({ variantId, quantity }: StoredCartItem) => {
   const { isDark } = useTheme();
+
+  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    const cart = getItem<StoredCartItem[]>("cart") ?? [];
+
+    const existingItem = cart.find((item) => item.variantId === variantId);
+
+    const updatedCart = existingItem
+      ? cart.map((item) =>
+          item.variantId === variantId
+            ? {
+                ...item,
+                quantity: item.quantity + quantity,
+              }
+            : item,
+        )
+      : [...cart, { variantId, quantity }];
+
+    setItem("cart", updatedCart);
+  };
 
   return (
     <button
+      onClick={onClick}
       type="button"
       aria-label="Add to cart"
       className={clsx(

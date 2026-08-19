@@ -1,12 +1,7 @@
-import {
-  Sheet,
-  // SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/shadcn/sheet";
+import { Sheet, SheetContent, SheetFooter } from "@/components/ui/shadcn/sheet";
+import { CartHeader } from "./CartHeader";
+import clsx from "clsx";
+import { useTheme } from "@/context/useTheme";
 
 type CartSheetProps = {
   open: boolean;
@@ -14,13 +9,12 @@ type CartSheetProps = {
 };
 
 export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
+  const { isDark } = useTheme();
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Are you absolutely sure?</SheetTitle>
-          <SheetDescription>This action cannot be undone.</SheetDescription>
-        </SheetHeader>
+      <SheetContent className={clsx(isDark ? "bg-zinc-900" : "bg-zinc-100")}>
+        <CartHeader />
 
         <SheetFooter>footer</SheetFooter>
       </SheetContent>

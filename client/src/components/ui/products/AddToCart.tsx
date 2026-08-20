@@ -1,16 +1,14 @@
 import clsx from "clsx";
 import { Plus, ShoppingCart } from "lucide-react";
 import { useTheme } from "@/context/theme/useTheme";
-import { getItem, setItem } from "@/utils";
+import { useCart } from "@/context/cart/useCart";
 import { useRef } from "react";
-import type { StoredCart, StoredCartItem } from "@shared/types";
-import {
-  animateToCart,
-  getCartTotalPrice,
-  getCartTotalQuantity,
-} from "@/utils/cart";
+import type { StoredCartItem } from "@shared/types";
+import { animateToCart } from "@/utils/cart";
 
-type AddToCartProps = StoredCartItem & { image: string };
+type AddToCartProps = StoredCartItem & {
+  image: string;
+};
 
 export const AddToCart = ({
   variantId,
@@ -19,39 +17,17 @@ export const AddToCart = ({
   image,
 }: AddToCartProps) => {
   const { isDark } = useTheme();
+  const { handleAddItem } = useCart();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const cart = getItem<StoredCart>("cart") ?? {
-      items: [],
-      totalQuantity: 0,
-      totalPrice: 0,
-    };
-
-    const existingItem = cart.items.find(
-      (item) => item.variantId === variantId,
-    );
-
-    const updatedItems = existingItem
-      ? cart.items.map((item) =>
-          item.variantId === variantId
-            ? {
-                ...item,
-                quantity: item.quantity + quantity,
-              }
-            : item,
-        )
-      : [...cart.items, { variantId, quantity, price }];
-
-    const totalQuantity = getCartTotalQuantity(updatedItems);
-    const totalPrice = getCartTotalPrice(updatedItems);
-
-    setItem("cart", {
-      items: updatedItems,
-      totalQuantity,
-      totalPrice,
+    // Context state updates
+    handleAddItem({
+      variantId,
+      quantity,
+      price,
     });
 
     if (buttonRef.current) {

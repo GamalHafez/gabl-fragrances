@@ -1,5 +1,11 @@
 export const animateToCart = (source: HTMLElement, imageSrc: string) => {
-  const cart = document.querySelector<HTMLElement>("[data-cart-trigger]");
+  const cartTriggers = document.querySelectorAll<HTMLElement>(
+    "[data-cart-trigger]",
+  );
+
+  const cart = Array.from(cartTriggers).find(
+    (element) => element.getClientRects().length > 0,
+  );
 
   if (!cart) return;
 

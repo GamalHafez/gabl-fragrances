@@ -1,19 +1,20 @@
 import { getCartTotalPrice, getCartTotalQuantity } from "@/utils/cart";
 import type { StoredCart, StoredCartItem } from "@shared/types";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import {
   addItem,
   clearCart,
   removeItem,
   updateQuantity,
 } from "./cartOperations";
+import { getItem, setItem } from "@/utils";
 
 type CartContextValue = {
   items: StoredCartItem[];
   totalQuantity: number;
   totalPrice: number;
 
-  addItem: (item: StoredCartItem) => void;
+  handleAddItem: (item: StoredCartItem) => void;
   removeItem: (variantId: string) => void;
   updateQuantity: (variantId: string, quantity: number) => void;
   clearCart: () => void;
@@ -22,23 +23,45 @@ type CartContextValue = {
 const CartContext = createContext<CartContextValue | null>(null);
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const [cart, setCart] = useState<StoredCart>({ items: [] });
+  const [cart, setCart] = useState<StoredCart>(
+    () => getItem<StoredCart>("cart") ?? { items: [] },
+  );
   const totalQuantity = getCartTotalQuantity(cart.items);
   const totalPrice = getCartTotalPrice(cart.items);
+
+  const handleAddItem = (item: StoredCartItem) => {
+    setCart((currentCart) => addItem(currentCart, item));
+  };
+
+  const handleRemoveItem = (variantId: string) => {
+    setCart((currentCart) => removeItem(currentCart, variantId));
+  };
+
+  const handleUpdateQuantity = (variantId: string, quantity: number) => {
+    setCart((currentCart) => updateQuantity(currentCart, variantId, quantity));
+  };
+
+  const handleClearCart = () => {
+    setCart(clearCart());
+  };
+
+  useEffect(() => {
+    setItem("cart", cart);
+  }, [cart]);
 
   return (
     <CartContext.Provider
       value={{
+        // Cart Data
         items: cart.items,
         totalQuantity,
         totalPrice,
 
         // Cart Operations
-        addItem: (item) => addItem(item, setCart),
-        removeItem: (variantId) => removeItem(variantId, setCart),
-        updateQuantity: (variantId, quantity) =>
-          updateQuantity(variantId, quantity, setCart),
-        clearCart: () => clearCart(setCart),
+        handleAddItem,
+        removeItem: handleRemoveItem,
+        updateQuantity: handleUpdateQuantity,
+        clearCart: handleClearCart,
       }}
     >
       {children}

@@ -1,52 +1,48 @@
 import type { StoredCart, StoredCartItem } from "@shared/types";
-import type { Dispatch, SetStateAction } from "react";
 
-type SetCart = Dispatch<SetStateAction<StoredCart>>;
+export const addItem = (cart: StoredCart, item: StoredCartItem): StoredCart => {
+  const existingItem = cart.items.find(
+    (cartItem) => cartItem.variantId === item.variantId,
+  );
 
-export const addItem = (item: StoredCartItem, setCart: SetCart) => {
-  setCart((currentCart) => {
-    const existingItem = currentCart.items.find(
-      (cartItem) => cartItem.variantId === item.variantId,
-    );
+  const items = existingItem
+    ? cart.items.map((cartItem) =>
+        cartItem.variantId === item.variantId
+          ? {
+              ...cartItem,
+              quantity: cartItem.quantity + item.quantity,
+            }
+          : cartItem,
+      )
+    : [...cart.items, item];
 
-    const items = existingItem
-      ? currentCart.items.map((cartItem) =>
-          cartItem.variantId === item.variantId
-            ? {
-                ...cartItem,
-                quantity: cartItem.quantity + item.quantity,
-              }
-            : cartItem,
-        )
-      : [...currentCart.items, item];
-
-    return { items };
-  });
+  return { items };
 };
 
-export const removeItem = (variantId: string, setCart: SetCart) => {
-  setCart((currentCart) => ({
-    items: currentCart.items.filter((item) => item.variantId !== variantId),
-  }));
+export const removeItem = (cart: StoredCart, variantId: string): StoredCart => {
+  return {
+    items: cart.items.filter((item) => item.variantId !== variantId),
+  };
 };
 
 export const updateQuantity = (
+  cart: StoredCart,
   variantId: string,
   quantity: number,
-  setCart: SetCart,
-) => {
+): StoredCart => {
   if (quantity <= 0) {
-    removeItem(variantId, setCart);
-    return;
+    return removeItem(cart, variantId);
   }
 
-  setCart((currentCart) => ({
-    items: currentCart.items.map((item) =>
+  return {
+    items: cart.items.map((item) =>
       item.variantId === variantId ? { ...item, quantity } : item,
     ),
-  }));
+  };
 };
 
-export const clearCart = (setCart: SetCart) => {
-  setCart({ items: [] });
+export const clearCart = (): StoredCart => {
+  return {
+    items: [],
+  };
 };

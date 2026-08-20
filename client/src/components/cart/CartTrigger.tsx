@@ -7,8 +7,7 @@ import {
 import { ShoppingCart } from "lucide-react";
 import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
-import { getItem } from "@/utils";
-import type { StoredCart } from "@shared/types";
+import { useCart } from "@/context/cart/useCart";
 
 type CartTriggerProps = {
   onOpenChange: (open: boolean) => void;
@@ -16,12 +15,7 @@ type CartTriggerProps = {
 
 export const CartTrigger = ({ onOpenChange }: CartTriggerProps) => {
   const { isDark } = useTheme();
-
-  const cart = getItem<StoredCart>("cart") ?? {
-    items: [],
-    totalQuantity: 0,
-    totalPrice: 0,
-  };
+  const { totalQuantity } = useCart();
 
   return (
     <TooltipProvider>
@@ -31,8 +25,8 @@ export const CartTrigger = ({ onOpenChange }: CartTriggerProps) => {
             <button
               type="button"
               data-cart-trigger
-              aria-label={`Shopping cart, ${cart?.totalQuantity} ${
-                cart.totalQuantity === 1 ? "item" : "items"
+              aria-label={`Shopping cart, ${totalQuantity} ${
+                totalQuantity === 1 ? "item" : "items"
               }`}
               className={clsx(
                 "relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-full transition-colors",
@@ -44,7 +38,7 @@ export const CartTrigger = ({ onOpenChange }: CartTriggerProps) => {
             >
               <ShoppingCart size={20} />
 
-              {cart.totalQuantity > 0 && (
+              {totalQuantity > 0 && (
                 <span
                   className={clsx(
                     "absolute -top-0.5 -right-0.5 flex min-h-5 min-w-5 items-center justify-center rounded-full px-1 text-[10px] leading-none font-bold",
@@ -53,7 +47,7 @@ export const CartTrigger = ({ onOpenChange }: CartTriggerProps) => {
                       : "bg-brand-500 text-white",
                   )}
                 >
-                  {cart.totalQuantity > 99 ? "99+" : cart.totalQuantity}
+                  {totalQuantity > 99 ? "99+" : totalQuantity}
                 </span>
               )}
             </button>

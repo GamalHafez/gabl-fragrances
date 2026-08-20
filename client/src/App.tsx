@@ -11,6 +11,7 @@ import {
   SamplesPage,
 } from "@/pages/public";
 import { Contact } from "lucide-react";
+import { CartProvider } from "./context/cart/CartProvider";
 
 const router = createBrowserRouter([
   {
@@ -53,7 +54,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <ThemeProvider>
-      <RouterProvider router={router} />
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
     </ThemeProvider>
   );
 }

@@ -1,4 +1,4 @@
-import { getCartTotalPrice, getCartTotalQuantity } from "@/utils/cart";
+import { getCartTotalQuantity } from "@/utils/cart";
 import type { StoredCart, StoredCartItem } from "@shared/types";
 import { createContext, useEffect, useState } from "react";
 import {
@@ -12,7 +12,6 @@ import { getItem, setItem } from "@/utils";
 type CartContextValue = {
   items: StoredCartItem[];
   totalQuantity: number;
-  totalPrice: number;
 
   handleAddItem: (item: StoredCartItem) => void;
   removeItem: (variantId: string) => void;
@@ -27,7 +26,6 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     () => getItem<StoredCart>("cart") ?? { items: [] },
   );
   const totalQuantity = getCartTotalQuantity(cart.items);
-  const totalPrice = getCartTotalPrice(cart.items);
 
   const handleAddItem = (item: StoredCartItem) => {
     setCart((currentCart) => addItem(currentCart, item));
@@ -55,7 +53,6 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         // Cart Data
         items: cart.items,
         totalQuantity,
-        totalPrice,
 
         // Cart Operations
         handleAddItem,

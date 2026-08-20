@@ -13,7 +13,6 @@ type AddToCartProps = StoredCartItem & {
 export const AddToCart = ({
   variantId,
   quantity,
-  price,
   image,
 }: AddToCartProps) => {
   const { isDark } = useTheme();
@@ -27,7 +26,6 @@ export const AddToCart = ({
     handleAddItem({
       variantId,
       quantity,
-      price,
     });
 
     if (buttonRef.current) {

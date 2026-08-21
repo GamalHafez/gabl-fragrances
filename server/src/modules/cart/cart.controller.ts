@@ -8,7 +8,7 @@ export const getCartData = async (
   next: NextFunction,
 ) => {
   try {
-    const { items } = req.body;
+    const items = req.body;
     const cartData = await cartService.getCartData(items);
 
     return sendSuccess(res, {

@@ -4,7 +4,7 @@ type CartItemProps = {
 export const CartItem = ({ name }: CartItemProps) => {
   return (
     <div>
-      <p>{name}</p>
+      <p className="text-black">{name}</p>
     </div>
   );
 };

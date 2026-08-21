@@ -1,6 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { reviewsService } from "@/services/reviews/reviews.service";
-import type { ProductReview } from "@shared/types/product";
+import type z from "zod";
+import type { createReviewSchema } from "@shared/validators/reviewSchema";
+type CreateReviewBody = z.infer<typeof createReviewSchema>;
 
 export const useCreateReview = (productSlug: string) => {
   const queryClient = useQueryClient();
@@ -9,7 +11,7 @@ export const useCreateReview = (productSlug: string) => {
   }
 
   return useMutation({
-    mutationFn: (data: ProductReview) =>
+    mutationFn: (data: CreateReviewBody) =>
       reviewsService.createReview(productSlug, data),
 
     onSuccess: () => {

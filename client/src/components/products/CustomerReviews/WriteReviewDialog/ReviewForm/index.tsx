@@ -2,7 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 import { RatingField } from "./RatingField";
 import {
   reviewSchema,
-  type ReviewFormData,
+  type createReviewSchema,
 } from "@shared/validators/reviewSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormField, FormSubmitButton } from "@/components/ui/forms";
@@ -10,6 +10,9 @@ import { useCreateReview } from "@/hooks/reviews";
 import { useParams } from "react-router-dom";
 import { ErrorMessage } from "@/components/ui/common";
 import { ReviewSuccess } from "./ReviewSuccess";
+import type z from "zod";
+
+type CreateReviewBody = z.infer<typeof createReviewSchema>;
 
 export const ReviewForm = () => {
   const { productSlug } = useParams();
@@ -19,7 +22,7 @@ export const ReviewForm = () => {
     control,
     reset,
     formState: { errors },
-  } = useForm<ReviewFormData>({
+  } = useForm<CreateReviewBody>({
     resolver: zodResolver(reviewSchema),
     defaultValues: {
       name: "",
@@ -35,7 +38,7 @@ export const ReviewForm = () => {
     isSuccess,
   } = useCreateReview(productSlug!);
 
-  const onSubmit = (data: ReviewFormData) => {
+  const onSubmit = (data: CreateReviewBody) => {
     createReview(data, {
       onSuccess: () => {
         reset();

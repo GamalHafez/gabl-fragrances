@@ -1,14 +1,13 @@
 import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 import { Minus, Plus } from "lucide-react";
-import type { Dispatch, SetStateAction } from "react";
 import { StockIndicator } from "./StockIndicator";
 
 type QuantitySelectorProps = {
   inStock: boolean;
   stock: number;
   quantity: number;
-  onQuantityChange: Dispatch<SetStateAction<number>>;
+  onQuantityChange: (quantity: number) => void;
 };
 
 export const QuantitySelector = ({
@@ -20,7 +19,7 @@ export const QuantitySelector = ({
   const { isDark } = useTheme();
 
   return (
-    <div className="ml-3 flex w-3/6 gap-2">
+    <div className="flex gap-2">
       <div
         className={clsx(
           "mr-auto inline-flex items-center rounded-full border p-1 shadow-sm transition-opacity",
@@ -31,9 +30,7 @@ export const QuantitySelector = ({
       >
         <button
           disabled={!inStock || quantity <= 1}
-          onClick={() =>
-            onQuantityChange((prev: number) => Math.max(prev - 1, 1))
-          }
+          onClick={() => onQuantityChange(Math.max(quantity - 1, 1))}
           className={clsx(
             "flex h-9 w-9 items-center justify-center rounded-full transition-colors disabled:cursor-not-allowed",
 
@@ -58,7 +55,7 @@ export const QuantitySelector = ({
 
         <button
           disabled={!inStock || quantity >= stock}
-          onClick={() => onQuantityChange((prev: number) => prev + 1)}
+          onClick={() => onQuantityChange(quantity + 1)}
           className={clsx(
             "flex h-9 w-9 items-center justify-center rounded-full transition-colors disabled:cursor-not-allowed",
 

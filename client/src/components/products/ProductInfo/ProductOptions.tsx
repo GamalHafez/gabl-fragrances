@@ -26,48 +26,49 @@ export const ProductOptions = ({
   const { isDark } = useTheme();
 
   return (
-    <div className="flex items-center gap-2">
-      <p
-        className={clsx(
-          "text-md font-medium capitalize",
-          isDark ? "text-zinc-400" : "text-zinc-600",
-        )}
-      >
-        size:
-      </p>
-      {variants.map((variant) => {
-        const isSelected = variant.id === selectedVariantId;
-        const isVariantInStock = variant.isActive && variant.stock > 0;
+    <div className="flex flex-col gap-5 md:flex-row">
+      <div className="flex items-center gap-2">
+        <p
+          className={clsx(
+            "text-md font-medium capitalize",
+            isDark ? "text-zinc-400" : "text-zinc-600",
+          )}
+        >
+          size:
+        </p>
+        {variants.map((variant) => {
+          const isSelected = variant.id === selectedVariantId;
+          const isVariantInStock = variant.isActive && variant.stock > 0;
 
-        return (
-          <button
-            key={variant.id}
-            type="button"
-            disabled={!isVariantInStock}
-            onClick={() => onVariantChange(variant.id)}
-            className={clsx(
-              "cursor-pointer rounded-md border px-3 py-1 text-sm font-medium transition-all duration-200",
+          return (
+            <button
+              key={variant.id}
+              type="button"
+              disabled={!isVariantInStock}
+              onClick={() => onVariantChange(variant.id)}
+              className={clsx(
+                "cursor-pointer rounded-md border px-3 py-1 text-sm font-medium transition-all duration-200",
 
-              !isVariantInStock && "cursor-not-allowed opacity-50 grayscale",
+                !isVariantInStock && "cursor-not-allowed opacity-50 grayscale",
 
-              isSelected &&
-                isVariantInStock &&
-                (isDark
-                  ? "border-amber-500 bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/20"
-                  : "border-zinc-900 bg-zinc-800 text-white shadow-sm"),
+                isSelected &&
+                  isVariantInStock &&
+                  (isDark
+                    ? "border-amber-500 bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/20"
+                    : "border-zinc-900 bg-zinc-800 text-white shadow-sm"),
 
-              !isSelected &&
-                isVariantInStock &&
-                (isDark
-                  ? "border-zinc-700 bg-zinc-900 text-zinc-300 hover:border-amber-500"
-                  : "border-zinc-300 bg-white text-zinc-700 hover:border-zinc-900"),
-            )}
-          >
-            {variant.sizeML} ML
-          </button>
-        );
-      })}
-
+                !isSelected &&
+                  isVariantInStock &&
+                  (isDark
+                    ? "border-zinc-700 bg-zinc-900 text-zinc-300 hover:border-amber-500"
+                    : "border-zinc-300 bg-white text-zinc-700 hover:border-zinc-900"),
+              )}
+            >
+              {variant.sizeML} ML
+            </button>
+          );
+        })}
+      </div>
       <QuantitySelector
         inStock={inStock}
         stock={stock}

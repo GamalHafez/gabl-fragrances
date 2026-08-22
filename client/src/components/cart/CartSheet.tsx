@@ -18,7 +18,7 @@ export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
   const {
     mutate: getCartData,
     data: cartData,
-    isPending,
+    //  isPending,
     isError,
     //  refetch,
   } = useCartData();
@@ -28,9 +28,9 @@ export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
     getCartData(items);
   }, [open, items, getCartData]);
 
-  if (isPending) {
-    return <p>Loading cart...</p>;
-  }
+  //  if (isPending) {
+  //     return <p>Loading cart...</p>;
+  //   }
 
   if (isError) {
     return <p>Failed to load cart.</p>;
@@ -41,11 +41,9 @@ export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
       <SheetContent className={clsx(isDark ? "bg-zinc-900" : "bg-zinc-100")}>
         <CartHeader />
 
-        {cartData?.items.map((item: CartVariant) => {
-          const { id, product } = item;
-
-          return <CartItem key={id} name={product.name} />;
-        })}
+        {cartData?.items.map((item: CartVariant) => (
+          <CartItem key={item?.id} cartItem={item} />
+        ))}
 
         <SheetFooter>footer</SheetFooter>
       </SheetContent>

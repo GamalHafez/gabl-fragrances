@@ -3,9 +3,11 @@ import { CartHeader, CartItem } from "@/components/cart";
 import clsx from "clsx";
 import { useTheme } from "@/context/theme/useTheme";
 import { useCartData } from "@/hooks/cart/useCartData";
-import type { CartVariant } from "@shared/types";
 import { useCart } from "@/context/cart/useCart";
 import { useEffect } from "react";
+import { CartItemSkeleton } from "@/components/skeleton";
+import { DataError } from "@/components/ui/errors/DataError";
+import { EmptyCart } from "./EmptyCart";
 
 type CartSheetProps = {
   open: boolean;
@@ -18,9 +20,8 @@ export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
   const {
     mutate: getCartData,
     data: cartData,
-    //  isPending,
+    isPending,
     isError,
-    //  refetch,
   } = useCartData();
 
   useEffect(() => {
@@ -28,22 +29,28 @@ export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
     getCartData(items);
   }, [open, items, getCartData]);
 
-  //  if (isPending) {
-  //     return <p>Loading cart...</p>;
-  //   }
-
-  if (isError) {
-    return <p>Failed to load cart.</p>;
-  }
-
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className={clsx(isDark ? "bg-zinc-900" : "bg-zinc-100")}>
         <CartHeader />
 
-        {cartData?.items.map((item: CartVariant) => (
-          <CartItem key={item?.id} cartItem={item} />
-        ))}
+        {items.length === 0 ? (
+          <EmptyCart onOpenChange={onOpenChange} />
+        ) : isPending && !cartData ? (
+          Array.from({ length: 3 }).map((_, index) => (
+            <CartItemSkeleton key={index} />
+          ))
+        ) : isError || !cartData ? (
+          <DataError
+            message="We couldn't load Cart Data right now. Please try again in a moment."
+            onRetry={() => getCartData(items)}
+            isHomeLink={false}
+          />
+        ) : (
+          cartData.items.map((item) => (
+            <CartItem key={item.id} cartItem={item} />
+          ))
+        )}
 
         <SheetFooter>footer</SheetFooter>
       </SheetContent>

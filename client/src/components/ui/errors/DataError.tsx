@@ -6,9 +6,14 @@ import { Link } from "react-router-dom";
 type DataErrorProps = {
   message?: string;
   onRetry?: () => void;
+  isHomeLink?: boolean;
 };
 
-export const DataError = ({ message, onRetry }: DataErrorProps) => {
+export const DataError = ({
+  message,
+  onRetry,
+  isHomeLink = true,
+}: DataErrorProps) => {
   const { isDark } = useTheme();
 
   return (
@@ -69,17 +74,19 @@ export const DataError = ({ message, onRetry }: DataErrorProps) => {
           </button>
         )}
 
-        <Link
-          to="/"
-          className={clsx(
-            "inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-medium transition-colors",
-            isDark
-              ? "border-zinc-700 text-zinc-200 hover:bg-zinc-800"
-              : "border-zinc-300 text-zinc-700 hover:bg-zinc-100",
-          )}
-        >
-          Back to home
-        </Link>
+        {isHomeLink && (
+          <Link
+            to="/"
+            className={clsx(
+              "inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-medium transition-colors",
+              isDark
+                ? "border-zinc-700 text-zinc-200 hover:bg-zinc-800"
+                : "border-zinc-300 text-zinc-700 hover:bg-zinc-100",
+            )}
+          >
+            Back to home
+          </Link>
+        )}
       </div>
     </div>
   );

@@ -32,7 +32,7 @@ export const CartTrigger = ({ onOpenChange }: CartTriggerProps) => {
                 "relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-full transition-colors",
                 isDark
                   ? "text-brand-300 hover:text-brand-200 hover:bg-zinc-800/60"
-                  : "text-brand-500 hover:bg-brand-50 hover:text-brand-600",
+                  : "text-brand-500 hover:bg-brand-200 hover:text-brand-600",
               )}
               onClick={() => onOpenChange(true)}
             >

@@ -44,7 +44,7 @@ export const CartItem = ({ cartItem }: CartItemProps) => {
           />
         </div>
         {/* Product Info */}
-        <div className="flex min-w-0 flex-1 flex-col justify-center">
+        <div className="flex flex-1 flex-col justify-center">
           <h3
             className={clsx(
               "truncate text-sm font-semibold",

@@ -1,5 +1,5 @@
-import { Sheet, SheetContent, SheetFooter } from "@/components/ui/shadcn/sheet";
-import { CartHeader, CartItem } from "@/components/cart";
+import { Sheet, SheetContent } from "@/components/ui/shadcn/sheet";
+import { CartHeader, CartItem, EmptyCart, CartFooter } from "@/components/cart";
 import clsx from "clsx";
 import { useTheme } from "@/context/theme/useTheme";
 import { useCartData } from "@/hooks/cart/useCartData";
@@ -7,7 +7,6 @@ import { useCart } from "@/context/cart/useCart";
 import { useEffect } from "react";
 import { CartItemSkeleton } from "@/components/skeleton";
 import { DataError } from "@/components/ui/errors/DataError";
-import { EmptyCart } from "./EmptyCart";
 
 type CartSheetProps = {
   open: boolean;
@@ -31,28 +30,38 @@ export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className={clsx(isDark ? "bg-zinc-900" : "bg-zinc-100")}>
+      <SheetContent
+        className={clsx(
+          "flex flex-col",
+          isDark ? "bg-zinc-900" : "bg-zinc-100",
+        )}
+      >
         <CartHeader />
 
-        {items.length === 0 ? (
-          <EmptyCart onOpenChange={onOpenChange} />
-        ) : isPending && !cartData ? (
-          Array.from({ length: 3 }).map((_, index) => (
-            <CartItemSkeleton key={index} />
-          ))
-        ) : isError || !cartData ? (
-          <DataError
-            message="We couldn't load Cart Data right now. Please try again in a moment."
-            onRetry={() => getCartData(items)}
-            isHomeLink={false}
-          />
-        ) : (
-          cartData.items.map((item) => (
-            <CartItem key={item.id} cartItem={item} />
-          ))
-        )}
+        <div className="min-h-0 flex-1 overflow-y-auto">
+          {items.length === 0 ? (
+            <EmptyCart onOpenChange={onOpenChange} />
+          ) : isPending && !cartData ? (
+            Array.from({ length: 3 }).map((_, index) => (
+              <CartItemSkeleton key={index} />
+            ))
+          ) : isError || !cartData ? (
+            <DataError
+              message="We couldn't load Cart Data right now. Please try again in a moment."
+              onRetry={() => getCartData(items)}
+              isHomeLink={false}
+            />
+          ) : (
+            cartData.items.map((item) => (
+              <CartItem key={item.id} cartItem={item} />
+            ))
+          )}
+        </div>
 
-        <SheetFooter>footer</SheetFooter>
+        <CartFooter
+          subtotal={cartData?.subtotal ?? "0"}
+          totalQuantity={cartData?.totalQuantity ?? 0}
+        />
       </SheetContent>
     </Sheet>
   );

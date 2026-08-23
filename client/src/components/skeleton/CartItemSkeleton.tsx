@@ -6,12 +6,7 @@ export const CartItemSkeleton = () => {
   const { isDark } = useTheme();
 
   return (
-    <article
-      className={clsx(
-        "grid grid-cols-2 gap-y-2 border-b px-3 py-5",
-        isDark ? "border-zinc-800" : "border-zinc-200",
-      )}
-    >
+    <article className="grid grid-cols-2 gap-y-2 px-3 py-5">
       {/* Product */}
       <div className="flex gap-2">
         {/* Image */}

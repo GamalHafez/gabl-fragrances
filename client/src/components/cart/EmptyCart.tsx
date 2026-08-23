@@ -12,7 +12,7 @@ export const EmptyCart = ({ onOpenChange }: EmptyCartProps) => {
   return (
     <div
       className={clsx(
-        "flex flex-1 flex-col items-center justify-center px-6 text-center",
+        "flex flex-1 flex-col items-center mt-10 justify-center px-6 text-center",
         isDark ? "text-white" : "text-neutral-900",
       )}
     >

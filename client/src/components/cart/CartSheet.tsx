@@ -22,6 +22,7 @@ export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
     isPending,
     isError,
   } = useCartData();
+  console.log(cartData);
 
   useEffect(() => {
     if (!open || items.length === 0) return;
@@ -45,9 +46,15 @@ export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
             Array.from({ length: 3 }).map((_, index) => (
               <CartItemSkeleton key={index} />
             ))
-          ) : isError || !cartData ? (
+          ) : isError ? (
             <DataError
-              message="We couldn't load Cart Data right now. Please try again in a moment."
+              message="We couldn't load your cart right now. Please try again in a moment."
+              onRetry={() => getCartData(items)}
+              isHomeLink={false}
+            />
+          ) : !cartData ? (
+            <DataError
+              message="We couldn't load your cart right now. Please try again in a moment."
               onRetry={() => getCartData(items)}
               isHomeLink={false}
             />
@@ -58,10 +65,12 @@ export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
           )}
         </div>
 
-        <CartFooter
-          subtotal={cartData?.subtotal ?? "0"}
-          totalQuantity={cartData?.totalQuantity ?? 0}
-        />
+        {items.length > 0 && (
+          <CartFooter
+            subtotal={cartData?.subtotal ?? "0"}
+            totalQuantity={cartData?.totalQuantity ?? 0}
+          />
+        )}
       </SheetContent>
     </Sheet>
   );

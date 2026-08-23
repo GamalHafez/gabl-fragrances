@@ -67,12 +67,14 @@ export const cartService = {
     );
 
     // Calculate totals
-    const totalQuantity = validItems.reduce(
+    const inStockItems = validItems.filter((item) => item.stock > 0);
+
+    const totalQuantity = inStockItems.reduce(
       (acc, item) => acc + item.quantity,
       0,
     );
 
-    const subtotal = validItems
+    const subtotal = inStockItems
       .reduce((acc, item) => acc + Number(item.price) * item.quantity, 0)
       .toFixed(2);
 

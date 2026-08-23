@@ -3,7 +3,7 @@ import type { CartVariant } from "@shared/types";
 import clsx from "clsx";
 import { QuantitySelector } from "@/components/ui/products";
 import { useCart } from "@/context/cart/useCart";
-import { Trash } from "lucide-react";
+import { CircleX, Trash } from "lucide-react";
 
 type CartItemProps = {
   cartItem: CartVariant;
@@ -91,17 +91,36 @@ export const CartItem = ({ cartItem }: CartItemProps) => {
             isDark ? "text-zinc-100" : "text-zinc-900",
           )}
         >
-          {subtotal.toFixed(2)} <span className="text-xs font-normal">EGP</span>
+          {stock > 0 ? (
+            <>
+              {subtotal.toFixed(2)}{" "}
+              <span className="text-xs font-normal">EGP</span>
+            </>
+          ) : (
+            "Unavailable"
+          )}
         </p>
       </div>
 
       <div className="col-span-2 flex items-center pl-2">
-        <QuantitySelector
-          inStock={stock > 0}
-          stock={stock}
-          quantity={quantity}
-          onQuantityChange={(quantity) => updateQuantity(id, quantity)}
-        />
+        {stock ? (
+          <QuantitySelector
+            inStock={stock > 0}
+            stock={stock}
+            quantity={quantity}
+            onQuantityChange={(quantity) => updateQuantity(id, quantity)}
+          />
+        ) : (
+          <p
+            className={clsx(
+              "flex items-center justify-center gap-1",
+              isDark ? "text-brand-500" : "text-brand-600",
+            )}
+          >
+            <CircleX size={18} />
+            This Product is currenly out of stock
+          </p>
+        )}
         <button
           type="button"
           onClick={() => removeItem(id)}

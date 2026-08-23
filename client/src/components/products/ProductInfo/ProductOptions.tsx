@@ -47,7 +47,7 @@ export const ProductOptions = ({
               disabled={!isVariantInStock}
               onClick={() => onVariantChange(variant.id)}
               className={clsx(
-                "cursor-pointer rounded-md border px-3 py-1 text-sm font-medium transition-all duration-200",
+                "cursor-pointer rounded-md border px-3 py-1 text-sm font-medium transition-all duration-200 disabled:cursor-not-allowed",
 
                 !isVariantInStock && "cursor-not-allowed opacity-50 grayscale",
 

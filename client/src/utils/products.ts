@@ -7,6 +7,7 @@ import type {
 
 export const getProductBadges = (
   product: Product | ProductSample,
+  inStock: boolean,
   isSample?: boolean,
 ): ProductBadge[] => {
   const badges: ProductBadge[] = [];
@@ -44,10 +45,6 @@ export const getProductBadges = (
       status: "best-seller",
     });
   }
-
-  const inStock = product.variants.some(
-    (variant) => variant.isActive && variant.stock > 0,
-  );
 
   badges.push({
     label: inStock ? "In Stock" : "Out of Stock",

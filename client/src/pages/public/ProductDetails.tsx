@@ -36,7 +36,9 @@ export const ProductDetails = () => {
 
   const selectedVariant =
     product?.variants.find((variant) => variant.id === selectedVariantId) ??
-    product?.variants.find((variant) => variant.sizeML !== 5) ??
+    product?.variants.find(
+      (variant) => variant.isActive && variant.stock > 0,
+    ) ??
     product?.variants[0];
 
   const productMainImage =

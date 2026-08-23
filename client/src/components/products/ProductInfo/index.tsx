@@ -27,10 +27,10 @@ export const ProductInfo = ({
 
   const [quantity, setQuantity] = useState(1);
 
-  const badges = getProductBadges(product);
-  const inStock = product.variants.some(
-    (variant) => variant.isActive && variant.stock > 0,
+  const inStock = Boolean(
+    selectedVariant.isActive && selectedVariant.stock > 0,
   );
+  const badges = getProductBadges(product, inStock);
 
   const handleVariantChange = (variantId: string) => {
     const variant = variants.find((variant) => variant.id === variantId);

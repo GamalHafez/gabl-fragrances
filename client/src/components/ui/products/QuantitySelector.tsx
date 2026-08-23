@@ -23,7 +23,7 @@ export const QuantitySelector = ({
       <div
         className={clsx(
           "mr-auto inline-flex items-center rounded-full border p-1 shadow-sm transition-opacity",
-          !inStock && "pointer-events-none opacity-50 grayscale",
+          !inStock && "cursor-not-allowed opacity-50 grayscale",
 
           isDark ? "border-zinc-700 bg-zinc-900" : "border-zinc-300 bg-white",
         )}

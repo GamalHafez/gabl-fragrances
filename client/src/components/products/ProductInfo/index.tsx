@@ -8,6 +8,7 @@ import { useState } from "react";
 import { ProductActions } from "./ProductActions";
 import { ProductQuickLinks } from "./ProductQuickLinks";
 import { getAverageRating, getProductBadges } from "@/utils";
+import sample5mlImage from "@/assets/sample-5ml.webp";
 
 type ProductInfoProps = {
   product: Product;
@@ -72,7 +73,12 @@ export const ProductInfo = ({
         inStock={inStock}
       />
 
-      <ProductActions inStock={inStock} />
+      <ProductActions
+        variantId={selectedVariant.id}
+        productImage={sample5mlImage}
+        quantity={quantity}
+        inStock={inStock}
+      />
 
       <ProductQuickLinks />
     </div>

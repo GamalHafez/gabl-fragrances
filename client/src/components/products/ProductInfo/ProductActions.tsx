@@ -1,21 +1,56 @@
 import Reveal from "@/components/ui/animation/Reveal";
+import { useCart } from "@/context/cart/useCart";
 import { useTheme } from "@/context/theme/useTheme";
+import { animateToCart } from "@/utils/cart";
 import clsx from "clsx";
 import { CreditCard, ShoppingBag } from "lucide-react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 
-export const ProductActions = ({ inStock }: { inStock: boolean }) => {
+type ProductActionsProps = {
+  variantId: string;
+  quantity: number;
+  productImage: string;
+  inStock: boolean;
+};
+
+export const ProductActions = ({
+  variantId,
+  quantity,
+  productImage,
+  inStock,
+}: ProductActionsProps) => {
   const { isDark } = useTheme();
+  const { handleAddItem } = useCart();
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    if (!inStock) return;
+
+    // Context state updates
+    handleAddItem({
+      variantId,
+      quantity,
+    });
+
+    if (buttonRef.current) {
+      animateToCart(buttonRef.current, productImage);
+    }
+  };
 
   return (
     <Reveal>
       <div className="flex flex-col gap-3 md:flex-row">
-        <Link
-          to={inStock ? "/cart" : ""}
-          onClick={(e) => !inStock && e.preventDefault()}
+        <button
+          onClick={onClick}
+          ref={buttonRef}
           aria-disabled={!inStock}
+          disabled={!inStock}
+          aria-label="Add to cart"
           className={clsx(
-            "flex flex-1 items-center justify-center gap-2 rounded-full border px-6 py-3 text-sm font-medium transition-all duration-300",
+            "flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-full border px-6 py-3 text-sm font-medium transition-all duration-300",
 
             !inStock && "cursor-not-allowed opacity-50 grayscale",
 
@@ -32,7 +67,7 @@ export const ProductActions = ({ inStock }: { inStock: boolean }) => {
         >
           <ShoppingBag className="h-4 w-4" />
           Add to Cart
-        </Link>
+        </button>
 
         <Link
           to={inStock ? "/checkout" : ""}

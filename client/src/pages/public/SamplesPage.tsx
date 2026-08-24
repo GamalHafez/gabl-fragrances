@@ -49,9 +49,11 @@ export const SamplesPage = () => {
   const sampleVariant = variants.find((v) => v.sizeML === 5);
   const badges = getProductBadges(selectedSample, true);
 
-  const inStock = variants.some(
-    (variant) => variant.isActive && variant.stock > 0,
-  );
+  const inStock = Boolean(sampleVariant?.isActive && sampleVariant?.stock > 0);
+
+  if (!sampleVariant) {
+    return <SamplesPageError refetch={refetch} />;
+  }
 
   return (
     <PageWrapper>
@@ -93,11 +95,17 @@ export const SamplesPage = () => {
 
             <QuantitySelector
               inStock={inStock}
-              stock={sampleVariant?.stock ?? 0}
+              stock={sampleVariant.stock}
               quantity={quantity}
               onQuantityChange={setQuantity}
             />
-            <ProductActions inStock={inStock} />
+
+            <ProductActions
+              variantId={sampleVariant.id}
+              productImage={sample5mlImage}
+              quantity={quantity}
+              inStock={inStock}
+            />
 
             <SampleLink selectedSampleSlug={selectedSample.slug} />
           </div>

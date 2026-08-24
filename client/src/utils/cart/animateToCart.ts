@@ -16,12 +16,14 @@ export const animateToCart = (source: HTMLElement, imageSrc: string) => {
 
   flyingImage.src = imageSrc;
 
-  Object.assign(flyingImage.style, {
+  const imageSize = 64;
+
+   Object.assign(flyingImage.style, {
     position: "fixed",
-    left: `${sourceRect.left}px`,
-    top: `${sourceRect.top}px`,
-    width: `${sourceRect.width}px`,
-    height: `${sourceRect.height}px`,
+    left: `${sourceRect.left + sourceRect.width / 2 - imageSize / 2}px`,
+    top: `${sourceRect.top + sourceRect.height / 2 - imageSize / 2}px`,
+    width: `${imageSize}px`,
+    height: `${imageSize}px`,
     objectFit: "cover",
     borderRadius: "9999px",
     pointerEvents: "none",

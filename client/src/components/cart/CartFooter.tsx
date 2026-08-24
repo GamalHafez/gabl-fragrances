@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { SheetFooter } from "@/components/ui/shadcn/sheet";
 import { useTheme } from "@/context/theme/useTheme";
 import { CartDiscountSection } from "@/components/cart/index";
+import { Link } from "react-router-dom";
 
 type CartFooterProps = {
   subtotal: string;
@@ -71,8 +72,8 @@ export const CartFooter = ({ subtotal, totalQuantity }: CartFooterProps) => {
       </p>
 
       {/* Checkout */}
-      <button
-        type="button"
+      <Link
+        to="checkout"
         className={clsx(
           "w-full rounded-full px-6 py-3.5 text-sm font-medium tracking-wide uppercase",
           "cursor-pointer transition-colors duration-200",
@@ -83,7 +84,7 @@ export const CartFooter = ({ subtotal, totalQuantity }: CartFooterProps) => {
         )}
       >
         Checkout
-      </button>
+      </Link>
     </SheetFooter>
   );
 };

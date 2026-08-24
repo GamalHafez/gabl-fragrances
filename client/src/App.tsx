@@ -5,13 +5,15 @@ import { ErrorPage } from "@/pages";
 import {
   AboutUs,
   Collections,
+  Contact,
   HomePage,
   PrivacyPolicy,
   ProductDetails,
   SamplesPage,
 } from "@/pages/public";
-import { Contact } from "lucide-react";
 import { CartProvider } from "./context/cart/CartProvider";
+import { CheckoutLayout } from "@/pages/layouts/CheckoutLayout";
+import { Checkout } from "@/pages/checkout/Checkout";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +48,17 @@ const router = createBrowserRouter([
       {
         path: "privacy-policy",
         element: <PrivacyPolicy />,
+      },
+    ],
+  },
+  {
+    path: "/checkout",
+    element: <CheckoutLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <Checkout />,
       },
     ],
   },

@@ -22,7 +22,6 @@ export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
     isPending,
     isError,
   } = useCartData();
-  console.log(cartData);
 
   useEffect(() => {
     if (!open || items.length === 0) return;

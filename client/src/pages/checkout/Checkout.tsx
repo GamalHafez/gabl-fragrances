@@ -4,9 +4,10 @@ import {
 } from "@/components/checkout/sections";
 import { Container, PageWrapper } from "@/components/ui/common";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { CheckoutFormValues } from "@shared/types";
+import type { CheckoutFormOutput, CheckoutFormValues } from "@shared/types";
 import { useForm } from "react-hook-form";
 import { checkoutSchema } from "@shared/validators/checkoutSchema";
+import { CheckoutSaveInformation } from "@/components/checkout/common";
 
 const checkoutDefaultValues: CheckoutFormValues = {
   contact: "",
@@ -18,6 +19,7 @@ const checkoutDefaultValues: CheckoutFormValues = {
   governorate: "",
   postalCode: "",
   phone: "",
+  saveInformation: false,
   // shippingMethod: "",
   // paymentMethod: "",
 };
@@ -25,14 +27,15 @@ const checkoutDefaultValues: CheckoutFormValues = {
 export const Checkout = () => {
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
-  } = useForm<CheckoutFormValues>({
+  } = useForm<CheckoutFormValues, unknown, CheckoutFormOutput>({
     resolver: zodResolver(checkoutSchema),
     defaultValues: checkoutDefaultValues,
   });
 
-  const onSubmit = (data: CheckoutFormValues) => {
+  const onSubmit = (data: CheckoutFormOutput) => {
     console.log(data);
   };
 
@@ -44,7 +47,10 @@ export const Checkout = () => {
           className="flex flex-col gap-8 px-8"
         >
           <ContactSection register={register} errors={errors} />
-          <DeliverySection register={register} errors={errors} />
+          <div className="flex flex-col gap-2">
+            <DeliverySection register={register} errors={errors} />
+            <CheckoutSaveInformation control={control} />
+          </div>
         </form>
       </Container>
     </PageWrapper>

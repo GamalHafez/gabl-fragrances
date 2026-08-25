@@ -13,7 +13,7 @@ const contactSchema = {
     .refine(
       (value) =>
         z.string().email().safeParse(value).success ||
-        /^01[0125][0-9]{8}$/.test(value),
+        egyptianPhoneSchema.safeParse(value).success,
       {
         message: 'Enter a valid email or mobile phone number',
       },
@@ -38,6 +38,8 @@ const deliverySchema = {
 export const checkoutSchema = z.object({
   ...contactSchema,
   ...deliverySchema,
+
+  saveInformation: z.boolean().default(false),
 
   // Later:
   // ...shippingSchema,

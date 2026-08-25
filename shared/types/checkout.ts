@@ -1,4 +1,6 @@
-import type { checkoutSchema } from '@shared/validators/checkoutSchema';
-import type z from 'zod';
+import type { z } from 'zod';
+import { checkoutSchema } from '@shared/validators/checkoutSchema';
 
-export type CheckoutFormValues = z.infer<typeof checkoutSchema>;
+export type CheckoutFormValues = z.input<typeof checkoutSchema>;
+
+export type CheckoutFormOutput = z.output<typeof checkoutSchema>;

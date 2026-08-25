@@ -56,7 +56,7 @@ export const FormSelect = <T extends FieldValues>({
   );
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col">
       <FormLabel id={name}>{label}</FormLabel>
 
       <div className="relative">

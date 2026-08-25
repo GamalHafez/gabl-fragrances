@@ -33,7 +33,7 @@ export const CountryField = () => {
 
       <p
         className={clsx(
-          "px-2 text-xs",
+          "px-2 pt-1 pb-2 text-xs",
           isDark ? "text-zinc-600" : "text-zinc-400",
         )}
       >

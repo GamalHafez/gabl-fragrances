@@ -1,6 +1,7 @@
 import {
   ContactSection,
   DeliverySection,
+  ShippingSection,
 } from "@/components/checkout/sections";
 import { Container, PageWrapper } from "@/components/ui/common";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,7 +21,7 @@ const checkoutDefaultValues: CheckoutFormValues = {
   postalCode: "",
   phone: "",
   saveInformation: false,
-  // shippingMethod: "",
+  shippingMethod: "standard",
   // paymentMethod: "",
 };
 
@@ -47,10 +48,13 @@ export const Checkout = () => {
           className="flex flex-col gap-8 px-8"
         >
           <ContactSection register={register} errors={errors} />
+
           <div className="flex flex-col gap-2">
             <DeliverySection register={register} errors={errors} />
             <CheckoutSaveInformation control={control} />
           </div>
+
+          <ShippingSection control={control} />
         </form>
       </Container>
     </PageWrapper>

@@ -41,8 +41,9 @@ export const checkoutSchema = z.object({
 
   saveInformation: z.boolean().default(false),
 
+  shippingMethod: z.literal('standard'),
+
   // Later:
-  // ...shippingSchema,
   // ...addressSchema,
   // ...paymentSchema,
 });

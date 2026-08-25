@@ -18,7 +18,7 @@ export const ErrorMessage = ({ message, className }: ErrorMessageProps) => {
     <p
       role="alert"
       className={cn(
-        "flex items-center gap-1.5 text-sm font-medium",
+        "mt-1 flex items-center gap-1.5 text-xs font-medium",
         isDark ? "text-red-400" : "text-red-600",
         className,
       )}

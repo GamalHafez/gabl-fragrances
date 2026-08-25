@@ -13,7 +13,7 @@ export const FormLabel = ({ id, children }: FormLabelProps) => {
     <label
       htmlFor={id}
       className={clsx(
-        "cursor-pointer text-sm font-semibold capitalize",
+        "cursor-pointer px-2 text-sm font-semibold capitalize",
         isDark ? "text-zinc-200" : "text-zinc-800",
       )}
     >

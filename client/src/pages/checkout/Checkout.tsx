@@ -1,20 +1,23 @@
-import { ContactSection } from "@/components/checkout/sections";
+import {
+  ContactSection,
+  DeliverySection,
+} from "@/components/checkout/sections";
 import { Container, PageWrapper } from "@/components/ui/common";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { CheckoutFormValues } from "@shared/types";
 import { useForm } from "react-hook-form";
 import { checkoutSchema } from "@shared/validators/checkoutSchema";
 
-const checkoutDefaultValues = {
+const checkoutDefaultValues: CheckoutFormValues = {
   contact: "",
-  // country: "Egypt",
-  // firstName: "",
-  // lastName: "",
-  // address: "",
-  // city: "",
-  // governorate: "",
-  // postalCode: "",
-  // phone: "",
+  country: "Egypt",
+  firstName: "",
+  lastName: "",
+  address: "",
+  city: "",
+  governorate: "",
+  postalCode: "",
+  phone: "",
   // shippingMethod: "",
   // paymentMethod: "",
 };
@@ -36,8 +39,12 @@ export const Checkout = () => {
   return (
     <PageWrapper>
       <Container>
-        <form onSubmit={handleSubmit(onSubmit)} className="px-8">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-8 px-8"
+        >
           <ContactSection register={register} errors={errors} />
+          <DeliverySection register={register} errors={errors} />
         </form>
       </Container>
     </PageWrapper>

@@ -1,0 +1,38 @@
+export const EGYPT_GOVERNORATES = [
+  "Cairo",
+  "6th Of October",
+  "Giza",
+  "Alexandria",
+  "Dakahlia",
+  "Red Sea",
+  "Beheira",
+  "Fayoum",
+  "Gharbia",
+  "Ismailia",
+  "Menofia",
+  "Minya",
+  "Qaliubiya",
+  "New Valley",
+  "Suez",
+  "Aswan",
+  "Assiut",
+  "Beni Suef",
+  "Port Said",
+  "Damietta",
+  "Sharkia",
+  "Helwan",
+  "South Sinai",
+  "Kafr El Sheikh",
+  "Matrouh",
+  "Luxor",
+  "Qena",
+  "North Sinai",
+  "Sohag",
+] as const;
+
+export const EGYPT_GOVERNORATE_OPTIONS = EGYPT_GOVERNORATES.map(
+  (governorate) => ({
+    value: governorate,
+    label: governorate,
+  }),
+);

@@ -8,7 +8,7 @@ export const CheckoutHeading = ({ title }: { title: string }) => {
     <h3
       className={clsx(
         "mb-1 text-xl font-semibold capitalize",
-        isDark ? "text-zinc-200" : "text-zinc-800",
+        isDark ? "text-brand-200/90" : "text-brand-900/80",
       )}
     >
       {title}

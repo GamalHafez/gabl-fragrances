@@ -42,7 +42,7 @@ export const FormField = <T extends FieldValues>({
   );
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col">
       {label && <FormLabel id={name}>{label}</FormLabel>}
 
       {isTextarea ? (

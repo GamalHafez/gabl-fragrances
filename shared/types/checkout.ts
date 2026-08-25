@@ -1,16 +1,4 @@
-export type CheckoutFormValues = {
-  contact: string;
+import type { checkoutSchema } from '@shared/validators/checkoutSchema';
+import type z from 'zod';
 
-  // firstName: string;
-  // lastName: string;
-
-  // country: string;
-  // address: string;
-  // city: string;
-  // governorate: string;
-  // postalCode?: string;
-  // phone: string;
-
-  // shippingMethod: string;
-  // paymentMethod: string;
-};
+export type CheckoutFormValues = z.infer<typeof checkoutSchema>;

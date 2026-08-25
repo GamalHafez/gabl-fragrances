@@ -1,4 +1,4 @@
-import { CheckoutHeader, CheckoutFooter } from "@/components/checkout";
+import { CheckoutHeader, CheckoutFooter } from "@/components/checkout/layout";
 import { ScrollToTop } from "@/components/ui/animation";
 import { Outlet } from "react-router-dom";
 
@@ -8,8 +8,8 @@ export const CheckoutLayout = () => {
       <ScrollToTop />
 
       <CheckoutHeader />
-      
-      <main className="pt-20 pb-16">
+
+      <main>
         <Outlet />
       </main>
 

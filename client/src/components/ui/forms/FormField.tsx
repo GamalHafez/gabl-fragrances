@@ -13,7 +13,7 @@ type FormFieldProps<T extends FieldValues> = {
   name: Path<T>;
   register: UseFormRegister<T>;
   errors: FieldErrors<T>;
-  label: string;
+  label?: string;
   type?: React.HTMLInputTypeAttribute;
   placeholder?: string;
   isTextarea?: boolean;
@@ -43,7 +43,7 @@ export const FormField = <T extends FieldValues>({
 
   return (
     <div className="flex flex-col gap-1">
-      <FormLabel id={name}>{label}</FormLabel>
+      {label && <FormLabel id={name}>{label}</FormLabel>}
 
       {isTextarea ? (
         <textarea

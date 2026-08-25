@@ -75,7 +75,7 @@ export const CartFooter = ({ subtotal, totalQuantity }: CartFooterProps) => {
       <Link
         to="checkout"
         className={clsx(
-          "w-full rounded-full px-6 py-3.5 text-sm font-medium tracking-wide uppercase",
+          "w-full rounded-full text-center px-6 py-3.5 text-sm font-medium tracking-wide uppercase",
           "cursor-pointer transition-colors duration-200",
           "focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
           isDark

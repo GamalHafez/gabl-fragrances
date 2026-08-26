@@ -50,7 +50,11 @@ export const Checkout = () => {
           <ContactSection register={register} errors={errors} />
 
           <div className="flex flex-col gap-2">
-            <DeliverySection register={register} errors={errors} />
+            <DeliverySection
+              control={control}
+              register={register}
+              errors={errors}
+            />
             <CheckoutSaveInformation control={control} />
           </div>
 

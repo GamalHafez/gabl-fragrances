@@ -34,7 +34,7 @@ export const FormField = <T extends FieldValues>({
   const { isDark } = useTheme();
 
   const fieldStyles = clsx(
-    "resize-none rounded-2xl border px-4 py-3 text-sm transition-all duration-300 outline-none",
+    "resize-none h-10 rounded-2xl border px-4 py-3 text-sm transition-all duration-300 outline-none",
     "focus:ring-4",
     isDark
       ? "border-zinc-700 bg-zinc-900 text-zinc-100 placeholder:text-zinc-500 focus:border-amber-500 focus:ring-amber-500/20"

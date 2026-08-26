@@ -1,16 +1,20 @@
-import type { FieldErrors, UseFormRegister } from "react-hook-form";
+import type { Control, FieldErrors, UseFormRegister } from "react-hook-form";
 import type { CheckoutFormValues } from "@shared/types";
-import { CheckoutHeading } from "../common";
+import { CheckoutHeading, GovernorateCombobox } from "../common";
 import { CountryField } from "./CountryField";
-import { FormField, FormSelect } from "@/components/ui/forms";
-import { EGYPT_GOVERNORATE_OPTIONS } from "@/data/EgyptGovernorates";
+import { FormField } from "@/components/ui/forms";
 
 type DeliverySectionProps = {
+  control: Control<CheckoutFormValues>;
   register: UseFormRegister<CheckoutFormValues>;
   errors: FieldErrors<CheckoutFormValues>;
 };
 
-export const DeliverySection = ({ register, errors }: DeliverySectionProps) => {
+export const DeliverySection = ({
+  control,
+  register,
+  errors,
+}: DeliverySectionProps) => {
   return (
     <section className="flex flex-col gap-2">
       <CheckoutHeading title="Delivery" />
@@ -50,13 +54,7 @@ export const DeliverySection = ({ register, errors }: DeliverySectionProps) => {
           label="City"
           placeholder="Ex: Cairo"
         />
-        <FormSelect
-          name="governorate"
-          options={EGYPT_GOVERNORATE_OPTIONS}
-          register={register}
-          errors={errors}
-          label="Governorate"
-        />
+        <GovernorateCombobox control={control} errors={errors} />
         <FormField
           name="postalCode"
           register={register}

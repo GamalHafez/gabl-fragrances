@@ -7,6 +7,19 @@ import z from 'zod';
 type CreateShippingMethodBody = z.infer<typeof createShippingMethodSchema>;
 
 export const shippingMethodsService = {
+  async getShippingMethods() {
+    return prisma.shippingMethod.findMany({
+      where: { isActive: true },
+      orderBy: { createdAt: 'asc' },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        price: true,
+      },
+    });
+  },
+
   async createShippingMethod(data: CreateShippingMethodBody) {
     try {
       return await prisma.shippingMethod.create({

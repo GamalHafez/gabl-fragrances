@@ -29,6 +29,7 @@ export const Checkout = () => {
   const {
     register,
     control,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm<CheckoutFormValues, unknown, CheckoutFormOutput>({
@@ -48,7 +49,6 @@ export const Checkout = () => {
           className="flex flex-col gap-8 px-8"
         >
           <ContactSection register={register} errors={errors} />
-
           <div className="flex flex-col gap-2">
             <DeliverySection
               control={control}
@@ -57,8 +57,8 @@ export const Checkout = () => {
             />
             <CheckoutSaveInformation control={control} />
           </div>
-
-          <ShippingSection control={control} />
+          
+          <ShippingSection control={control} setValue={setValue} />{" "}
         </form>
       </Container>
     </PageWrapper>

@@ -41,7 +41,7 @@ export const checkoutSchema = z.object({
 
   saveInformation: z.boolean().default(false),
 
-  shippingMethod: z.literal('standard'),
+  shippingMethodId: z.string().min(1, 'Please select a shipping method'),
 
   // Later:
   // ...addressSchema,

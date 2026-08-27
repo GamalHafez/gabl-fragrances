@@ -1,13 +1,10 @@
 import { RadioGroupItem } from "@/components/ui/shadcn/radio-group";
 import { useTheme } from "@/context/theme/useTheme";
+import type { ShippingMethodType } from "@shared/types";
 import clsx from "clsx";
 
 type ShippingMethodProps = {
-  method: {
-    id: string;
-    name: string;
-    price: number;
-  };
+  method: ShippingMethodType;
   isSelected: boolean;
 };
 

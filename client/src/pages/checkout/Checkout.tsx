@@ -21,7 +21,7 @@ const checkoutDefaultValues: CheckoutFormValues = {
   postalCode: "",
   phone: "",
   saveInformation: false,
-  shippingMethod: "standard",
+  shippingMethodId: "",
   // paymentMethod: "",
 };
 

@@ -191,6 +191,23 @@ model ProductVariant {
 // ORDERS
 // ______________________________________
 
+model ShippingMethod {
+  id          String  @id @default(uuid())
+  name        String  @unique @db.VarChar(150)
+  description String  @db.Text
+  price       Decimal @db.Decimal(10, 2)
+
+  // Availability
+  isActive Boolean @default(true)
+
+  // Track timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationships
+  orders Order[]
+}
+
 model Address {
   id          String  @id @default(uuid())
   address     String  @db.VarChar(255)
@@ -249,6 +266,7 @@ model Order {
   // Original saved address used for this order
   addressId String?
 
+  // Discount reference
   discountId String?
 
   // Shipping address snapshot
@@ -257,6 +275,10 @@ model Order {
   shippingGovernorate String  @db.VarChar(50)
   shippingCountry     String  @db.VarChar(50)
   shippingPostalCode  String? @db.VarChar(20)
+
+  // Shipping method
+  shippingMethodName  String?  @db.VarChar(150)
+  shippingMethodPrice Decimal? @db.Decimal(10, 2)
 
   // Track timestamps
   createdAt DateTime @default(now())
@@ -269,10 +291,13 @@ model Order {
   items                 OrderItem[]
   payments              Payment[]
   inventoryTransactions InventoryTransaction[]
+  shippingMethod        ShippingMethod?        @relation(fields: [shippingMethodId], references: [id])
+  shippingMethodId      String?
 
   @@index([userId])
   @@index([addressId])
   @@index([discountId])
+  @@index([shippingMethodId])
 }
 
 model OrderItem {

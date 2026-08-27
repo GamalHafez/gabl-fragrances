@@ -15,6 +15,7 @@ import productsRoutes from '@/modules/products/products.routes.js';
 import reviewsRoutes from '@/modules/reviews/reviews.routes.js';
 import cartRoutes from '@/modules/cart/cart.routes.js';
 import uploadRoutes from '@/modules/uploads/upload.routes.js';
+import shippingMethodsRoutes from '@/modules/shippingMethods/shippingMethods.routes.js';
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use('/api/products', productsRoutes);
 app.use('/api/uploads', uploadRoutes);
 app.use('/api/reviews', reviewsRoutes);
 app.use('/api/cart', cartRoutes);
+app.use('/api/shipping-methods', shippingMethodsRoutes);
 
 // Middlewares
 app.use(routeNotFound);

@@ -1,4 +1,5 @@
 import {
+  BillingAddressSection,
   ContactSection,
   DeliverySection,
   PaymentSection,
@@ -25,6 +26,12 @@ const checkoutDefaultValues: CheckoutFormValues = {
   saveInformation: false,
   shippingMethodId: "",
   paymentMethodId: PAYMENT_METHODS[0].id,
+  billingSameAsShipping: true,
+  billingAddress: "",
+  billingCity: "",
+  billingGovernorate: "",
+  billingCountry: "Egypt",
+  billingPostalCode: "",
 };
 
 export const Checkout = () => {
@@ -61,6 +68,11 @@ export const Checkout = () => {
           </div>
           <ShippingSection control={control} setValue={setValue} />{" "}
           <PaymentSection control={control} />
+          <BillingAddressSection
+            control={control}
+            register={register}
+            errors={errors}
+          />
         </form>
       </Container>
     </PageWrapper>

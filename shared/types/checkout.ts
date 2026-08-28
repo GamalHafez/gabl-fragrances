@@ -17,3 +17,9 @@ export type PaymentMethodType = {
   name: string;
   note: string;
 };
+
+export type BillingAddressOptionType = {
+  id: string;
+  value: boolean;
+  label: string;
+};

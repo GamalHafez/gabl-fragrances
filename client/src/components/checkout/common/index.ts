@@ -3,3 +3,4 @@ export * from "./CheckoutSaveInformation";
 export * from "./ShippingMethod";
 export * from "./GovernorateCombobox";
 export * from "./ShippingMethodError";
+export * from "./PaymentMethod";

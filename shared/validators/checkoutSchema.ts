@@ -43,7 +43,8 @@ export const checkoutSchema = z.object({
 
   shippingMethodId: z.string().trim().min(1, 'Please select a shipping method'),
 
+  paymentMethodId: z.enum(['card', 'cod']),
+
   // Later:
   // ...addressSchema,
-  // ...paymentSchema,
 });

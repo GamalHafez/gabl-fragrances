@@ -11,3 +11,9 @@ export type ShippingMethodType = {
   description: string;
   price: string;
 };
+
+export type PaymentMethodType = {
+  id: string;
+  name: string;
+  note: string;
+};

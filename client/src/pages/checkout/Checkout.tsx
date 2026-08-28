@@ -1,6 +1,7 @@
 import {
   ContactSection,
   DeliverySection,
+  PaymentSection,
   ShippingSection,
 } from "@/components/checkout/sections";
 import { Container, PageWrapper } from "@/components/ui/common";
@@ -9,6 +10,7 @@ import type { CheckoutFormOutput, CheckoutFormValues } from "@shared/types";
 import { useForm } from "react-hook-form";
 import { checkoutSchema } from "@shared/validators/checkoutSchema";
 import { CheckoutSaveInformation } from "@/components/checkout/common";
+import { PAYMENT_METHODS } from "@shared/constants/paymentMethods";
 
 const checkoutDefaultValues: CheckoutFormValues = {
   contact: "",
@@ -22,7 +24,7 @@ const checkoutDefaultValues: CheckoutFormValues = {
   phone: "",
   saveInformation: false,
   shippingMethodId: "",
-  // paymentMethod: "",
+  paymentMethodId: PAYMENT_METHODS[0].id,
 };
 
 export const Checkout = () => {
@@ -46,7 +48,7 @@ export const Checkout = () => {
       <Container>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-8 px-8"
+          className="flex flex-col gap-8 px-8 pb-20"
         >
           <ContactSection register={register} errors={errors} />
           <div className="flex flex-col gap-2">
@@ -57,8 +59,8 @@ export const Checkout = () => {
             />
             <CheckoutSaveInformation control={control} />
           </div>
-          
           <ShippingSection control={control} setValue={setValue} />{" "}
+          <PaymentSection control={control} />
         </form>
       </Container>
     </PageWrapper>

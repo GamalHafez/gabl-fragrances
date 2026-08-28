@@ -213,7 +213,6 @@ model Address {
   address     String  @db.VarChar(255)
   country     String  @db.VarChar(50)
   city        String  @db.VarChar(50)
-  apartment   String? @db.VarChar(50)
   governorate String  @db.VarChar(50)
   postalCode  String? @db.VarChar(20)
   isDefault   Boolean @default(false)
@@ -260,6 +259,18 @@ model Order {
   customerEmail String @db.VarChar(255)
   customerPhone String @db.VarChar(30)
 
+  // Billing address
+  // When billingSameAsShipping is true,
+  // these fields can remain null because the shipping
+  // address snapshot is used as the billing address.
+  billingSameAsShipping Boolean @default(true)
+
+  billingAddress     String? @db.VarChar(255)
+  billingCity        String? @db.VarChar(50)
+  billingGovernorate String? @db.VarChar(50)
+  billingCountry     String? @db.VarChar(50)
+  billingPostalCode  String? @db.VarChar(20)
+
   // Optional registered account
   userId String?
 
@@ -276,7 +287,8 @@ model Order {
   shippingCountry     String  @db.VarChar(50)
   shippingPostalCode  String? @db.VarChar(20)
 
-  // Shipping method
+  // Shipping method snapshot
+  shippingMethodId    String?
   shippingMethodName  String?  @db.VarChar(150)
   shippingMethodPrice Decimal? @db.Decimal(10, 2)
 
@@ -292,7 +304,6 @@ model Order {
   payments              Payment[]
   inventoryTransactions InventoryTransaction[]
   shippingMethod        ShippingMethod?        @relation(fields: [shippingMethodId], references: [id])
-  shippingMethodId      String?
 
   @@index([userId])
   @@index([addressId])

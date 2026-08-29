@@ -36,16 +36,16 @@ export const PaymentMethod = ({ method, isSelected }: PaymentMethodProps) => {
       <RadioGroupItem value={id} id={id} className="mt-0.5" />
 
       <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+        <div className="flex items-center justify-between gap-x-3 gap-y-2 md:flex-wrap">
           <p className="text-sm font-medium">{name}</p>
           {id === "card" && (
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center md:gap-1.5">
               {CARD_BRAND_ICONS.map(({ Icon, label }) => (
                 <div
                   key={label}
                   title={label}
                   className={clsx(
-                    "flex h-6 w-9 shrink-0 items-center justify-center overflow-hidden rounded-md border bg-white",
+                    "flex w-7 shrink-0 items-center justify-center overflow-hidden rounded-md border bg-white md:h-6 md:w-9",
                     isDark ? "border-zinc-800" : "border-zinc-200",
                   )}
                 >
@@ -59,7 +59,7 @@ export const PaymentMethod = ({ method, isSelected }: PaymentMethodProps) => {
         {isSelected && note && (
           <p
             className={clsx(
-              "mt-1 text-xs leading-relaxed",
+              "mt-2 text-xs leading-relaxed md:mt-1",
               isDark ? "text-zinc-400" : "text-zinc-500",
             )}
           >

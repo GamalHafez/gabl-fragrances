@@ -14,7 +14,7 @@ export const CartHeader = () => {
   return (
     <SheetHeader
       className={clsx(
-        "border-b px-6 py-5",
+        "border-b py-5 md:px-6",
         isDark ? "border-zinc-800" : "border-zinc-200",
       )}
     >

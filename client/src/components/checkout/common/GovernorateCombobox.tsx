@@ -11,39 +11,50 @@ import { useTheme } from "@/context/theme/useTheme";
 import { FormLabel } from "@/components/ui/forms";
 import { ErrorMessage } from "@/components/ui/common";
 import clsx from "clsx";
-import { Controller, type Control, type FieldErrors } from "react-hook-form";
+import {
+  Controller,
+  type Control,
+  type FieldErrors,
+  type Path,
+} from "react-hook-form";
 import type { CheckoutFormValues } from "@shared/types";
+import get from "lodash/get";
 
 type GovernorateComboboxProps = {
   control: Control<CheckoutFormValues>;
   errors: FieldErrors<CheckoutFormValues>;
+  name: Path<CheckoutFormValues>;
+  label?: string;
 };
 
 export const GovernorateCombobox = ({
   control,
   errors,
+  name,
+  label = "Governorate",
 }: GovernorateComboboxProps) => {
   const { isDark } = useTheme();
 
-  const hasError = !!errors.governorate;
+  const fieldError = get(errors, name);
+  const hasError = !!fieldError;
 
   return (
     <div className="flex flex-col">
-      <FormLabel id="governorate">Governorate</FormLabel>
+      <FormLabel id={name}>{label}</FormLabel>
 
       <Controller
-        name="governorate"
+        name={name}
         control={control}
         render={({ field }) => (
           <Combobox
             items={EGYPT_GOVERNORATE_OPTIONS}
-            value={field.value}
+            value={field.value as string}
             onValueChange={(value) => field.onChange(value ?? "")}
           >
             <ComboboxInput
               placeholder="Select your Governorate"
               aria-invalid={hasError}
-              aria-describedby="governorate-error"
+              aria-describedby={`${name}-error`}
               className={clsx(
                 "h-10 resize-none rounded-2xl border px-2 py-3 text-sm transition-all duration-300 outline-none",
                 "focus:ring-4",
@@ -69,9 +80,7 @@ export const GovernorateCombobox = ({
         )}
       />
 
-      {hasError && (
-        <ErrorMessage message={String(errors.governorate?.message ?? "")} />
-      )}
+      {hasError && <ErrorMessage message={String(fieldError?.message ?? "")} />}
     </div>
   );
 };

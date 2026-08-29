@@ -6,11 +6,13 @@ import type { BillingAddressOptionType } from "@shared/types";
 type BillingAddressLabelType = {
   billingAddressOption: BillingAddressOptionType;
   isSelected: boolean;
+  isExpanded?: boolean;
 };
 
 export const BillingAddressLabel = ({
   billingAddressOption,
   isSelected,
+  isExpanded = false,
 }: BillingAddressLabelType) => {
   const { isDark } = useTheme();
   const { id, label } = billingAddressOption;
@@ -19,8 +21,9 @@ export const BillingAddressLabel = ({
     <label
       htmlFor={id}
       className={clsx(
-        "flex cursor-pointer items-center gap-3 rounded-2xl border px-4 py-4",
+        "flex cursor-pointer items-center gap-3 border px-4 py-4",
         "transition-all duration-200",
+        isExpanded ? "rounded-t-2xl" : "rounded-2xl",
         isDark ? "bg-zinc-900/60 text-zinc-100" : "bg-zinc-100 text-zinc-700",
         isSelected
           ? isDark

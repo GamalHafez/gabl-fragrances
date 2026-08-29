@@ -5,3 +5,4 @@ export * from "./GovernorateCombobox";
 export * from "./ShippingMethodError";
 export * from "./PaymentMethod";
 export * from "./BillingAddressLabel";
+export * from "./AddressFields";

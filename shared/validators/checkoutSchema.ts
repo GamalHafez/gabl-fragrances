@@ -41,6 +41,7 @@ const billingAddressSchema = {
   billingGovernorate: z.string().trim().optional(),
   billingCountry: z.literal('Egypt').optional(),
   billingPostalCode: z.string().trim().optional(),
+  billingPhone: egyptianPhoneSchema,
 };
 
 export const checkoutSchema = z
@@ -69,6 +70,7 @@ export const checkoutSchema = z
       { key: 'billingCity', value: data.billingCity },
       { key: 'billingGovernorate', value: data.billingGovernorate },
       { key: 'billingCountry', value: data.billingCountry },
+      { key: 'billingPhone', value: data.billingPhone },
     ] as const;
 
     for (const { key, value } of requiredFields) {

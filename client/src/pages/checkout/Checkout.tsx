@@ -32,6 +32,7 @@ const checkoutDefaultValues: CheckoutFormValues = {
   billingGovernorate: "",
   billingCountry: "Egypt",
   billingPostalCode: "",
+  billingPhone: "",
 };
 
 export const Checkout = () => {

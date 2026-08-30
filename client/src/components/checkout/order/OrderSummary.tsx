@@ -1,14 +1,11 @@
-import { CartItem, EmptyCart } from "@/components/cart";
 import { useCart } from "@/context/cart/useCart";
 import { useCartData } from "@/hooks/cart/useCartData";
 import { CheckoutHeading } from "../common";
 import { useTheme } from "@/context/theme/useTheme";
-import { DataError } from "@/components/ui/errors/DataError";
-import { CartItemSkeleton } from "@/components/skeleton";
-import { OrderTotals } from "./OrderTotals";
 import clsx from "clsx";
 import type { ShippingMethodType } from "@shared/types";
 import { useShippingMethods } from "@/hooks/checkout";
+import { OrderSummaryBody } from "./OrderSummaryBody";
 
 type OrderSummaryProps = {
   shippingMethodId: string;
@@ -35,41 +32,14 @@ export const OrderSummary = ({ shippingMethodId }: OrderSummaryProps) => {
     >
       <CheckoutHeading title="Order Summary" />
 
-      <div className="mb-3 min-h-0 flex-1 overflow-y-auto">
-        {items.length === 0 ? (
-          <EmptyCart />
-        ) : isPending && !cartData ? (
-          Array.from({ length: 1 }).map((_, index) => (
-            <CartItemSkeleton key={index} />
-          ))
-        ) : isError ? (
-          <DataError
-            message="We couldn't load your cart right now. Please try again in a moment."
-            onRetry={refetch}
-            isHomeLink={false}
-          />
-        ) : !cartData ? (
-          <DataError
-            message="We couldn't load your cart right now. Please try again in a moment."
-            onRetry={refetch}
-            isHomeLink={false}
-          />
-        ) : (
-          cartData.items.map((item) => (
-            <CartItem key={item.id} cartItem={item} />
-          ))
-        )}
-      </div>
-
-      {items.length > 0 && (
-        <OrderTotals
-          subtotal={cartData?.subtotal ?? "0"}
-          totalQuantity={cartData?.totalQuantity ?? 0}
-          shipping={
-            selectedShipping ? Number(selectedShipping.price) : undefined
-          }
-        />
-      )}
+      <OrderSummaryBody
+        items={items}
+        cartData={cartData}
+        isPending={isPending}
+        isError={isError}
+        refetch={refetch}
+        shipping={selectedShipping ? Number(selectedShipping.price) : undefined}
+      />
     </div>
   );
 };

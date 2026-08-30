@@ -12,7 +12,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { checkoutSchema } from "@shared/validators/checkoutSchema";
 import { CheckoutSaveInformation } from "@/components/checkout/common";
 import { PAYMENT_METHODS } from "@shared/constants/paymentMethods";
-import { OrderSummary } from "@/components/checkout/order";
+import { OrderSummary, OrderSummaryMobile } from "@/components/checkout/order";
 
 const checkoutDefaultValues: CheckoutFormValues = {
   contact: "",
@@ -56,7 +56,11 @@ export const Checkout = () => {
 
   return (
     <PageWrapper>
+        <div className="lg:hidden">
+          <OrderSummaryMobile shippingMethodId={shippingMethodId} />
+        </div>
       <Container>
+
         <div className="mx-4 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -80,7 +84,7 @@ export const Checkout = () => {
             />
           </form>
 
-          <aside className="w-full shrink-0 lg:sticky lg:top-26 lg:w-95">
+          <aside className="hidden w-full shrink-0 lg:sticky lg:top-26 lg:block lg:w-95">
             <OrderSummary shippingMethodId={shippingMethodId} />
           </aside>
         </div>

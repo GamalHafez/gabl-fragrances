@@ -24,10 +24,8 @@ export const OrderSummary = ({ shippingMethodId }: OrderSummaryProps) => {
   return (
     <div
       className={clsx(
-        "flex flex-col gap-4 rounded-2xl border-l-2 p-6 shadow-lg",
-        isDark
-          ? "border-amber-500 bg-zinc-900/60 shadow-black/30"
-          : "border-brand-900 bg-white shadow-zinc-300/40",
+        "flex flex-col gap-4 rounded-2xl p-6 shadow-2xl",
+        isDark ? "bg-zinc-900/60 shadow-black" : "bg-white shadow-zinc-400",
       )}
     >
       <CheckoutHeading title="Order Summary" />

@@ -5,9 +5,10 @@ import { Container } from "@/components/ui/common";
 import { Link } from "react-router-dom";
 import { scrollToTop } from "@/utils";
 import { HeaderIconAction } from "@/components/layout/header";
-import { Moon, Sun } from "lucide-react";
+import { LogIn, Moon, Sun, User } from "lucide-react";
 
 export const CheckoutHeader = () => {
+  const user = null; // to be replaced
   const { isDark, toggle } = useTheme();
 
   return (
@@ -45,9 +46,19 @@ export const CheckoutHeader = () => {
             </h1>
           </Link>
 
-          <HeaderIconAction tooltip="Theme" onClick={toggle}>
-            {isDark ? <Sun size={20} /> : <Moon size={20} />}
-          </HeaderIconAction>
+          <div className="flex items-center">
+            <HeaderIconAction
+              tooltip={user ? "Profile" : "Log in"}
+              href={user ? "/profile" : "/login"}
+              label={user ? undefined : "Log In"}
+            >
+              {user ? <User size={20} /> : <LogIn size={20} />}
+            </HeaderIconAction>
+
+            <HeaderIconAction tooltip="Theme" onClick={toggle}>
+              {isDark ? <Sun size={20} /> : <Moon size={20} />}
+            </HeaderIconAction>
+          </div>
         </div>
       </Container>
     </header>

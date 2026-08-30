@@ -4,7 +4,6 @@ import clsx from "clsx";
 import { useTheme } from "@/context/theme/useTheme";
 import { useCartData } from "@/hooks/cart/useCartData";
 import { useCart } from "@/context/cart/useCart";
-import { useEffect } from "react";
 import { CartItemSkeleton } from "@/components/skeleton";
 import { DataError } from "@/components/ui/errors/DataError";
 
@@ -16,17 +15,7 @@ type CartSheetProps = {
 export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
   const { isDark } = useTheme();
   const { items } = useCart();
-  const {
-    mutate: getCartData,
-    data: cartData,
-    isPending,
-    isError,
-  } = useCartData();
-
-  useEffect(() => {
-    if (!open || items.length === 0) return;
-    getCartData(items);
-  }, [open, items, getCartData]);
+  const { data: cartData, isPending, isError, refetch } = useCartData(items);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -48,13 +37,13 @@ export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
           ) : isError ? (
             <DataError
               message="We couldn't load your cart right now. Please try again in a moment."
-              onRetry={() => getCartData(items)}
+              onRetry={() => refetch()}
               isHomeLink={false}
             />
           ) : !cartData ? (
             <DataError
               message="We couldn't load your cart right now. Please try again in a moment."
-              onRetry={() => getCartData(items)}
+              onRetry={refetch}
               isHomeLink={false}
             />
           ) : (

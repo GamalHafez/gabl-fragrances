@@ -31,12 +31,7 @@ export const CartItem = ({ cartItem }: CartItemProps) => {
     >
       <div className="flex gap-2">
         {/* Image */}
-        <div
-          className={clsx(
-            "flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-2xl",
-            isDark ? "bg-zinc-900" : "bg-zinc-100",
-          )}
-        >
+        <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-2xl">
           <img
             src={image?.url}
             alt={image?.description ?? name}

@@ -8,10 +8,11 @@ import {
 import { Container, PageWrapper } from "@/components/ui/common";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { CheckoutFormOutput, CheckoutFormValues } from "@shared/types";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { checkoutSchema } from "@shared/validators/checkoutSchema";
 import { CheckoutSaveInformation } from "@/components/checkout/common";
 import { PAYMENT_METHODS } from "@shared/constants/paymentMethods";
+import { OrderSummary } from "@/components/checkout/order";
 
 const checkoutDefaultValues: CheckoutFormValues = {
   contact: "",
@@ -47,6 +48,8 @@ export const Checkout = () => {
     defaultValues: checkoutDefaultValues,
   });
 
+  const shippingMethodId = useWatch({ control, name: "shippingMethodId" });
+
   const onSubmit = (data: CheckoutFormOutput) => {
     console.log(data);
   };
@@ -54,27 +57,33 @@ export const Checkout = () => {
   return (
     <PageWrapper>
       <Container>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-8 px-8 pb-20"
-        >
-          <ContactSection register={register} errors={errors} />
-          <div className="flex flex-col gap-2">
-            <DeliverySection
+        <div className="mx-4 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-8 px-8 pb-20"
+          >
+            <ContactSection register={register} errors={errors} />
+            <div className="flex flex-col gap-2">
+              <DeliverySection
+                control={control}
+                register={register}
+                errors={errors}
+              />
+              <CheckoutSaveInformation control={control} />
+            </div>
+            <ShippingSection control={control} setValue={setValue} />{" "}
+            <PaymentSection control={control} />
+            <BillingAddressSection
               control={control}
               register={register}
               errors={errors}
             />
-            <CheckoutSaveInformation control={control} />
-          </div>
-          <ShippingSection control={control} setValue={setValue} />{" "}
-          <PaymentSection control={control} />
-          <BillingAddressSection
-            control={control}
-            register={register}
-            errors={errors}
-          />
-        </form>
+          </form>
+
+          <aside className="w-full shrink-0 lg:sticky lg:top-26 lg:w-95">
+            <OrderSummary shippingMethodId={shippingMethodId} />
+          </aside>
+        </div>
       </Container>
     </PageWrapper>
   );

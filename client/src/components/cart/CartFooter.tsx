@@ -3,6 +3,7 @@ import { SheetFooter } from "@/components/ui/shadcn/sheet";
 import { useTheme } from "@/context/theme/useTheme";
 import { CartDiscountSection } from "@/components/cart/index";
 import { Link } from "react-router-dom";
+import { OrderTotals } from "../checkout/order";
 
 type CartFooterProps = {
   subtotal: string;
@@ -23,43 +24,7 @@ export const CartFooter = ({ subtotal, totalQuantity }: CartFooterProps) => {
       <CartDiscountSection />
 
       {/* Summary */}
-      <div className="space-y-1">
-        <p
-          className={clsx(
-            "flex items-center justify-between text-sm",
-            isDark ? "text-white/60" : "text-black/60",
-          )}
-        >
-          <span>Subtotal</span>
-
-          <span
-            className={clsx(
-              "font-medium",
-              isDark ? "text-white" : "text-black",
-            )}
-          >
-            {subtotal ?? "0"} EGP
-          </span>
-        </p>
-
-        <p
-          className={clsx(
-            "flex items-center justify-between text-sm",
-            isDark ? "text-white/60" : "text-black/60",
-          )}
-        >
-          <span>Total quantity</span>
-
-          <span
-            className={clsx(
-              "font-medium",
-              isDark ? "text-white" : "text-black",
-            )}
-          >
-            {totalQuantity ?? 0} {totalQuantity === 1 ? "Product" : "Products"}
-          </span>
-        </p>
-      </div>
+      <OrderTotals subtotal={subtotal} totalQuantity={totalQuantity} />
 
       {/* Checkout note */}
       <p
@@ -75,7 +40,7 @@ export const CartFooter = ({ subtotal, totalQuantity }: CartFooterProps) => {
       <Link
         to="checkout"
         className={clsx(
-          "w-full rounded-full text-center px-6 py-3.5 text-sm font-medium tracking-wide uppercase",
+          "w-full rounded-full px-6 py-3.5 text-center text-sm font-medium tracking-wide uppercase",
           "cursor-pointer transition-colors duration-200",
           "focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
           isDark

@@ -1,5 +1,5 @@
 import type { z } from 'zod';
-import { checkoutSchema } from '@shared/validators/checkoutSchema';
+import { checkoutSchema } from '../validators/checkoutSchema';
 
 export type CheckoutFormValues = z.input<typeof checkoutSchema>;
 

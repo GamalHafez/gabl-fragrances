@@ -44,42 +44,45 @@ const billingAddressSchema = {
   billingPhone: egyptianPhoneSchema.or(z.literal('')),
 };
 
-export const checkoutSchema = z
-  .object({
-    ...contactSchema,
-    ...deliverySchema,
+export const checkoutObjectSchema = z.object({
+  ...contactSchema,
+  ...deliverySchema,
 
-    saveInformation: z.boolean().default(false),
+  saveInformation: z.boolean().default(false),
 
-    shippingMethodId: z
-      .string()
-      .trim()
-      .min(1, 'Please select a shipping method'),
+  shippingMethodId: z.string().trim().min(1, 'Please select a shipping method'),
 
-    paymentMethodId: z.enum(['card', 'cod']),
+  paymentMethodId: z.enum(['card', 'cod']),
 
-    billingSameAsShipping: z.boolean().default(true),
+  billingSameAsShipping: z.boolean().default(true),
 
-    ...billingAddressSchema,
-  })
-  .superRefine((data, ctx) => {
-    if (data.billingSameAsShipping) return; // nothing to check
+  ...billingAddressSchema,
+});
 
-    const requiredFields = [
-      { key: 'billingAddress', value: data.billingAddress },
-      { key: 'billingCity', value: data.billingCity },
-      { key: 'billingGovernorate', value: data.billingGovernorate },
-      { key: 'billingCountry', value: data.billingCountry },
-      { key: 'billingPhone', value: data.billingPhone },
-    ] as const;
+export const validateBillingAddress = (
+  data: z.infer<typeof checkoutObjectSchema>,
+  ctx: z.RefinementCtx,
+) => {
+  if (data.billingSameAsShipping) return;
 
-    for (const { key, value } of requiredFields) {
-      if (!value || value.trim() === '') {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: 'This field is required',
-          path: [key],
-        });
-      }
+  const requiredFields = [
+    { key: 'billingAddress', value: data.billingAddress },
+    { key: 'billingCity', value: data.billingCity },
+    { key: 'billingGovernorate', value: data.billingGovernorate },
+    { key: 'billingCountry', value: data.billingCountry },
+  ] as const;
+
+  for (const { key, value } of requiredFields) {
+    if (!value || value.trim() === '') {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'This field is required',
+        path: [key],
+      });
     }
-  });
+  }
+};
+
+export const checkoutSchema = checkoutObjectSchema.superRefine(
+  validateBillingAddress,
+);

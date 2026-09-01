@@ -247,7 +247,7 @@ model Discount {
 
 model Order {
   id          String      @id @default(uuid())
-  orderNumber Int         @unique
+  orderNumber Int         @unique @default(autoincrement())
   status      OrderStatus @default(PENDING)
 
   subTotal Decimal @db.Decimal(10, 2)

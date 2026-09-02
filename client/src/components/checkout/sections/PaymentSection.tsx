@@ -29,7 +29,7 @@ export const PaymentSection = ({ control }: PaymentSectionProps) => {
       </div>
 
       <Controller
-        name="paymentMethodId"
+        name="paymentMethod"
         control={control}
         render={({ field }) => (
           <RadioGroup

@@ -52,7 +52,7 @@ export const checkoutObjectSchema = z.object({
 
   shippingMethodId: z.string().trim().min(1, 'Please select a shipping method'),
 
-  paymentMethodId: z.enum(['card', 'cod']),
+  paymentMethod: z.enum(['CARD', 'CASH_ON_DELIVERY']),
 
   billingSameAsShipping: z.boolean().default(true),
 

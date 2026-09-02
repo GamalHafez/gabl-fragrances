@@ -13,7 +13,7 @@ export type ShippingMethodType = {
 };
 
 export type PaymentMethodType = {
-  id: string;
+  id: 'CARD' | 'CASH_ON_DELIVERY';
   name: string;
   note: string;
 };

@@ -38,7 +38,7 @@ export const PaymentMethod = ({ method, isSelected }: PaymentMethodProps) => {
       <div className="min-w-0 flex-1">
         <div className="flex items-center justify-between gap-x-3 gap-y-2 md:flex-wrap">
           <p className="text-sm font-medium">{name}</p>
-          {id === "card" && (
+          {id === "CARD" && (
             <div className="flex items-center md:gap-1.5">
               {CARD_BRAND_ICONS.map(({ Icon, label }) => (
                 <div

@@ -255,9 +255,9 @@ model Order {
   total    Decimal @db.Decimal(10, 2)
 
   // Customer information
-  customerName  String @db.VarChar(100)
-  customerEmail String @db.VarChar(255)
-  customerPhone String @db.VarChar(30)
+  customerName    String @db.VarChar(100)
+  customerContact String @db.VarChar(255)
+  customerPhone   String @db.VarChar(30)
 
   // Billing address
   // When billingSameAsShipping is true,
@@ -270,6 +270,7 @@ model Order {
   billingGovernorate String? @db.VarChar(50)
   billingCountry     String? @db.VarChar(50)
   billingPostalCode  String? @db.VarChar(20)
+  billingPhone       String? @db.VarChar(20)
 
   // Optional registered account
   userId String?

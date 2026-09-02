@@ -28,7 +28,7 @@ const checkoutDefaultValues: CheckoutFormValues = {
   phone: "",
   saveInformation: false,
   shippingMethodId: "",
-  paymentMethodId: PAYMENT_METHODS[0].id,
+  paymentMethod: PAYMENT_METHODS[0].id,
   billingSameAsShipping: true,
   billingAddress: "",
   billingCity: "",

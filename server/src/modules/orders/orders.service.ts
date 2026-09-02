@@ -148,7 +148,7 @@ export const ordersService = {
     return { discount, discountAmount: cappedAmount };
   },
 
-  async calculateOrderTotals(
+  calculateOrderTotals(
     orderItems: OrderItem[],
     shippingPrice: Decimal,
     discountAmount: Decimal,
@@ -163,8 +163,81 @@ export const ordersService = {
     return { subTotal, shippingPrice, discountAmount, total };
   },
 
+  async createAddressSnapshot(
+    tx: Prisma.TransactionClient,
+    userId: string,
+    fields: {
+      address: string;
+      city: string;
+      governorate: string;
+      country: string;
+      postalCode?: string | null;
+    },
+  ) {
+    return tx.address.create({
+      data: {
+        userId,
+        address: fields.address,
+        country: fields.country,
+        city: fields.city,
+        governorate: fields.governorate,
+        postalCode: fields.postalCode ?? null,
+      },
+      select: { id: true },
+    });
+  },
+
+  async decrementStockAndLogTransactions(
+    tx: Prisma.TransactionClient,
+    orderId: string,
+    orderItems: OrderItem[],
+  ) {
+    for (const item of orderItems) {
+      const result = await tx.productVariant.updateMany({
+        where: { id: item.productVariantId, stock: { gte: item.quantity } },
+        data: { stock: { decrement: item.quantity } },
+      });
+
+      // Someone else bought the stock between our earlier check and now.
+      if (result.count === 0) {
+        throw new AppError(
+          409,
+          `Not enough stock for ${item.productName} — it just sold out. Please update your cart.`,
+        );
+      }
+
+      await tx.inventoryTransaction.create({
+        data: {
+          productVariantId: item.productVariantId,
+          orderId,
+          quantity: item.quantity,
+          type: 'SALE',
+          reason: `Order ${orderId}`,
+        },
+      });
+    }
+  },
+
+  async createPayment(
+    tx: Prisma.TransactionClient,
+    orderId: string,
+    amount: Decimal,
+    paymentMethod: 'CARD' | 'CASH_ON_DELIVERY',
+  ) {
+    return tx.payment.create({
+      data: {
+        orderId,
+        amount,
+        currency: 'EGP',
+        status: 'PENDING',
+        method: paymentMethod,
+      },
+    });
+  },
+
   async createOrder(data: CreateOrderBody, userId?: string) {
     const {
+      // saveInformation -- Todo
       items,
       shippingMethodId,
       discountCode,
@@ -183,6 +256,8 @@ export const ordersService = {
       billingGovernorate,
       billingCountry,
       billingPostalCode,
+      billingPhone,
+      paymentMethod,
     } = data;
 
     // 1. Resolve product variants from the database.
@@ -205,65 +280,87 @@ export const ordersService = {
     );
 
     // 5. Calculate totals.
-    const orderTotals = await this.calculateOrderTotals(
+    const orderTotals = this.calculateOrderTotals(
       orderItems,
       shippingMethod.price,
       discountAmount,
     );
 
     // 6. Create order.
-    const order = await prisma.order.create({
-      data: {
-        status: 'PENDING',
+    const order = await prisma.$transaction(async (tx) => {
+      let addressId: string | null = null;
 
-        subTotal: orderTotals.subTotal,
-        shipping: shippingMethod.price,
-        total: orderTotals.total,
+      if (userId) {
+        const savedAddress = await this.createAddressSnapshot(tx, userId, {
+          address,
+          city,
+          governorate,
+          country,
+          postalCode,
+        });
+        addressId = savedAddress.id;
+      }
 
-        // Customer information
-        customerName: `${firstName} ${lastName}`,
-        customerEmail: contact,
-        customerPhone: phone,
+      const order = await tx.order.create({
+        data: {
+          status: 'PENDING',
 
-        // Billing address
-        billingSameAsShipping: Boolean(billingSameAsShipping),
-        billingAddress: !billingSameAsShipping ? billingAddress : null,
-        billingCity: !billingSameAsShipping ? billingCity : null,
-        billingGovernorate: !billingSameAsShipping ? billingGovernorate : null,
-        billingCountry: !billingSameAsShipping ? billingCountry : null,
-        billingPostalCode: !billingSameAsShipping ? billingPostalCode : null,
+          subTotal: orderTotals.subTotal,
+          shipping: shippingMethod.price,
+          total: orderTotals.total,
 
-        // Optional registered account
-        userId: userId ? userId : null,
+          customerName: `${firstName} ${lastName}`,
+          customerContact: contact,
+          customerPhone: phone,
 
-        // Original saved address used for this order
-        //   addressId String?
+          billingSameAsShipping: Boolean(billingSameAsShipping),
+          billingAddress: !billingSameAsShipping ? billingAddress : null,
+          billingCity: !billingSameAsShipping ? billingCity : null,
+          billingGovernorate: !billingSameAsShipping
+            ? billingGovernorate
+            : null,
+          billingCountry: !billingSameAsShipping ? billingCountry : null,
+          billingPostalCode: !billingSameAsShipping ? billingPostalCode : null,
+          billingPhone: !billingSameAsShipping ? billingPhone : null,
 
-        // Discount reference
-        discountId: discount?.id ?? null,
+          userId: userId ?? null,
+          addressId,
+          discountId: discount?.id ?? null,
 
-        // Shipping address snapshot
-        shippingAddress: address,
-        shippingCity: city,
-        shippingGovernorate: governorate,
-        shippingCountry: country,
-        shippingPostalCode: postalCode,
+          shippingAddress: address,
+          shippingCity: city,
+          shippingGovernorate: governorate,
+          shippingCountry: country,
+          shippingPostalCode: postalCode,
 
-        // Shipping method snapshot
-        shippingMethodId: shippingMethod.id,
-        shippingMethodName: shippingMethod.name,
-        shippingMethodPrice: shippingMethod.price,
-      },
+          shippingMethodId: shippingMethod.id,
+          shippingMethodName: shippingMethod.name,
+          shippingMethodPrice: shippingMethod.price,
+        },
+      });
+
+      await tx.orderItem.createMany({
+        data: orderItems.map((item) => ({
+          quantity: item.quantity,
+          unitPrice: item.unitPrice,
+          orderId: order.id,
+          productVariantId: item.productVariantId,
+
+          productName: item.productName,
+          sizeML: item.sizeML,
+        })),
+      });
+
+      await this.decrementStockAndLogTransactions(tx, order.id, orderItems);
+
+      await this.createPayment(tx, order.id, orderTotals.total, paymentMethod);
+
+      return order;
     });
-    // Next:
-    // 7. Handle payment method.
 
     return {
-      // Will be editted
-      productVariants,
-      orderItems,
-      shippingMethod,
-      discount,
+      success: true,
+      order,
     };
   },
 };

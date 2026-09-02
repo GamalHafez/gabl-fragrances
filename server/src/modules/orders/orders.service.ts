@@ -174,13 +174,21 @@ export const ordersService = {
       postalCode?: string | null;
     },
   ) {
+    const { address, city, governorate, country, postalCode } = fields;
+
+    // Unset any existing default so there's only ever one per user.
+    await tx.address.updateMany({
+      where: { userId, isDefault: true },
+      data: { isDefault: false },
+    });
+
     return tx.address.create({
       data: {
         userId,
-        address: fields.address,
-        country: fields.country,
-        city: fields.city,
-        governorate: fields.governorate,
+        address,
+        country,
+        city,
+        governorate,
         postalCode: fields.postalCode ?? null,
       },
       select: { id: true },
@@ -237,7 +245,7 @@ export const ordersService = {
 
   async createOrder(data: CreateOrderBody, userId?: string) {
     const {
-      // saveInformation -- Todo
+      saveInformation,
       items,
       shippingMethodId,
       discountCode,
@@ -290,7 +298,7 @@ export const ordersService = {
     const order = await prisma.$transaction(async (tx) => {
       let addressId: string | null = null;
 
-      if (userId) {
+      if (userId && saveInformation) {
         const savedAddress = await this.createAddressSnapshot(tx, userId, {
           address,
           city,

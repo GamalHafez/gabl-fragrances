@@ -174,7 +174,7 @@ export const ordersService = {
       postalCode?: string | null;
     },
   ) {
-    const { address, city, governorate, country, postalCode } = fields;
+    const { address, city, governorate, country } = fields;
 
     // Unset any existing default so there's only ever one per user.
     await tx.address.updateMany({
@@ -294,6 +294,8 @@ export const ordersService = {
       discountAmount,
     );
 
+    const isCard = paymentMethod === 'CARD';
+
     // 6. Create order.
     const order = await prisma.$transaction(async (tx) => {
       let addressId: string | null = null;
@@ -311,7 +313,7 @@ export const ordersService = {
 
       const order = await tx.order.create({
         data: {
-          status: 'PENDING',
+          status: isCard ? 'PROCESSING' : 'PENDING',
 
           subTotal: orderTotals.subTotal,
           shipping: shippingMethod.price,
@@ -359,8 +361,9 @@ export const ordersService = {
         })),
       });
 
-      await this.decrementStockAndLogTransactions(tx, order.id, orderItems);
-
+      if (!isCard) {
+        await this.decrementStockAndLogTransactions(tx, order.id, orderItems);
+      }
       await this.createPayment(tx, order.id, orderTotals.total, paymentMethod);
 
       return order;

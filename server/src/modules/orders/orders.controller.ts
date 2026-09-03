@@ -10,12 +10,12 @@ export const createOrder = async (
   try {
     const { body, user } = req;
 
-    const shippingMethod = await ordersService.createOrder(body, user?.id);
+    const orderRes = await ordersService.createOrder(body, user?.id);
 
     return sendSuccess(res, {
       statusCode: 201,
-      message: 'Shipping Method created successfully',
-      data: { shippingMethod },
+      message: 'Order created successfully',
+      data: { order: orderRes.order },
     });
   } catch (error) {
     next(error);

@@ -15,6 +15,10 @@ import { PAYMENT_METHODS } from "@shared/constants/paymentMethods";
 import { OrderSummary, OrderSummaryMobile } from "@/components/checkout/order";
 import { FormSubmitButton } from "@/components/ui/forms";
 import { Lock } from "lucide-react";
+import { useCreateOrder } from "@/hooks/checkout";
+import { useNavigate } from "react-router-dom";
+import { CheckoutError } from "@/components/checkout/layout";
+import { getCheckoutErrorMessage } from "@/utils";
 
 const checkoutDefaultValues: CheckoutFormValues = {
   contact: "",
@@ -39,6 +43,8 @@ const checkoutDefaultValues: CheckoutFormValues = {
 };
 
 export const Checkout = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     control,
@@ -52,8 +58,18 @@ export const Checkout = () => {
 
   const shippingMethodId = useWatch({ control, name: "shippingMethodId" });
 
+  const { mutate: createOrder, isPending, isError, error } = useCreateOrder();
+
+  const checkoutError = isError ? getCheckoutErrorMessage(error) : undefined;
+
   const onSubmit = (data: CheckoutFormOutput) => {
-    console.log(data);
+    createOrder(data, {
+      onSuccess: (order) => {
+        navigate(`/orders/${order.id}/confirmation`); // adjust route to your app
+      },
+    });
+
+    console.log(data); // Will be deleted LATER
   };
 
   return (
@@ -64,10 +80,7 @@ export const Checkout = () => {
       <Container>
         <div className="mx-4 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
           <form
-  onSubmit={handleSubmit(
-    onSubmit,
-    (errors) => console.log("Validation errors:", errors),
-  )}
+            onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col gap-8 px-8 pb-20"
           >
             <ContactSection register={register} errors={errors} />
@@ -86,12 +99,12 @@ export const Checkout = () => {
               register={register}
               errors={errors}
             />
+            {checkoutError && <CheckoutError message={checkoutError} />}
             <FormSubmitButton
               label="Complete order"
               icon={Lock}
-              disabled={false}
-              //    isLoading={isPending}
-              //      disabled={!isValid || items.length === 0}
+              isLoading={isPending}
+              disabled={isPending}
             />
           </form>
 

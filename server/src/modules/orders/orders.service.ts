@@ -190,6 +190,7 @@ export const ordersService = {
         city,
         governorate,
         postalCode: fields.postalCode ?? null,
+        isDefault: true,
       },
       select: { id: true },
     });
@@ -347,6 +348,7 @@ export const ordersService = {
           shippingMethodName: shippingMethod.name,
           shippingMethodPrice: shippingMethod.price,
         },
+        select: { id: true, orderNumber: true, status: true },
       });
 
       await tx.orderItem.createMany({
@@ -364,14 +366,40 @@ export const ordersService = {
       if (!isCard) {
         await this.decrementStockAndLogTransactions(tx, order.id, orderItems);
       }
-      await this.createPayment(tx, order.id, orderTotals.total, paymentMethod);
 
-      return order;
+      const payment = await this.createPayment(
+        tx,
+        order.id,
+        orderTotals.total,
+        paymentMethod,
+      );
+
+      return {
+        id: order.id,
+        orderNumber: order.orderNumber,
+        status: order.status,
+        subTotal: orderTotals.subTotal,
+        shipping: shippingMethod.price,
+        total: orderTotals.total,
+        customerName: `${firstName} ${lastName}`,
+        items: orderItems.map(
+          ({ productName, sizeML, quantity, unitPrice }) => ({
+            productName,
+            sizeML,
+            quantity,
+            unitPrice,
+          }),
+        ),
+        payments: [
+          {
+            method: payment.method,
+            status: payment.status,
+            amount: payment.amount,
+          },
+        ],
+      };
     });
 
-    return {
-      success: true,
-      order,
-    };
+    return order;
   },
 };

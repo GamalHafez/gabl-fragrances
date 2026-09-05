@@ -3,6 +3,7 @@ import { Prisma } from '@/generated/prisma/client.js';
 export type OrderWithDetails = Prisma.OrderGetPayload<{
   select: {
     id: true;
+    userId: true;
     orderNumber: true;
     status: true;
     customerName: true;

@@ -9,10 +9,7 @@ export const CheckOrderExists = async (
 ) => {
   try {
     const { orderId } = req.params;
-
-    if (!orderId) {
-      throw new AppError(400, 'Order ID is required');
-    }
+    if (!orderId) throw new AppError(400, 'Order ID is required');
 
     const order = await prisma.order.findUnique({
       where: {
@@ -20,6 +17,7 @@ export const CheckOrderExists = async (
       },
       select: {
         id: true,
+        userId: true,
         orderNumber: true,
         status: true,
         customerName: true,
@@ -48,8 +46,10 @@ export const CheckOrderExists = async (
       },
     });
 
-    if (!order) {
-      throw new AppError(404, 'Order not found');
+    if (!order) throw new AppError(404, 'Order not found');
+
+    if (order.userId && order.userId !== req.user?.id && !req.user?.isAdmin) {
+      throw new AppError(404, 'Order not found'); // 404, not 403 — don't reveal existence
     }
 
     req.order = order;

@@ -2,11 +2,7 @@ import { CartItem, EmptyCart } from "@/components/cart";
 import { DataError } from "@/components/ui/errors/DataError";
 import { CartItemSkeleton } from "@/components/skeleton";
 import { OrderTotals } from "./OrderTotals";
-import type {
-  StoredCartItem,
-  CartRepresentation,
-  CartVariant,
-} from "@shared/types";
+import type { StoredCartItem, CartRepresentation } from "@shared/types";
 
 type OrderSummaryBodyProps = {
   items: StoredCartItem[];
@@ -32,7 +28,7 @@ export const OrderSummaryBody = ({
           <EmptyCart />
         ) : isPending && !cartData ? (
           Array.from({ length: 3 }).map((_, index) => (
-            <CartItemSkeleton key={index} />
+            <CartItemSkeleton key={`cart-skeleton-${index}`} />
           ))
         ) : isError || !cartData ? (
           <DataError
@@ -41,13 +37,13 @@ export const OrderSummaryBody = ({
             isHomeLink={false}
           />
         ) : (
-          cartData.items.map((item: CartVariant) => (
-            <CartItem key={item.id} cartItem={item} />
+          cartData.items.map((item) => (
+            <CartItem key={item.product.id} cartItem={item} />
           ))
         )}
       </div>
 
-      {items.length > 0 && (
+      {cartData && (
         <OrderTotals
           subtotal={cartData?.subtotal ?? "0"}
           totalQuantity={cartData?.totalQuantity ?? 0}

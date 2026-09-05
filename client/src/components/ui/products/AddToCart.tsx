@@ -11,7 +11,7 @@ type AddToCartProps = StoredCartItem & {
 };
 
 export const AddToCart = ({
-  variantId,
+  productVariantId,
   quantity,
   image,
 }: AddToCartProps) => {
@@ -24,7 +24,7 @@ export const AddToCart = ({
 
     // Context state updates
     handleAddItem({
-      variantId,
+      productVariantId,
       quantity,
     });
 

@@ -26,6 +26,7 @@ export const getCheckoutErrorMessage = (error: unknown): string => {
   }
 
   if (!error.status) {
+    console.log(error);
     return NETWORK_ERROR_MESSAGE;
   }
 

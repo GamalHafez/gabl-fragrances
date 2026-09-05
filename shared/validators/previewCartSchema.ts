@@ -2,7 +2,10 @@ import { z } from 'zod';
 
 export const previewCartSchema = z.array(
   z.object({
-    variantId: z.string().trim().min(1, 'Variant ID is required.'),
+    productVariantId: z
+      .string()
+      .trim()
+      .min(1, 'Product Variant ID is required.'),
 
     quantity: z
       .number()

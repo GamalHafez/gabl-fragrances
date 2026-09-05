@@ -13,7 +13,7 @@ export const CartItem = ({ cartItem }: CartItemProps) => {
   const { isDark } = useTheme();
   const { updateQuantity, removeItem } = useCart();
   const {
-    id,
+    productVariantId,
     sizeML,
     price,
     quantity,
@@ -103,7 +103,9 @@ export const CartItem = ({ cartItem }: CartItemProps) => {
             inStock={stock > 0}
             stock={stock}
             quantity={quantity}
-            onQuantityChange={(quantity) => updateQuantity(id, quantity)}
+            onQuantityChange={(quantity) =>
+              updateQuantity(productVariantId, quantity)
+            }
           />
         ) : (
           <p
@@ -118,7 +120,7 @@ export const CartItem = ({ cartItem }: CartItemProps) => {
         )}
         <button
           type="button"
-          onClick={() => removeItem(id)}
+          onClick={() => removeItem(productVariantId)}
           aria-label={`Remove ${name} from cart`}
           className={clsx(
             "ml-auto cursor-pointer transition-colors duration-300 ease-in-out",

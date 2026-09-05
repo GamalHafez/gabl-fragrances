@@ -7,7 +7,11 @@ import {
 } from "@/components/checkout/sections";
 import { Container, PageWrapper } from "@/components/ui/common";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { CheckoutFormOutput, CheckoutFormValues } from "@shared/types";
+import type {
+  CheckoutFormOutput,
+  CheckoutFormValues,
+  CreateOrderInput,
+} from "@shared/types";
 import { useForm, useWatch } from "react-hook-form";
 import { checkoutSchema } from "@shared/validators/checkoutSchema";
 import { CheckoutSaveInformation } from "@/components/checkout/common";
@@ -19,6 +23,8 @@ import { useCreateOrder } from "@/hooks/checkout";
 import { useNavigate } from "react-router-dom";
 import { CheckoutError } from "@/components/checkout/layout";
 import { getCheckoutErrorMessage } from "@/utils";
+import { useCartData } from "@/hooks/cart/useCartData";
+import { useCart } from "@/context/cart/useCart";
 
 const checkoutDefaultValues: CheckoutFormValues = {
   contact: "",
@@ -62,14 +68,25 @@ export const Checkout = () => {
 
   const checkoutError = isError ? getCheckoutErrorMessage(error) : undefined;
 
+  const { items } = useCart();
+  const { data: cartData } = useCartData(items);
+
   const onSubmit = (data: CheckoutFormOutput) => {
-    createOrder(data, {
+    const items =
+      cartData?.items.map(({ productVariantId, quantity }) => ({
+        productVariantId,
+        quantity,
+      })) ?? [];
+
+    const payload: CreateOrderInput = { ...data, items };
+
+    createOrder(payload, {
       onSuccess: (order) => {
         navigate(`/orders/${order.id}/confirmation`); // adjust route to your app
       },
     });
 
-    console.log(data); // Will be deleted LATER
+   console.log(data); // Will be deleted LATER
   };
 
   return (

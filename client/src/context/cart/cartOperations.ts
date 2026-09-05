@@ -2,12 +2,12 @@ import type { StoredCart, StoredCartItem } from "@shared/types";
 
 export const addItem = (cart: StoredCart, item: StoredCartItem): StoredCart => {
   const existingItem = cart.items.find(
-    (cartItem) => cartItem.variantId === item.variantId,
+    (cartItem) => cartItem.productVariantId === item.productVariantId,
   );
 
   const items = existingItem
     ? cart.items.map((cartItem) =>
-        cartItem.variantId === item.variantId
+        cartItem.productVariantId === item.productVariantId
           ? {
               ...cartItem,
               quantity: cartItem.quantity + item.quantity,
@@ -21,7 +21,7 @@ export const addItem = (cart: StoredCart, item: StoredCartItem): StoredCart => {
 
 export const removeItem = (cart: StoredCart, variantId: string): StoredCart => {
   return {
-    items: cart.items.filter((item) => item.variantId !== variantId),
+    items: cart.items.filter((item) => item.productVariantId !== variantId),
   };
 };
 
@@ -36,7 +36,7 @@ export const updateQuantity = (
 
   return {
     items: cart.items.map((item) =>
-      item.variantId === variantId ? { ...item, quantity } : item,
+      item.productVariantId === variantId ? { ...item, quantity } : item,
     ),
   };
 };

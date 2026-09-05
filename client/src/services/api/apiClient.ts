@@ -46,11 +46,11 @@ export const apiClient = {
     }
   },
 
-  async patch<T>(endpoint: string, body: unknown): Promise<T> {
-    // fetch PATCH request
-  },
+  // async patch<T>(endpoint: string, body: unknown): Promise<T> {
+  //   // fetch PATCH request
+  // },
 
-  async delete<T>(endpoint: string): Promise<T> {
-    // fetch DELETE request
-  },
+  // async delete<T>(endpoint: string): Promise<T> {
+  //   // fetch DELETE request
+  // },
 };

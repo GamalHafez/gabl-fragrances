@@ -8,10 +8,10 @@ import {
 export const cartService = {
   async getCartData(items: StoredCartItem[]): Promise<CartRepresentation> {
     const cartItems = await Promise.all(
-      items.map(async (item) => {
+      items.map(async (item): Promise<CartVariant | null> => {
         const variant = await prisma.productVariant.findFirst({
           where: {
-            id: item.variantId,
+            id: item.productVariantId,
             isActive: true,
             product: {
               isActive: true,
@@ -47,7 +47,7 @@ export const cartService = {
         }
 
         return {
-          id: variant.id,
+          productVariantId: variant.id,
           sizeML: variant.sizeML,
           price: variant.price.toString(),
           quantity: item.quantity,
@@ -62,11 +62,10 @@ export const cartService = {
       }),
     );
 
-    const validItems: CartVariant[] = cartItems.filter(
+    const validItems = cartItems.filter(
       (item): item is NonNullable<typeof item> => item !== null,
     );
 
-    // Calculate totals
     const availableItems = validItems.filter((item) => item.stock > 0);
 
     const totalQuantity = availableItems.reduce(

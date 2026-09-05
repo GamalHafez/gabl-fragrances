@@ -6,7 +6,7 @@ const getCartKey = (items: StoredCartItem[]) => {
   // Sort so item order in the array (e.g. after add/remove/reorder)
   // doesn't change the key when the actual contents are identical
   const sorted = [...items].sort((a, b) =>
-    a.variantId.localeCompare(b.variantId),
+    a?.productVariantId?.localeCompare(b?.productVariantId),
   );
 
   return ["cart-data", sorted] as const;

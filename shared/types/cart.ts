@@ -1,5 +1,5 @@
 export type StoredCartItem = {
-  variantId: string;
+  productVariantId: string;
   quantity: number;
 };
 
@@ -8,7 +8,7 @@ export type StoredCart = {
 };
 
 export type CartVariant = {
-  id: string;
+  productVariantId: string;
   sizeML: number;
   price: string;
   quantity: number;

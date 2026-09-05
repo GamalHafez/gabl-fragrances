@@ -5,6 +5,7 @@ import type {
   PaymentMethod,
   PaymentStatus,
 } from '../../server/src/generated/prisma/enums';
+import type { createOrderSchema } from '../validators/ordersSchemas';
 
 export type CheckoutFormValues = z.input<typeof checkoutSchema>;
 
@@ -52,3 +53,5 @@ export type OrderType = {
     amount: string;
   }[];
 };
+
+export type CreateOrderInput = z.infer<typeof createOrderSchema>;

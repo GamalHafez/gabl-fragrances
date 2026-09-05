@@ -89,7 +89,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                 <span className="ml-1 text-sm">EGP</span>
               </p>
               <AddToCart
-                variantId={mainVariant.id}
+                productVariantId={mainVariant.id}
                 quantity={1}
                 image={productMainImage.url}
               />

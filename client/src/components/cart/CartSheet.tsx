@@ -48,7 +48,7 @@ export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
             />
           ) : (
             cartData.items.map((item) => (
-              <CartItem key={item.id} cartItem={item} />
+              <CartItem key={item.productVariantId} cartItem={item} />
             ))
           )}
         </div>

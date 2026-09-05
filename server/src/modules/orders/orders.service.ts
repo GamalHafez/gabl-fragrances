@@ -148,19 +148,26 @@ export const ordersService = {
     return { discount, discountAmount: cappedAmount };
   },
 
-  calculateOrderTotals(
-    orderItems: OrderItem[],
-    shippingPrice: Decimal,
-    discountAmount: Decimal,
-  ) {
-    const subTotal = orderItems.reduce(
+  calculateSubtotal(orderItems: OrderItem[]) {
+    return orderItems.reduce(
       (acc, item) => acc.plus(item.unitPrice.mul(item.quantity)),
       new Decimal(0),
     );
+  },
 
+  calculateOrderTotals(
+    subTotal: Decimal,
+    shippingPrice: Decimal,
+    discountAmount: Decimal,
+  ) {
     const total = subTotal.plus(shippingPrice).minus(discountAmount);
 
-    return { subTotal, shippingPrice, discountAmount, total };
+    return {
+      subTotal,
+      shippingPrice,
+      discountAmount,
+      total,
+    };
   },
 
   async createAddressSnapshot(
@@ -279,10 +286,8 @@ export const ordersService = {
     const shippingMethod = await this.getShippingMethod(shippingMethodId);
 
     // 4. Calculate subtotal + resolve discount against it.
-    const subTotal = orderItems.reduce(
-      (acc, item) => acc.plus(item.unitPrice.mul(item.quantity)),
-      new Decimal(0),
-    );
+    const subTotal = this.calculateSubtotal(orderItems);
+
     const { discount, discountAmount } = await this.getDiscount(
       discountCode,
       subTotal,
@@ -290,7 +295,7 @@ export const ordersService = {
 
     // 5. Calculate totals.
     const orderTotals = this.calculateOrderTotals(
-      orderItems,
+      subTotal,
       shippingMethod.price,
       discountAmount,
     );

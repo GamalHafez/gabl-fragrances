@@ -21,3 +21,15 @@ export const createOrder = async (
     next(error);
   }
 };
+
+export const getOrder = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  return sendSuccess(res, {
+    statusCode: 200,
+    message: 'Current order retrieved successfully',
+    data: { order: req.order },
+  });
+};

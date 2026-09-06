@@ -2,3 +2,5 @@ export * from "./ConfirmationHeader";
 export * from "./ConfirmationCard";
 export * from "./OrderDetails";
 export * from "./OrderItems";
+export * from "./InfoCard";
+export * from "./CustomerInfo";

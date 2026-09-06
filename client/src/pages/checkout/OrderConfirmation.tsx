@@ -1,5 +1,6 @@
 import { OrderTotals } from "@/components/checkout/order";
 import {
+  CustomerInfo,
   ConfirmationCard,
   ConfirmationHeader,
   OrderDetails,
@@ -17,7 +18,17 @@ export const OrderConfirmation = () => {
   if (isPending) return <p>Loading your order…</p>;
   if (isError || !order) return <p>We couldn't find that order.</p>;
 
-  const { orderNumber, createdAt, status, items, subTotal, shipping } = order;
+  const {
+    orderNumber,
+    createdAt,
+    status,
+    items,
+    subTotal,
+    shipping,
+    customerName,
+    customerContact,
+    customerPhone,
+  } = order;
   const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
@@ -39,6 +50,14 @@ export const OrderConfirmation = () => {
               shipping={shipping}
             />
           </ConfirmationCard>
+
+          <div className="mx-auto grid md:w-full md:grid-cols-2">
+            <CustomerInfo
+              customerName={customerName}
+              customerContact={customerContact}
+              customerPhone={customerPhone}
+            />
+          </div>
         </main>
       </Container>
     </PageWrapper>

@@ -4,7 +4,7 @@ import clsx from "clsx";
 type OrderTotalsProps = {
   subtotal: string;
   totalQuantity: number;
-  shipping?: number;
+  shipping?: number | string;
 };
 
 export const OrderTotals = ({
@@ -62,7 +62,7 @@ export const OrderTotals = ({
                 isDark ? "text-white" : "text-black",
               )}
             >
-              {shipping === 0 ? "Free" : `${shipping.toFixed(2)} EGP`}
+              {shipping === 0 ? "Free" : `${Number(shipping).toFixed(2)} EGP`}
             </span>
           </p>
 
@@ -73,7 +73,7 @@ export const OrderTotals = ({
             )}
           >
             <span>Total</span>
-            <span>{(Number(subtotal) + shipping).toFixed(2)} EGP</span>
+            <span>{(Number(subtotal) + Number(shipping)).toFixed(2)} EGP</span>
           </p>
         </>
       )}

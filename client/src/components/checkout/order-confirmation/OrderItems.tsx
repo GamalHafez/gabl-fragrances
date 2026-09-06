@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { useTheme } from "@/context/theme/useTheme";
 import type { OrderType } from "@shared/types";
+import { ConfirmationCard } from "./ConfirmationCard";
 
 type OrderItemsProps = {
   items: OrderType["items"];
@@ -10,30 +11,7 @@ export const OrderItems = ({ items }: OrderItemsProps) => {
   const { isDark } = useTheme();
 
   return (
-    <div
-      className={clsx(
-        "rounded-2xl border px-6 py-5 sm:px-8 sm:py-6",
-        isDark
-          ? "border-neutral-800 bg-neutral-900"
-          : "border-neutral-200 bg-white",
-      )}
-    >
-      <h3
-        className={clsx(
-          "text-base font-semibold sm:text-lg",
-          isDark ? "text-neutral-100" : "text-neutral-900",
-        )}
-      >
-        Order Items
-      </h3>
-
-      <div
-        className={clsx(
-          "my-4 border-t",
-          isDark ? "border-neutral-800" : "border-neutral-200",
-        )}
-      />
-
+    <ConfirmationCard title="Order Items">
       <ul className="flex flex-col gap-2">
         {items.map((item, index) => {
           const lineTotal = (Number(item.unitPrice) * item.quantity).toFixed(2);
@@ -75,6 +53,6 @@ export const OrderItems = ({ items }: OrderItemsProps) => {
           );
         })}
       </ul>
-    </div>
+    </ConfirmationCard>
   );
 };

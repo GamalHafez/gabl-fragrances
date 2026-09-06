@@ -1,4 +1,7 @@
-import { ConfirmationHeader } from "@/components/checkout/order-confirmation";
+import {
+  ConfirmationHeader,
+  OrderDetails,
+} from "@/components/checkout/order-confirmation";
 import { Container, PageWrapper } from "@/components/ui/common";
 import { useOrder } from "@/hooks/checkout";
 import { useParams } from "react-router-dom";
@@ -11,16 +14,18 @@ export const OrderConfirmation = () => {
   if (isPending) return <p>Loading your order…</p>;
   if (isError || !order) return <p>We couldn't find that order.</p>;
 
-  const { customerName } = order;
+  const { orderNumber, createdAt, status } = order;
 
   return (
     <PageWrapper>
       <Container>
-        <main className="flex flex-col items-center  gap-4 text-center">
-          <ConfirmationHeader customerName={customerName} />
-          <p>
-            Order #{order.orderNumber} — {order.status}
-          </p>
+        <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 md:py-2">
+          <ConfirmationHeader />
+          <OrderDetails
+            orderNumber={orderNumber}
+            createdAt={createdAt}
+            status={status}
+          />
           <p>
             Shipping to {order.shippingAddress}, {order.shippingCity}
           </p>

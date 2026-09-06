@@ -2,19 +2,13 @@ import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 import { CircleCheckBig } from "lucide-react";
 
-type ConfirmationHeaderProps = {
-  customerName: string;
-};
-
-export const ConfirmationHeader = ({
-  customerName,
-}: ConfirmationHeaderProps) => {
+export const ConfirmationHeader = () => {
   const { isDark } = useTheme();
 
   return (
     <header
       className={clsx(
-        "flex max-w-xl flex-col items-center gap-3 rounded-2xl border px-6 py-10 text-center sm:px-10 sm:py-12",
+        "flex flex-col items-center gap-3 rounded-2xl border px-6 py-10 text-center sm:px-10 sm:py-12",
         isDark
           ? "border-emerald-500/20 bg-emerald-500/5"
           : "border-emerald-100 bg-emerald-50/60",
@@ -50,11 +44,11 @@ export const ConfirmationHeader = ({
           isDark ? "text-emerald-200" : "text-emerald-700",
         )}
       >
-        Thanks, {customerName}, for your order from{" "}
+        Thanks for your order from{" "}
         <span
           className={clsx(
             "font-semibold tracking-wide",
-            isDark ? "text-emerald-50" : "text-emerald-900",
+            isDark ? "text-brand-50" : "text-brand-900",
           )}
         >
           Gabal
@@ -63,13 +57,12 @@ export const ConfirmationHeader = ({
 
       <p
         className={clsx(
-          "max-w-md text-sm leading-relaxed sm:text-base",
+          "max-w-2xl text-sm leading-relaxed sm:text-base",
           isDark ? "text-emerald-300/70" : "text-emerald-700/70",
         )}
       >
         We've received your order successfully. Your order summary is below.
-        We'll notify you when your package is ready for shipment and provide
-        tracking details.
+        We'll notify you when it's ready to ship with tracking details.
       </p>
     </header>
   );

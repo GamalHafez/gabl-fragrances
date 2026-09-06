@@ -68,7 +68,7 @@ export const Checkout = () => {
 
   const checkoutError = isError ? getCheckoutErrorMessage(error) : undefined;
 
-  const { items } = useCart();
+  const { items, clearCart } = useCart();
   const { data: cartData } = useCartData(items);
 
   const onSubmit = (data: CheckoutFormOutput) => {
@@ -82,11 +82,12 @@ export const Checkout = () => {
 
     createOrder(payload, {
       onSuccess: (order) => {
-        navigate(`/orders/${order.id}/confirmation`); // adjust route to your app
+        clearCart();
+        navigate(`/checkout/orders/${order.id}/confirmation`); // adjust route to your app
       },
     });
 
-   console.log(data); // Will be deleted LATER
+    console.log(data); // Will be deleted LATER
   };
 
   return (

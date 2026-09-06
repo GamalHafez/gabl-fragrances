@@ -1,6 +1,6 @@
-import { Prisma } from '@/generated/prisma/client.js';
+import { OrderGetPayload } from '@/generated/prisma/models.js';
 
-export type OrderWithDetails = Prisma.OrderGetPayload<{
+export type OrderWithDetails = OrderGetPayload<{
   select: {
     id: true;
     userId: true;

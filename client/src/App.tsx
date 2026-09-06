@@ -13,7 +13,7 @@ import {
 } from "@/pages/public";
 import { CartProvider } from "./context/cart/CartProvider";
 import { CheckoutLayout } from "@/pages/layouts/CheckoutLayout";
-import { Checkout } from "@/pages/checkout/Checkout";
+import { Checkout, OrderConfirmation } from "@/pages/checkout";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +59,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Checkout />,
+      },
+      {
+        path: "orders/:orderId/confirmation",
+        element: <OrderConfirmation />,
       },
     ],
   },

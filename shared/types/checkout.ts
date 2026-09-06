@@ -35,10 +35,19 @@ export type OrderType = {
   orderNumber: number;
   status: OrderStatus;
   customerName: string;
+  customerContact: string;
+  customerPhone: string;
 
   subTotal: string;
   shipping: string;
   total: string;
+
+  shippingAddress: string;
+  shippingCity: string;
+  shippingGovernorate: string;
+  shippingCountry: string;
+  shippingMethodName: string | null;
+  createdAt: string;
 
   items: {
     productName: string;

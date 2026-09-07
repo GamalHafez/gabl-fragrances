@@ -2,18 +2,19 @@ import { House, LogIn, ShoppingBag, User } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import clsx from "clsx";
 import { useTheme } from "@/context/theme/useTheme";
+import { useAuth } from "@/context/auth/useAuth";
 
 export const BottomNavigation = () => {
-  const user = null; // to be replaced
+  const { isAuthenticated } = useAuth();
   const { isDark } = useTheme();
 
   const links = [
     { label: "Home", to: "/", icon: House },
     { label: "Shop", to: "/collections", icon: ShoppingBag },
     {
-      label: user ? "Profile" : "Login",
-      to: user ? "/profile" : "/login",
-      icon: user ? User : LogIn,
+      label: isAuthenticated ? "Profile" : "Sign up",
+      to: isAuthenticated ? "/profile" : "/signup",
+      icon: isAuthenticated ? User : LogIn,
     },
   ];
 

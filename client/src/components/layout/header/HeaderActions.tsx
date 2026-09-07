@@ -4,9 +4,10 @@ import { HeaderIconAction } from "./HeaderIconAction";
 import { useState } from "react";
 import { CartTrigger } from "@/components/cart/CartTrigger";
 import { CartSheet } from "@/components/cart/CartSheet";
+import { useAuth } from "@/context/auth/useAuth";
 
 export const HeaderActions = () => {
-  const user = null; // to be replaced
+  const { isAuthenticated } = useAuth();
   const { isDark, toggle } = useTheme();
   const [cartOpen, setCartOpen] = useState(false);
 
@@ -17,10 +18,10 @@ export const HeaderActions = () => {
       </HeaderIconAction>
 
       <HeaderIconAction
-        tooltip={user ? "Profile" : "Log in"}
-        href={user ? "/profile" : "/login"}
+        tooltip={isAuthenticated ? "Profile" : "Sign up"}
+        href={isAuthenticated ? "/profile" : "/signup"}
       >
-        {user ? <User size={20} /> : <LogIn size={20} />}
+        {isAuthenticated ? <User size={20} /> : <LogIn size={20} />}
       </HeaderIconAction>
 
       <CartTrigger onOpenChange={setCartOpen} />

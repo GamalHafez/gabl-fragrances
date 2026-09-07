@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 import { scrollToTop } from "@/utils";
 import { HeaderIconAction } from "@/components/layout/header";
 import { LogIn, Moon, Sun, User } from "lucide-react";
+import { useAuth } from "@/context/auth/useAuth";
 
 export const CheckoutHeader = () => {
-  const user = null; // to be replaced
+  const { isAuthenticated } = useAuth();
   const { isDark, toggle } = useTheme();
 
   return (
@@ -46,13 +47,13 @@ export const CheckoutHeader = () => {
             </h1>
           </Link>
 
-          <div className="flex items-center">
+          <div className="flex items-center gap-2">
             <HeaderIconAction
-              tooltip={user ? "Profile" : "Log in"}
-              href={user ? "/profile" : "/login"}
-              label={user ? undefined : "Log In"}
+              tooltip={isAuthenticated ? "Profile" : "Sign up"}
+              href={isAuthenticated ? "/profile" : "/signup"}
+              label={isAuthenticated ? undefined : "Sign Up"}
             >
-              {user ? <User size={20} /> : <LogIn size={20} />}
+              {isAuthenticated ? <User size={20} /> : <LogIn size={20} />}
             </HeaderIconAction>
 
             <HeaderIconAction tooltip="Theme" onClick={toggle}>

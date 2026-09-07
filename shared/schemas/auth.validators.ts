@@ -50,3 +50,5 @@ export const loginSchema = z.object({
     .toLowerCase(),
   password: z.string().min(1, { message: 'Password is required' }),
 });
+
+export type RegisterBody = z.infer<typeof signupSchema>;

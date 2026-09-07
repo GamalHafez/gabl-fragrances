@@ -15,7 +15,7 @@ export const Footer = () => {
         isDark ? "border-brand-200 bg-zinc-950" : "border-zinc-200 bg-zinc-50",
       )}
     >
-      <div className="mx-auto flex max-w-7xl flex-col gap-12 px-6 py-10 md:py-16">
+      <div className="mx-auto flex max-w-7xl flex-col gap-12 px-6 pt-10 pb-8 md:pt-16">
         <div className="grid gap-8 md:grid-cols-3 md:gap-12">
           <div>
             <h2

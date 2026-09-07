@@ -8,6 +8,7 @@ import {
   ShippingAddressCard,
   PaymentMethodSection,
   ShippingMethodCard,
+  HelpSection,
 } from "@/components/checkout/order-confirmation";
 import { Container, PageWrapper } from "@/components/ui/common";
 import { useOrder } from "@/hooks/checkout";
@@ -80,6 +81,8 @@ export const OrderConfirmation = () => {
 
             <PaymentMethodSection payments={payments} />
           </div>
+
+          <HelpSection />
         </main>
       </Container>
     </PageWrapper>

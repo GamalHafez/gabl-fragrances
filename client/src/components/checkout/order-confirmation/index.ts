@@ -7,3 +7,4 @@ export * from "./CustomerInfo";
 export * from "./ShippingAddressCard";
 export * from "./PaymentMethodSection";
 export * from "./ShippingMethodCard";
+export * from "./HelpSection";

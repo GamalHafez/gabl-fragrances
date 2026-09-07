@@ -48,7 +48,7 @@ export const PaymentMethodSection = ({
       label="Payment Method"
     >
       {payment ? (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col">
           <div className="flex flex-wrap items-center justify-between">
             <p
               className={clsx(

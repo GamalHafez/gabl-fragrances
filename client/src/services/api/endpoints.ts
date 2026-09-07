@@ -1,5 +1,6 @@
 const BASE = "api";
 export const API_ENDPOINTS = {
+  AUTH: `${BASE}/auth`,
   PRODUCTS: `${BASE}/products`,
   REVIEWS: `${BASE}/reviews`,
   CART: `${BASE}/cart`,

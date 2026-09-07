@@ -14,6 +14,7 @@ import {
 import { CartProvider } from "./context/cart/CartProvider";
 import { CheckoutLayout } from "@/pages/layouts/CheckoutLayout";
 import { Checkout, OrderConfirmation } from "@/pages/checkout";
+import { AuthProvider } from "./context/auth/AuthProvider";
 
 const router = createBrowserRouter([
   {
@@ -70,11 +71,13 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <ThemeProvider>
-      <CartProvider>
-        <RouterProvider router={router} />
-      </CartProvider>
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider>
+        <CartProvider>
+          <RouterProvider router={router} />
+        </CartProvider>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 

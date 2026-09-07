@@ -5,6 +5,7 @@ import {
   ConfirmationHeader,
   OrderDetails,
   OrderItems,
+  ShippingAddressCard,
 } from "@/components/checkout/order-confirmation";
 import { Container, PageWrapper } from "@/components/ui/common";
 import { useOrder } from "@/hooks/checkout";
@@ -28,6 +29,10 @@ export const OrderConfirmation = () => {
     customerName,
     customerContact,
     customerPhone,
+    shippingAddress,
+    shippingCity,
+    shippingGovernorate,
+    shippingCountry,
   } = order;
   const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -51,11 +56,18 @@ export const OrderConfirmation = () => {
             />
           </ConfirmationCard>
 
-          <div className="mx-auto grid md:w-full md:grid-cols-2">
+          <div className="mx-auto grid gap-6 md:w-full md:grid-cols-2">
             <CustomerInfo
               customerName={customerName}
               customerContact={customerContact}
               customerPhone={customerPhone}
+            />
+
+            <ShippingAddressCard
+              shippingAddress={shippingAddress}
+              shippingCity={shippingCity}
+              shippingGovernorate={shippingGovernorate}
+              shippingCountry={shippingCountry}
             />
           </div>
         </main>

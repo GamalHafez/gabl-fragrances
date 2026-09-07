@@ -4,3 +4,4 @@ export * from "./OrderDetails";
 export * from "./OrderItems";
 export * from "./InfoCard";
 export * from "./CustomerInfo";
+export * from "./ShippingAddressCard";

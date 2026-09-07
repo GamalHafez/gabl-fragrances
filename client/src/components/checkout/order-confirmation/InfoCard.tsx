@@ -25,13 +25,13 @@ export const InfoCard = ({ icon: Icon, label, children }: InfoCardProps) => {
         <Icon
           className={clsx(
             "h-4 w-4",
-            isDark ? "text-neutral-400" : "text-neutral-500",
+            isDark ? "text-brand-100" : "text-brand-900",
           )}
         />
         <h4
           className={clsx(
-            "text-sm font-semibold",
-            isDark ? "text-neutral-100" : "text-neutral-900",
+            "text-sm font-bold",
+            isDark ? "text-brand-100" : "text-brand-900",
           )}
         >
           {label}

@@ -5,3 +5,4 @@ export * from "./OrderItems";
 export * from "./InfoCard";
 export * from "./CustomerInfo";
 export * from "./ShippingAddressCard";
+export * from "./PaymentMethodSection";

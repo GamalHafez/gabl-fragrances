@@ -6,6 +6,7 @@ import {
   OrderDetails,
   OrderItems,
   ShippingAddressCard,
+  PaymentMethodSection,
 } from "@/components/checkout/order-confirmation";
 import { Container, PageWrapper } from "@/components/ui/common";
 import { useOrder } from "@/hooks/checkout";
@@ -33,6 +34,7 @@ export const OrderConfirmation = () => {
     shippingCity,
     shippingGovernorate,
     shippingCountry,
+    payments,
   } = order;
   const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -69,6 +71,8 @@ export const OrderConfirmation = () => {
               shippingGovernorate={shippingGovernorate}
               shippingCountry={shippingCountry}
             />
+
+            <PaymentMethodSection payments={payments} />
           </div>
         </main>
       </Container>

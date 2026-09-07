@@ -15,6 +15,7 @@ import { CartProvider } from "./context/cart/CartProvider";
 import { CheckoutLayout } from "@/pages/layouts/CheckoutLayout";
 import { Checkout, OrderConfirmation } from "@/pages/checkout";
 import { AuthProvider } from "./context/auth/AuthProvider";
+import { GuestRoute, Login, ProtectedRoute, Register } from "@/pages/auth";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,31 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        element: <GuestRoute />,
+        children: [
+          {
+            path: "signup",
+            element: <Register />,
+          },
+          {
+            path: "login",
+            element: <Login />,
+          },
+        ],
+      },
+      {
+        element: <ProtectedRoute />,
+        children: [
+          // {
+          //   path: "account",
+          //   element: <AccountLayout />,
+          //   children: [
+          //     // orders, profile, addresses...
+          //   ],
+          // },
+        ],
       },
       {
         path: "collections",

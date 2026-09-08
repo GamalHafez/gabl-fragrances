@@ -1,5 +1,15 @@
 import { normalizeError } from "@/utils/errors";
 
+export class ApiError extends Error {
+  constructor(
+    message: string,
+    public status: number,
+  ) {
+    super(message);
+    this.name = "ApiError";
+  }
+}
+
 export const apiClient = {
   async get<T>(endpoint: string): Promise<T> {
     try {
@@ -12,7 +22,10 @@ export const apiClient = {
       const res = await response.json();
 
       if (!response.ok) {
-        throw new Error(res.error || res.message || "Request failed");
+        throw new ApiError(
+          res.error || res.message || "Request failed",
+          response.status,
+        );
       }
 
       return res.data as T;
@@ -37,7 +50,10 @@ export const apiClient = {
       const res = await response.json();
 
       if (!response.ok) {
-        throw new Error(res.error || res.message || "Request failed");
+        throw new ApiError(
+          res.error || res.message || "Request failed",
+          response.status,
+        );
       }
 
       return res.data as T;

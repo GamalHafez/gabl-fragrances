@@ -52,3 +52,4 @@ export const loginSchema = z.object({
 });
 
 export type RegisterBody = z.infer<typeof signupSchema>;
+export type LoginBody = z.infer<typeof loginSchema>;

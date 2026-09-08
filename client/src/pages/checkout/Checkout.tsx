@@ -22,9 +22,9 @@ import { Lock } from "lucide-react";
 import { useCreateOrder } from "@/hooks/checkout";
 import { useNavigate } from "react-router-dom";
 import { CheckoutError } from "@/components/checkout/layout";
-import { getCheckoutErrorMessage } from "@/utils";
 import { useCartData } from "@/hooks/cart/useCartData";
 import { useCart } from "@/context/cart/useCart";
+import { getApiErrorMessage } from "@/utils/errors";
 
 const checkoutDefaultValues: CheckoutFormValues = {
   contact: "",
@@ -66,7 +66,7 @@ export const Checkout = () => {
 
   const { mutate: createOrder, isPending, isError, error } = useCreateOrder();
 
-  const checkoutError = isError ? getCheckoutErrorMessage(error) : undefined;
+  const checkoutError = isError ? getApiErrorMessage(error) : undefined;
 
   const { items, clearCart } = useCart();
   const { data: cartData } = useCartData(items);

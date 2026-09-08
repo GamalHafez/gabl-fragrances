@@ -1,4 +1,4 @@
-import { normalizeError } from "@/utils";
+import { normalizeError } from "./errors";
 
 export const setItem = <T>(key: string, value: T): void => {
   try {

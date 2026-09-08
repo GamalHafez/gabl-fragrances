@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useRegister } from "@/hooks/auth/useRegister";
 import { AuthRedirect, PasswordInput } from "../common";
 import { ErrorMessage } from "@/components/ui/common";
+import { getApiErrorMessage } from "@/utils/errors";
 
 export const RegisterForm = () => {
   const navigate = useNavigate();
@@ -82,9 +83,7 @@ export const RegisterForm = () => {
             className="w-full md:mt-6 md:w-3/5 lg:w-1/4"
           />
 
-          {error && (
-            <ErrorMessage message="We couldn't Create your account. Please try again." />
-          )}
+          {error && <ErrorMessage message={getApiErrorMessage(error)} />}
 
           <AuthRedirect
             message="Already have an account?"

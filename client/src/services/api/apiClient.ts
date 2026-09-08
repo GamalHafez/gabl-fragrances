@@ -1,4 +1,4 @@
-import { normalizeError } from "@/utils";
+import { normalizeError } from "@/utils/errors";
 
 export const apiClient = {
   async get<T>(endpoint: string): Promise<T> {

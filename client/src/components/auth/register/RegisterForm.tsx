@@ -7,7 +7,7 @@ import {
 import { FormField, FormSubmitButton } from "@/components/ui/forms";
 import { useNavigate } from "react-router-dom";
 import { useRegister } from "@/hooks/auth/useRegister";
-import { AuthRedirect } from "../common";
+import { AuthRedirect, PasswordInput } from "../common";
 import { ErrorMessage } from "@/components/ui/common";
 
 export const RegisterForm = () => {
@@ -58,18 +58,16 @@ export const RegisterForm = () => {
           placeholder="Ex: omar@gmail.com"
         />
 
-        <FormField
+        <PasswordInput
           name="password"
-          type="password"
           register={registerField}
           errors={errors}
           label="Your Password"
           placeholder="Ex: ********"
         />
 
-        <FormField
+        <PasswordInput
           name="confirmPassword"
-          type="password"
           register={registerField}
           errors={errors}
           label="Confirm Password"

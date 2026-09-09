@@ -25,11 +25,57 @@ export const createOrder = async (
 export const getOrder = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  _next: NextFunction,
 ) => {
   return sendSuccess(res, {
     statusCode: 200,
     message: 'Current order retrieved successfully',
     data: { order: req.order },
   });
+};
+
+export const findGuestOrders = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const {
+      user: { email },
+    } = req;
+
+    const orders = await ordersService.findUnlinkedGuestOrders(email);
+
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Orders retrieved successfully',
+      data: { orders },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const linkGuestOrders = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const {
+      user: { id, email },
+    } = req;
+
+    const result = await ordersService.linkGuestOrders(email, id);
+
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Orders linked successfully',
+      data: {
+        linkedCount: result.count,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
 };

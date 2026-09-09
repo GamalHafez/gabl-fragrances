@@ -407,4 +407,23 @@ export const ordersService = {
 
     return order;
   },
+
+  async findUnlinkedGuestOrders(userEmail: string) {
+    return prisma.order.findMany({
+      where: { customerContact: userEmail, userId: null },
+      select: { id: true, orderNumber: true, createdAt: true, total: true },
+    });
+  },
+
+  async linkGuestOrders(userEmail: string, userId: string) {
+    return prisma.order.updateMany({
+      where: {
+        customerContact: userEmail,
+        userId: null,
+      },
+      data: {
+        userId,
+      },
+    });
+  },
 };

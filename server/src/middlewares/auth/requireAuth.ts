@@ -29,3 +29,21 @@ export const requireAuth = async (
     next(error instanceof AppError ? error : new AppError(401, 'Unauthorized'));
   }
 };
+
+export const attachUserIfPresent = async (
+  req: Request,
+  _res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const accessToken = req.cookies.accessToken;
+    if (!accessToken) return next(); // no token, proceed as guest
+
+    const payload = verifyAccessToken(accessToken);
+    const user = await authService.findUser({ id: payload.sub }, true);
+    if (user) req.user = user;
+    next();
+  } catch {
+    next(); // invalid/expired token → treat as guest, don't hard-fail
+  }
+};

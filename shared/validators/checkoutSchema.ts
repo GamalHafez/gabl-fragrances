@@ -9,15 +9,9 @@ const contactSchema = {
   contact: z
     .string()
     .trim()
-    .min(1, 'Email or mobile phone number is required')
-    .refine(
-      (value) =>
-        z.string().email().safeParse(value).success ||
-        egyptianPhoneSchema.safeParse(value).success,
-      {
-        message: 'Enter a valid email or mobile phone number',
-      },
-    ),
+    .toLowerCase()
+    .min(1, 'Email is required')
+    .email('Please enter a valid email address'),
 };
 
 const deliverySchema = {

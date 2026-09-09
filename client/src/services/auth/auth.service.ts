@@ -24,4 +24,8 @@ export const authService = {
 
     return data.user;
   },
+
+  async logout(): Promise<void> {
+    await apiClient.post(`${API_ENDPOINTS.AUTH}/logout`);
+  },
 };

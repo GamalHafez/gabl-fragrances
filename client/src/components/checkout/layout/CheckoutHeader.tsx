@@ -5,8 +5,9 @@ import { Container } from "@/components/ui/common";
 import { Link } from "react-router-dom";
 import { scrollToTop } from "@/utils";
 import { HeaderIconAction } from "@/components/layout/header";
-import { LogIn, Moon, Sun, User } from "lucide-react";
+import { LogIn, Moon, Sun } from "lucide-react";
 import { useAuth } from "@/context/auth/useAuth";
+import { AccountMenu } from "@/components/auth/common";
 
 export const CheckoutHeader = () => {
   const { isAuthenticated } = useAuth();
@@ -48,13 +49,13 @@ export const CheckoutHeader = () => {
           </Link>
 
           <div className="flex items-center gap-2">
-            <HeaderIconAction
-              tooltip={isAuthenticated ? "Profile" : "Sign up"}
-              href={isAuthenticated ? "/profile" : "/signup"}
-              label={isAuthenticated ? undefined : "Sign Up"}
-            >
-              {isAuthenticated ? <User size={20} /> : <LogIn size={20} />}
-            </HeaderIconAction>
+            {isAuthenticated ? (
+              <AccountMenu />
+            ) : (
+              <HeaderIconAction tooltip="Sign up" href="/signup">
+                <LogIn size={20} />
+              </HeaderIconAction>
+            )}
 
             <HeaderIconAction tooltip="Theme" onClick={toggle}>
               {isDark ? <Sun size={20} /> : <Moon size={20} />}

@@ -6,7 +6,7 @@ export const Login = () => {
   return (
     <PageWrapper>
       <Container>
-        <div className="flex flex-col items-start p-5">
+        <div className="flex flex-col items-start py-5 px-2">
           <Eyebrow eyebrow="Welcome Back" className="mb-2 inline-block" />{" "}
           <MainHeading title="Sign In to Your" highlighted="Account" />{" "}
         </div>

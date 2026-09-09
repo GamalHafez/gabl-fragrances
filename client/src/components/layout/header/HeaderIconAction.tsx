@@ -29,11 +29,11 @@ type HeaderIconActionProps = {
 
 export const HeaderIconAction = ({
   tooltip,
-  href,
   onClick,
   label,
   contentClassName,
   children,
+  href = "",
 }: HeaderIconActionProps) => {
   const { isDark } = useTheme();
 

@@ -34,7 +34,7 @@ export const apiClient = {
     }
   },
 
-  async post<T>(endpoint: string, body: unknown): Promise<T> {
+  async post<T>(endpoint: string, body?: unknown): Promise<T> {
     try {
       const url = `${import.meta.env.VITE_API_URL}/${endpoint}`;
 

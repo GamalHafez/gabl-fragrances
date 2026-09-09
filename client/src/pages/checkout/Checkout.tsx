@@ -68,15 +68,18 @@ export const Checkout = () => {
 
   const checkoutError = isError ? getApiErrorMessage(error) : undefined;
 
-  const { items, clearCart } = useCart();
-  const { data: cartData } = useCartData(items);
+  const { items: cartItems, clearCart } = useCart();
+  const { data: cartData } = useCartData(cartItems);
 
   const onSubmit = (data: CheckoutFormOutput) => {
-    const items =
-      cartData?.items.map(({ productVariantId, quantity }) => ({
-        productVariantId,
-        quantity,
-      })) ?? [];
+    if (!cartItems.length || !cartData?.items.length) {
+      return;
+    }
+
+    const items = cartData?.items.map(({ productVariantId, quantity }) => ({
+      productVariantId,
+      quantity,
+    }));
 
     const payload: CreateOrderInput = { ...data, items };
 
@@ -86,8 +89,6 @@ export const Checkout = () => {
         navigate(`/checkout/orders/${order.id}/confirmation`); // adjust route to your app
       },
     });
-
-    console.log(data); // Will be deleted LATER
   };
 
   return (
@@ -118,11 +119,14 @@ export const Checkout = () => {
               errors={errors}
             />
             {checkoutError && <CheckoutError message={checkoutError} />}
+            {!cartItems.length && (
+              <CheckoutError message="Your cart is empty. Please add an item before completing your order." />
+            )}
             <FormSubmitButton
               label="Complete order"
               icon={Lock}
               isLoading={isPending}
-              disabled={isPending}
+              disabled={isPending || !cartItems.length}
             />
           </form>
 

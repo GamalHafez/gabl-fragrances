@@ -5,6 +5,7 @@ import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { HashScrollHandler } from "@/components/ui/common";
 import { BottomNavigation } from "@/components/layout/BottomNavigation";
 import { ScrollToTop } from "@/components/ui/animation";
+import { GuestOrderLinkGate } from "@/components/auth/common";
 
 export const RootLayout = () => {
   return (
@@ -20,6 +21,8 @@ export const RootLayout = () => {
       </main>
 
       <Footer />
+
+      <GuestOrderLinkGate />
 
       {/* Floating UI */}
       <BottomNavigation />

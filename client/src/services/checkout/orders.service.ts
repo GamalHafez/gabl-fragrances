@@ -1,4 +1,4 @@
-import type { CreateOrderInput, OrderType } from "@shared/types/index.ts";
+import type { CreateOrderInput, GuestOrderSummary, OrderType } from "@shared/types/index.ts";
 import { API_ENDPOINTS } from "../api/endpoints";
 import { apiClient } from "../api/apiClient";
 
@@ -21,5 +21,20 @@ export const ordersService = {
     );
 
     return data.order;
+  },
+
+  async findGuestOrders(): Promise<GuestOrderSummary[]> {
+    const data = await apiClient.get<{ orders: GuestOrderSummary[] }>(
+      `${API_ENDPOINTS.ORDERS}/guest`,
+    );
+    return data.orders;
+  },
+
+  async linkGuestOrders(): Promise<number> {
+    const data = await apiClient.post<{ linkedCount: number }>(
+      `${API_ENDPOINTS.ORDERS}/guest/link`,
+      {},
+    );
+    return data.linkedCount;
   },
 };

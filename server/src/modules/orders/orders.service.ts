@@ -410,7 +410,10 @@ export const ordersService = {
 
   async findUnlinkedGuestOrders(userEmail: string) {
     return prisma.order.findMany({
-      where: { customerContact: userEmail, userId: null },
+      where: {
+        customerContact: { equals: userEmail, mode: 'insensitive' },
+        userId: null,
+      },
       select: { id: true, orderNumber: true, createdAt: true, total: true },
     });
   },

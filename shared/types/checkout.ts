@@ -64,3 +64,10 @@ export type OrderType = {
 };
 
 export type CreateOrderInput = z.infer<typeof createOrderSchema>;
+
+export type GuestOrderSummary = {
+  id: string;
+  orderNumber: number;
+  createdAt: string;
+  total: string;
+};

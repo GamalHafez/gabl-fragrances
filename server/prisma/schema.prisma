@@ -250,9 +250,10 @@ model Order {
   orderNumber Int         @unique @default(autoincrement())
   status      OrderStatus @default(PENDING)
 
-  subTotal Decimal @db.Decimal(10, 2)
-  shipping Decimal @db.Decimal(10, 2)
-  total    Decimal @db.Decimal(10, 2)
+  subTotal       Decimal  @db.Decimal(10, 2)
+  shipping       Decimal  @db.Decimal(10, 2)
+  discountAmount Decimal? @db.Decimal(10, 2)
+  total          Decimal  @db.Decimal(10, 2)
 
   // Customer information
   customerName    String @db.VarChar(100)
@@ -287,6 +288,7 @@ model Order {
   shippingGovernorate String  @db.VarChar(50)
   shippingCountry     String  @db.VarChar(50)
   shippingPostalCode  String? @db.VarChar(20)
+  shippingPhone       String? @db.VarChar(20)
 
   // Shipping method snapshot
   shippingMethodId    String?

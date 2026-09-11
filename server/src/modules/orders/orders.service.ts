@@ -323,6 +323,7 @@ export const ordersService = {
 
           subTotal: orderTotals.subTotal,
           shipping: shippingMethod.price,
+          discountAmount: discountAmount ?? null,
           total: orderTotals.total,
 
           customerName: `${firstName} ${lastName}`,
@@ -348,6 +349,7 @@ export const ordersService = {
           shippingGovernorate: governorate,
           shippingCountry: country,
           shippingPostalCode: postalCode,
+          shippingPhone: phone,
 
           shippingMethodId: shippingMethod.id,
           shippingMethodName: shippingMethod.name,

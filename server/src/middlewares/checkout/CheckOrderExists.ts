@@ -25,12 +25,14 @@ export const CheckOrderExists = async (
         customerPhone: true,
         subTotal: true,
         shipping: true,
+        discountAmount: true,
         total: true,
         shippingAddress: true,
         shippingCity: true,
         shippingGovernorate: true,
         shippingCountry: true,
         shippingMethodName: true,
+        shippingPhone: true,
         createdAt: true,
         items: {
           select: {

@@ -40,12 +40,14 @@ export type OrderType = {
 
   subTotal: string;
   shipping: string;
+  discountAmount: string | null;
   total: string;
 
   shippingAddress: string;
   shippingCity: string;
   shippingGovernorate: string;
   shippingCountry: string;
+  shippingPhone: string | null;
   shippingMethodName: string | null;
   createdAt: string;
 
@@ -70,4 +72,16 @@ export type GuestOrderSummary = {
   orderNumber: number;
   createdAt: string;
   total: string;
+};
+
+export type CheckoutDefaults = {
+  email: string;
+  name: string;
+  address: {
+    address: string;
+    city: string;
+    governorate: string;
+    country: string;
+    postalCode: string | null;
+  } | null;
 };

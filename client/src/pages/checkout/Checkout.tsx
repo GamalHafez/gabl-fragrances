@@ -25,6 +25,7 @@ import { CheckoutError } from "@/components/checkout/layout";
 import { useCartData } from "@/hooks/cart/useCartData";
 import { useCart } from "@/context/cart/useCart";
 import { getApiErrorMessage } from "@/utils/errors";
+import { useAuth } from "@/context/auth/useAuth";
 
 const checkoutDefaultValues: CheckoutFormValues = {
   contact: "",
@@ -50,6 +51,7 @@ const checkoutDefaultValues: CheckoutFormValues = {
 
 export const Checkout = () => {
   const navigate = useNavigate();
+  const { isAuthenticated, user } = useAuth();
 
   const {
     register,

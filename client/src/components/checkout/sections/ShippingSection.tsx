@@ -12,7 +12,6 @@ import {
 } from "react-hook-form";
 import { useShippingMethods } from "@/hooks/checkout";
 import { ShippingMethodSkeleton } from "@/components/skeleton";
-import { useEffect } from "react";
 
 type ShippingSectionProps = {
   control: Control<CheckoutFormValues>;
@@ -31,11 +30,9 @@ export const ShippingSection = ({
     refetch,
   } = useShippingMethods();
 
-  useEffect(() => {
-    if (shippingMethods?.length) {
-      setValue("shippingMethodId", shippingMethods[0].id);
-    }
-  }, [shippingMethods, setValue]);
+  if (shippingMethods?.length) {
+    setValue("shippingMethodId", shippingMethods[0].id);
+  }
 
   return (
     <section className="flex flex-col gap-2">

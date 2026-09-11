@@ -50,8 +50,8 @@ export const CheckOrderExists = async (
 
     if (!order) throw new AppError(404, 'Order not found');
 
-    if (order.userId && order.userId !== req.user?.id && !req.user?.isAdmin) {
-      throw new AppError(404, 'Order not found'); // 404, not 403 — don't reveal existence
+    if (order.userId !== req.user?.id) {
+      throw new AppError(404, 'Order not found');
     }
 
     req.order = order;

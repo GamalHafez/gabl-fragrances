@@ -431,4 +431,29 @@ export const ordersService = {
       },
     });
   },
+
+  async getCheckoutDefaults(userId: string) {
+    const [user, defaultAddress] = await Promise.all([
+      prisma.user.findUnique({
+        where: { id: userId },
+        select: { email: true, name: true },
+      }),
+      prisma.address.findFirst({
+        where: { userId, isDefault: true },
+        select: {
+          address: true,
+          city: true,
+          governorate: true,
+          country: true,
+          postalCode: true,
+        },
+      }),
+    ]);
+
+    if (!user) {
+      throw new AppError(404, 'User not found');
+    }
+
+    return { email: user.email, name: user.name, address: defaultAddress };
+  },
 };

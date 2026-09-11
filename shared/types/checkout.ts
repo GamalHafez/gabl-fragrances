@@ -81,7 +81,7 @@ export type CheckoutDefaults = {
     address: string;
     city: string;
     governorate: string;
-    country: string;
+    country: 'Egypt';
     postalCode: string | null;
   } | null;
 };

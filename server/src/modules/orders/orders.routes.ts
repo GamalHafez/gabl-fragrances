@@ -3,6 +3,7 @@ import { createOrderSchema } from '@shared/validators/ordersSchemas.js';
 import {
   createOrder,
   findGuestOrders,
+  getCheckoutDefaults,
   getOrder,
   linkGuestOrders,
 } from './orders.controller.js';
@@ -16,6 +17,7 @@ router.route('/').post(validateRequest(createOrderSchema), createOrder);
 
 router.route('/guest').get(requireAuth, findGuestOrders);
 router.route('/guest/link').post(requireAuth, linkGuestOrders);
+router.route('/checkout-defaults').get(requireAuth, getCheckoutDefaults);
 
 router.param('orderId', CheckOrderExists);
 

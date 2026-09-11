@@ -1,4 +1,9 @@
-import type { CreateOrderInput, GuestOrderSummary, OrderType } from "@shared/types/index.ts";
+import type {
+  CheckoutDefaults,
+  CreateOrderInput,
+  GuestOrderSummary,
+  OrderType,
+} from "@shared/types/index.ts";
 import { API_ENDPOINTS } from "../api/endpoints";
 import { apiClient } from "../api/apiClient";
 
@@ -36,5 +41,12 @@ export const ordersService = {
       {},
     );
     return data.linkedCount;
+  },
+
+  async getCheckoutDefaults(): Promise<CheckoutDefaults> {
+    const data = await apiClient.get<{ defaults: CheckoutDefaults }>(
+      `${API_ENDPOINTS.ORDERS}/checkout-defaults`,
+    );
+    return data.defaults;
   },
 };

@@ -19,13 +19,14 @@ import { PAYMENT_METHODS } from "@shared/constants/paymentMethods";
 import { OrderSummary, OrderSummaryMobile } from "@/components/checkout/order";
 import { FormSubmitButton } from "@/components/ui/forms";
 import { Lock } from "lucide-react";
-import { useCreateOrder } from "@/hooks/checkout";
+import { useCheckoutDefaults, useCreateOrder } from "@/hooks/checkout";
 import { useNavigate } from "react-router-dom";
 import { CheckoutError } from "@/components/checkout/layout";
 import { useCartData } from "@/hooks/cart/useCartData";
 import { useCart } from "@/context/cart/useCart";
 import { getApiErrorMessage } from "@/utils/errors";
-import { useAuth } from "@/context/auth/useAuth";
+import { useEffect } from "react";
+import { mapDefaultsToFormValues } from "@/utils";
 
 const checkoutDefaultValues: CheckoutFormValues = {
   contact: "",
@@ -51,18 +52,29 @@ const checkoutDefaultValues: CheckoutFormValues = {
 
 export const Checkout = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, user } = useAuth();
+
+  const { data: checkoutDefaults } = useCheckoutDefaults();
 
   const {
     register,
     control,
     setValue,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<CheckoutFormValues, unknown, CheckoutFormOutput>({
     resolver: zodResolver(checkoutSchema),
     defaultValues: checkoutDefaultValues,
   });
+
+  useEffect(() => {
+    if (checkoutDefaults) {
+      reset({
+        ...checkoutDefaultValues,
+        ...mapDefaultsToFormValues(checkoutDefaults),
+      });
+    }
+  }, [checkoutDefaults, reset]);
 
   const shippingMethodId = useWatch({ control, name: "shippingMethodId" });
 
@@ -78,7 +90,7 @@ export const Checkout = () => {
       return;
     }
 
-    const items = cartData?.items.map(({ productVariantId, quantity }) => ({
+    const items = cartData.items.map(({ productVariantId, quantity }) => ({
       productVariantId,
       quantity,
     }));

@@ -79,3 +79,21 @@ export const linkGuestOrders = async (
     next(error);
   }
 };
+
+export const getCheckoutDefaults = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const defaults = await ordersService.getCheckoutDefaults(req.user.id);
+
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Checkout defaults retrieved',
+      data: { defaults },
+    });
+  } catch (error) {
+    next(error);
+  }
+};

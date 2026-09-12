@@ -4,6 +4,7 @@ import z from 'zod';
 import { createOrderSchema } from '@shared/validators/ordersSchemas.js';
 import { Prisma } from '@/generated/prisma/client.js';
 import { Decimal } from '@prisma/client/runtime/client';
+import { emailService } from './email/email.service.js';
 
 type CreateOrderBody = z.infer<typeof createOrderSchema>;
 
@@ -406,6 +407,23 @@ export const ordersService = {
         ],
       };
     });
+
+    if (!isCard) {
+      emailService.sendOrderConfirmation({
+        orderNumber: order.orderNumber,
+        customerName: `${firstName} ${lastName}`,
+        customerContact: contact,
+        total: orderTotals.total.toString(),
+        items: orderItems.map(
+          ({ productName, sizeML, quantity, unitPrice }) => ({
+            productName,
+            sizeML,
+            quantity,
+            unitPrice: unitPrice.toString(),
+          }),
+        ),
+      }); // fire-and-forget, not awaited
+    }
 
     return order;
   },

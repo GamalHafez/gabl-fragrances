@@ -22,7 +22,7 @@ export const MainHeading = ({
       text={title}
       highlighted={highlighted}
       className={cn(
-        "text-3xl leading-[1.05] font-extrabold tracking-tight md:mb-5 lg:text-4xl",
+        "text-xl leading-[1.05] font-extrabold tracking-tight md:mb-5 md:text-2xl lg:text-4xl",
         isDark ? "text-zinc-100" : "text-zinc-900",
         className,
       )}

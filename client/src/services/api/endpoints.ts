@@ -6,4 +6,5 @@ export const API_ENDPOINTS = {
   CART: `${BASE}/cart`,
   ORDERS: `${BASE}/orders`,
   SHIPPING_METHODS: `${BASE}/shipping-methods`,
+  PROFILE: `${BASE}/profile`,
 } as const;

@@ -5,6 +5,7 @@ import {
   findGuestOrders,
   getCheckoutDefaults,
   getOrder,
+  getUserOrders,
   linkGuestOrders,
 } from './orders.controller.js';
 import { CheckOrderExists } from '@/middlewares/checkout/CheckOrderExists.js';
@@ -18,6 +19,7 @@ const router = Router();
 
 router
   .route('/')
+  .get(requireAuth, getUserOrders)
   .post(attachUserIfPresent, validateRequest(createOrderSchema), createOrder);
 
 router.route('/guest').get(requireAuth, findGuestOrders);

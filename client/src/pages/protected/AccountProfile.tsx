@@ -23,7 +23,7 @@ export const AccountProfile = () => {
       <PageWrapper>
         <Container>
           <DataError
-            message="We couldn't load our fragrances right now. Please try again in a moment."
+            message="We couldn't load your profile information right now. Please try again in a moment."
             onRetry={() => refetch()}
           />
         </Container>

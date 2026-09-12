@@ -31,6 +31,21 @@ type OrderItem = {
 };
 
 export const ordersService = {
+  async getUserOrders(userId: string) {
+    return await prisma.order.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        orderNumber: true,
+        status: true,
+        total: true,
+        createdAt: true,
+        _count: { select: { items: true } },
+      },
+    });
+  },
+
   async getProductsData(
     items: CreateOrderBody['items'],
   ): Promise<ProductVariantData[]> {

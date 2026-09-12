@@ -85,3 +85,12 @@ export type CheckoutDefaults = {
     postalCode: string | null;
   } | null;
 };
+
+export type OrderSummary = {
+  id: string;
+  orderNumber: number;
+  status: OrderStatus;
+  total: string;
+  createdAt: string;
+  _count: { items: number };
+};

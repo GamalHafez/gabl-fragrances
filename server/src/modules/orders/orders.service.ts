@@ -4,7 +4,7 @@ import z from 'zod';
 import { createOrderSchema } from '@shared/validators/ordersSchemas.js';
 import { Prisma } from '@/generated/prisma/client.js';
 import { Decimal } from '@prisma/client/runtime/client';
-import { emailService } from './email/email.service.js';
+// import { emailService } from './email/email.service.js';
 
 type CreateOrderBody = z.infer<typeof createOrderSchema>;
 
@@ -408,7 +408,7 @@ export const ordersService = {
       };
     });
 
-    if (!isCard) {
+    /**  if (!isCard) {
       emailService.sendOrderConfirmation({
         orderNumber: order.orderNumber,
         customerName: `${firstName} ${lastName}`,
@@ -423,7 +423,7 @@ export const ordersService = {
           }),
         ),
       }); // fire-and-forget, not awaited
-    }
+    } */
 
     return order;
   },

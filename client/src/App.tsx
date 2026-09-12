@@ -16,6 +16,7 @@ import { CheckoutLayout } from "@/pages/layouts/CheckoutLayout";
 import { Checkout, OrderConfirmation } from "@/pages/checkout";
 import { AuthProvider } from "./context/auth/AuthProvider";
 import { GuestRoute, Login, ProtectedRoute, Register } from "@/pages/auth";
+import { AccountProfile } from "./pages/protected";
 
 const router = createBrowserRouter([
   {
@@ -43,13 +44,10 @@ const router = createBrowserRouter([
       {
         element: <ProtectedRoute />,
         children: [
-          // {
-          //   path: "account",
-          //   element: <AccountLayout />,
-          //   children: [
-          //     // orders, profile, addresses...
-          //   ],
-          // },
+          {
+            path: "profile",
+            element: <AccountProfile />,
+          },
         ],
       },
       {

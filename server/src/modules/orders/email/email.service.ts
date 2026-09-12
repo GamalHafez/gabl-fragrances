@@ -1,4 +1,4 @@
-import * as brevo from '@getbrevo/brevo';
+/** import * as brevo from '@getbrevo/brevo';
 
 const SENDER = {
   email: process.env.EMAIL_SENDER_ADDRESS ?? 'no-reply@example.com',
@@ -67,3 +67,4 @@ function buildOrderConfirmationHtml(order: OrderConfirmationData): string {
     <p><strong>Total: ${order.total} EGP</strong></p>
   `;
 }
+*/

@@ -10,17 +10,43 @@ import {
   ShippingMethodCard,
   HelpSection,
 } from "@/components/checkout/order-confirmation";
+import { ConfirmationSkeleton } from "@/components/skeleton";
 import { Container, PageWrapper } from "@/components/ui/common";
+import { DataError } from "@/components/ui/errors/DataError";
 import { useOrder } from "@/hooks/checkout";
 import { useParams } from "react-router-dom";
 
 export const OrderConfirmation = () => {
   const { orderId } = useParams<{ orderId: string }>();
-  const { data: order, isPending, isError } = useOrder(orderId ?? "");
+  const {
+    data: order,
+    isPending,
+    isError,
+    refetch,
+    isFetching,
+  } = useOrder(orderId ?? "");
 
-  // To be Replaced...
-  if (isPending) return <p>Loading your order…</p>;
-  if (isError || !order) return <p>We couldn't find that order.</p>;
+  if (isFetching || isPending) {
+    return (
+      <PageWrapper>
+        <Container>
+          <ConfirmationSkeleton />
+        </Container>
+      </PageWrapper>
+    );
+  }
+
+  if (isError || !order)
+    return (
+      <PageWrapper>
+        <Container>
+          <DataError
+            message="We couldn't load this order right now. Please try again in a moment."
+            onRetry={refetch}
+          />
+        </Container>
+      </PageWrapper>
+    );
 
   const {
     orderNumber,
@@ -39,6 +65,7 @@ export const OrderConfirmation = () => {
     payments,
     shippingMethodName,
   } = order;
+
   const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
 
   return (

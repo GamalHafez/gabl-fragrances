@@ -6,3 +6,4 @@ export * from "./CartItemSkeleton";
 export * from "./ShippingMethodSkeleton";
 export * from "./ProfileSkeleton";
 export * from "./OrdersSkeleton";
+export * from "./ConfirmationSkeleton";

@@ -1,13 +1,10 @@
-import { House, LogIn, ShoppingBag } from "lucide-react";
+import { House, ShoppingBag } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import clsx from "clsx";
 import { useTheme } from "@/context/theme/useTheme";
-import { useAuth } from "@/context/auth/useAuth";
 import { AccountMenu } from "@/components/auth/common";
-import { HeaderIconAction } from "../header";
 
 export const BottomNavigation = () => {
-  const { isAuthenticated } = useAuth();
   const { isDark } = useTheme();
 
   const links = [
@@ -48,13 +45,7 @@ export const BottomNavigation = () => {
           </li>
         ))}
         <li>
-          {isAuthenticated ? (
-            <AccountMenu />
-          ) : (
-            <HeaderIconAction tooltip="Sign up" href="/signup">
-              <LogIn size={20} />
-            </HeaderIconAction>
-          )}
+          <AccountMenu variant="nav-item" />
         </li>
       </ul>
     </nav>

@@ -1,5 +1,5 @@
 import { LogOut, Package, User, UserRound } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import clsx from "clsx";
 
 import { useTheme } from "@/context/theme/useTheme";
@@ -19,11 +19,32 @@ import { useState } from "react";
 import { ErrorMessage } from "@/components/ui/common";
 import { getApiErrorMessage } from "@/utils/errors";
 
-export const AccountMenu = () => {
+type AccountMenuProps = {
+  variant?: "icon" | "nav-item";
+};
+
+const ACCOUNT_ROUTES = ["/profile", "/orders"];
+
+const navItemClass = (isDark: boolean, active: boolean) =>
+  clsx(
+    "flex min-w-18 flex-col items-center gap-1 rounded-xl px-3 py-2 text-xs font-medium transition-all duration-300",
+    active
+      ? isDark
+        ? "bg-brand-500/20 text-brand-100 shadow-brand-500/10 scale-105 shadow-lg"
+        : "bg-brand-100 text-brand-700 scale-105 shadow-md"
+      : isDark
+        ? "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100"
+        : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900",
+  );
+
+export const AccountMenu = ({ variant = "icon" }: AccountMenuProps) => {
   const { user, isAuthenticated } = useAuth();
   const { isDark } = useTheme();
   const { mutate: logout, isPending, error } = useLogout();
   const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
+
+  const isActive = ACCOUNT_ROUTES.some((route) => pathname.startsWith(route));
 
   const handleLogout = () => {
     logout(undefined, {
@@ -32,6 +53,18 @@ export const AccountMenu = () => {
   };
 
   if (!isAuthenticated) {
+    if (variant === "nav-item") {
+      return (
+        <NavLink
+          to="/login"
+          className={({ isActive }) => navItemClass(isDark, isActive)}
+        >
+          <User size={20} />
+          <span>Login</span>
+        </NavLink>
+      );
+    }
+
     return (
       <HeaderIconAction tooltip="Log in" href="/login">
         <User size={20} />
@@ -46,16 +79,21 @@ export const AccountMenu = () => {
       : "text-zinc-700 hover:bg-zinc-100",
   );
 
+  const trigger =
+    variant === "nav-item" ? (
+      <button type="button" className={navItemClass(isDark, isActive)}>
+        <UserRound size={20} />
+        <span>Account</span>
+      </button>
+    ) : (
+      <HeaderIconAction tooltip="Account" href="">
+        <User size={20} />
+      </HeaderIconAction>
+    );
+
   return (
     <Drawer swipeDirection="right" open={open} onOpenChange={setOpen}>
-      <DrawerTrigger
-        aria-label="Open account menu"
-        render={
-          <HeaderIconAction tooltip="Account" href="">
-            <User size={20} />
-          </HeaderIconAction>
-        }
-      />
+      <DrawerTrigger aria-label="Open account menu" render={trigger} />
 
       <DrawerContent
         className={clsx(

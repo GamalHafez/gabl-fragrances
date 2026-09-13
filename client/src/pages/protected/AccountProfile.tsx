@@ -9,7 +9,7 @@ import { ProfileSkeleton } from "@/components/skeleton";
 import { Container, MainHeading, PageWrapper } from "@/components/ui/common";
 import { DataError } from "@/components/ui/errors/DataError";
 import { Eyebrow } from "@/components/ui/home";
-import { useProfileData } from "@/hooks/profile/useProfileData";
+import { useProfileData } from "@/hooks/user/useProfileData";
 
 export const AccountProfile = () => {
   const { data: profileData, isPending, isError, refetch } = useProfileData();

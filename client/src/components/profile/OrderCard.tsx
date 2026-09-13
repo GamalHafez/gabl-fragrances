@@ -38,37 +38,39 @@ export const OrderCard = ({ order }: OrderCardProps) => {
     <Link
       to={`/orders/${id}`}
       className={clsx(
-        "group flex items-center justify-between gap-4 rounded-2xl border px-5 py-4 transition-colors duration-150 ease-in-out sm:px-6",
+        "group flex w-full items-center justify-between gap-3 rounded-2xl border px-3.5 py-3.5 transition-colors duration-150 ease-in-out sm:gap-4 sm:px-5 sm:py-4",
         "focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:outline-none",
         isDark
           ? "border-neutral-800 bg-neutral-900 hover:bg-neutral-800"
           : "border-neutral-200 bg-white hover:bg-zinc-200/80",
       )}
     >
-      <div className="flex items-center gap-4">
+      {/* Order information */}
+      <div className="flex min-w-0 items-center gap-3 sm:gap-4">
         <span
           className={clsx(
-            "flex h-11 w-11 shrink-0 items-center justify-center rounded-full",
+            "flex h-10 w-10 shrink-0 items-center justify-center rounded-full sm:h-11 sm:w-11",
             isDark
               ? "bg-neutral-800 text-neutral-300"
               : "bg-neutral-100 text-neutral-600",
           )}
         >
-          <Package className="h-5 w-5" />
+          <Package className="h-4.5 w-4.5 sm:h-5 sm:w-5" />
         </span>
 
-        <div>
+        <div className="min-w-0">
           <p
             className={clsx(
-              "font-semibold",
+              "truncate text-sm font-semibold sm:text-base",
               isDark ? "text-neutral-100" : "text-neutral-900",
             )}
           >
             Order #{orderNumber}
           </p>
+
           <p
             className={clsx(
-              "text-sm",
+              "mt-0.5 text-xs sm:text-sm",
               isDark ? "text-neutral-400" : "text-neutral-500",
             )}
           >
@@ -77,19 +79,21 @@ export const OrderCard = ({ order }: OrderCardProps) => {
         </div>
       </div>
 
-      <div className="flex items-center gap-4">
+      {/* Order summary */}
+      <div className="flex shrink-0 items-center gap-2 sm:gap-4">
         <div className="text-right">
           <p
             className={clsx(
-              "font-medium",
+              "text-sm font-medium sm:text-base",
               isDark ? "text-neutral-100" : "text-neutral-900",
             )}
           >
             {total} EGP
           </p>
+
           <span
             className={clsx(
-              "inline-block rounded-full px-2.5 py-0.5 text-xs font-medium text-white",
+              "mt-1 inline-block rounded-full px-2 py-0.5 text-[10px] font-medium text-white sm:px-2.5 sm:text-xs",
               STATUS_COLORS[status],
             )}
           >
@@ -99,7 +103,7 @@ export const OrderCard = ({ order }: OrderCardProps) => {
 
         <ChevronRight
           className={clsx(
-            "h-5 w-5 shrink-0 transition-transform group-hover:translate-x-0.5",
+            "h-4 w-4 shrink-0 transition-transform group-hover:translate-x-0.5 sm:h-5 sm:w-5",
             isDark ? "text-neutral-500" : "text-neutral-400",
           )}
         />

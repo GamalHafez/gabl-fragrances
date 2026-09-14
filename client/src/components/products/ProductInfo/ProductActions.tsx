@@ -8,14 +8,14 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 
 type ProductActionsProps = {
-  variantId: string;
+  productVariantId: string;
   quantity: number;
   productImage: string;
   inStock: boolean;
 };
 
 export const ProductActions = ({
-  variantId,
+  productVariantId,
   quantity,
   productImage,
   inStock,
@@ -31,7 +31,7 @@ export const ProductActions = ({
 
     // Context state updates
     handleAddItem({
-      variantId,
+      productVariantId,
       quantity,
     });
 

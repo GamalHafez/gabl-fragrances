@@ -101,7 +101,7 @@ export const SamplesPage = () => {
             />
 
             <ProductActions
-              variantId={sampleVariant.id}
+              productVariantId={sampleVariant.id}
               productImage={sample5mlImage}
               quantity={quantity}
               inStock={inStock}

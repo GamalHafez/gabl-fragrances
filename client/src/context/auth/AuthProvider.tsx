@@ -1,3 +1,4 @@
+import { AuthLoadingScreen } from "@/components/auth/common";
 import { authService } from "@/services/auth/auth.service";
 import type { User } from "@shared/types";
 import { createContext, useEffect, useState } from "react";
@@ -36,7 +37,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   if (isLoading) {
-    return; // TODO: To be Eddited
+    return <AuthLoadingScreen />;
   }
 
   return (

@@ -6,8 +6,10 @@ import { useForm } from "react-hook-form";
 import { AuthRedirect, PasswordInput } from "../common";
 import { ErrorMessage } from "@/components/ui/common";
 import { getApiErrorMessage } from "@/utils/errors";
+import { useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
+  const navigate = useNavigate();
   const { mutate: login, isPending, error } = useLogin();
 
   const {
@@ -23,7 +25,9 @@ export const LoginForm = () => {
   });
 
   const onSubmit = (data: LoginBody) => {
-    login(data);
+    login(data, {
+      onSuccess: () => navigate("/"),
+    });
   };
 
   return (

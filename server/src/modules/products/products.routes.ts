@@ -11,6 +11,7 @@ import {
   deleteProduct,
   getRelatedProducts,
   getSamples,
+  getBestSellers,
 } from '@/modules/products/products.controller.js';
 import { getProductBySlug } from '@/middlewares/products/index.js';
 import {
@@ -36,6 +37,7 @@ router
   );
 
 router.get('/samples', getSamples);
+router.get('/best-sellers', getBestSellers);
 
 /* Product resources */
 router.param('productSlug', getProductBySlug);

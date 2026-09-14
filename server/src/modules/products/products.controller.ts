@@ -135,3 +135,21 @@ export const getSamples = async (
     next(error);
   }
 };
+
+export const getBestSellers = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const bestSellers = await productsService.getBestSellers();
+
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Best sellers retrieved successfully',
+      data: { bestSellers },
+    });
+  } catch (error) {
+    next(error);
+  }
+};

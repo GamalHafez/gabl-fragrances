@@ -1,4 +1,7 @@
-import { productsService } from '@/modules/products/products.service.js';
+import {
+  CreateProductBody,
+  productsService,
+} from '@/modules/products/products.service.js';
 import { sendSuccess } from '@/utils/response.js';
 import type { NextFunction, Request, Response } from 'express';
 
@@ -137,12 +140,16 @@ export const getSamples = async (
 };
 
 export const getBestSellers = async (
-  _req: Request,
+  req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    const bestSellers = await productsService.getBestSellers();
+    const { gender } = req.query;
+
+    const bestSellers = await productsService.getBestSellers(
+      gender as CreateProductBody['gender'] | undefined,
+    );
 
     return sendSuccess(res, {
       statusCode: 200,

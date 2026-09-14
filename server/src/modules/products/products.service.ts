@@ -8,7 +8,7 @@ import { Prisma } from '@/generated/prisma/client.js';
 import { AppError } from '@/utils/response.js';
 import { Product } from '@shared/types/product.js';
 
-type CreateProductBody = z.infer<typeof createProductSchema>;
+export type CreateProductBody = z.infer<typeof createProductSchema>;
 type UpdateProductBody = z.infer<typeof updateProductSchema>;
 
 export const productsService = {
@@ -306,11 +306,12 @@ export const productsService = {
     });
   },
 
-  async getBestSellers() {
+  async getBestSellers(gender?: CreateProductBody['gender']) {
     return prisma.product.findMany({
       where: {
         isActive: true,
         isBestSeller: true,
+        ...(gender && { gender }),
       },
       take: 4,
       orderBy: { createdAt: 'desc' },

@@ -1,9 +1,10 @@
 import { useTheme } from "@/context/theme/useTheme";
+import type { BestSellerProduct } from "@shared/types/product";
 import clsx from "clsx";
-import type { BestSeller } from "../bestSellers";
 
-export const ProductInfo = ({ product }: { product: BestSeller }) => {
-  const { name, price, description } = product;
+export const ProductInfo = ({ product }: { product: BestSellerProduct }) => {
+  const { name, variant, description } = product;
+
   const { isDark } = useTheme();
 
   return (
@@ -18,14 +19,16 @@ export const ProductInfo = ({ product }: { product: BestSeller }) => {
           {name}
         </h3>
 
-        <p
-          className={clsx(
-            "text-xl font-semibold",
-            isDark ? "text-brand-300" : "text-brand-500",
-          )}
-        >
-          ${price}
-        </p>
+        {variant && (
+          <p
+            className={clsx(
+              "text-xl font-semibold",
+              isDark ? "text-brand-300" : "text-brand-500",
+            )}
+          >
+            ${variant.price}
+          </p>
+        )}
       </div>
 
       <div

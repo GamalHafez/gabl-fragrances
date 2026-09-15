@@ -4,15 +4,29 @@ import clsx from "clsx";
 import { ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 
-export const ProductActions = () => {
+type ProductActionsProps = {
+  productSlug: string;
+  productVariantId: string;
+  mainImage: string;
+};
+
+export const ProductActions = ({
+  productSlug,
+  productVariantId,
+  mainImage,
+}: ProductActionsProps) => {
   const { isDark } = useTheme();
 
   return (
     <div className="flex flex-col items-center gap-3 md:flex-row">
-      <AddToCart />
+      <AddToCart
+        productVariantId={productVariantId}
+        quantity={1}
+        image={mainImage}
+      />
 
       <Link
-        to="/"
+        to={`/products/${productSlug}`}
         className={clsx(
           "flex h-11 w-11 items-center justify-center rounded-full border transition-all duration-300",
           isDark

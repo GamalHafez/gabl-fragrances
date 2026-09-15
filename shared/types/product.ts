@@ -89,3 +89,23 @@ export type Product = {
   createdAt?: Date;
   updatedAt?: Date;
 };
+
+export type BestSellerProduct = {
+  id: string;
+  slug: string;
+  name: string;
+  description: string;
+  gender: ProductGender;
+  inspiredBy: string | null;
+  isNew: boolean;
+  images: {
+    id: string;
+    url: string;
+    description: string | null;
+  }[];
+  variant: {
+    id: string;
+    price: string;
+    sizeML: number;
+  } | null;
+};

@@ -1,12 +1,12 @@
 import clsx from "clsx";
-import type { BestSeller } from "../bestSellers";
 import { useTheme } from "@/context/theme/useTheme";
 import Reveal from "@/components/ui/animation/Reveal";
+import type { BestSellerProduct } from "@shared/types/product";
 
 interface LeftProductListProps {
-  products: readonly BestSeller[];
-  selectedProduct: BestSeller;
-  onSelectProduct: (product: BestSeller) => void;
+  products: readonly BestSellerProduct[];
+  selectedProduct: BestSellerProduct;
+  onSelectProduct: (product: BestSellerProduct) => void;
 }
 
 export const LeftProductList = ({
@@ -19,7 +19,8 @@ export const LeftProductList = ({
   return (
     <div className="flex flex-col rounded-2xl pt-2 md:gap-2 md:pt-8 lg:basis-1/3">
       {products.map((product, index) => {
-        const isActive = product.id === selectedProduct.id;
+        const { id, variant } = product;
+        const isActive = id === selectedProduct.id;
 
         return (
           <Reveal key={product.id}>
@@ -62,7 +63,11 @@ export const LeftProductList = ({
                 )}
               >
                 {product.name}
-                <span className="hidden text-sm md:flex">({product.size})</span>
+                {variant && (
+                  <span className="hidden text-sm md:flex">
+                    ({variant.sizeML}ml)
+                  </span>
+                )}
               </h3>
             </button>
           </Reveal>

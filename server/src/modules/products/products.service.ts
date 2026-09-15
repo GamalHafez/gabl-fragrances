@@ -7,6 +7,7 @@ import z from 'zod';
 import { Prisma } from '@/generated/prisma/client.js';
 import { AppError } from '@/utils/response.js';
 import { Product } from '@shared/types/product.js';
+import { getMainProductVariant } from '@shared/utils/products.js';
 
 export type CreateProductBody = z.infer<typeof createProductSchema>;
 type UpdateProductBody = z.infer<typeof updateProductSchema>;
@@ -307,7 +308,7 @@ export const productsService = {
   },
 
   async getBestSellers(gender?: CreateProductBody['gender']) {
-    return prisma.product.findMany({
+    const products = await prisma.product.findMany({
       where: {
         isActive: true,
         isBestSeller: true,
@@ -319,28 +320,25 @@ export const productsService = {
         id: true,
         slug: true,
         name: true,
+        description: true,
         gender: true,
         inspiredBy: true,
         isNew: true,
-
         images: {
-          where: {
-            isMain: true,
-          },
-          select: {
-            id: true,
-            url: true,
-            description: true,
-          },
+          where: { isMain: true },
+          select: { id: true, url: true, description: true },
         },
-
         variants: {
           where: { isActive: true },
           orderBy: { price: 'asc' },
-          take: 1,
           select: { id: true, price: true, sizeML: true },
         },
       },
     });
+
+    return products.map(({ variants, ...product }) => ({
+      ...product,
+      variant: getMainProductVariant(variants),
+    }));
   },
 };

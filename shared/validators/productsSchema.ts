@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+export const genderQuerySchema = z.enum(['MEN', 'WOMEN', 'UNISEX']).optional();
+
 export const createProductSchema = z.object({
   name: z
     .string()

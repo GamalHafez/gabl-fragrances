@@ -1,18 +1,19 @@
 import clsx from "clsx";
 import { useTheme } from "@/context/theme/useTheme";
-import type { BestSeller } from "../bestSellers";
 import { ProductActions } from "./ProductActions";
 import { ProductInfo } from "./ProductInfo";
+import type { BestSellerProduct } from "@shared/types/product";
 
 interface RightProductPreviewProps {
-  selectedProduct: BestSeller;
+  selectedProduct: BestSellerProduct;
 }
 
 export const RightProductPreview = ({
   selectedProduct,
 }: RightProductPreviewProps) => {
   const { isDark } = useTheme();
-  const { name, image } = selectedProduct;
+  const { name, slug, images, variant } = selectedProduct;
+  const mainImage = images[0];
 
   return (
     <article
@@ -26,14 +27,20 @@ export const RightProductPreview = ({
     >
       <div className="mb-8 flex items-center gap-6 md:mb-10 md:flex-col">
         <div className="flex h-40 w-full items-center justify-center md:h-60 lg:h-72">
-          <img
-            src={image}
-            alt={name}
-            className="h-full rounded-xl object-contain transition-transform duration-500 hover:scale-105"
-          />
+          {mainImage && (
+            <img
+              src={mainImage.url}
+              alt={mainImage.description ?? name}
+              className="h-full rounded-xl object-contain transition-transform duration-500 hover:scale-105"
+            />
+          )}
         </div>
 
-        <ProductActions />
+        <ProductActions
+          productSlug={slug}
+          productVariantId={variant?.id ?? ""}
+          mainImage={mainImage.url}
+        />
       </div>
 
       <ProductInfo product={selectedProduct} />

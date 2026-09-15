@@ -2,7 +2,8 @@ import {
   CreateProductBody,
   productsService,
 } from '@/modules/products/products.service.js';
-import { sendSuccess } from '@/utils/response.js';
+import { AppError, sendSuccess } from '@/utils/response.js';
+import { genderQuerySchema } from '@shared/validators/productsSchema.js';
 import type { NextFunction, Request, Response } from 'express';
 
 export const getProducts = async (
@@ -146,10 +147,13 @@ export const getBestSellers = async (
 ) => {
   try {
     const { gender } = req.query;
+    const parsed = genderQuerySchema.safeParse(gender);
 
-    const bestSellers = await productsService.getBestSellers(
-      gender as CreateProductBody['gender'] | undefined,
-    );
+    if (!parsed.success) {
+      throw new AppError(400, 'Invalid gender filter');
+    }
+
+    const bestSellers = await productsService.getBestSellers(parsed.data);
 
     return sendSuccess(res, {
       statusCode: 200,

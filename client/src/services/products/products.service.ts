@@ -1,7 +1,11 @@
 import type { Product } from "@shared/types/index.ts";
 import { API_ENDPOINTS } from "../api/endpoints";
 import { apiClient } from "../api/apiClient";
-import type { ProductSample } from "@shared/types/product";
+import type {
+  BestSellerProduct,
+  ProductGender,
+  ProductSample,
+} from "@shared/types/product";
 type GetProductsResponse = {
   products: Product[];
 };
@@ -46,5 +50,15 @@ export const productsService = {
     const data = await apiClient.get<GetSamplesResponse>(url);
 
     return data.samples;
+  },
+
+  async getBestSellers(gender?: ProductGender): Promise<BestSellerProduct[]> {
+    const params = gender ? `?gender=${gender}` : "";
+
+    const data = await apiClient.get<{ bestSellers: BestSellerProduct[] }>(
+      `${API_ENDPOINTS.PRODUCTS}/best-sellers${params}`,
+    );
+
+    return data.bestSellers;
   },
 };

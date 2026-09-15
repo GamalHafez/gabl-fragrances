@@ -5,14 +5,40 @@ import {
 } from "@/components/animate-ui/components/animate/tabs";
 import { useState } from "react";
 import { CategoriesTabs } from "./CategoriesTabs";
-import { categoryNames, type Category } from "./bestSellers";
 import CategoryShowcase from "./CategoryShowcase";
 import { TabsContent } from "@/components/animate-ui/primitives/animate/tabs";
 import { Eyebrow } from "@/components/ui/home";
 import Reveal from "@/components/ui/animation/Reveal";
+import type { ProductGender } from "@shared/types/product";
+import { useBestSellers } from "@/hooks/products";
+import { CategoryShowcaseSkeleton } from "@/components/skeleton";
+import { DataError } from "@/components/ui/errors/DataError";
 
 const BestSellers = () => {
-  const [selectedCategory, setSelectedCategory] = useState<Category>("men");
+  const [selectedCategory, setSelectedCategory] =
+    useState<ProductGender>("MEN");
+
+  const {
+    data: bestSellers,
+    isPending,
+    isError,
+    isFetching,
+    refetch,
+  } = useBestSellers(selectedCategory);
+
+  const renderPanelContent = () => {
+    if (isPending || isFetching) return <CategoryShowcaseSkeleton />;
+    if (isError) {
+      return (
+        <DataError
+          message="Couldn't load best sellers."
+          isHomeLink={false}
+          onRetry={refetch}
+        />
+      );
+    }
+    return <CategoryShowcase bestSellers={bestSellers} />;
+  };
 
   return (
     <section id="best-sellers" className="pt-15 md:pt-24">
@@ -25,18 +51,16 @@ const BestSellers = () => {
           {/* Tabs */}
           <Tabs
             value={selectedCategory}
-            onValueChange={(value) => setSelectedCategory(value as Category)}
+            onValueChange={(value) =>
+              setSelectedCategory(value as ProductGender)
+            }
           >
-            <CategoriesTabs categories={categoryNames} />
+            <CategoriesTabs categories={["MEN", "WOMEN", "UNISEX"]} />
 
             <TabsContents>
-              <TabsContent value="men">
-                <CategoryShowcase key="men" category="men" />
-              </TabsContent>
-
-              <TabsContent value="women">
-                <CategoryShowcase key="women" category="women" />
-              </TabsContent>
+              <TabsContent value="MEN">{renderPanelContent()}</TabsContent>
+              <TabsContent value="WOMEN">{renderPanelContent()}</TabsContent>
+              <TabsContent value="UNISEX">{renderPanelContent()}</TabsContent>
             </TabsContents>
           </Tabs>
         </div>

@@ -1,5 +1,6 @@
 import type { ProductBadge } from "@/components/products/ProductInfo/ProductBadges";
 import type {
+  BestSellerProduct,
   Product,
   ProductReview,
   ProductSample,
@@ -71,6 +72,9 @@ export const formatDate = (date: string | Date) =>
     year: "numeric",
   });
 
-export const getMainProductVariant = (variants: Product["variants"]) => {
+export const getMainProductVariant = (
+  variants: Product["variants"] | BestSellerProduct["variants"],
+) => {
+  if (variants.length === 0) return null;
   return variants.find((variant) => variant.sizeML !== 5) ?? variants[0];
 };

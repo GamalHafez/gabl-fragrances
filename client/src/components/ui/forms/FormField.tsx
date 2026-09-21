@@ -18,6 +18,8 @@ type FormFieldProps<T extends FieldValues> = {
   placeholder?: string;
   isTextarea?: boolean;
   rows?: number;
+  onBlur?: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
 
 export const FormField = <T extends FieldValues>({
@@ -49,7 +51,7 @@ export const FormField = <T extends FieldValues>({
         <textarea
           {...register(name)}
           aria-invalid={!!errors[name]}
-          aria-describedby={`${name}-error`}
+          aria-describedby={errors[name] ? `${name}-error` : undefined}
           id={name}
           rows={rows}
           placeholder={placeholder}
@@ -60,7 +62,7 @@ export const FormField = <T extends FieldValues>({
         <input
           {...register(name)}
           aria-invalid={!!errors[name]}
-          aria-describedby={`${name}-error`}
+          aria-describedby={errors[name] ? `${name}-error` : undefined}
           id={name}
           type={type}
           placeholder={placeholder}

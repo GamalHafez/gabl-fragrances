@@ -4,6 +4,8 @@ import type { CheckoutFormValues } from "@shared/types";
 import { CheckoutHeading } from "../common";
 import clsx from "clsx";
 import { useTheme } from "@/context/theme/useTheme";
+import { ExistingAccountPrompt } from "../common/ExistingAccountPrompt";
+import { useCheckEmail } from "@/hooks/auth/useCheckEmail";
 
 type ContactSectionProps = {
   register: UseFormRegister<CheckoutFormValues>;
@@ -13,7 +15,12 @@ type ContactSectionProps = {
 export const ContactSection = ({ register, errors }: ContactSectionProps) => {
   const { isDark } = useTheme();
 
-  //  const auth = null; to be handled later
+  const {
+    mutate: checkEmail,
+    data: emailExists,
+    reset: resetEmailCheck,
+  } = useCheckEmail();
+
   return (
     <section className="flex flex-col gap-1">
       <CheckoutHeading title="Contact" />
@@ -25,6 +32,11 @@ export const ContactSection = ({ register, errors }: ContactSectionProps) => {
         register={register}
         errors={errors}
         placeholder="Ex: you@example.com"
+        onBlur={(e) => {
+          const email = e.target.value.trim();
+          if (!errors.contact && email) checkEmail(email);
+        }}
+        onChange={() => resetEmailCheck()}
       />
 
       <p
@@ -35,6 +47,8 @@ export const ContactSection = ({ register, errors }: ContactSectionProps) => {
       >
         We'll send your order confirmation and updates to this email.
       </p>
+
+      {emailExists && <ExistingAccountPrompt />}
     </section>
   );
 };

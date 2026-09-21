@@ -130,6 +130,11 @@ export const authService = {
     return user;
   },
 
+  async checkEmailExists(email: string): Promise<boolean> {
+    const user = await this.findUser({ email }, false);
+    return Boolean(user);
+  },
+
   generateTokens(user: User) {
     const accessToken = generateAccessToken(user);
     const refreshToken = generateRefreshToken(user);

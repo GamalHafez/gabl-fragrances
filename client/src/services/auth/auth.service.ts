@@ -25,6 +25,13 @@ export const authService = {
     return data.user;
   },
 
+  async checkEmail(email: string): Promise<boolean> {
+    const data = await apiClient.get<{ exists: boolean }>(
+      `${API_ENDPOINTS.AUTH}/check-email?email=${encodeURIComponent(email)}`,
+    );
+    return data.exists;
+  },
+
   async logout(): Promise<void> {
     await apiClient.post(`${API_ENDPOINTS.AUTH}/logout`);
   },

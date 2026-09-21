@@ -10,6 +10,7 @@ export const getCurrentUser = async (req: Request, res: Response) => {
     data: { user: req.user },
   });
 };
+
 export const signUp = async (
   req: Request,
   res: Response,
@@ -52,6 +53,27 @@ export const login = async (
       statusCode: 200,
       message: 'Logged in successfully',
       data: { user },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const checkEmail = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const email = req.query.email as string;
+    if (!email) throw new AppError(400, 'Email is required');
+
+    const exists = await authService.checkEmailExists(email.toLowerCase());
+
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Email checked',
+      data: { exists },
     });
   } catch (error) {
     next(error);

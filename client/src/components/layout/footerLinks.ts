@@ -5,8 +5,8 @@ export const footerLinks = [
     links: [
       { id: 1, label: "Home", href: "/", scrollToTop: true },
       { id: 2, label: "Shop all", href: "/collections", scrollToTop: true },
-      { id: 3, label: "Men", href: "/collections/men", scrollToTop: true },
-      { id: 4, label: "Women", href: "/collections/women", scrollToTop: true },
+      { id: 3, label: "Men", href: "/collections", scrollToTop: true },
+      { id: 4, label: "Women", href: "/collections", scrollToTop: true },
       {
         id: 5,
         label: "Best sellers",

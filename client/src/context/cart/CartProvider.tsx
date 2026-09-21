@@ -5,6 +5,7 @@ import {
   addItem,
   clearCart,
   removeItem,
+  replaceCart,
   updateQuantity,
 } from "./cartOperations";
 import { getItem, setItem } from "@/utils";
@@ -17,6 +18,7 @@ type CartContextValue = {
   removeItem: (variantId: string) => void;
   updateQuantity: (variantId: string, quantity: number) => void;
   clearCart: () => void;
+  replaceCart: (items: StoredCartItem[]) => void;
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -43,6 +45,10 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     setCart(clearCart());
   };
 
+  const handleReplaceCart = (items: StoredCartItem[]) => {
+    setCart(replaceCart(items));
+  };
+
   useEffect(() => {
     setItem("cart", cart);
   }, [cart]);
@@ -59,6 +65,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         removeItem: handleRemoveItem,
         updateQuantity: handleUpdateQuantity,
         clearCart: handleClearCart,
+        replaceCart: handleReplaceCart,
       }}
     >
       {children}

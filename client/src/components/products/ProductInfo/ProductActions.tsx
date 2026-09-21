@@ -3,9 +3,9 @@ import { useCart } from "@/context/cart/useCart";
 import { useTheme } from "@/context/theme/useTheme";
 import { animateToCart } from "@/utils/cart";
 import clsx from "clsx";
-import { CreditCard, ShoppingBag } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 import { useRef } from "react";
-import { Link } from "react-router-dom";
+import { BuyItNowButton } from "./BuyItNowButton";
 
 type ProductActionsProps = {
   productVariantId: string;
@@ -69,29 +69,7 @@ export const ProductActions = ({
           Add to Cart
         </button>
 
-        <Link
-          to={inStock ? "/checkout" : ""}
-          onClick={(e) => !inStock && e.preventDefault()}
-          aria-disabled={!inStock}
-          className={clsx(
-            "flex flex-1 items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all duration-300",
-
-            !inStock && "cursor-not-allowed opacity-50 grayscale",
-
-            inStock &&
-              (isDark
-                ? "bg-amber-500 text-zinc-950 shadow-lg shadow-amber-500/20 hover:bg-amber-400"
-                : "bg-zinc-900 text-white shadow-lg shadow-zinc-900/10 hover:bg-zinc-800"),
-
-            !inStock &&
-              (isDark
-                ? "bg-zinc-800 text-zinc-500"
-                : "bg-zinc-200 text-zinc-400"),
-          )}
-        >
-          <CreditCard className="h-4 w-4" />
-          Buy it Now
-        </Link>
+        <BuyItNowButton productVariantId={productVariantId} inStock={inStock} />
       </div>
     </Reveal>
   );

@@ -74,7 +74,7 @@ export const ProductInfo = ({
       />
 
       <ProductActions
-        variantId={selectedVariant.id}
+        productVariantId={selectedVariant.id}
         productImage={sample5mlImage}
         quantity={quantity}
         inStock={inStock}

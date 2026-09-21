@@ -46,3 +46,7 @@ export const clearCart = (): StoredCart => {
     items: [],
   };
 };
+
+export const replaceCart = (items: StoredCartItem[]): StoredCart => {
+  return { items };
+};

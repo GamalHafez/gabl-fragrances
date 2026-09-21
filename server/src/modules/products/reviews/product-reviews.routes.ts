@@ -5,13 +5,19 @@ import {
   getReviews,
 } from '@/modules/products/reviews/product-reviews.controller.js';
 import { validateRequest } from '@/middlewares/auth/validateRequest.js';
-import { optionalAuth } from '@/middlewares/auth/optionalAuth.js';
+import { attachUserIfPresent } from '@/middlewares/auth/requireAuth.js';
+import { reviewRateLimit } from '@/middlewares/products/reviewRateLimit.js';
 
 const router = Router();
 
 router
   .route('/')
   .get(getReviews)
-  .post(optionalAuth, validateRequest(createReviewSchema), createReview);
+  .post(
+    reviewRateLimit,
+    attachUserIfPresent,
+    validateRequest(createReviewSchema),
+    createReview,
+  );
 
 export default router;

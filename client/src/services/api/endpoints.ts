@@ -7,4 +7,5 @@ export const API_ENDPOINTS = {
   ORDERS: `${BASE}/orders`,
   SHIPPING_METHODS: `${BASE}/shipping-methods`,
   PROFILE: `${BASE}/profile`,
+  CONTACT: `${BASE}/contact`,
 } as const;

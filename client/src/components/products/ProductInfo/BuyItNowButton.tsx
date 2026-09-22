@@ -33,8 +33,10 @@ export const BuyItNowButton = ({
       disabled={!inStock}
       aria-disabled={!inStock}
       className={clsx(
-        "flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all duration-300",
+        "flex flex-1 items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all duration-300",
         !inStock && "cursor-not-allowed opacity-50 grayscale",
+        inStock && "cursor-pointer",
+
         inStock &&
           (isDark
             ? "bg-amber-500 text-zinc-950 shadow-lg shadow-amber-500/20 hover:bg-amber-400"

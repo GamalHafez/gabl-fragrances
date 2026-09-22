@@ -40,7 +40,7 @@ export const PRODUCT_BADGE_CONFIG: Record<ProductBadgeStatus, BadgeConfig> = {
   "out-of-stock": {
     icon: Ban,
     styles: {
-      light: "bg-red-100 text-red-700",
+      light: "bg-red-200/50 text-red-700",
       dark: "bg-red-900/40 text-red-300",
     },
   },

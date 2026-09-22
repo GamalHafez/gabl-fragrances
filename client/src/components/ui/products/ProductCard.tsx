@@ -4,7 +4,8 @@ import { Eyebrow } from "@/components/ui/home";
 import clsx from "clsx";
 import { useTheme } from "@/context/theme/useTheme";
 import type { Product } from "@shared/types/product";
-import { getMainProductVariant } from "@/utils";
+import { getMainProductVariant } from "@shared/utils/products.js";
+import { OutOfStockBadge } from "../common/OutOfStockBadge";
 
 type ProductCardProps = {
   product: Product;
@@ -37,7 +38,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       {/* Floating Content */}
       <div
         className={clsx(
-          "relative z-10 mx-5 -mt-8 w-full rounded-3xl border p-4 shadow-md backdrop-blur-sm group-hover:shadow-xl md:mx-auto md:-mt-10 md:w-[calc(100%-2rem)] md:p-6",
+          "relative z-10 mx-5 -mt-8 w-full rounded-3xl border p-4 shadow-md backdrop-blur-sm group-hover:shadow-xl md:mx-auto md:-mt-10 md:w-[calc(100%-2rem)]",
+          mainVariant && mainVariant.stock <= 0 ? "md:p-6 md:pr-4" : "md:p-6",
           isDark
             ? "border-zinc-800 bg-zinc-900/90 group-hover:bg-zinc-800/60"
             : "border-zinc-100 bg-white group-hover:bg-zinc-100",
@@ -86,13 +88,17 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                 )}
               >
                 {mainVariant.price.toString()}
-                <span className="ml-1 text-sm">EGP</span>
+                <span className="ml-1 text-xs lg:text-sm">EGP</span>
               </p>
-              <AddToCart
-                productVariantId={mainVariant.id}
-                quantity={1}
-                image={productMainImage.url}
-              />
+              {mainVariant.stock > 0 ? (
+                <AddToCart
+                  productVariantId={mainVariant.id}
+                  quantity={1}
+                  image={productMainImage.url}
+                />
+              ) : (
+                <OutOfStockBadge />
+              )}
             </div>
           </span>
         )}

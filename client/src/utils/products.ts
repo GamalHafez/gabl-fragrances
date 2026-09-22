@@ -1,6 +1,5 @@
 import type { ProductBadge } from "@/components/products/ProductInfo/ProductBadges";
 import type {
-  BestSellerProduct,
   Product,
   ProductReview,
   ProductSample,
@@ -27,7 +26,12 @@ export const getProductBadges = (
         ? "Women's"
         : "Unisex";
 
-  // Gender collection first
+  // Stock status first
+  badges.push({
+    label: inStock ? "In Stock" : "Out of Stock",
+    status: inStock ? "stock" : "out-of-stock",
+  });
+
   badges.push({
     label: `${genderLabel} Collection`,
     status: "collection",
@@ -46,11 +50,6 @@ export const getProductBadges = (
       status: "best-seller",
     });
   }
-
-  badges.push({
-    label: inStock ? "In Stock" : "Out of Stock",
-    status: inStock ? "stock" : "out-of-stock",
-  });
 
   return badges;
 };
@@ -71,10 +70,3 @@ export const formatDate = (date: string | Date) =>
     day: "numeric",
     year: "numeric",
   });
-
-export const getMainProductVariant = (
-  variants: Product["variants"] | BestSellerProduct["variants"],
-) => {
-  if (variants.length === 0) return null;
-  return variants.find((variant) => variant.sizeML !== 5) ?? variants[0];
-};

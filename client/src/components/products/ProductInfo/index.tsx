@@ -26,19 +26,21 @@ export const ProductInfo = ({
   const { isDark } = useTheme();
   const { name, variants, inspiredBy, description } = product;
 
-  const [quantity, setQuantity] = useState(1);
-
   const inStock = Boolean(
     selectedVariant.isActive && selectedVariant.stock > 0,
   );
+
+  const [quantity, setQuantity] = useState(inStock ? 1 : 0);
+
   const badges = getProductBadges(product, inStock);
 
   const handleVariantChange = (variantId: string) => {
     const variant = variants.find((variant) => variant.id === variantId);
-
     if (!variant) return;
 
-    setQuantity(1);
+    const inStock = Boolean(variant.isActive && variant.stock > 0);
+
+    setQuantity(inStock ? 1 : 0);
     setSelectedVariantId(variantId);
   };
 

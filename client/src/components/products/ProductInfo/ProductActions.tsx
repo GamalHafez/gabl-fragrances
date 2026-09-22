@@ -50,9 +50,10 @@ export const ProductActions = ({
           disabled={!inStock}
           aria-label="Add to cart"
           className={clsx(
-            "flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-full border px-6 py-3 text-sm font-medium transition-all duration-300",
+            "flex flex-1 items-center justify-center gap-2 rounded-full border px-6 py-3 text-sm font-medium transition-all duration-300",
 
             !inStock && "cursor-not-allowed opacity-50 grayscale",
+            inStock && "cursor-pointer",
 
             inStock &&
               (isDark

@@ -12,10 +12,12 @@ import { DataError } from "@/components/ui/errors/DataError";
 import { useReviews } from "@/hooks/reviews";
 import sample5mlImage from "@/assets/sample-5ml.webp";
 import { useState } from "react";
+import { getMainProductVariant } from "@shared/utils/products";
 
 export const ProductDetails = () => {
   const { isDark } = useTheme();
   const { productSlug } = useParams();
+
   const {
     data: product,
     isPending: isProductPending,
@@ -33,19 +35,6 @@ export const ProductDetails = () => {
   const [selectedVariantId, setSelectedVariantId] = useState<string | null>(
     null,
   );
-
-  const selectedVariant =
-    product?.variants.find((variant) => variant.id === selectedVariantId) ??
-    product?.variants.find(
-      (variant) => variant.isActive && variant.stock > 0,
-    ) ??
-    product?.variants[0];
-
-  const productMainImage =
-    product?.images.find((image) => image.isMain) ?? product?.images[0];
-
-  const productImage =
-    selectedVariant?.sizeML === 5 ? sample5mlImage : productMainImage?.url;
 
   if (isProductPending || isProductFetching) {
     return (
@@ -69,6 +58,18 @@ export const ProductDetails = () => {
       </PageWrapper>
     );
   }
+
+  const mainVariant = getMainProductVariant(product.variants);
+
+  const selectedVariant =
+    product.variants.find((variant) => variant.id === selectedVariantId) ??
+    mainVariant;
+
+  const productMainImage =
+    product?.images.find((image) => image.isMain) ?? product?.images[0];
+
+  const productImage =
+    selectedVariant?.sizeML === 5 ? sample5mlImage : productMainImage?.url;
 
   return (
     <PageWrapper>

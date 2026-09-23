@@ -19,6 +19,7 @@ import shippingMethodsRoutes from '@/modules/shippingMethods/shippingMethods.rou
 import ordersRoutes from '@/modules/orders/orders.routes.js';
 import profileRoutes from '@/modules/profile/profile.routes.js';
 import contactRoutes from '@/modules/contact/contact.routes.js';
+import discountsRoutes from '@/modules/discounts/discounts.routes.js';
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use('/api/shipping-methods', shippingMethodsRoutes);
 app.use('/api/orders', ordersRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/discounts', discountsRoutes);
 
 // Middlewares
 app.use(routeNotFound);

@@ -1,4 +1,8 @@
-import type { StoredCart, StoredCartItem } from "@shared/types";
+import type {
+  DiscountPreview,
+  StoredCart,
+  StoredCartItem,
+} from "@shared/types";
 
 export const addItem = (cart: StoredCart, item: StoredCartItem): StoredCart => {
   const existingItem = cart.items.find(
@@ -16,12 +20,16 @@ export const addItem = (cart: StoredCart, item: StoredCartItem): StoredCart => {
       )
     : [...cart.items, item];
 
-  return { items };
+  return {
+    items,
+    discount: cart.discount,
+  };
 };
 
 export const removeItem = (cart: StoredCart, variantId: string): StoredCart => {
   return {
     items: cart.items.filter((item) => item.productVariantId !== variantId),
+    discount: cart.discount,
   };
 };
 
@@ -38,15 +46,27 @@ export const updateQuantity = (
     items: cart.items.map((item) =>
       item.productVariantId === variantId ? { ...item, quantity } : item,
     ),
+    discount: cart.discount,
   };
 };
 
 export const clearCart = (): StoredCart => {
   return {
     items: [],
+    discount: null,
   };
 };
 
 export const replaceCart = (items: StoredCartItem[]): StoredCart => {
-  return { items };
+  return { items, discount: null };
 };
+
+export const applyDiscount = (
+  cart: StoredCart,
+  discount: DiscountPreview,
+): StoredCart => ({ ...cart, discount });
+
+export const removeDiscount = (cart: StoredCart): StoredCart => ({
+  ...cart,
+  discount: null,
+});

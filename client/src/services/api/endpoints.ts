@@ -8,4 +8,5 @@ export const API_ENDPOINTS = {
   SHIPPING_METHODS: `${BASE}/shipping-methods`,
   PROFILE: `${BASE}/profile`,
   CONTACT: `${BASE}/contact`,
+  DISCOUNTS: `${BASE}/discounts`,
 } as const;

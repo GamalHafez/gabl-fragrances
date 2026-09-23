@@ -1,3 +1,4 @@
+import { useCart } from "@/context/cart/useCart";
 import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
 
@@ -13,6 +14,7 @@ export const OrderTotals = ({
   shipping,
 }: OrderTotalsProps) => {
   const { isDark } = useTheme();
+  const { discount } = useCart();
 
   return (
     <div className="space-y-1">
@@ -28,6 +30,39 @@ export const OrderTotals = ({
           className={clsx("font-medium", isDark ? "text-white" : "text-black")}
         >
           {totalQuantity ?? 0} {totalQuantity === 1 ? "Product" : "Products"}
+        </span>
+      </p>
+
+      <p
+        className={clsx(
+          "flex items-center justify-between text-sm",
+          isDark ? "text-white/60" : "text-black/60",
+        )}
+      >
+        <span className="flex items-center gap-2">
+          <span>Discount</span>
+
+          {discount && (
+            <span
+              className={clsx(
+                "rounded-full px-2 py-0.5 text-[10px] font-medium tracking-wide uppercase",
+                isDark
+                  ? "bg-emerald-500/10 text-emerald-400"
+                  : "bg-emerald-50 text-emerald-600",
+              )}
+            >
+              {discount.code}
+            </span>
+          )}
+        </span>
+
+        <span
+          className={clsx(
+            "font-medium",
+            isDark ? "text-emerald-400" : "text-emerald-600",
+          )}
+        >
+          -{discount?.value} EGP
         </span>
       </p>
 

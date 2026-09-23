@@ -5,6 +5,7 @@ export type StoredCartItem = {
 
 export type StoredCart = {
   items: StoredCartItem[];
+  discount: DiscountPreview | null;
 };
 
 export type CartVariant = {
@@ -29,4 +30,12 @@ export type CartRepresentation = {
   items: CartVariant[];
   totalQuantity: number;
   subtotal: string;
+};
+
+type DiscountType = 'FIXED' | 'PERCENTAGE';
+
+export type DiscountPreview = {
+  code: string;
+  type: DiscountType;
+  value: string;
 };

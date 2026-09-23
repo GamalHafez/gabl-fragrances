@@ -5,13 +5,63 @@ import {
   AccordionTrigger,
 } from "@/components/ui/shadcn/accordion";
 import { useTheme } from "@/context/theme/useTheme";
+import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
+import { useForm } from "react-hook-form";
+import {
+  discountCodeSchema,
+  type DiscountCodeRequest,
+} from "@shared/validators/discountsSchema.js";
+import { ErrorMessage } from "../ui/common";
+import { useCheckDiscountCode } from "@/hooks/cart/useCheckDiscountCode";
+import { getApiErrorMessage } from "@/utils/errors";
+import { useState } from "react";
+import { useCart } from "@/context/cart/useCart";
 
 export const CartDiscountSection = () => {
   const { isDark } = useTheme();
+  const { handleApplyDiscount } = useCart();
+  const [accordionValue, setAccordionValue] = useState<string[]>([]);
+
+  const handleAccordionChange = (value: unknown[]) => {
+    setAccordionValue(value as string[]);
+  };
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<DiscountCodeRequest>({
+    resolver: zodResolver(discountCodeSchema),
+    defaultValues: {
+      code: "",
+    },
+  });
+
+  const {
+    mutate: checkDiscountCode,
+    isPending,
+    error,
+  } = useCheckDiscountCode();
+
+  const onSubmit = (data: DiscountCodeRequest) => {
+    checkDiscountCode(data.code, {
+      onSuccess: (response) => {
+        reset();
+        setAccordionValue([]); // closes it
+
+        handleApplyDiscount(response);
+      },
+    });
+  };
 
   return (
-    <Accordion className="w-full">
+    <Accordion
+      value={accordionValue}
+      onValueChange={handleAccordionChange}
+      className="w-full"
+    >
       <AccordionItem
         value="discount"
         className={clsx(
@@ -29,11 +79,16 @@ export const CartDiscountSection = () => {
         </AccordionTrigger>
 
         <AccordionContent className="pb-5">
-          <form className="flex gap-2">
+          <form
+            noValidate
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex gap-2"
+          >
             <label htmlFor="discount-code" className="sr-only">
               Discount code
             </label>
             <input
+              {...register("code")}
               type="text"
               placeholder="Enter discount code"
               className={clsx(
@@ -47,6 +102,7 @@ export const CartDiscountSection = () => {
 
             <button
               type="submit"
+              disabled={isPending}
               className={clsx(
                 "shrink-0 rounded-full px-5 py-2.5 text-xs font-medium tracking-wide uppercase",
                 "cursor-pointer transition-colors duration-200",
@@ -55,9 +111,17 @@ export const CartDiscountSection = () => {
                   : "bg-black text-white hover:bg-black/90",
               )}
             >
-              Apply
+              {isPending ? "Checking..." : "Apply"}
             </button>
           </form>
+
+          {(errors.code || error) && (
+            <ErrorMessage
+              message={String(
+                errors?.code?.message ?? getApiErrorMessage(error) ?? "",
+              )}
+            />
+          )}
         </AccordionContent>
       </AccordionItem>
     </Accordion>

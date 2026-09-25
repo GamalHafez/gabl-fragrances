@@ -30,7 +30,15 @@ export type CartRepresentation = {
   items: CartVariant[];
   totalQuantity: number;
   subtotal: string;
+  discount: CartDiscount;
+  total: string;
 };
+
+export type CartDiscount =
+  | (DiscountPreview & {
+      amount: string;
+    })
+  | null;
 
 type DiscountType = 'FIXED' | 'PERCENTAGE';
 

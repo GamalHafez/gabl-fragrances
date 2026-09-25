@@ -26,7 +26,7 @@ type CartContextValue = {
   updateQuantity: (variantId: string, quantity: number) => void;
   clearCart: () => void;
   replaceCart: (items: StoredCartItem[]) => void;
-  handleApplyDiscount: (discount: DiscountPreview) => void;
+  handleApplyDiscount: (discount: DiscountPreview | null) => void;
   handleRemoveDiscount: () => void;
 };
 
@@ -64,7 +64,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     setCart(replaceCart(items));
   };
 
-  const handleApplyDiscount = (discount: DiscountPreview) => {
+  const handleApplyDiscount = (discount: DiscountPreview | null) => {
     setCart((currentCart) => applyDiscount(currentCart, discount));
   };
 

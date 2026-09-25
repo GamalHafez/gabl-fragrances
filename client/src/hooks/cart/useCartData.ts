@@ -1,21 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
 import { cartService } from "@/services/cart/cart.service";
-import type { StoredCartItem } from "@shared/types";
+import type { DiscountPreview, StoredCartItem } from "@shared/types";
 
-const getCartKey = (items: StoredCartItem[]) => {
-  // Sort so item order in the array (e.g. after add/remove/reorder)
-  // doesn't change the key when the actual contents are identical
+const getCartKey = (
+  items: StoredCartItem[],
+  discount: DiscountPreview | null,
+) => {
   const sorted = [...items].sort((a, b) =>
-    a?.productVariantId?.localeCompare(b?.productVariantId),
+    a.productVariantId.localeCompare(b.productVariantId),
   );
 
-  return ["cart-data", sorted] as const;
+  return ["cart-data", sorted, discount?.code ?? null] as const;
 };
 
-export const useCartData = (items: StoredCartItem[]) => {
+export const useCartData = (
+  items: StoredCartItem[],
+  discount: DiscountPreview | null,
+) => {
   return useQuery({
-    queryKey: getCartKey(items),
-    queryFn: () => cartService.getCartData(items),
+    queryKey: getCartKey(items, discount),
+    queryFn: () => cartService.getCartData({ items, discount }),
     enabled: items.length > 0,
     staleTime: 30_000,
   });

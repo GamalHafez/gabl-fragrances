@@ -14,8 +14,13 @@ type CartSheetProps = {
 
 export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
   const { isDark } = useTheme();
-  const { items } = useCart();
-  const { data: cartData, isPending, isError, refetch } = useCartData(items);
+  const { items, discount } = useCart();
+  const {
+    data: cartData,
+    isPending,
+    isError,
+    refetch,
+  } = useCartData(items, discount);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -37,7 +42,7 @@ export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
           ) : isError ? (
             <DataError
               message="We couldn't load your cart right now. Please try again in a moment."
-              onRetry={() => refetch()}
+              onRetry={refetch}
               isHomeLink={false}
             />
           ) : !cartData ? (
@@ -56,7 +61,9 @@ export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
         {items.length > 0 && (
           <CartFooter
             subtotal={cartData?.subtotal ?? "0"}
+            discount={cartData?.discount ?? null}
             totalQuantity={cartData?.totalQuantity ?? 0}
+            total={cartData?.total ?? "0"}
           />
         )}
       </SheetContent>

@@ -63,7 +63,7 @@ export const replaceCart = (items: StoredCartItem[]): StoredCart => {
 
 export const applyDiscount = (
   cart: StoredCart,
-  discount: DiscountPreview,
+  discount: DiscountPreview | null,
 ): StoredCart => ({ ...cart, discount });
 
 export const removeDiscount = (cart: StoredCart): StoredCart => ({

@@ -1,12 +1,18 @@
 import { prisma } from '@/config/db.js';
+import { Prisma } from '@/generated/prisma/client.js';
+import { AppError } from '@/utils/response.js';
 import {
   CartRepresentation,
   CartVariant,
+  DiscountPreview,
   StoredCartItem,
 } from '@shared/types/cart.js';
 
 export const cartService = {
-  async getCartData(items: StoredCartItem[]): Promise<CartRepresentation> {
+  async getCartData(
+    items: StoredCartItem[],
+    discount?: DiscountPreview,
+  ): Promise<CartRepresentation> {
     const cartItems = await Promise.all(
       items.map(async (item): Promise<CartVariant | null> => {
         const variant = await prisma.productVariant.findFirst({
@@ -77,10 +83,25 @@ export const cartService = {
       .reduce((acc, item) => acc + Number(item.price) * item.quantity, 0)
       .toFixed(2);
 
+    const discountValue = Number(discount?.value ?? 0);
+
+    const rawDiscountAmount = !discount
+      ? 0
+      : discount.type === 'FIXED'
+        ? discountValue
+        : (Number(subtotal) * discountValue) / 100;
+
+    const discountAmount = Math.min(rawDiscountAmount, Number(subtotal));
+    const total = Number(subtotal) - discountAmount;
+
     return {
       items: validItems,
       totalQuantity,
       subtotal,
+      discount: discount
+        ? { ...discount, amount: discountAmount.toFixed(2) }
+        : null,
+      total: total.toFixed(2),
     };
   },
 };

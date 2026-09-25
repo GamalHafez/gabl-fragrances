@@ -4,13 +4,21 @@ import { useTheme } from "@/context/theme/useTheme";
 import { CartDiscountSection } from "@/components/cart/index";
 import { Link } from "react-router-dom";
 import { OrderTotals } from "../checkout/order";
+import type { CartDiscount } from "@shared/types";
 
 type CartFooterProps = {
   subtotal: string;
+  discount: CartDiscount;
   totalQuantity: number;
+  total: string;
 };
 
-export const CartFooter = ({ subtotal, totalQuantity }: CartFooterProps) => {
+export const CartFooter = ({
+  subtotal,
+  totalQuantity,
+  discount,
+  total,
+}: CartFooterProps) => {
   const { isDark } = useTheme();
 
   return (
@@ -24,7 +32,12 @@ export const CartFooter = ({ subtotal, totalQuantity }: CartFooterProps) => {
       <CartDiscountSection />
 
       {/* Summary */}
-      <OrderTotals subtotal={subtotal} totalQuantity={totalQuantity} />
+      <OrderTotals
+        subtotal={subtotal}
+        totalQuantity={totalQuantity}
+        discount={discount}
+        total={total}
+      />
 
       {/* Checkout note */}
       <p
@@ -38,7 +51,7 @@ export const CartFooter = ({ subtotal, totalQuantity }: CartFooterProps) => {
 
       {/* Checkout */}
       <Link
-        to="checkout"
+        to="/checkout"
         className={clsx(
           "w-full rounded-full px-6 py-3.5 text-center text-sm font-medium tracking-wide uppercase",
           "cursor-pointer transition-colors duration-200",

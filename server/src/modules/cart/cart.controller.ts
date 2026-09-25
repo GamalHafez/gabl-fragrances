@@ -8,8 +8,8 @@ export const getCartData = async (
   next: NextFunction,
 ) => {
   try {
-    const items = req.body;
-    const cartData = await cartService.getCartData(items);
+    const { items, discount } = req.body;
+    const cartData = await cartService.getCartData(items, discount);
 
     return sendSuccess(res, {
       statusCode: 200,

@@ -19,6 +19,11 @@ export const OrderTotals = ({
 }: OrderTotalsProps) => {
   const { isDark } = useTheme();
 
+  const displayTotal =
+    shipping !== undefined
+      ? (Number(total) + Number(shipping)).toFixed(2)
+      : total;
+
   return (
     <div className="space-y-1">
       <p
@@ -28,7 +33,6 @@ export const OrderTotals = ({
         )}
       >
         <span>Total quantity</span>
-
         <span
           className={clsx("font-medium", isDark ? "text-white" : "text-black")}
         >
@@ -43,7 +47,6 @@ export const OrderTotals = ({
         )}
       >
         <span>Subtotal</span>
-
         <span
           className={clsx("font-medium", isDark ? "text-white" : "text-black")}
         >
@@ -60,7 +63,6 @@ export const OrderTotals = ({
         >
           <span className="flex items-center gap-2">
             <span>Discount</span>
-
             <span
               className={clsx(
                 "rounded-full px-2 py-0.5 text-[10px] font-medium tracking-wide uppercase",
@@ -72,7 +74,6 @@ export const OrderTotals = ({
               {discount.code}
             </span>
           </span>
-
           <span
             className={clsx(
               "font-medium",
@@ -92,14 +93,15 @@ export const OrderTotals = ({
           )}
         >
           <span>Shipping</span>
-
           <span
             className={clsx(
               "font-medium",
               isDark ? "text-white" : "text-black",
             )}
           >
-            {shipping === 0 ? "Free" : `${Number(shipping).toFixed(2)} EGP`}
+            {Number(shipping) === 0
+              ? "Free"
+              : `${Number(shipping).toFixed(2)} EGP`}
           </span>
         </p>
       )}
@@ -111,7 +113,7 @@ export const OrderTotals = ({
         )}
       >
         <span>Total</span>
-        <span>{total ?? "0"} EGP</span>
+        <span>{displayTotal ?? "0"} EGP</span>
       </p>
     </div>
   );

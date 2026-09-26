@@ -7,9 +7,9 @@ import type { StoredCartItem, CartRepresentation } from "@shared/types";
 type OrderSummaryBodyProps = {
   items: StoredCartItem[];
   cartData: CartRepresentation | undefined;
-  isPending: boolean;
-  isError: boolean;
-  refetch: () => void;
+  isPending?: boolean;
+  isError?: boolean;
+  refetch?: () => void;
   shipping?: number;
 };
 
@@ -48,6 +48,8 @@ export const OrderSummaryBody = ({
           subtotal={cartData?.subtotal ?? "0"}
           totalQuantity={cartData?.totalQuantity ?? 0}
           shipping={shipping}
+          total={cartData.total ?? "0"}
+          discount={cartData.discount ?? null}
         />
       )}
     </>

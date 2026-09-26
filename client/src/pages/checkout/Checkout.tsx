@@ -82,8 +82,8 @@ export const Checkout = () => {
 
   const checkoutError = isError ? getApiErrorMessage(error) : undefined;
 
-  const { items: cartItems, clearCart } = useCart();
-  const { data: cartData } = useCartData(cartItems);
+  const { items: cartItems, clearCart, discount } = useCart();
+  const { data: cartData } = useCartData(cartItems, discount);
 
   const onSubmit = (data: CheckoutFormOutput) => {
     if (!cartItems.length || !cartData?.items.length) {
@@ -108,7 +108,10 @@ export const Checkout = () => {
   return (
     <PageWrapper>
       <div className="lg:hidden">
-        <OrderSummaryMobile shippingMethodId={shippingMethodId} />
+        <OrderSummaryMobile
+          cartData={cartData}
+          shippingMethodId={shippingMethodId}
+        />
       </div>
       <Container>
         <div className="mx-4 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">

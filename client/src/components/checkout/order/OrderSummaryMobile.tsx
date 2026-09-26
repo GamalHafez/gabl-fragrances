@@ -6,24 +6,24 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/shadcn/collapsible";
 import { useCart } from "@/context/cart/useCart";
-import { useCartData } from "@/hooks/cart/useCartData";
 import { useShippingMethods } from "@/hooks/checkout";
 import { useTheme } from "@/context/theme/useTheme";
 import { OrderSummaryBody } from "./OrderSummaryBody";
 import clsx from "clsx";
-import type { ShippingMethodType } from "@shared/types";
+import type { CartRepresentation, ShippingMethodType } from "@shared/types";
 
 type OrderSummaryMobileProps = {
   shippingMethodId: string;
+  cartData: NoInfer<CartRepresentation> | undefined;
 };
 
 export const OrderSummaryMobile = ({
   shippingMethodId,
+  cartData,
 }: OrderSummaryMobileProps) => {
   const { isDark } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const { items } = useCart();
-  const { data: cartData, isPending, isError, refetch } = useCartData(items);
   const { data: shippingMethods } = useShippingMethods();
 
   const selectedShipping = shippingMethods?.find(
@@ -33,10 +33,12 @@ export const OrderSummaryMobile = ({
     ? Number(selectedShipping.price)
     : undefined;
 
-  const total =
+  const displayTotal =
     cartData && shipping !== undefined
-      ? Number(cartData.subtotal) + shipping
-      : undefined;
+      ? Number(cartData.total) + shipping
+      : cartData
+        ? Number(cartData.total)
+        : undefined;
 
   return (
     <Collapsible
@@ -64,16 +66,15 @@ export const OrderSummaryMobile = ({
           />
         </span>
 
-        <span>{total !== undefined ? `${total.toFixed(2)} EGP` : "—"}</span>
+        <span>
+          {displayTotal !== undefined ? `${displayTotal.toFixed(2)} EGP` : "—"}
+        </span>
       </CollapsibleTrigger>
 
       <CollapsibleContent className="flex flex-col gap-4 px-4 pb-4">
         <OrderSummaryBody
           items={items}
           cartData={cartData}
-          isPending={isPending}
-          isError={isError}
-          refetch={refetch}
           shipping={shipping}
         />
       </CollapsibleContent>

@@ -13,8 +13,13 @@ type OrderSummaryProps = {
 
 export const OrderSummary = ({ shippingMethodId }: OrderSummaryProps) => {
   const { isDark } = useTheme();
-  const { items } = useCart();
-  const { data: cartData, isPending, isError, refetch } = useCartData(items);
+  const { items, discount } = useCart();
+  const {
+    data: cartData,
+    isPending,
+    isError,
+    refetch,
+  } = useCartData(items, discount);
   const { data: shippingMethods } = useShippingMethods();
 
   const selectedShipping = shippingMethods?.find(

@@ -5,7 +5,6 @@ import { CartDiscountSection } from "@/components/cart/index";
 import { Link } from "react-router-dom";
 import { OrderTotals } from "../checkout/order";
 import type { CartDiscount } from "@shared/types";
-
 type CartFooterProps = {
   subtotal: string;
   discount: CartDiscount;
@@ -29,7 +28,7 @@ export const CartFooter = ({
       )}
     >
       {/* Discount secction */}
-      <CartDiscountSection />
+      {!discount && <CartDiscountSection />}
 
       {/* Summary */}
       <OrderTotals

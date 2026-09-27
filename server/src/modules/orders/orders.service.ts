@@ -144,7 +144,7 @@ export const ordersService = {
 
     const discount = await prisma.discount.findUnique({
       where: { code: discountCode },
-      select: { id: true, type: true, value: true, isActive: true },
+      select: { id: true, type: true, code: true, value: true, isActive: true },
     });
 
     if (!discount || !discount.isActive) {
@@ -359,6 +359,7 @@ export const ordersService = {
           userId: userId ?? null,
           addressId,
           discountId: discount?.id ?? null,
+          discountCode: discount?.code ?? null,
 
           shippingAddress: address,
           shippingCity: city,

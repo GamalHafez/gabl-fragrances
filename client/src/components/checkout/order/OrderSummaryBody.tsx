@@ -21,6 +21,11 @@ export const OrderSummaryBody = ({
   refetch,
   shipping,
 }: OrderSummaryBodyProps) => {
+  const displayTotal =
+    shipping !== undefined
+      ? (Number(cartData?.total ?? 0) + Number(shipping)).toFixed(2)
+      : (cartData?.total ?? "0");
+
   return (
     <>
       <div className="mb-3 min-h-0 flex-1 overflow-y-auto">
@@ -48,7 +53,7 @@ export const OrderSummaryBody = ({
           subtotal={cartData?.subtotal ?? "0"}
           totalQuantity={cartData?.totalQuantity ?? 0}
           shipping={shipping}
-          total={cartData.total ?? "0"}
+          total={displayTotal ?? "0"}
           discount={cartData.discount ?? null}
         />
       )}

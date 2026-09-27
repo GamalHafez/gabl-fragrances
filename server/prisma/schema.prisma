@@ -280,7 +280,8 @@ model Order {
   addressId String?
 
   // Discount reference
-  discountId String?
+  discountId   String?
+  discountCode String? @db.VarChar(50)
 
   // Shipping address snapshot
   shippingAddress     String  @db.VarChar(255)

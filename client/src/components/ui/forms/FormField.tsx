@@ -31,9 +31,12 @@ export const FormField = <T extends FieldValues>({
   placeholder,
   isTextarea,
   rows = 5,
-  ...props
+  onBlur,
+  onChange,
 }: FormFieldProps<T>) => {
   const { isDark } = useTheme();
+
+  const registeredField = register(name);
 
   const fieldStyles = clsx(
     "resize-none min-h-10 rounded-2xl border px-4 py-3 text-sm transition-all duration-300 outline-none",
@@ -43,31 +46,47 @@ export const FormField = <T extends FieldValues>({
       : "border-zinc-300 bg-white text-zinc-900 placeholder:text-zinc-400 focus:border-amber-400 focus:ring-amber-200/50",
   );
 
+  const handleChange: React.ChangeEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  > = (event) => {
+    registeredField.onChange(event);
+    onChange?.(event);
+  };
+
+  const handleBlur: React.FocusEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  > = (event) => {
+    registeredField.onBlur(event);
+    onBlur?.(event);
+  };
+
   return (
     <div className="flex flex-col">
       {label && <FormLabel id={name}>{label}</FormLabel>}
 
       {isTextarea ? (
         <textarea
-          {...register(name)}
+          {...registeredField}
+          onChange={handleChange}
+          onBlur={handleBlur}
           aria-invalid={!!errors[name]}
           aria-describedby={errors[name] ? `${name}-error` : undefined}
           id={name}
           rows={rows}
           placeholder={placeholder}
           className={fieldStyles}
-          {...props}
         />
       ) : (
         <input
-          {...register(name)}
+          {...registeredField}
+          onChange={handleChange}
+          onBlur={handleBlur}
           aria-invalid={!!errors[name]}
           aria-describedby={errors[name] ? `${name}-error` : undefined}
           id={name}
           type={type}
           placeholder={placeholder}
           className={fieldStyles}
-          {...props}
         />
       )}
 

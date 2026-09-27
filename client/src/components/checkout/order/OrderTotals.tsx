@@ -19,11 +19,6 @@ export const OrderTotals = ({
 }: OrderTotalsProps) => {
   const { isDark } = useTheme();
 
-  const displayTotal =
-    shipping !== undefined
-      ? (Number(total) + Number(shipping)).toFixed(2)
-      : total;
-
   return (
     <div className="space-y-1">
       <p
@@ -113,7 +108,7 @@ export const OrderTotals = ({
         )}
       >
         <span>Total</span>
-        <span>{displayTotal ?? "0"} EGP</span>
+        <span>{total} EGP</span>
       </p>
     </div>
   );

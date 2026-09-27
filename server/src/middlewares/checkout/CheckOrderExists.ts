@@ -25,6 +25,7 @@ export const CheckOrderExists = async (
         customerPhone: true,
         subTotal: true,
         shipping: true,
+        discountCode: true,
         discountAmount: true,
         total: true,
         shippingAddress: true,
@@ -45,12 +46,19 @@ export const CheckOrderExists = async (
         payments: {
           select: { method: true, status: true, amount: true },
         },
+        discount: {
+          select: {
+            code: true,
+            type: true,
+            value: true,
+          },
+        },
       },
     });
 
     if (!order) throw new AppError(404, 'Order not found');
 
-    if (order.userId !== req.user?.id) {
+    if (order.userId && order.userId !== req.user?.id) {
       throw new AppError(404, 'Order not found');
     }
 

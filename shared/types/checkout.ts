@@ -6,6 +6,7 @@ import type {
   PaymentStatus,
 } from '../../server/src/generated/prisma/enums';
 import type { createOrderSchema } from '../validators/ordersSchemas';
+import type { DiscountPreview } from './cart';
 
 export type CheckoutFormValues = z.input<typeof checkoutSchema>;
 
@@ -41,6 +42,8 @@ export type OrderType = {
   subTotal: string;
   shipping: string;
   discountAmount: string | null;
+  discountCode: string | null;
+  discount: DiscountPreview;
   total: string;
 
   shippingAddress: string;

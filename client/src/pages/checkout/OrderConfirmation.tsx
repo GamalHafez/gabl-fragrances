@@ -55,6 +55,8 @@ export const OrderConfirmation = () => {
     items,
     subTotal,
     shipping,
+    discount,
+    discountAmount,
     customerName,
     customerContact,
     customerPhone,
@@ -64,6 +66,7 @@ export const OrderConfirmation = () => {
     shippingCountry,
     payments,
     shippingMethodName,
+    total,
   } = order;
 
   const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
@@ -85,6 +88,11 @@ export const OrderConfirmation = () => {
               subtotal={subTotal ?? "0"}
               totalQuantity={totalQuantity ?? 0}
               shipping={shipping}
+              discount={{
+                ...discount,
+                amount: discountAmount ?? "",
+              }}
+              total={total}
             />
           </ConfirmationCard>
 

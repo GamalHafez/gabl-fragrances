@@ -95,7 +95,11 @@ export const Checkout = () => {
       quantity,
     }));
 
-    const payload: CreateOrderInput = { ...data, items };
+    const payload: CreateOrderInput = {
+      ...data,
+      items,
+      discountCode: discount?.code,
+    };
 
     createOrder(payload, {
       onSuccess: (order) => {

@@ -46,4 +46,5 @@ export type DiscountPreview = {
   code: string;
   type: DiscountType;
   value: string;
+  isActive: boolean;
 };

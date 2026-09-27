@@ -6,6 +6,7 @@ import { useCartData } from "@/hooks/cart/useCartData";
 import { useCart } from "@/context/cart/useCart";
 import { CartItemSkeleton } from "@/components/skeleton";
 import { DataError } from "@/components/ui/errors/DataError";
+import { useEffect } from "react";
 
 type CartSheetProps = {
   open: boolean;
@@ -14,13 +15,23 @@ type CartSheetProps = {
 
 export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
   const { isDark } = useTheme();
-  const { items, discount } = useCart();
+  const { items, discount, handleRemoveDiscount } = useCart();
   const {
     data: cartData,
     isPending,
     isError,
     refetch,
   } = useCartData(items, discount);
+
+  useEffect(() => {
+    if (!discount || isPending || isError || !cartData) {
+      return;
+    }
+
+    if (!cartData.discount?.isActive) {
+      handleRemoveDiscount();
+    }
+  }, [discount, cartData, isPending, isError, handleRemoveDiscount]);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>

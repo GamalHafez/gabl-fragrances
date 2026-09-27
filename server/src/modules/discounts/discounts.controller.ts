@@ -30,6 +30,7 @@ export const checkDiscountCode = async (
           code: discount.code,
           type: discount.type,
           value: discount.value,
+          isActive: discount.isActive,
         },
       },
     });

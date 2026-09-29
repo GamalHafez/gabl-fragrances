@@ -1,6 +1,4 @@
 import { prisma } from '@/config/db.js';
-import { Prisma } from '@/generated/prisma/client.js';
-import { AppError } from '@/utils/response.js';
 import {
   CartRepresentation,
   CartVariant,
@@ -83,24 +81,49 @@ export const cartService = {
       .reduce((acc, item) => acc + Number(item.price) * item.quantity, 0)
       .toFixed(2);
 
-    const discountValue = Number(discount?.value ?? 0);
+    // Revalidate the persisted discount using the server's data.
+    const freshDiscount = discount
+      ? await prisma.discount.findUnique({
+          where: {
+            code: discount.code,
+          },
+          select: {
+            code: true,
+            type: true,
+            value: true,
+            isActive: true,
+          },
+        })
+      : null;
 
-    const rawDiscountAmount = !discount
+    const validDiscount = freshDiscount?.isActive ? freshDiscount : null;
+
+    const discountValue = Number(validDiscount?.value ?? 0);
+
+    const rawDiscountAmount = !validDiscount
       ? 0
-      : discount.type === 'FIXED'
+      : validDiscount.type === 'FIXED'
         ? discountValue
         : (Number(subtotal) * discountValue) / 100;
 
     const discountAmount = Math.min(rawDiscountAmount, Number(subtotal));
+
     const total = Number(subtotal) - discountAmount;
 
     return {
       items: validItems,
       totalQuantity,
       subtotal,
-      discount: discount
-        ? { ...discount, amount: discountAmount.toFixed(2) }
+
+      discount: validDiscount
+        ? {
+            code: validDiscount.code,
+            type: validDiscount.type,
+            value: validDiscount.value.toString(),
+            amount: discountAmount.toFixed(2),
+          }
         : null,
+
       total: total.toFixed(2),
     };
   },

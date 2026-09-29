@@ -28,11 +28,10 @@ export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
       return;
     }
 
-    if (!cartData.discount?.isActive) {
+    if (!cartData.discount) {
       handleRemoveDiscount();
     }
   }, [discount, cartData, isPending, isError, handleRemoveDiscount]);
-
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent

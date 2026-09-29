@@ -1,15 +1,15 @@
 {
   "name": "gabl-fragrances",
   "version": "1.0.0",
+  "private": true,
   "main": "eslint.config.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:server": "npm --prefix server run build",
+    "start:server": "npm --prefix server run start"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {

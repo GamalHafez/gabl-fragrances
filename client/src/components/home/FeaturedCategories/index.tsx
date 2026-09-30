@@ -36,7 +36,7 @@ const FeaturedCategories = () => {
         {featuredCategories.map((category) => (
           <Reveal key={category.id}>
             <Link
-              to="/"
+              to="/collections"
               className="block transition-transform duration-300 hover:-translate-y-2"
             >
               <CategoryCard

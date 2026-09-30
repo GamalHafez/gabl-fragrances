@@ -1,5 +1,5 @@
 import { useTheme } from "@/context/theme/useTheme";
-import type { OrderStatus } from "../../../../../server/src/generated/prisma/enums";
+import type { OrderStatus } from "@shared/types/enums";
 import clsx from "clsx";
 
 type OrderDetailsProps = {

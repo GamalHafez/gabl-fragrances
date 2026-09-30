@@ -3,6 +3,7 @@ import { InfoCard } from "./InfoCard";
 import type { OrderType } from "@shared/types";
 import clsx from "clsx";
 import { useTheme } from "@/context/theme/useTheme";
+import type { PaymentMethod } from "@shared/types/enums";
 
 type PaymentMethodSectionProps = {
   payments: OrderType["payments"];
@@ -10,7 +11,7 @@ type PaymentMethodSectionProps = {
 
 type PaymentStatusKey = "PENDING" | "SUCCESS" | "FAILED" | "REFUNDED";
 
-const METHOD_LABELS: Record<"CARD" | "CASH_ON_DELIVERY", string> = {
+const METHOD_LABELS: Record<PaymentMethod, string> = {
   CARD: "Credit or Debit Card",
   CASH_ON_DELIVERY: "Cash on Delivery",
 };
@@ -56,7 +57,7 @@ export const PaymentMethodSection = ({
                 isDark ? "text-zinc-100" : "text-zinc-900",
               )}
             >
-              {METHOD_LABELS[payment.method]}
+              {METHOD_LABELS[payment.method] as PaymentMethod}
             </p>
 
             <span
@@ -67,7 +68,7 @@ export const PaymentMethodSection = ({
                   : STATUS_COLORS[payment.status],
               )}
             >
-              {STATUS_LABELS[payment.status]}
+              {STATUS_LABELS[payment.status] as PaymentStatusKey}
             </span>
           </div>
 

@@ -1,0 +1,91 @@
+# ==========================================
+# 1. Environment Secrets (CRITICAL)
+# ==========================================
+# Never commit credentials, API keys, or database URIs
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+*.env.*
+!*.env.example
+
+# ==========================================
+# 2. Package Dependencies (Monorepo & Subfolders)
+# ==========================================
+# Catches node_modules at root or inside client/server folders
+**/node_modules/
+**/jspm_packages/
+pnpm-lock.yaml
+yarn-error.log
+
+# Backend-specific environments
+**/venv/
+**/.venv/
+**/env/
+**/__pycache__/
+*.py[cod]
+
+# ==========================================
+# 3. Production Builds & Outputs
+# ==========================================
+# Frontend bundler outputs (React, Vue, Next.js, Vite, Nuxt)
+**/dist/
+**/build/
+**/.next/
+**/.nuxt/
+**/.output/
+**/out/
+
+# Backend compiled files (Java, Go, C#)
+**/target/
+*.class
+*.exe
+*.dll
+
+# ==========================================
+# 4. Databases & Persistent Local Storage
+# ==========================================
+*.db
+*.sqlite
+*.sqlite3
+**/local_storage/
+
+# ==========================================
+# 5. Logs, Diagnostics & Cache
+# ==========================================
+*.log
+**/logs/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+**/.cache/
+**/.eslintcache
+**/.prettiercache
+
+# ==========================================
+# 6. Testing & Code Coverage
+# ==========================================
+**/coverage/
+**/.nyc_output/
+**/.jest/
+**/.pytest_cache/
+
+# ==========================================
+# 7. IDE, Editors & OS Overhead
+# ==========================================
+# System files
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp

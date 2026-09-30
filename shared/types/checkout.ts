@@ -2,7 +2,7 @@ import type { z } from 'zod';
 import { checkoutSchema } from '../validators/checkoutSchema';
 import type { createOrderSchema } from '../validators/ordersSchemas';
 import type { DiscountPreview } from './cart';
-import { OrderStatus, PaymentMethod, PaymentStatus } from './enums';
+import type { OrderStatus, PaymentMethod, PaymentStatus } from './enums';
 
 export type CheckoutFormValues = z.input<typeof checkoutSchema>;
 

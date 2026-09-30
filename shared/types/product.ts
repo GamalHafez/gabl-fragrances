@@ -1,8 +1,4 @@
-import { Decimal } from './../../server/src/generated/prisma/internal/prismaNamespace';
-
-export type ProductGender = 'MEN' | 'WOMEN' | 'UNISEX';
-
-export type Weather = 'SUMMER' | 'WINTER' | 'SPRING' | 'AUTUMN' | 'ALL_SEASONS';
+import { Gender, Weather } from './enums';
 
 export type ProductCategory = {
   id: string;
@@ -25,7 +21,7 @@ export type ProductImage = {
 export type ProductVariant = {
   id: string;
   sizeML: number;
-  price: Decimal | string;
+  price: string;
   stock: number;
   label?: string | null;
   isActive?: boolean;
@@ -53,7 +49,7 @@ export type ProductSample = {
   id: string;
   slug: string;
   name: string;
-  gender: ProductGender;
+  gender: Gender;
   bestSeasons: Weather[];
   inspiredBy?: string | null;
   isBestSeller: boolean;
@@ -70,7 +66,7 @@ export type Product = {
   name: string;
   description?: string;
 
-  gender: ProductGender;
+  gender: Gender;
   inspiredBy: string | null;
 
   topNotes?: string[];
@@ -95,7 +91,7 @@ export type BestSellerProduct = {
   slug: string;
   name: string;
   description: string;
-  gender: ProductGender;
+  gender: Gender;
   inspiredBy: string | null;
   isNew: boolean;
   images: {

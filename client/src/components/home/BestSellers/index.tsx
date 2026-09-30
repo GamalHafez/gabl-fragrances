@@ -9,14 +9,13 @@ import CategoryShowcase from "./CategoryShowcase";
 import { TabsContent } from "@/components/animate-ui/primitives/animate/tabs";
 import { Eyebrow } from "@/components/ui/home";
 import Reveal from "@/components/ui/animation/Reveal";
-import type { ProductGender } from "@shared/types/product";
 import { useBestSellers } from "@/hooks/products";
 import { CategoryShowcaseSkeleton } from "@/components/skeleton";
 import { DataError } from "@/components/ui/errors/DataError";
+import type { Gender } from "@shared/types/enums";
 
 const BestSellers = () => {
-  const [selectedCategory, setSelectedCategory] =
-    useState<ProductGender>("MEN");
+  const [selectedCategory, setSelectedCategory] = useState<Gender>("MEN");
 
   const {
     data: bestSellers,
@@ -51,9 +50,7 @@ const BestSellers = () => {
           {/* Tabs */}
           <Tabs
             value={selectedCategory}
-            onValueChange={(value) =>
-              setSelectedCategory(value as ProductGender)
-            }
+            onValueChange={(value) => setSelectedCategory(value as Gender)}
           >
             <CategoriesTabs categories={["MEN", "WOMEN", "UNISEX"]} />
 

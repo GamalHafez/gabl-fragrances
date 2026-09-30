@@ -1,11 +1,8 @@
 import type { Product } from "@shared/types/index.ts";
 import { API_ENDPOINTS } from "../api/endpoints";
 import { apiClient } from "../api/apiClient";
-import type {
-  BestSellerProduct,
-  ProductGender,
-  ProductSample,
-} from "@shared/types/product";
+import type { BestSellerProduct, ProductSample } from "@shared/types/product";
+import type { Gender } from "@shared/types/enums";
 type GetProductsResponse = {
   products: Product[];
 };
@@ -52,7 +49,7 @@ export const productsService = {
     return data.samples;
   },
 
-  async getBestSellers(gender?: ProductGender): Promise<BestSellerProduct[]> {
+  async getBestSellers(gender?: Gender): Promise<BestSellerProduct[]> {
     const params = gender ? `?gender=${gender}` : "";
 
     const data = await apiClient.get<{ bestSellers: BestSellerProduct[] }>(

@@ -1,4 +1,4 @@
-import { Gender, Weather } from './enums';
+import type { Gender, Weather } from './enums';
 
 export type ProductCategory = {
   id: string;

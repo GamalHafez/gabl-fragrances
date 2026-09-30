@@ -2,10 +2,9 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/animate-ui/components/animate/tabs";
-import type { Category } from "./bestSellers";
 
 interface CategoriesTabsProps {
-  categories: readonly Category[];
+  categories: readonly string[];
 }
 
 export const CategoriesTabs = ({ categories }: CategoriesTabsProps) => {

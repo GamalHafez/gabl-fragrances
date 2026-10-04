@@ -8,3 +8,4 @@ export * from "./ProfileSkeleton";
 export * from "./OrdersSkeleton";
 export * from "./ConfirmationSkeleton";
 export * from "./CategoryShowcaseSkeleton";
+export * from "./FeaturedProductsSkeleton";

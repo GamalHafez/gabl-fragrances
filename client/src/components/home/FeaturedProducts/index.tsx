@@ -8,7 +8,7 @@ import {
 import { Link } from "react-router-dom";
 import { SectionHeader } from "@/components/ui/home/SectionHeader";
 import { useFeaturedProducts } from "@/hooks/products";
-import { RelatedProductsSkeleton } from "@/components/skeleton";
+import { FeaturedProductsSkeleton } from "@/components/skeleton";
 import { ProductCard } from "@/components/collections";
 
 const FeaturedProductsHeader = {
@@ -26,7 +26,7 @@ const FeaturedProducts = () => {
   } = useFeaturedProducts(8);
 
   if (isPending || isFetching) {
-    return <RelatedProductsSkeleton />;
+    return <FeaturedProductsSkeleton />;
   }
 
   if (isError || !featuredProducts?.length) {

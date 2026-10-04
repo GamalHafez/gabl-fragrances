@@ -84,7 +84,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                 )}
               >
                 {variant.price}
-                <span className="ml-1 text-xs lg:text-sm">EGP</span>
+                <span className="ml-1 text-xs">EGP</span>
               </p>
               {variant.stock > 0 ? (
                 <AddToCart

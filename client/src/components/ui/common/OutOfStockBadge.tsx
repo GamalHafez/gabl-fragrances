@@ -10,7 +10,7 @@ export const OutOfStockBadge = () => {
       role="status"
       aria-label="Out of stock"
       className={clsx(
-        "inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium",
+        "inline-flex items-center rounded-full px-2 py-1 text-xs font-medium",
         isDark ? "bg-red-500/10 text-red-400" : "bg-red-50 text-red-600",
       )}
     >

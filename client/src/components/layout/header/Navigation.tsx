@@ -14,10 +14,10 @@ const navLinkStyles = (isActive: boolean, isDark: boolean) =>
     "capitalize transition-colors duration-300 ease-in-out",
     isActive
       ? clsx(
-          "font-medium",
+          "font-semibold after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-full after:transition-all after:duration-300",
           isDark
-            ? "text-brand-300  hover:text-red-400"
-            : "text-brand-600 hover:text-brand-700",
+            ? "text-brand-300  hover:text-red-200"
+            : "text-brand-800  hover:text-brand-700",
         )
       : clsx(
           "relative after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:transition-all after:duration-300 hover:after:w-full",

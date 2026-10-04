@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ProductCard } from "@/components/ui/products";
 import type { Product } from "@shared/types/product";
+import { getMainProductVariant } from "@shared/utils/products.js";
 import { SamplesCard } from "./SamplesCard";
 
 type CollectionsGridProps = {
@@ -15,16 +16,38 @@ export const CollectionsGrid = ({ products }: CollectionsGridProps) => {
           <SamplesCard />
         </Link>
 
-        {products &&
-          products?.map((product) => (
+        {products?.map((product) => {
+          const mainVariant = getMainProductVariant(product.variants);
+
+          return (
             <Link
               key={product.id}
               to={`/products/${product.slug}`}
               className="block"
             >
-              <ProductCard product={product} />
+              <ProductCard
+                product={{
+                  id: product.id,
+                  slug: product.slug,
+                  name: product.name,
+                  gender: product.gender,
+                  images: product.images.map((img) => ({
+                    url: img.url,
+                    description: img.description ?? null,
+                  })),
+                  variant: mainVariant
+                    ? {
+                        id: mainVariant.id,
+                        price: mainVariant.price,
+                        sizeML: mainVariant.sizeML,
+                        stock: mainVariant.stock,
+                      }
+                    : null,
+                }}
+              />
             </Link>
-          ))}
+          );
+        })}
       </div>
     </section>
   );

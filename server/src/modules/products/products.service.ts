@@ -240,16 +240,9 @@ export const productsService = {
           },
         },
         variants: {
-          where: {
-            isActive: true,
-          },
-          select: {
-            id: true,
-            sizeML: true,
-            price: true,
-            stock: true,
-            label: true,
-          },
+          where: { isActive: true },
+          orderBy: { price: 'asc' },
+          select: { id: true, price: true, sizeML: true }, // no stock
         },
       },
     });
@@ -340,5 +333,40 @@ export const productsService = {
       ...product,
       variant: getMainProductVariant(variants),
     }));
+  },
+
+  async getFeaturedProducts(limit = 8) {
+    const products = await prisma.product.findMany({
+      where: {
+        isActive: true,
+        variants: { some: { isActive: true, stock: { gt: 0 } } },
+      },
+      take: limit,
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        slug: true,
+        name: true,
+        gender: true,
+        inspiredBy: true,
+        isNew: true,
+        images: {
+          where: { isMain: true },
+          select: { id: true, url: true, description: true },
+        },
+        variants: {
+          where: { isActive: true },
+          orderBy: { price: 'asc' },
+          select: { id: true, price: true, sizeML: true, stock: true }, // no stock
+        },
+      },
+    });
+
+    return products
+      .map(({ variants, ...product }) => ({
+        ...product,
+        variant: getMainProductVariant(variants),
+      }))
+      .filter((product) => product.variant && product.variant.stock > 0);
   },
 };

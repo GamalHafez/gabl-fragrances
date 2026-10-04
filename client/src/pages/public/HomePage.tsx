@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/common";
 import FAQ from "@/components/home/FAQ";
 import SocialLinks from "@/components/home/SocialLinks";
 import BestSellers from "@/components/home/BestSellers";
+import FeaturedProducts from "@/components/home/FeaturedProducts";
 import { Testimonials } from "@/components/home/Testimonials";
 import Reveal from "@/components/ui/animation/Reveal";
 
@@ -12,6 +13,10 @@ export const HomePage = () => {
     <>
       <Reveal>
         <Hero />
+      </Reveal>
+
+      <Reveal>
+        <FeaturedProducts />
       </Reveal>
 
       <BestSellers />

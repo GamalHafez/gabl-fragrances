@@ -1,7 +1,11 @@
 import type { Product } from "@shared/types/index.ts";
 import { API_ENDPOINTS } from "../api/endpoints";
 import { apiClient } from "../api/apiClient";
-import type { BestSellerProduct, ProductSample } from "@shared/types/product";
+import type {
+  BestSellerProduct,
+  FeaturedProduct,
+  ProductSample,
+} from "@shared/types/product";
 import type { Gender } from "@shared/types/enums";
 type GetProductsResponse = {
   products: Product[];
@@ -57,5 +61,12 @@ export const productsService = {
     );
 
     return data.bestSellers;
+  },
+
+  async getFeaturedProducts(limit = 8): Promise<FeaturedProduct[]> {
+    const data = await apiClient.get<{ featuredProducts: FeaturedProduct[] }>(
+      `${API_ENDPOINTS.PRODUCTS}/featured?limit=${limit}`,
+    );
+    return data.featuredProducts;
   },
 };

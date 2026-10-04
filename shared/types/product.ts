@@ -86,6 +86,15 @@ export type Product = {
   updatedAt?: Date;
 };
 
+export type ProductCardData = {
+  id: string;
+  slug: string;
+  name: string;
+  gender: Gender;
+  images: { url: string; description: string | null }[];
+  variant: { id: string; price: string; sizeML: number; stock: number } | null;
+};
+
 export type BestSellerProduct = {
   id: string;
   slug: string;
@@ -104,4 +113,15 @@ export type BestSellerProduct = {
     price: string;
     sizeML: number;
   } | null;
+};
+
+export type FeaturedProduct = {
+  id: string;
+  slug: string;
+  name: string;
+  gender: Gender;
+  inspiredBy: string | null;
+  isNew: boolean;
+  images: { id: string; url: string; description: string | null }[];
+  variant: { id: string; price: string; sizeML: number; stock: number } | null;
 };

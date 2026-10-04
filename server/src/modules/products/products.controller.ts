@@ -164,3 +164,29 @@ export const getBestSellers = async (
     next(error);
   }
 };
+
+export const getFeaturedProducts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { limit } = req.query;
+    const parsedLimit = limit !== undefined ? Number(limit) : 8;
+
+    if (isNaN(parsedLimit) || parsedLimit <= 0) {
+      throw new AppError(400, 'Invalid limit parameter');
+    }
+
+    const featuredProducts =
+      await productsService.getFeaturedProducts(parsedLimit);
+
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Featured products retrieved successfully',
+      data: { featuredProducts },
+    });
+  } catch (error) {
+    next(error);
+  }
+};

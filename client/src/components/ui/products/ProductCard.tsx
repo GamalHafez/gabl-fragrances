@@ -3,21 +3,17 @@ import { AddToCart } from "./AddToCart";
 import { Eyebrow } from "@/components/ui/home";
 import clsx from "clsx";
 import { useTheme } from "@/context/theme/useTheme";
-import type { Product } from "@shared/types/product";
-import { getMainProductVariant } from "@shared/utils/products.js";
+import type { ProductCardData } from "@shared/types/product";
 import { OutOfStockBadge } from "../common/OutOfStockBadge";
 
 type ProductCardProps = {
-  product: Product;
+  product: ProductCardData;
 };
 
 export const ProductCard = ({ product }: ProductCardProps) => {
   const { isDark } = useTheme();
-  const { name, gender } = product;
-  const productMainImage =
-    product?.images.find((image) => image.isMain) ?? product?.images[0];
-
-  const mainVariant = getMainProductVariant(product.variants);
+  const { name, gender, images, variant } = product;
+  const productMainImage = images[0];
 
   return (
     <article className="group flex cursor-pointer flex-col items-center overflow-hidden rounded-3xl">
@@ -30,7 +26,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       >
         <img
           src={productMainImage?.url}
-          alt={productMainImage?.description ?? product?.name}
+          alt={productMainImage?.description ?? name}
           className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
         />
       </div>
@@ -39,7 +35,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       <div
         className={clsx(
           "relative z-10 mx-5 -mt-8 w-full rounded-3xl border p-4 shadow-md backdrop-blur-sm group-hover:shadow-xl md:mx-auto md:-mt-10 md:w-[calc(100%-2rem)]",
-          mainVariant && mainVariant.stock <= 0 ? "md:p-6 md:pr-4" : "md:p-6",
+          variant && variant.stock <= 0 ? "md:p-6 md:pr-4" : "md:p-6",
           isDark
             ? "border-zinc-800 bg-zinc-900/90 group-hover:bg-zinc-800/60"
             : "border-zinc-100 bg-white group-hover:bg-zinc-100",
@@ -69,7 +65,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           {name}
         </h2>
 
-        {mainVariant && (
+        {variant && (
           <span>
             <p
               className={clsx(
@@ -77,7 +73,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                 isDark ? "text-zinc-400" : "text-zinc-500",
               )}
             >
-              {mainVariant.sizeML} ml
+              {variant.sizeML} ml
             </p>
 
             <div className="mt-3 flex items-center justify-between md:mt-3">
@@ -87,14 +83,14 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                   isDark ? "text-zinc-100" : "text-zinc-900",
                 )}
               >
-                {mainVariant.price.toString()}
+                {variant.price}
                 <span className="ml-1 text-xs lg:text-sm">EGP</span>
               </p>
-              {mainVariant.stock > 0 ? (
+              {variant.stock > 0 ? (
                 <AddToCart
-                  productVariantId={mainVariant.id}
+                  productVariantId={variant.id}
                   quantity={1}
-                  image={productMainImage.url}
+                  image={productMainImage?.url}
                 />
               ) : (
                 <OutOfStockBadge />

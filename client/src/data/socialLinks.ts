@@ -1,7 +1,6 @@
 import type { ComponentType } from "react";
 import type { LucideProps } from "lucide-react";
-import { MessageCircle, Music2 } from "lucide-react";
-import { FaFacebook, FaInstagram } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 
 export interface SocialLink {
   name: string;
@@ -21,18 +20,12 @@ export const SOCIALS: SocialLink[] = [
     name: "TikTok",
     username: "@gabal_fragrances",
     href: "https://www.tiktok.com/@gabal_fragrances",
-    icon: Music2,
+    icon: FaTiktok,
   },
   {
     name: "Facebook",
     username: "Gabal Fragrances",
     href: "https://www.facebook.com/share/19FRqHbERb/",
     icon: FaFacebook,
-  },
-  {
-    name: "WhatsApp",
-    username: "Chat With Us",
-    href: "https://wa.me/201035636549",
-    icon: MessageCircle,
   },
 ];

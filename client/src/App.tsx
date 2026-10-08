@@ -5,7 +5,6 @@ import { ErrorPage } from "@/pages";
 import {
   AboutUs,
   Collections,
-  Contact,
   HomePage,
   PrivacyPolicy,
   ProductDetails,
@@ -69,10 +68,6 @@ const router = createBrowserRouter([
       {
         path: "products/:productSlug",
         element: <ProductDetails />,
-      },
-      {
-        path: "contact",
-        element: <Contact />,
       },
       {
         path: "about-us",

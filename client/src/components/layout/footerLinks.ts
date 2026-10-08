@@ -20,10 +20,9 @@ export const footerLinks = [
     title: "Company",
     links: [
       { id: 1, label: "About us", href: "/about-us", scrollToTop: true },
-      { id: 2, label: "Contact", href: "/contact", scrollToTop: true },
-      { id: 3, label: "FAQ", href: "/#faq", scrollToTop: false },
+      { id: 2, label: "FAQ", href: "/#faq", scrollToTop: false },
       {
-        id: 4,
+        id: 3,
         label: "Privacy policy",
         href: "/privacy-policy",
         scrollToTop: true,

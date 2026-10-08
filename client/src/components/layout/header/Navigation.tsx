@@ -2,12 +2,7 @@ import { NavLink } from "react-router-dom";
 import clsx from "clsx";
 import { useTheme } from "@/context/theme/useTheme";
 import { scrollToTop } from "@/utils";
-
-const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "Catalog", href: "/collections" },
-  { name: "Contact", href: "/contact" },
-];
+import { useAuth } from "@/context/auth/useAuth";
 
 const navLinkStyles = (isActive: boolean, isDark: boolean) =>
   clsx(
@@ -29,6 +24,16 @@ const navLinkStyles = (isActive: boolean, isDark: boolean) =>
 
 export const Navigation = ({ isMobile }: { isMobile?: boolean }) => {
   const { isDark } = useTheme();
+  const { isAuthenticated } = useAuth();
+
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "Catalog", href: "/collections" },
+    {
+      name: isAuthenticated ? "My Account" : "Sign Up",
+      href: isAuthenticated ? "/profile" : "/signup",
+    },
+  ];
 
   return (
     <nav

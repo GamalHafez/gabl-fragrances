@@ -232,7 +232,7 @@ function CarouselNext({
 
         canScrollNext
           ? isDark
-            ? "cursor-pointer border-zinc-700 bg-zinc-900 text-zinc-100 hover:border-amber-500 hover:bg-zinc-800"
+            ? "cursor-pointer border-zinc-700 bg-zinc-900 text-zinc-100 hover:border-amber-500 hover:bg-zinc-800 hover:text-amber-500"
             : "cursor-pointer border-zinc-300 bg-white text-zinc-900 hover:border-zinc-900 hover:bg-zinc-100"
           : isDark
             ? "-right-2 cursor-not-allowed border-zinc-800 bg-zinc-800 text-zinc-600 opacity-60"

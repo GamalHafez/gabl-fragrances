@@ -18,7 +18,7 @@ export const ProductActions = ({
   const { isDark } = useTheme();
 
   return (
-    <div className="flex flex-col items-center gap-3 md:flex-row">
+    <div className="flex items-center gap-3">
       <AddToCart
         productVariantId={productVariantId}
         quantity={1}

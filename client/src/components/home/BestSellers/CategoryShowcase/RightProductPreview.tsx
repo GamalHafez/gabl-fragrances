@@ -18,14 +18,13 @@ export const RightProductPreview = ({
   return (
     <article
       className={clsx(
-        "mt-2 flex flex-col items-center rounded-3xl border p-8 px-8 transition-all duration-300 md:mt-0 lg:w-3/5",
-        "lg:p-10",
+        "flex w-[75%] flex-col items-center rounded-3xl border p-6 transition-all duration-300 sm:w-[85%] md:mt-0 md:w-[75%] lg:w-3/5 lg:p-10",
         isDark
           ? "border-white/10 bg-transparent"
           : "border-zinc-200 bg-white/10 shadow-sm",
       )}
     >
-      <div className="mb-8 flex items-center gap-6 md:mb-10 md:flex-col">
+      <div className="mb-8 flex flex-col items-center gap-6 md:mb-10">
         <div className="flex h-40 w-full items-center justify-center md:h-60 lg:h-72">
           {mainImage && (
             <img

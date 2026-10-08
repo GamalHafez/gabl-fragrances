@@ -3,7 +3,7 @@ import type { BestSellerProduct } from "@shared/types/product";
 import clsx from "clsx";
 
 export const ProductInfo = ({ product }: { product: BestSellerProduct }) => {
-  const { name, variant, description } = product;
+  const { name, variant, description, inspiredBy } = product;
 
   const { isDark } = useTheme();
 
@@ -12,7 +12,7 @@ export const ProductInfo = ({ product }: { product: BestSellerProduct }) => {
       <div className="flex items-end justify-between gap-4">
         <h3
           className={clsx(
-            "text-3xl font-semibold tracking-tight",
+            "text-xl font-semibold tracking-tight md:text-3xl",
             isDark ? "text-white" : "text-zinc-900",
           )}
         >
@@ -31,13 +31,27 @@ export const ProductInfo = ({ product }: { product: BestSellerProduct }) => {
         )}
       </div>
 
+      {inspiredBy && (
+        <p
+          className={clsx(
+            "text-sm md:hidden",
+            isDark ? "text-zinc-400" : "text-zinc-600",
+          )}
+        >
+          Inspired by <span className="font-medium">{inspiredBy}</span>
+        </p>
+      )}
+
       <div
-        className={clsx("h-px w-full", isDark ? "bg-white/10" : "bg-zinc-200")}
+        className={clsx(
+          "hidden h-px w-full md:block",
+          isDark ? "bg-white/10" : "bg-zinc-200",
+        )}
       />
 
       <p
         className={clsx(
-          "max-w-xl text-base leading-8",
+          "hidden max-w-xl text-sm md:flex md:text-base md:leading-8",
           isDark ? "text-zinc-400" : "text-zinc-600",
         )}
       >

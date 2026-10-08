@@ -10,35 +10,31 @@ export const CategoryShowcaseSkeleton = () => {
   );
 
   return (
-    <article className="mt-2 flex flex-col justify-center px-2 md:flex-row">
-      {/* LeftProductList */}
-      <div className="flex flex-col rounded-2xl pt-2 md:gap-2 md:pt-8 lg:basis-1/3">
-        {Array.from({ length: 4 }).map((_, i) => (
-          <div
-            key={i}
-            className="flex items-center justify-center gap-3 rounded-xl px-5 py-2 md:justify-start md:py-4"
-          >
-            <div className={clsx(pulse, "h-4 w-4")} />
-            <div className={clsx(pulse, "h-5 w-32")} />
-          </div>
-        ))}
-      </div>
-
-      {/* RightProductPreview */}
+    <article className="flex w-full justify-center px-2">
       <div
         className={clsx(
-          "mt-2 flex flex-col items-center rounded-3xl border p-8 md:mt-0 lg:w-3/5 lg:p-10",
+          "flex w-[75%] flex-col items-center rounded-3xl border p-6 transition-all duration-300 md:w-[75%] lg:w-3/5 lg:p-10",
           isDark ? "border-white/10" : "border-zinc-200",
         )}
       >
+        {/* Product image & actions */}
         <div className="mb-8 flex w-full flex-col items-center gap-6 md:mb-10">
-          <div className={clsx(pulse, "h-40 w-full md:h-60 lg:h-72")} />
-          <div className={clsx(pulse, "h-9 w-32 rounded-full")} />
+          <div className="flex h-40 w-full items-center justify-center md:h-60 lg:h-72">
+            <div className={clsx(pulse, "h-full w-32 md:w-40 lg:w-48")} />
+          </div>
+
+          {/* Product actions */}
+          <div className="flex items-center justify-center gap-3">
+            <div className={clsx(pulse, "h-9 w-28 rounded-full")} />
+            <div className={clsx(pulse, "h-9 w-9 rounded-full")} />
+          </div>
         </div>
 
-        <div className="flex w-full flex-col items-center gap-2">
-          <div className={clsx(pulse, "h-5 w-40")} />
-          <div className={clsx(pulse, "h-4 w-24")} />
+        {/* Product info */}
+        <div className="flex w-full flex-col items-center gap-3">
+          <div className={clsx(pulse, "h-6 w-3/5")} />
+          <div className={clsx(pulse, "h-4 w-2/5")} />
+          <div className={clsx(pulse, "h-5 w-1/3")} />
         </div>
       </div>
     </article>

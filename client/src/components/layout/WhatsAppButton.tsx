@@ -1,14 +1,10 @@
-import { SOCIALS } from "@/data/socialLinks";
+import { WHATSAPP } from "@/data/socialLinks";
 import { useTheme } from "@/context/theme/useTheme";
 import clsx from "clsx";
-import { FaWhatsapp } from "react-icons/fa";
 
 export const WhatsAppButton = () => {
   const { isDark } = useTheme();
-
-  const whatsapp = SOCIALS.find((social) => social.name === "WhatsApp");
-  if (!whatsapp) return null;
-  const { href, username } = whatsapp;
+  const { href, username, icon: Icon } = WHATSAPP;
 
   return (
     <a
@@ -21,7 +17,7 @@ export const WhatsAppButton = () => {
         isDark ? "bg-green-900 text-zinc-100" : "bg-green-700 text-zinc-100",
       )}
     >
-      <FaWhatsapp className="h-7 w-7" />
+      <Icon className="h-7 w-7" />
 
       <p className="hidden text-sm font-medium sm:block">{username}</p>
     </a>

@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import type { LucideProps } from "lucide-react";
+import { MessageCircle, type LucideProps } from "lucide-react";
 import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 
 export interface SocialLink {
@@ -29,3 +29,10 @@ export const SOCIALS: SocialLink[] = [
     icon: FaFacebook,
   },
 ];
+
+export const WHATSAPP: SocialLink = {
+  name: "WhatsApp",
+  username: "Chat With Us",
+  href: "https://wa.me/201035636549",
+  icon: MessageCircle,
+};

@@ -43,7 +43,7 @@ export const AddressFields = ({
           register={register}
           errors={errors}
           label="City"
-          placeholder="Ex: Cairo"
+          placeholder="Ex: Nasr City"
         />
         <GovernorateCombobox
           control={control}

@@ -6,7 +6,7 @@ export const Register = () => {
   return (
     <PageWrapper>
       <Container>
-        <div className="flex flex-col items-start p-5">
+        <div className="flex flex-col items-center p-5">
           <Eyebrow eyebrow="Join Gabal" className="mb-2 inline-block" />
           <MainHeading title="Create Your" highlighted="Account" />{" "}
         </div>

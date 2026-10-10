@@ -15,24 +15,24 @@ import {
   Controller,
   type Control,
   type FieldErrors,
+  type FieldValues,
   type Path,
 } from "react-hook-form";
-import type { CheckoutFormValues } from "@shared/types";
 import get from "lodash/get";
 
-type GovernorateComboboxProps = {
-  control: Control<CheckoutFormValues>;
-  errors: FieldErrors<CheckoutFormValues>;
-  name: Path<CheckoutFormValues>;
+type GovernorateComboboxProps<T extends FieldValues> = {
+  control: Control<T>;
+  errors: FieldErrors<T>;
+  name: Path<T>;
   label?: string;
 };
 
-export const GovernorateCombobox = ({
+export const GovernorateCombobox = <T extends FieldValues>({
   control,
   errors,
   name,
   label = "Governorate",
-}: GovernorateComboboxProps) => {
+}: GovernorateComboboxProps<T>) => {
   const { isDark } = useTheme();
 
   const fieldError = get(errors, name);

@@ -4,12 +4,14 @@ import {
   signupSchema,
   type RegisterBody,
 } from "@shared/schemas/auth.validators.js";
-import { FormField, FormSubmitButton } from "@/components/ui/forms";
+import { FormSubmitButton } from "@/components/ui/forms";
 import { useNavigate } from "react-router-dom";
 import { useRegister } from "@/hooks/auth/useRegister";
-import { AuthRedirect, PasswordInput } from "../common";
+import { AuthRedirect } from "../common";
 import { ErrorMessage } from "@/components/ui/common";
 import { getApiErrorMessage } from "@/utils/errors";
+import { PersonalInfoSection } from "./PersonalInfoSection";
+import { AddressInfoSection } from "./AddressInfoSection";
 
 export const RegisterForm = () => {
   const navigate = useNavigate();
@@ -17,6 +19,7 @@ export const RegisterForm = () => {
 
   const {
     register: registerField,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterBody>({
@@ -26,6 +29,11 @@ export const RegisterForm = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      address: "",
+      city: "",
+      governorate: "",
+      country: "Egypt",
+      postalCode: "",
     },
   });
 
@@ -39,47 +47,28 @@ export const RegisterForm = () => {
     <form
       noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className="my-2 grid grid-cols-1 gap-x-10 gap-y-4 px-8 md:grid-cols-2"
+      className="mx-auto mb-8 w-full max-w-5xl px-4"
     >
-      <FormField
-        name="name"
-        register={registerField}
-        errors={errors}
-        label="Your Name"
-        placeholder="Ex: Omar Gamal"
-      />
+      <div className="grid grid-cols-1 items-center md:grid-cols-2">
+        {/* Personal */}
+        <PersonalInfoSection registerField={registerField} errors={errors} />
 
-      <FormField
-        name="email"
-        type="email"
-        register={registerField}
-        errors={errors}
-        label="Your Email"
-        placeholder="Ex: omar@gmail.com"
-      />
-
-      <PasswordInput
-        name="password"
-        register={registerField}
-        errors={errors}
-        label="Your Password"
-        placeholder="Ex: ********"
-      />
-
-      <PasswordInput
-        name="confirmPassword"
-        register={registerField}
-        errors={errors}
-        label="Confirm Password"
-        placeholder="Ex: ********"
-      />
+        {/* Address */}
+        <div className="md:-translate-x-4">
+          <AddressInfoSection
+            control={control}
+            registerField={registerField}
+            errors={errors}
+          />
+        </div>
+      </div>
 
       <div className="col-span-full flex flex-col items-center gap-2 pt-2">
         <FormSubmitButton
           disabled={isPending}
           isLoading={isPending}
           label={isPending ? "Registering..." : "Register"}
-          className="w-full md:mt-6 md:w-3/5 lg:w-1/4"
+          className="w-3/5 md:mt-6"
         />
 
         {error && <ErrorMessage message={getApiErrorMessage(error)} />}

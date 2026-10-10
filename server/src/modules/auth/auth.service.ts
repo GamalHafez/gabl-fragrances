@@ -17,12 +17,25 @@ import { Prisma } from '@/generated/prisma/client.js';
 
 type LoginInput = z.infer<typeof loginSchema>;
 type SignUpInput = z.infer<typeof signupSchema>;
+type SignUpAddress = Pick<
+  SignUpInput,
+  'address' | 'city' | 'governorate' | 'country' | 'postalCode'
+>;
 
 const SALT_ROUNDS = 12;
 
 export const authService = {
   async signUp(data: SignUpInput) {
-    const { name, email, password } = data;
+    const {
+      name,
+      email,
+      password,
+      address,
+      city,
+      governorate,
+      country,
+      postalCode,
+    } = data;
 
     const existingUser = await this.findUser({ email }, false);
     if (existingUser) {
@@ -32,7 +45,13 @@ export const authService = {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
-    const user = await this.createUser(name, email, hashedPassword);
+    const user = await this.createUser(name, email, hashedPassword, {
+      address,
+      city,
+      governorate,
+      country,
+      postalCode,
+    });
 
     const { accessToken, refreshToken } = this.generateTokens(user);
     const tokenHash = hashToken(refreshToken);
@@ -45,7 +64,12 @@ export const authService = {
     };
   },
 
-  async createUser(name: string, email: string, hashedPassword: string) {
+  async createUser(
+    name: string,
+    email: string,
+    hashedPassword: string,
+    addressData: SignUpAddress,
+  ) {
     return await prisma.user.create({
       data: {
         name,
@@ -54,6 +78,16 @@ export const authService = {
         role: {
           connect: {
             name: 'CUSTOMER',
+          },
+        },
+        addresses: {
+          create: {
+            address: addressData.address,
+            city: addressData.city,
+            governorate: addressData.governorate,
+            country: addressData.country,
+            postalCode: addressData.postalCode || null, // "" -> null
+            isDefault: true,
           },
         },
       },

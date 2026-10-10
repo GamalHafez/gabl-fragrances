@@ -30,6 +30,28 @@ export const signupSchema = z
       }),
 
     confirmPassword: z.string(),
+
+    address: z
+      .string()
+      .trim()
+      .min(5, { message: 'Address must be at least 5 characters long.' })
+      .max(255, { message: 'Address cannot exceed 255 characters.' }),
+
+    governorate: z
+      .string()
+      .trim()
+      .min(1, { message: 'Please select a governorate.' })
+      .max(50),
+
+    city: z
+      .string()
+      .trim()
+      .min(2, { message: 'City must be at least 2 characters long.' })
+      .max(50),
+
+    country: z.literal('Egypt'),
+
+    postalCode: z.string().trim().max(20).optional(),
   })
   .superRefine(({ confirmPassword, password }, ctx) => {
     if (confirmPassword !== password) {

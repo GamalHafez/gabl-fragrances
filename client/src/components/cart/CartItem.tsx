@@ -110,11 +110,11 @@ export const CartItem = ({ cartItem }: CartItemProps) => {
         ) : (
           <p
             className={clsx(
-              "flex items-center justify-center gap-1",
+              "flex items-center justify-center gap-1 text-sm",
               isDark ? "text-brand-500" : "text-brand-600",
             )}
           >
-            <CircleX size={18} />
+            <CircleX size={16} />
             This Product is currenly out of stock
           </p>
         )}
@@ -129,7 +129,7 @@ export const CartItem = ({ cartItem }: CartItemProps) => {
               : "text-zinc-700 hover:text-red-500",
           )}
         >
-          <Trash size={20} />
+          <Trash size={18} />
         </button>
       </div>
     </article>

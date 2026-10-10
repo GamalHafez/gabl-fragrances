@@ -18,7 +18,7 @@ export const ProfileInfoCard = ({
   return (
     <div
       className={clsx(
-        "flex flex-col gap-1 rounded-2xl border px-5 py-4",
+        "flex flex-1 flex-col gap-1 rounded-2xl border px-5 py-4",
         isDark
           ? "border-neutral-800 bg-neutral-900"
           : "border-neutral-200 bg-white",

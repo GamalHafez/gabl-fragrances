@@ -1,10 +1,4 @@
-import {
-  Calendar,
-  MapPin,
-  MessageCircle,
-  ShieldCheck,
-  User,
-} from "lucide-react";
+import { Calendar, MapPin, MessageCircle, User } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 export type ProfileCardData = {
@@ -16,7 +10,6 @@ export type ProfileCardData = {
 type ProfileCardInputs = {
   name: string;
   email: string;
-  roleName: string;
   memberSince: string;
   addressValue: string;
 };
@@ -24,13 +17,11 @@ type ProfileCardInputs = {
 export const getProfileCards = ({
   name,
   email,
-  roleName,
   memberSince,
   addressValue,
 }: ProfileCardInputs): ProfileCardData[] => [
   { icon: User, label: "Name", value: name },
   { icon: MessageCircle, label: "Contactable at", value: email },
-  { icon: ShieldCheck, label: "Account Type", value: roleName },
   { icon: Calendar, label: "Member Since", value: memberSince },
   { icon: MapPin, label: "Default Address", value: addressValue },
 ];

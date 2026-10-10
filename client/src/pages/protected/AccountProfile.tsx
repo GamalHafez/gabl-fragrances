@@ -31,7 +31,7 @@ export const AccountProfile = () => {
     );
   }
 
-  const { name, email, createdAt, role, addresses } = profileData;
+  const { name, email, createdAt, addresses } = profileData;
 
   const memberSince = new Date(createdAt).toLocaleDateString(undefined, {
     year: "numeric",
@@ -46,7 +46,6 @@ export const AccountProfile = () => {
   const profileCards = getProfileCards({
     name,
     email,
-    roleName: role.name,
     memberSince,
     addressValue,
   });
@@ -60,7 +59,7 @@ export const AccountProfile = () => {
         </div>
 
         <div className="flex flex-col px-6">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="flex items-center gap-4">
             {profileCards.map((card) => (
               <ProfileInfoCard key={card.label} {...card} />
             ))}

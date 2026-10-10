@@ -10,7 +10,7 @@ export const ProfileOrdersCta = () => {
     <Link
       to="/orders"
       className={clsx(
-        "group mt-10 flex items-center justify-between gap-4 rounded-2xl border px-6 py-6 transition-all sm:px-8",
+        "group mt-18 flex items-center justify-between gap-4 rounded-2xl border px-6 py-6 transition-all sm:px-8",
         "focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:outline-none",
         isDark
           ? "border-emerald-500/20 bg-emerald-500/5 hover:bg-emerald-500/10"
@@ -32,7 +32,7 @@ export const ProfileOrdersCta = () => {
         <div>
           <h3
             className={clsx(
-              "font-semibold text-base mb-1",
+              "mb-1 text-base font-semibold",
               isDark ? "text-neutral-100" : "text-neutral-900",
             )}
           >

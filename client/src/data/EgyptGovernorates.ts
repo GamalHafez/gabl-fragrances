@@ -1,6 +1,5 @@
 export const EGYPT_GOVERNORATES = [
   "Cairo",
-  "6th Of October",
   "Giza",
   "Alexandria",
   "Dakahlia",
@@ -9,7 +8,7 @@ export const EGYPT_GOVERNORATES = [
   "Fayoum",
   "Gharbia",
   "Ismailia",
-  "Menofia",
+  "Monufia",
   "Minya",
   "Qaliubiya",
   "New Valley",
@@ -20,7 +19,6 @@ export const EGYPT_GOVERNORATES = [
   "Port Said",
   "Damietta",
   "Sharkia",
-  "Helwan",
   "South Sinai",
   "Kafr El Sheikh",
   "Matrouh",

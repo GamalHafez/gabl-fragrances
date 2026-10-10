@@ -13,7 +13,7 @@ export const ProfileSkeleton = () => {
   return (
     <PageWrapper>
       <Container>
-        <div className="flex flex-col items-start gap-3 p-5">
+        <div className="mb-14 flex flex-col items-start gap-3 p-5">
           <div className={clsx(pulse, "h-4 w-24")} />
           <div className={clsx(pulse, "h-8 w-64")} />
         </div>

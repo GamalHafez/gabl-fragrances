@@ -10,7 +10,7 @@ export const OrdersSkeleton = () => {
   );
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex mb-14 flex-col gap-3">
       {Array.from({ length: 2 }).map((_, i) => (
         <div
           key={i}

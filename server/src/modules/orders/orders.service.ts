@@ -195,9 +195,11 @@ export const ordersService = {
       governorate: string;
       country: string;
       postalCode?: string | null;
+      locationUrl: string;
     },
   ) {
-    const { address, city, governorate, country } = fields;
+    const { address, city, governorate, country, postalCode, locationUrl } =
+      fields;
 
     // Unset any existing default so there's only ever one per user.
     await tx.address.updateMany({
@@ -212,7 +214,8 @@ export const ordersService = {
         country,
         city,
         governorate,
-        postalCode: fields.postalCode ?? null,
+        postalCode: postalCode || null,
+        locationUrl: locationUrl,
         isDefault: true,
       },
       select: { id: true },
@@ -290,6 +293,7 @@ export const ordersService = {
       billingPostalCode,
       billingPhone,
       paymentMethod,
+      locationUrl,
     } = data;
 
     // 1. Resolve product variants from the database.
@@ -329,6 +333,7 @@ export const ordersService = {
           governorate,
           country,
           postalCode,
+          locationUrl,
         });
         addressId = savedAddress.id;
       }
@@ -371,6 +376,7 @@ export const ordersService = {
           shippingMethodId: shippingMethod.id,
           shippingMethodName: shippingMethod.name,
           shippingMethodPrice: shippingMethod.price,
+          shippingLocationUrl: locationUrl,
         },
         select: { id: true, orderNumber: true, status: true },
       });

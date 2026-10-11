@@ -6,7 +6,7 @@ import type {
 } from "react-hook-form";
 import type { CheckoutFormValues } from "@shared/types";
 import { GovernorateCombobox } from "../common";
-import { FormField } from "@/components/ui/forms";
+import { FormField, LocationLinkField } from "@/components/ui/forms";
 
 type AddressFieldsProps = {
   control: Control<CheckoutFormValues>;
@@ -66,6 +66,12 @@ export const AddressFields = ({
         label="Phone"
         type="tel"
         placeholder="Ex: 01142975634"
+      />
+
+      <LocationLinkField<CheckoutFormValues>
+        name="locationUrl"
+        register={register}
+        errors={errors}
       />
     </>
   );

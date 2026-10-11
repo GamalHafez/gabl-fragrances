@@ -19,7 +19,7 @@ type LoginInput = z.infer<typeof loginSchema>;
 type SignUpInput = z.infer<typeof signupSchema>;
 type SignUpAddress = Pick<
   SignUpInput,
-  'address' | 'city' | 'governorate' | 'country' | 'postalCode'
+  'address' | 'city' | 'governorate' | 'country' | 'postalCode' | 'locationUrl'
 >;
 
 const SALT_ROUNDS = 12;
@@ -35,6 +35,7 @@ export const authService = {
       governorate,
       country,
       postalCode,
+      locationUrl,
     } = data;
 
     const existingUser = await this.findUser({ email }, false);
@@ -51,6 +52,7 @@ export const authService = {
       governorate,
       country,
       postalCode,
+      locationUrl,
     });
 
     const { accessToken, refreshToken } = this.generateTokens(user);
@@ -87,6 +89,7 @@ export const authService = {
             governorate: addressData.governorate,
             country: addressData.country,
             postalCode: addressData.postalCode || null, // "" -> null
+            locationUrl: addressData.locationUrl,
             isDefault: true,
           },
         },

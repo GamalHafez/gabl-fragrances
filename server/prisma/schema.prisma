@@ -215,6 +215,7 @@ model Address {
   city        String  @db.VarChar(50)
   governorate String  @db.VarChar(50)
   postalCode  String? @db.VarChar(20)
+  locationUrl String  @db.VarChar(500)
   isDefault   Boolean @default(false)
 
   // Track timestamps
@@ -290,6 +291,7 @@ model Order {
   shippingCountry     String  @db.VarChar(50)
   shippingPostalCode  String? @db.VarChar(20)
   shippingPhone       String? @db.VarChar(20)
+  shippingLocationUrl String  @db.VarChar(500)
 
   // Shipping method snapshot
   shippingMethodId    String?

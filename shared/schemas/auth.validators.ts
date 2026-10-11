@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { locationUrlShape } from '../validators/locationUrlShape';
 
 export const signupSchema = z
   .object({
@@ -52,6 +53,8 @@ export const signupSchema = z
     country: z.literal('Egypt'),
 
     postalCode: z.string().trim().max(20).optional(),
+
+    ...locationUrlShape,
   })
   .superRefine(({ confirmPassword, password }, ctx) => {
     if (confirmPassword !== password) {

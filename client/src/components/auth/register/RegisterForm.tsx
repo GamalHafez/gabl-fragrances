@@ -34,6 +34,7 @@ export const RegisterForm = () => {
       governorate: "",
       country: "Egypt",
       postalCode: "",
+      locationUrl: "",
     },
   });
 

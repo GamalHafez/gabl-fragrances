@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { locationUrlShape } from './locationUrlShape';
 
 const egyptianPhoneSchema = z
   .string()
@@ -51,6 +52,8 @@ export const checkoutObjectSchema = z.object({
   billingSameAsShipping: z.boolean().default(true),
 
   ...billingAddressSchema,
+
+  ...locationUrlShape,
 });
 
 export const validateBillingAddress = (

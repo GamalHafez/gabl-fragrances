@@ -1,6 +1,6 @@
 import { GovernorateCombobox } from "@/components/checkout/common";
 import { CountryField } from "@/components/checkout/sections";
-import { FormField } from "@/components/ui/forms";
+import { FormField, LocationLinkField } from "@/components/ui/forms";
 import { useTheme } from "@/context/theme/useTheme";
 import type { RegisterBody } from "@shared/schemas/auth.validators";
 import clsx from "clsx";
@@ -67,6 +67,12 @@ export const AddressInfoSection = ({
         errors={errors}
         label="Postal Code"
         placeholder="Ex: 2531015 (optional)"
+      />
+
+      <LocationLinkField<RegisterBody>
+        name="locationUrl"
+        register={registerField}
+        errors={errors}
       />
     </div>
   );

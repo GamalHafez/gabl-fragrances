@@ -20,6 +20,7 @@ export const mapDefaultsToFormValues = (
       governorate: defaults.address.governorate,
       country: defaults.address.country,
       postalCode: defaults.address.postalCode ?? "",
+      locationUrl: defaults.address.locationUrl,
     }),
   };
 };

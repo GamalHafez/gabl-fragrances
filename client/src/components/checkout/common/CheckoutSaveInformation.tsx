@@ -23,7 +23,7 @@ export const CheckoutSaveInformation = ({
         render={({ field }) => (
           <label
             className={clsx(
-              "flex cursor-pointer items-center gap-2 pl-2 text-sm",
+              "flex cursor-pointer items-center gap-2 mt-2 text-sm",
               isDark ? "text-zinc-300" : "text-zinc-700",
             )}
           >

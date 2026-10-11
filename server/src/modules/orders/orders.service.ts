@@ -486,6 +486,7 @@ export const ordersService = {
           governorate: true,
           country: true,
           postalCode: true,
+          locationUrl: true,
         },
       }),
     ]);

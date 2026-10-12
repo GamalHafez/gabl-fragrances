@@ -1,10 +1,9 @@
-// pages/account/AccountProfile.tsx
 import {
   ProfileInfoCard,
   ProfileOrdersCta,
   ProfileQuickLinks,
 } from "@/components/profile";
-import { getProfileCards } from "@/components/profile/profileCards.config";
+import { getProfileCards } from "@/components/profile/profileCards.config.tsx";
 import { ProfileSkeleton } from "@/components/skeleton";
 import { Container, MainHeading, PageWrapper } from "@/components/ui/common";
 import { DataError } from "@/components/ui/errors/DataError";
@@ -48,6 +47,7 @@ export const AccountProfile = () => {
     email,
     memberSince,
     addressValue,
+    locationUrl: defaultAddress?.locationUrl,
   });
 
   return (
@@ -59,7 +59,7 @@ export const AccountProfile = () => {
         </div>
 
         <div className="flex flex-col px-6">
-          <div className="flex items-center gap-4">
+          <div className="grid items-center gap-4 md:grid-cols-3">
             {profileCards.map((card) => (
               <ProfileInfoCard key={card.label} {...card} />
             ))}

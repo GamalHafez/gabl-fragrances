@@ -1,11 +1,12 @@
 import clsx from "clsx";
 import { useTheme } from "@/context/theme/useTheme";
 import type { LucideIcon } from "lucide-react";
+import type { ReactNode } from "react";
 
 type ProfileInfoCardProps = {
   icon: LucideIcon;
   label: string;
-  value: string;
+  value: ReactNode;
 };
 
 export const ProfileInfoCard = ({

@@ -26,5 +26,6 @@ export type ProfileType = {
     city: string;
     governorate: string;
     postalCode: string | null;
+    locationUrl: string;
   }[];
 };

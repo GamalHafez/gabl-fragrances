@@ -27,6 +27,7 @@ export const profileService = {
             city: true,
             governorate: true,
             postalCode: true,
+            locationUrl: true,
           },
         },
       },

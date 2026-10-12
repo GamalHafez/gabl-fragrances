@@ -2,12 +2,14 @@ import { MapPin } from "lucide-react";
 import { InfoCard } from "./InfoCard";
 import clsx from "clsx";
 import { useTheme } from "@/context/theme/useTheme";
+import { LocationLink } from "@/components/ui/common";
 
 type ShipToSectionProps = {
   shippingAddress: string;
   shippingCity: string;
   shippingGovernorate: string;
   shippingCountry: string;
+  shippingLocationUrl: string;
 };
 
 export const ShippingAddressCard = ({
@@ -15,6 +17,7 @@ export const ShippingAddressCard = ({
   shippingCity,
   shippingGovernorate,
   shippingCountry,
+  shippingLocationUrl,
 }: ShipToSectionProps) => {
   const { isDark } = useTheme();
 
@@ -30,6 +33,7 @@ export const ShippingAddressCard = ({
       </p>
       <p>{shippingAddress}</p>
       <p>{shippingCountry}</p>
+      <LocationLink url={shippingLocationUrl} />
     </InfoCard>
   );
 };

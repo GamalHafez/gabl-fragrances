@@ -66,6 +66,7 @@ export const OrderConfirmation = () => {
     shippingCountry,
     payments,
     shippingMethodName,
+    shippingLocationUrl,
     total,
   } = order;
 
@@ -107,6 +108,7 @@ export const OrderConfirmation = () => {
               shippingCity={shippingCity}
               shippingGovernorate={shippingGovernorate}
               shippingCountry={shippingCountry}
+              shippingLocationUrl={shippingLocationUrl}
             />
 
             <ShippingMethodCard

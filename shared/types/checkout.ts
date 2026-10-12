@@ -48,6 +48,7 @@ export type OrderType = {
   shippingCountry: string;
   shippingPhone: string | null;
   shippingMethodName: string | null;
+  shippingLocationUrl: string;
   createdAt: string;
 
   items: {

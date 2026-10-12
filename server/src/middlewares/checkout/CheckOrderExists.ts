@@ -34,6 +34,7 @@ export const CheckOrderExists = async (
         shippingCountry: true,
         shippingMethodName: true,
         shippingPhone: true,
+        shippingLocationUrl: true,
         createdAt: true,
         items: {
           select: {

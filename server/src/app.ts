@@ -24,6 +24,7 @@ const app = express();
 
 // Global middlewares
 app.use(helmet());
+app.set('trust proxy', 1); // Vercel sits behind a proxy; needed for rate limiting and secure cookies
 app.use(
   cors({
     origin: process.env.CLIENT_URL,

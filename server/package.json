@@ -9,7 +9,7 @@
   "scripts": {
     "vercel-build": "prisma generate && tsup",
     "dev": "tsx watch src/server.ts",
-    "build": "prisma generate && tsc",
+    "build": "prisma generate && tsc --noEmit",
     "start": "node dist/server/src/server.js",
     "lint": "eslint .",
     "format": "prettier --write .",

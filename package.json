@@ -1,5 +1,10 @@
 {
   "name": "gabl-fragrances",
+  "workspaces": [
+    "client",
+    "server",
+    "shared"
+  ],
   "version": "1.0.0",
   "private": true,
   "main": "eslint.config.js",

@@ -20,7 +20,7 @@ export const ProductBadges = ({ badges }: ProductBadgesProps) => {
   const { isDark } = useTheme();
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-x-2 gap-y-1 md:gap-2 flex-wrap">
       {badges.map((badge) => {
         const config = badge.status && PRODUCT_BADGE_CONFIG[badge.status];
         const Icon = config?.icon;

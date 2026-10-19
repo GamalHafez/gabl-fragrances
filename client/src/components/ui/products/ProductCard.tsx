@@ -16,7 +16,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const productMainImage = images[0];
 
   return (
-    <article className="group flex cursor-pointer flex-col items-center overflow-hidden rounded-3xl">
+    <article className="group flex cursor-pointer flex-col items-center rounded-3xl">
       {/* Image */}
       <div
         className={clsx(
@@ -34,7 +34,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       {/* Floating Content */}
       <div
         className={clsx(
-          "relative z-10 mx-5 -mt-8 w-full rounded-3xl border p-4 shadow-md backdrop-blur-sm group-hover:shadow-xl md:mx-auto md:-mt-10 md:w-[calc(100%-2rem)]",
+          "relative z-10 mx-5 -mt-7 w-full rounded-b-3xl rounded-t-lg md:rounded-3xl border p-4 shadow-md backdrop-blur-sm transition duration-500 group-hover:shadow-xl md:mx-auto md:-mt-10 md:w-[calc(100%-2rem)]",
           variant && variant.stock <= 0 ? "md:p-6 md:pr-4" : "md:p-6",
           isDark
             ? "border-zinc-800 bg-zinc-900/90 group-hover:bg-zinc-800/60"
@@ -76,7 +76,14 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               {variant.sizeML} ml
             </p>
 
-            <div className="mt-3 flex items-center justify-between md:mt-3">
+            <div
+              className={clsx(
+                "mt-3 flex",
+                variant.stock > 0
+                  ? "flex-row items-center justify-between"
+                  : "flex-col items-start gap-1 md:flex-row md:items-center md:justify-between",
+              )}
+            >
               <p
                 className={clsx(
                   "text-xl font-bold md:text-xl",

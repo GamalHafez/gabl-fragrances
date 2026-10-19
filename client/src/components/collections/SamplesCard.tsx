@@ -8,7 +8,7 @@ export const SamplesCard = () => {
   const { isDark } = useTheme();
 
   return (
-    <article className="group flex cursor-pointer flex-col items-center overflow-hidden rounded-3xl">
+    <article className="group flex cursor-pointer flex-col items-center rounded-3xl">
       {/* Image */}
       <div
         className={clsx(
@@ -27,7 +27,7 @@ export const SamplesCard = () => {
       {/* Floating Content */}
       <div
         className={clsx(
-          "relative z-10 mx-5 -mt-8 w-full rounded-3xl border p-4 shadow-md backdrop-blur-sm group-hover:shadow-xl md:mx-auto md:-mt-10 md:w-[calc(100%-2rem)] md:p-6",
+          "relative z-10 mx-5 -mt-8 w-full rounded-t-lg rounded-b-3xl border p-4 shadow-md backdrop-blur-sm group-hover:shadow-xl md:mx-auto md:-mt-10 md:w-[calc(100%-2rem)] md:rounded-3xl md:p-6",
           isDark
             ? "border-zinc-800 bg-zinc-900/90 group-hover:bg-zinc-800/60"
             : "border-zinc-100 bg-white group-hover:bg-zinc-100",

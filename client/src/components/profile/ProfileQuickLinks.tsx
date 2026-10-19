@@ -1,13 +1,29 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Compass, Info, Mail } from "lucide-react";
+import { ArrowRight, Compass, Info, HelpCircle } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import clsx from "clsx";
 import { useTheme } from "@/context/theme/useTheme";
+import { scrollToTop } from "@/utils";
 
-const QUICK_LINKS: { icon: LucideIcon; label: string; href: string }[] = [
-  { icon: Compass, label: "Explore Collections", href: "/collections" },
-  { icon: Info, label: "About Us", href: "/about-us" },
-  { icon: Mail, label: "Contact Us", href: "/contact" },
+const QUICK_LINKS: {
+  icon: LucideIcon;
+  label: string;
+  href: string;
+  isScrollToTop?: boolean;
+}[] = [
+  {
+    icon: Compass,
+    label: "Explore Collections",
+    href: "/collections",
+    isScrollToTop: true,
+  },
+  { icon: Info, label: "About Us", href: "/about-us", isScrollToTop: true },
+  {
+    icon: HelpCircle,
+    label: "Frequently Asked Questions",
+    href: "/#faq",
+    isScrollToTop: false,
+  },
 ];
 
 export const ProfileQuickLinks = () => {
@@ -25,10 +41,13 @@ export const ProfileQuickLinks = () => {
       </h3>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-        {QUICK_LINKS.map(({ icon: Icon, label, href }) => (
+        {QUICK_LINKS.map(({ icon: Icon, label, href, isScrollToTop }) => (
           <Link
             key={href}
             to={href}
+            onClick={() => {
+              if (isScrollToTop) scrollToTop();
+            }}
             className={clsx(
               "group flex items-center gap-3 rounded-2xl border px-5 py-4 text-sm font-medium transition-all",
               "focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:outline-none",

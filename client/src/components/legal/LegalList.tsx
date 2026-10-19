@@ -7,12 +7,7 @@ export const LegalList = ({ title, content }: LegalListData) => {
   const { isDark } = useTheme();
 
   return (
-    <li
-      className={clsx(
-        "flex items-start gap-4 rounded-xl px-4 py-2 transition-colors duration-300",
-        isDark ? "hover:bg-zinc-900/60" : "hover:bg-zinc-100/70",
-      )}
-    >
+    <li className="flex items-start gap-4 rounded-xl px-4 py-2 transition-colors duration-300">
       <div
         className={clsx(
           "mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full",

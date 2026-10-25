@@ -1,6 +1,7 @@
 import { Info, MapPin } from "lucide-react";
 import clsx from "clsx";
 import {
+  get,
   type FieldErrors,
   type FieldValues,
   type Path,
@@ -22,7 +23,7 @@ export const LocationLinkField = <T extends FieldValues>({
 }: LocationLinkFieldProps<T>) => {
   const { isDark } = useTheme();
   const inputId = `field-${name}`;
-  const errorMessage = errors[name]?.message as string | undefined;
+  const errorMessage = get(errors, name)?.message as string | undefined;
 
   return (
     <div className="flex flex-col gap-1">

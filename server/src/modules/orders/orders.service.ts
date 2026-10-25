@@ -4,6 +4,8 @@ import z from 'zod';
 import { createOrderSchema } from '@shared/validators/ordersSchemas.js';
 import { Prisma } from '@/generated/prisma/client.js';
 import { Decimal } from '@prisma/client/runtime/client';
+import { emailService } from './email/email.service.js';
+import { OrderStatus } from '@shared/types/enums.js';
 // import { emailService } from './email/email.service.js';
 
 type CreateOrderBody = z.infer<typeof createOrderSchema>;
@@ -270,6 +272,50 @@ export const ordersService = {
     });
   },
 
+  async updateOrderStatus(orderId: string, status: OrderStatus) {
+    const existing = await prisma.order.findUnique({
+      where: { id: orderId },
+      select: { status: true },
+    });
+    if (!existing) throw new AppError(404, 'Order not found');
+    if (existing.status === status) return existing; // no duplicate emails
+
+    const order = await prisma.order.update({
+      where: { id: orderId },
+      data: { status },
+      select: {
+        id: true,
+        orderNumber: true,
+        status: true,
+        total: true,
+        customerName: true,
+        customerContact: true,
+      },
+    });
+
+    if (status === 'DELIVERED') {
+      const items = await prisma.orderItem.findMany({
+        where: { orderId },
+        select: {
+          productName: true,
+          sizeML: true,
+          quantity: true,
+          unitPrice: true,
+        },
+      });
+
+      await emailService.sendOrderDelivered({
+        orderNumber: order.orderNumber,
+        customerName: order.customerName,
+        customerContact: order.customerContact,
+        total: order.total.toString(),
+        items: items.map((i) => ({ ...i, unitPrice: i.unitPrice.toString() })),
+      });
+    }
+
+    return order;
+  },
+
   async createOrder(data: CreateOrderBody, userId?: string) {
     const {
       saveInformation,
@@ -430,7 +476,7 @@ export const ordersService = {
       };
     });
 
-    /**  if (!isCard) {
+    if (!isCard) {
       emailService.sendOrderConfirmation({
         orderNumber: order.orderNumber,
         customerName: `${firstName} ${lastName}`,
@@ -445,7 +491,7 @@ export const ordersService = {
           }),
         ),
       }); // fire-and-forget, not awaited
-    } */
+    }
 
     return order;
   },

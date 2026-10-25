@@ -3,6 +3,7 @@ import clsx from "clsx";
 import {
   get,
   type FieldErrors,
+  type FieldError,
   type FieldValues,
   type Path,
   type UseFormRegister,
@@ -23,7 +24,8 @@ export const LocationLinkField = <T extends FieldValues>({
 }: LocationLinkFieldProps<T>) => {
   const { isDark } = useTheme();
   const inputId = `field-${name}`;
-  const errorMessage = get(errors, name)?.message as string | undefined;
+  const fieldError = get(errors, name) as FieldError | undefined;
+  const errorMessage = fieldError?.message;
 
   return (
     <div className="flex flex-col gap-1">

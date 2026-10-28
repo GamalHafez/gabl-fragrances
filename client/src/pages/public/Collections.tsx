@@ -17,8 +17,6 @@ export const Collections = () => {
       <Container>
         <CollectionsHero />
 
-        <CollectionsSearch />
-
         {/**  Products... */}
         {isPending ? (
           <CollectionsSkeleton />
@@ -29,6 +27,8 @@ export const Collections = () => {
           />
         ) : (
           <Reveal>
+            <CollectionsSearch />
+
             <CollectionsGrid products={products ?? []} />
           </Reveal>
         )}

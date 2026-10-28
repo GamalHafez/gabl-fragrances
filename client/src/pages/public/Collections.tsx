@@ -1,6 +1,7 @@
 import {
   CollectionsHero,
   CollectionsGrid,
+  CollectionsSearch,
 } from "@/components/collections/index";
 import { CollectionsSkeleton } from "@/components/skeleton/CollectionsSkeleton";
 import Reveal from "@/components/ui/animation/Reveal";
@@ -16,7 +17,7 @@ export const Collections = () => {
       <Container>
         <CollectionsHero />
 
-        {/**  WIll ADD FILTERING BUTTONS ... */}
+        <CollectionsSearch />
 
         {/**  Products... */}
         {isPending ? (

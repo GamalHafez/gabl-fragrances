@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/shadcn/skeleton";
 
 export const ProductCardSkeleton = () => {
   return (
-    <article className="flex flex-col items-center rounded-3xl">
+    <article className="flex mt-20 flex-col items-center rounded-3xl">
       {/* Image */}
       <Skeleton className="aspect-square w-full rounded-3xl" />
 

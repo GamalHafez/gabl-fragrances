@@ -3,7 +3,7 @@ import { ChevronDown } from "lucide-react";
 import { useTheme } from "@/context/theme/useTheme";
 
 export type SortOption = "price-desc" | "best-selling" | "price-asc";
-export type GenderOption = "men" | "women" | "unisex";
+export type GenderOption = "all" | "men" | "women" | "unisex";
 
 export type CollectionsFilters = {
   sort: SortOption;
@@ -13,7 +13,7 @@ export type CollectionsFilters = {
 // eslint-disable-next-line react-refresh/only-export-components
 export const DEFAULT_FILTERS: CollectionsFilters = {
   sort: "price-asc",
-  gender: "unisex",
+  gender: "all",
 };
 
 const SORT_OPTIONS: { value: SortOption; label: string }[] = [
@@ -23,6 +23,7 @@ const SORT_OPTIONS: { value: SortOption; label: string }[] = [
 ];
 
 const GENDER_OPTIONS: { value: GenderOption; label: string }[] = [
+  { value: "all", label: "All" },
   { value: "men", label: "Men's" },
   { value: "women", label: "Women's" },
   { value: "unisex", label: "Unisex" },

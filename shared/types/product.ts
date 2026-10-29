@@ -125,3 +125,33 @@ export type FeaturedProduct = {
   images: { id: string; url: string; description: string | null }[];
   variant: { id: string; price: string; sizeML: number; stock: number } | null;
 };
+export type SearchSort = 'best-selling' | 'price-asc' | 'price-desc';
+
+export type SearchProductsParams = {
+  q?: string;
+  gender?: Gender;
+  sort?: SearchSort;
+  page?: number;
+  limit?: number;
+};
+
+export type SearchProduct = {
+  id: string;
+  slug: string;
+  name: string;
+  gender: Gender;
+  inspiredBy: string | null;
+  isNew: boolean;
+  images: { id: string; url: string; description: string | null }[];
+  variant: { id: string; price: string; sizeML: number; stock: number } | null;
+};
+
+export type SearchProductsResult = {
+  products: SearchProduct[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+};

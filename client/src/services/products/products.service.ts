@@ -5,6 +5,8 @@ import type {
   BestSellerProduct,
   FeaturedProduct,
   ProductSample,
+  SearchProductsParams,
+  SearchProductsResult,
 } from "@shared/types/product";
 import type { Gender } from "@shared/types/enums";
 type GetProductsResponse = {
@@ -68,5 +70,23 @@ export const productsService = {
       `${API_ENDPOINTS.PRODUCTS}/featured?limit=${limit}`,
     );
     return data.featuredProducts;
+  },
+
+  async searchProducts(
+    params: SearchProductsParams = {},
+  ): Promise<SearchProductsResult> {
+    const search = new URLSearchParams();
+
+    if (params.q) search.set("q", params.q);
+    if (params.gender) search.set("gender", params.gender);
+    if (params.sort) search.set("sort", params.sort);
+    if (params.page) search.set("page", String(params.page));
+    if (params.limit) search.set("limit", String(params.limit));
+
+    const queryString = search.toString();
+
+    return apiClient.get<SearchProductsResult>(
+      `${API_ENDPOINTS.PRODUCTS}/search${queryString ? `?${queryString}` : ""}`,
+    );
   },
 };

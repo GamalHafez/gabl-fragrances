@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
 import { ProductCard } from "@/components/ui/products";
-import type { Product } from "@shared/types/product";
-import { getMainProductVariant } from "@shared/utils/products.js";
+import type { SearchProduct } from "@shared/types/product";
 import { SamplesCard } from "./SamplesCard";
 
 type CollectionsGridProps = {
-  products: Product[];
+  products: SearchProduct[];
 };
 
 export const CollectionsGrid = ({ products }: CollectionsGridProps) => {
@@ -17,8 +16,6 @@ export const CollectionsGrid = ({ products }: CollectionsGridProps) => {
         </Link>
 
         {products?.map((product) => {
-          const mainVariant = getMainProductVariant(product.variants);
-
           return (
             <Link
               key={product.id}
@@ -35,12 +32,12 @@ export const CollectionsGrid = ({ products }: CollectionsGridProps) => {
                     url: img.url,
                     description: img.description ?? null,
                   })),
-                  variant: mainVariant
+                  variant: product.variant
                     ? {
-                        id: mainVariant.id,
-                        price: mainVariant.price,
-                        sizeML: mainVariant.sizeML,
-                        stock: mainVariant.stock,
+                        id: product.variant.id,
+                        price: product.variant.price,
+                        sizeML: product.variant.sizeML,
+                        stock: product.variant.stock,
                       }
                     : null,
                 }}

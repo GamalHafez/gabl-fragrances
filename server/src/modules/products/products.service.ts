@@ -1,6 +1,7 @@
 import { prisma } from '@/config/db.js';
 import {
   createProductSchema,
+  searchProductsQuerySchema,
   updateProductSchema,
 } from '@shared/validators/productsSchema.js';
 import z from 'zod';
@@ -11,6 +12,17 @@ import { getMainProductVariant } from '@shared/utils/products.js';
 
 export type CreateProductBody = z.infer<typeof createProductSchema>;
 type UpdateProductBody = z.infer<typeof updateProductSchema>;
+type SearchProductsQuery = z.infer<typeof searchProductsQuerySchema>;
+
+async function getVariantSales() {
+  const rows = await prisma.orderItem.groupBy({
+    by: ['productVariantId'],
+    where: { order: { status: { not: 'CANCELLED' } } },
+    _sum: { quantity: true },
+  });
+
+  return new Map(rows.map((r) => [r.productVariantId, r._sum.quantity ?? 0]));
+}
 
 export const productsService = {
   async getProducts() {
@@ -368,5 +380,70 @@ export const productsService = {
         variant: getMainProductVariant(variants),
       }))
       .filter((product) => product.variant && product.variant.stock > 0);
+  },
+
+  async searchProducts(params: SearchProductsQuery) {
+    const { q, gender, sort, page, limit } = params;
+
+    const rows = await prisma.product.findMany({
+      where: {
+        isActive: true,
+        variants: { some: { isActive: true } },
+        ...(gender && { gender }),
+        ...(q && {
+          OR: [
+            { name: { contains: q, mode: 'insensitive' } },
+            { inspiredBy: { contains: q, mode: 'insensitive' } },
+          ],
+        }),
+      },
+      select: {
+        id: true,
+        slug: true,
+        name: true,
+        gender: true,
+        inspiredBy: true,
+        isNew: true,
+        images: {
+          where: { isMain: true },
+          select: { id: true, url: true, description: true },
+        },
+        variants: {
+          where: { isActive: true },
+          orderBy: { price: 'asc' },
+          select: { id: true, price: true, sizeML: true },
+        },
+      },
+    });
+
+    const sales = sort === 'best-selling' ? await getVariantSales() : null;
+
+    const entries = rows.map(({ variants, ...product }) => {
+      const variant = getMainProductVariant(variants);
+      return {
+        product: { ...product, variant },
+        price: Number(variant?.price ?? 0),
+        sold: variants.reduce((sum, v) => sum + (sales?.get(v.id) ?? 0), 0),
+      };
+    });
+
+    entries.sort((a, b) => {
+      if (sort === 'price-asc') return a.price - b.price;
+      if (sort === 'price-desc') return b.price - a.price;
+      return b.sold - a.sold || a.product.name.localeCompare(b.product.name);
+    });
+
+    const total = entries.length;
+    const start = (page - 1) * limit;
+
+    return {
+      products: entries.slice(start, start + limit).map((e) => e.product),
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.max(1, Math.ceil(total / limit)),
+      },
+    };
   },
 };

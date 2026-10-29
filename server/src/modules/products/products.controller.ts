@@ -3,7 +3,7 @@ import {
   productsService,
 } from '@/modules/products/products.service.js';
 import { AppError, sendSuccess } from '@/utils/response.js';
-import { genderQuerySchema } from '@shared/validators/productsSchema.js';
+import { genderQuerySchema, searchProductsQuerySchema } from '@shared/validators/productsSchema.js';
 import type { NextFunction, Request, Response } from 'express';
 
 export const getProducts = async (
@@ -185,6 +185,30 @@ export const getFeaturedProducts = async (
       statusCode: 200,
       message: 'Featured products retrieved successfully',
       data: { featuredProducts },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const searchProducts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const parsed = searchProductsQuerySchema.safeParse(req.query);
+
+    if (!parsed.success) {
+      throw new AppError(400, 'Invalid search filters');
+    }
+
+    const result = await productsService.searchProducts(parsed.data);
+
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Search results retrieved successfully',
+      data: result,
     });
   } catch (error) {
     next(error);

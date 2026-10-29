@@ -13,8 +13,12 @@ import {
   getSamples,
   getBestSellers,
   getFeaturedProducts,
+  searchProducts,
 } from '@/modules/products/products.controller.js';
-import { getProductBySlug } from '@/middlewares/products/index.js';
+import {
+  getProductBySlug,
+  searchLimiter,
+} from '@/middlewares/products/index.js';
 import {
   requireAuth,
   requirePermission,
@@ -40,6 +44,7 @@ router
 router.get('/samples', getSamples);
 router.get('/best-sellers', getBestSellers);
 router.get('/featured', getFeaturedProducts);
+router.get('/search', searchLimiter, searchProducts);
 
 /* Product resources */
 router.param('productSlug', getProductBySlug);

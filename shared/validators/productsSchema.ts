@@ -242,3 +242,13 @@ export const updateVariantSchema = z.object({
 
   label: z.string().trim().min(1).max(100).nullable().optional(),
 });
+
+export const searchProductsQuerySchema = z.object({
+  q: z.string().trim().max(100).optional(),
+  gender: z.enum(['MEN', 'WOMEN', 'UNISEX']).optional(),
+  sort: z
+    .enum(['best-selling', 'price-asc', 'price-desc'])
+    .default('best-selling'),
+  page: z.coerce.number().int().min(1).default(1),
+  limit: z.coerce.number().int().min(1).max(24).default(12),
+});

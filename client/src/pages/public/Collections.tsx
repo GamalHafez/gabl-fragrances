@@ -1,4 +1,8 @@
-import type { GenderOption } from "@/components/collections/CollectionsFilter";
+import {
+  DEFAULT_FILTERS,
+  type GenderOption,
+  type SortOption,
+} from "@/components/collections/CollectionsFilter";
 import {
   CollectionsHero,
   CollectionsGrid,
@@ -12,7 +16,7 @@ import { DataError } from "@/components/ui/errors/DataError";
 import { useSearchProducts } from "@/hooks/products";
 import type { Gender } from "@shared/types/enums";
 import type { SearchProductsParams } from "@shared/types/product";
-import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const GENDER_PARAM: Record<GenderOption, Gender | undefined> = {
   all: undefined,
@@ -21,15 +25,47 @@ const GENDER_PARAM: Record<GenderOption, Gender | undefined> = {
   unisex: "UNISEX",
 };
 
+const SORT_VALUES: SortOption[] = ["best-selling", "price-asc", "price-desc"];
+
+const isGenderOption = (value: string | null): value is GenderOption =>
+  value !== null && Object.hasOwn(GENDER_PARAM, value);
+
+const isSortOption = (value: string | null): value is SortOption =>
+  SORT_VALUES.includes(value as SortOption);
+
 export const Collections = () => {
-  const [params, setParams] = useState<SearchProductsParams>({ page: 1 });
-  const [searchKey, setSearchKey] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const query = (searchParams.get("q") ?? "").slice(0, 100);
+  const genderParam = searchParams.get("gender");
+  const sortParam = searchParams.get("sort");
+
+  const gender: GenderOption = isGenderOption(genderParam)
+    ? genderParam
+    : DEFAULT_FILTERS.gender;
+  const sort: SortOption = isSortOption(sortParam)
+    ? sortParam
+    : DEFAULT_FILTERS.sort;
+
+  const params: SearchProductsParams = {
+    q: query || undefined,
+    sort,
+    gender: GENDER_PARAM[gender],
+  };
+
   const { data, isPending, isError, isFetching, refetch } =
     useSearchProducts(params);
 
-  const handleReset = () => {
-    setParams({ page: 1 });
-    setSearchKey((key) => key + 1);
+  const handleSearch = (next: {
+    query: string;
+    sort: SortOption;
+    gender: GenderOption;
+  }) => {
+    const nextParams = new URLSearchParams();
+    if (next.query) nextParams.set("q", next.query);
+    if (next.gender !== "all") nextParams.set("gender", next.gender);
+    if (next.sort !== DEFAULT_FILTERS.sort) nextParams.set("sort", next.sort);
+    setSearchParams(nextParams);
   };
 
   return (
@@ -38,18 +74,12 @@ export const Collections = () => {
         <CollectionsHero />
 
         <CollectionsSearch
-          key={searchKey}
-          onSearch={({ query, sort, gender }) =>
-            setParams({
-              q: query || undefined,
-              sort,
-              gender: GENDER_PARAM[gender],
-              page: 1,
-            })
-          }
+          key={searchParams.toString()} // remount when the URL changes (e.g. footer links)
+          initialQuery={query}
+          initialFilters={{ sort, gender }}
+          onSearch={handleSearch}
         />
 
-        {/**  Products... */}
         {isPending || isFetching ? (
           <CollectionsSkeleton />
         ) : isError ? (
@@ -58,7 +88,7 @@ export const Collections = () => {
             onRetry={() => refetch()}
           />
         ) : data.products.length === 0 ? (
-          <CollectionsEmpty onReset={handleReset} />
+          <CollectionsEmpty onReset={() => setSearchParams({})} />
         ) : (
           <Reveal>
             <CollectionsGrid products={data.products} />

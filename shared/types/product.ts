@@ -131,8 +131,6 @@ export type SearchProductsParams = {
   q?: string;
   gender?: Gender;
   sort?: SearchSort;
-  page?: number;
-  limit?: number;
 };
 
 export type SearchProduct = {

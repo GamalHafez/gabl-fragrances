@@ -383,7 +383,7 @@ export const productsService = {
   },
 
   async searchProducts(params: SearchProductsQuery) {
-    const { q, gender, sort, page, limit } = params;
+    const { q, gender, sort } = params;
 
     const rows = await prisma.product.findMany({
       where: {
@@ -433,17 +433,6 @@ export const productsService = {
       return b.sold - a.sold || a.product.name.localeCompare(b.product.name);
     });
 
-    const total = entries.length;
-    const start = (page - 1) * limit;
-
-    return {
-      products: entries.slice(start, start + limit).map((e) => e.product),
-      pagination: {
-        page,
-        limit,
-        total,
-        totalPages: Math.max(1, Math.ceil(total / limit)),
-      },
-    };
+    return { products: entries.map((e) => e.product) };
   },
 };

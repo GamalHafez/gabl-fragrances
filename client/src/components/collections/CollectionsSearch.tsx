@@ -9,13 +9,19 @@ import {
 } from "./CollectionsFilter";
 
 type CollectionsSearchProps = {
+  initialQuery?: string;
+  initialFilters?: CollectionsFilters;
   onSearch?: (params: { query: string } & CollectionsFilters) => void;
 };
 
-export const CollectionsSearch = ({ onSearch }: CollectionsSearchProps) => {
+export const CollectionsSearch = ({
+  initialQuery = "",
+  initialFilters = DEFAULT_FILTERS,
+  onSearch,
+}: CollectionsSearchProps) => {
   const { isDark } = useTheme();
-  const [query, setQuery] = useState("");
-  const [filters, setFilters] = useState<CollectionsFilters>(DEFAULT_FILTERS);
+  const [query, setQuery] = useState(initialQuery);
+  const [filters, setFilters] = useState<CollectionsFilters>(initialFilters);
 
   const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();

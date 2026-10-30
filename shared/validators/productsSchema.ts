@@ -249,6 +249,4 @@ export const searchProductsQuerySchema = z.object({
   sort: z
     .enum(['best-selling', 'price-asc', 'price-desc'])
     .default('best-selling'),
-  page: z.coerce.number().int().min(1).default(1),
-  limit: z.coerce.number().int().min(1).max(24).default(12),
 });

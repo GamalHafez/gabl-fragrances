@@ -9,13 +9,15 @@ const featuredCategories = [
   {
     id: 1,
     name: "Men",
-    description: "Bold and sophisticated fragrances.",
+    href: "/collections?gender=men",
+    description: "Deep woods, spice and smoky oud for a confident signature.",
     image: menImage,
   },
   {
     id: 2,
     name: "Women",
-    description: "Bold and sophisticated fragrances.",
+    href: "/collections?gender=women",
+    description: "Soft florals, vanilla and amber that linger beautifully.",
     image: womenImage,
   },
 ];
@@ -36,7 +38,7 @@ const FeaturedCategories = () => {
         {featuredCategories.map((category) => (
           <Reveal key={category.id}>
             <Link
-              to="/collections"
+              to={category.href}
               className="block transition-transform duration-300 hover:-translate-y-2"
             >
               <CategoryCard

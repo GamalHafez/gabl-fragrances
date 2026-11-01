@@ -118,6 +118,7 @@ export type BestSellerProduct = {
   variant: {
     id: string;
     price: string;
+    compareAtPrice: string | null;
     sizeML: number;
   } | null;
 };

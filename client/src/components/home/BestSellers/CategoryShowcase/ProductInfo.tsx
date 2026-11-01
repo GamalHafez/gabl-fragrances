@@ -7,6 +7,10 @@ export const ProductInfo = ({ product }: { product: BestSellerProduct }) => {
 
   const { isDark } = useTheme();
 
+  const hasDiscount =
+    variant?.compareAtPrice !== null &&
+    Number(variant?.compareAtPrice) > Number(variant?.price);
+
   return (
     <div className="flex w-full flex-col gap-4">
       <div className="flex items-end justify-between gap-4">
@@ -20,14 +24,37 @@ export const ProductInfo = ({ product }: { product: BestSellerProduct }) => {
         </h3>
 
         {variant && (
-          <p
-            className={clsx(
-              "text-xl font-semibold",
-              isDark ? "text-brand-300" : "text-brand-500",
+          <div className="flex shrink-0 items-baseline gap-2">
+            <p
+              className={clsx(
+                "text-xl font-semibold",
+                hasDiscount
+                  ? isDark
+                    ? "text-emerald-300"
+                    : "text-emerald-700"
+                  : isDark
+                    ? "text-zinc-100"
+                    : "text-zinc-900",
+              )}
+            >
+              {variant.price}
+              <span className="ml-0.5 text-xs font-medium">EGP</span>
+            </p>
+
+            {hasDiscount && (
+              <p
+                className={clsx(
+                  "flex items-end gap-0.5 whitespace-nowrap",
+                  isDark ? "text-zinc-500" : "text-zinc-400",
+                )}
+              >
+                <span className="text-base line-through decoration-1">
+                  {variant.compareAtPrice}
+                </span>
+                <span className="text-xs font-medium">EGP</span>
+              </p>
             )}
-          >
-            ${variant.price}
-          </p>
+          </div>
         )}
       </div>
 

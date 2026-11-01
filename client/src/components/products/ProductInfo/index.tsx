@@ -54,6 +54,7 @@ export const ProductInfo = ({
         rating={getAverageRating(reviews)}
         reviewCount={reviews.length}
         price={Number(selectedVariant.price)}
+        compareAtPrice={Number(selectedVariant.compareAtPrice)}
       />
 
       <p

@@ -130,7 +130,13 @@ export type FeaturedProduct = {
   inspiredBy: string | null;
   isNew: boolean;
   images: { id: string; url: string; description: string | null }[];
-  variant: { id: string; price: string; sizeML: number; stock: number } | null;
+  variant: {
+    id: string;
+    price: string;
+    compareAtPrice: string | null;
+    sizeML: number;
+    stock: number;
+  } | null;
 };
 export type SearchSort = 'best-selling' | 'price-asc' | 'price-desc';
 

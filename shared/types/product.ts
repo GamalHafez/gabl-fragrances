@@ -22,6 +22,7 @@ export type ProductVariant = {
   id: string;
   sizeML: number;
   price: string;
+  compareAtPrice: string | null;
   stock: number;
   label?: string | null;
   isActive?: boolean;
@@ -92,7 +93,13 @@ export type ProductCardData = {
   name: string;
   gender: Gender;
   images: { url: string; description: string | null }[];
-  variant: { id: string; price: string; sizeML: number; stock: number } | null;
+  variant: {
+    id: string;
+    price: string;
+    compareAtPrice: string | null;
+    sizeML: number;
+    stock: number;
+  } | null;
 };
 
 export type BestSellerProduct = {
@@ -141,7 +148,13 @@ export type SearchProduct = {
   inspiredBy: string | null;
   isNew: boolean;
   images: { id: string; url: string; description: string | null }[];
-  variant: { id: string; price: string; sizeML: number; stock: number } | null;
+  variant: {
+    id: string;
+    price: string;
+    compareAtPrice: string | null;
+    sizeML: number;
+    stock: number;
+  } | null;
 };
 
 export type SearchProductsResult = {

@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { useTheme } from "@/context/theme/useTheme";
 import type { ProductCardData } from "@shared/types/product";
 import { OutOfStockBadge } from "../common/OutOfStockBadge";
+import { ProductPrice } from "./ProductPrice";
 
 type ProductCardProps = {
   product: ProductCardData;
@@ -34,7 +35,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       {/* Floating Content */}
       <div
         className={clsx(
-          "relative z-10 mx-5 -mt-7 w-full rounded-b-3xl rounded-t-lg md:rounded-3xl border p-4 shadow-md backdrop-blur-sm transition duration-500 group-hover:shadow-xl md:mx-auto md:-mt-10 md:w-[calc(100%-2rem)]",
+          "relative z-10 mx-5 -mt-7 w-full rounded-t-lg rounded-b-3xl border p-4 shadow-md backdrop-blur-sm transition duration-500 group-hover:shadow-xl md:mx-auto md:-mt-10 md:w-[calc(100%-2rem)] md:rounded-3xl",
           variant && variant.stock <= 0 ? "md:p-6 md:pr-4" : "md:p-6",
           isDark
             ? "border-zinc-800 bg-zinc-900/90 group-hover:bg-zinc-800/60"
@@ -84,15 +85,10 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                   : "flex-col items-start gap-1 md:flex-row md:items-center md:justify-between",
               )}
             >
-              <p
-                className={clsx(
-                  "text-xl font-bold md:text-xl",
-                  isDark ? "text-zinc-100" : "text-zinc-900",
-                )}
-              >
-                {variant.price}
-                <span className="ml-1 text-xs">EGP</span>
-              </p>
+              <ProductPrice
+                price={variant.price}
+                compareAtPrice={variant.compareAtPrice}
+              />
               {variant.stock > 0 ? (
                 <AddToCart
                   productVariantId={variant.id}

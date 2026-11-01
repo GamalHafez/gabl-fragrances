@@ -169,7 +169,12 @@ model ProductVariant {
   label  String? @db.VarChar(100)
   sizeML Int     @db.SmallInt
   stock  Int     @default(0)
-  price  Decimal @db.Decimal(10, 2)
+
+  // Selling price: what the customer pays
+  price Decimal @db.Decimal(10, 2)
+
+  // Optional "before" price shown crossed out (display only, must be > price)
+  compareAtPrice Decimal? @db.Decimal(10, 2)
 
   // Track timestamps
   createdAt DateTime @default(now())

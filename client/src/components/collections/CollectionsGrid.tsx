@@ -36,6 +36,7 @@ export const CollectionsGrid = ({ products }: CollectionsGridProps) => {
                     ? {
                         id: product.variant.id,
                         price: product.variant.price,
+                        compareAtPrice: product.variant.compareAtPrice,
                         sizeML: product.variant.sizeML,
                         stock: product.variant.stock,
                       }

@@ -80,9 +80,6 @@ export const productsService = {
     if (params.q) search.set("q", params.q);
     if (params.gender) search.set("gender", params.gender);
     if (params.sort) search.set("sort", params.sort);
-    if (params.page) search.set("page", String(params.page));
-    if (params.limit) search.set("limit", String(params.limit));
-
     const queryString = search.toString();
 
     return apiClient.get<SearchProductsResult>(

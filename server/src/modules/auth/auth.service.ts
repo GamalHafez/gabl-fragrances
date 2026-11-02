@@ -251,24 +251,24 @@ export const authService = {
       this.generateTokens(safeUser);
 
     // Rotate refresh token
-    await prisma.$transaction([
-      prisma.refreshToken.update({
-        where: {
-          id: storedToken.id,
-        },
-        data: {
-          revokedAt: new Date(),
-        },
-      }),
+    await prisma.$transaction(async (tx) => {
+      const { count } = await tx.refreshToken.updateMany({
+        where: { id: storedToken.id, revokedAt: null },
+        data: { revokedAt: new Date() },
+      });
 
-      prisma.refreshToken.create({
+      if (count === 0) {
+        throw new AppError(401, 'Refresh token has been revoked');
+      }
+
+      await tx.refreshToken.create({
         data: {
           tokenHash: hashToken(newRefreshToken),
           userId: safeUser.id,
           expiresAt: getTokenExpiresAt(authConfig.refreshTokenExpiresIn),
         },
-      }),
-    ]);
+      });
+    });
 
     return {
       user: safeUser,

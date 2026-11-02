@@ -1,4 +1,5 @@
 import { normalizeError } from "@/utils/errors";
+import { API_ENDPOINTS } from "./endpoints";
 
 export class ApiError extends Error {
   constructor(
@@ -10,63 +11,69 @@ export class ApiError extends Error {
   }
 }
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+const NO_REFRESH = /\/(login|signup|refresh|logout)$/;
+
+let refreshPromise: Promise<boolean> | null = null;
+
+const refreshSession = (): Promise<boolean> => {
+  refreshPromise ??= fetch(`${API_URL}/${API_ENDPOINTS.AUTH}/refresh`, {
+    method: "POST",
+    credentials: "include",
+  })
+    .then((response) => response.ok)
+    .catch(() => false)
+    .finally(() => {
+      refreshPromise = null;
+    });
+
+  return refreshPromise;
+};
+
+const send = (endpoint: string, init: RequestInit) =>
+  fetch(`${API_URL}/${endpoint}`, { ...init, credentials: "include" });
+
+async function request<T>(
+  endpoint: string,
+  init: RequestInit = {},
+): Promise<T> {
+  try {
+    let response = await send(endpoint, init);
+
+    if (
+      response.status === 401 &&
+      !NO_REFRESH.test(endpoint.split("?")[0]) &&
+      (await refreshSession())
+    ) {
+      response = await send(endpoint, init); // retry once with the new cookies
+    }
+
+    const res = await response.json();
+
+    if (!response.ok) {
+      throw new ApiError(
+        res.error || res.message || "Request failed",
+        response.status,
+      );
+    }
+
+    return res.data as T;
+  } catch (err) {
+    throw normalizeError(err);
+  }
+}
+
 export const apiClient = {
-  async get<T>(endpoint: string): Promise<T> {
-    try {
-      const url = `${import.meta.env.VITE_API_URL}/${endpoint}`;
-
-      const response = await fetch(url, {
-        credentials: "include",
-      });
-
-      const res = await response.json();
-
-      if (!response.ok) {
-        throw new ApiError(
-          res.error || res.message || "Request failed",
-          response.status,
-        );
-      }
-
-      return res.data as T;
-    } catch (err) {
-      throw normalizeError(err);
-    }
+  get<T>(endpoint: string): Promise<T> {
+    return request<T>(endpoint);
   },
 
-  async post<T>(endpoint: string, body?: unknown): Promise<T> {
-    try {
-      const url = `${import.meta.env.VITE_API_URL}/${endpoint}`;
-
-      const response = await fetch(url, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-
-      const res = await response.json();
-
-      if (!response.ok) {
-        throw new ApiError(
-          res.error || res.message || "Request failed",
-          response.status,
-        );
-      }
-
-      return res.data as T;
-    } catch (err) {
-      throw normalizeError(err);
-    }
+  post<T>(endpoint: string, body?: unknown): Promise<T> {
+    return request<T>(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
   },
-
-  // async patch<T>(endpoint: string, body: unknown): Promise<T> {
-  //   // fetch PATCH request
-  // },
-
-  // async delete<T>(endpoint: string): Promise<T> {
-  //   // fetch DELETE request
-  // },
 };

@@ -46,7 +46,10 @@ export const generateRefreshToken = (user: User) => {
   const expiresIn =
     (process.env.REFRESH_TOKEN_EXPIRES_IN as SignOptions['expiresIn']) || '30d';
 
-  const refreshToken = jwt.sign(payload, secret, { expiresIn });
+  const refreshToken = jwt.sign(payload, secret, {
+    expiresIn,
+    jwtid: crypto.randomUUID(),
+  });
 
   return refreshToken;
 };

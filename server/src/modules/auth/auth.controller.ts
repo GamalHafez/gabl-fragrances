@@ -100,7 +100,7 @@ export const refresh = async (
 
     // set the cookies
     setCookie(res, 'accessToken', accessToken, 15 * 60 * 1000);
-    setCookie(res, 'refreshToken', refreshToken, 30 * 24 * 60 * 60 * 1000);
+    setCookie(res, 'refreshToken', newRefreshToken, 30 * 24 * 60 * 60 * 1000);
 
     return sendSuccess(res, {
       statusCode: 200,

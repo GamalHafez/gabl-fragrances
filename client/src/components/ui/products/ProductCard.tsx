@@ -15,6 +15,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const { isDark } = useTheme();
   const { name, gender, images, variant } = product;
   const productMainImage = images[0];
+  const isOutOfStock = variant && variant.stock <= 0 ? true : false;
 
   return (
     <article className="group flex cursor-pointer flex-col items-center rounded-3xl">
@@ -36,7 +37,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       <div
         className={clsx(
           "relative z-10 mx-5 -mt-7 w-full rounded-t-lg rounded-b-3xl border p-4 shadow-md backdrop-blur-sm transition duration-500 group-hover:shadow-xl md:mx-auto md:-mt-10 md:w-[calc(100%-2rem)] md:rounded-3xl",
-          variant && variant.stock <= 0 ? "md:p-6 md:pr-4" : "md:p-6",
+          isOutOfStock ? "md:p-6 md:pr-4" : "md:p-6",
           isDark
             ? "border-zinc-800 bg-zinc-900/90 group-hover:bg-zinc-800/60"
             : "border-zinc-100 bg-white group-hover:bg-zinc-100",
@@ -80,16 +81,17 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             <div
               className={clsx(
                 "mt-3 flex",
-                variant.stock > 0
-                  ? "flex-row items-center justify-between"
-                  : "flex-col items-start gap-1 md:flex-row md:items-center md:justify-between",
+                isOutOfStock
+                  ? "items-center justify-between"
+                  : "flex-row items-center justify-between",
               )}
             >
               <ProductPrice
                 price={variant.price}
                 compareAtPrice={variant.compareAtPrice}
+                isOutOfStock={isOutOfStock}
               />
-              {variant.stock > 0 ? (
+              {!isOutOfStock ? (
                 <AddToCart
                   productVariantId={variant.id}
                   quantity={1}

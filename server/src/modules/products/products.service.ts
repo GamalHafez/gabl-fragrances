@@ -252,7 +252,13 @@ export const productsService = {
         variants: {
           where: { isActive: true },
           orderBy: { price: 'asc' },
-          select: { id: true, price: true, compareAtPrice: true, sizeML: true }, // no stock
+          select: {
+            id: true,
+            price: true,
+            compareAtPrice: true,
+            sizeML: true,
+            stock: true,
+          },
         },
       },
     });

@@ -19,7 +19,7 @@ export const RelatedProductsSkeleton = () => {
           {[1, 2, 3, 4].map((item) => (
             <CarouselItem
               key={item}
-              className="basis-1/1 px-10 md:basis-1/2 lg:mx-auto lg:basis-1/4"
+              className="basis-1/1 px-10 md:basis-1/2 lg:mx-auto lg:basis-1/3"
             >
               <ProductCardSkeleton />
             </CarouselItem>

@@ -4,9 +4,14 @@ import clsx from "clsx";
 type ProductPriceProps = {
   price: string;
   compareAtPrice: string | null;
+  isOutOfStock?: boolean;
 };
 
-export const ProductPrice = ({ price, compareAtPrice }: ProductPriceProps) => {
+export const ProductPrice = ({
+  price,
+  compareAtPrice,
+  isOutOfStock,
+}: ProductPriceProps) => {
   const { isDark } = useTheme();
 
   const hasDiscount =
@@ -19,30 +24,26 @@ export const ProductPrice = ({ price, compareAtPrice }: ProductPriceProps) => {
   return (
     <div className="flex flex-col gap-0.5">
       {/* Old price row. min-h keeps all cards the same height */}
-      <div className="flex min-h-5 items-center gap-2">
-        {hasDiscount && (
-          <>
-            <span
-              className={clsx(
-                "text-sm line-through decoration-red-500/70",
-                isDark ? "text-zinc-500" : "text-zinc-400",
-              )}
-            >
-              {compareAtPrice} EGP
-            </span>
-            <span
-              className={clsx(
-                "rounded-full px-2 py-0.5 text-[11px] font-bold",
-                isDark
-                  ? "bg-red-500/15 text-red-300"
-                  : "bg-red-100 text-red-600",
-              )}
-            >
-              -{discountPercent}%
-            </span>
-          </>
-        )}
-      </div>
+      {hasDiscount && !isOutOfStock && (
+        <div className="flex min-h-5 items-center gap-2">
+          <span
+            className={clsx(
+              "text-sm line-through decoration-red-500/70",
+              isDark ? "text-zinc-500" : "text-zinc-400",
+            )}
+          >
+            {compareAtPrice} EGP
+          </span>
+          <span
+            className={clsx(
+              "rounded-full px-2 py-0.5 text-[11px] font-bold",
+              isDark ? "bg-red-500/15 text-red-300" : "bg-red-100 text-red-600",
+            )}
+          >
+            -{discountPercent}%
+          </span>
+        </div>
+      )}
 
       {/* Current price */}
       <p

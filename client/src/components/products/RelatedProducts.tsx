@@ -40,14 +40,14 @@ export const RelatedProducts = ({ productSlug }: RelatedProductsProps) => {
       <MainHeading title="Related Fragrances" className="md:self-start" />
 
       <Carousel>
-        <CarouselContent className="mt-8 md:mt-6">
+        <CarouselContent className="mt-8 pb-4 md:mt-6 md:pb-8">
           {relatedProducts.map((p) => {
             const mainVariant = getMainProductVariant(p.variants);
 
             return (
               <CarouselItem
                 key={p.id}
-                className="basis-1/1 px-10 md:basis-1/2 lg:mx-auto lg:basis-1/4"
+                className="basis-1/1 px-10 md:basis-1/2 lg:mx-auto lg:basis-1/3"
               >
                 <Link to={`/products/${p.slug}`} className="block">
                   <ProductCard

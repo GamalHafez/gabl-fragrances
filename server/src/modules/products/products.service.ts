@@ -224,9 +224,6 @@ export const productsService = {
           not: product.id,
         },
         gender: product.gender,
-        bestSeasons: {
-          hasSome: product.bestSeasons,
-        },
       },
       take: 8,
       orderBy: {
@@ -255,7 +252,7 @@ export const productsService = {
         variants: {
           where: { isActive: true },
           orderBy: { price: 'asc' },
-          select: { id: true, price: true, sizeML: true }, // no stock
+          select: { id: true, price: true, compareAtPrice: true, sizeML: true }, // no stock
         },
       },
     });

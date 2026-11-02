@@ -306,6 +306,7 @@ export const productsService = {
             isActive: true,
             sizeML: true,
             price: true,
+            compareAtPrice: true,
             stock: true,
           },
         },

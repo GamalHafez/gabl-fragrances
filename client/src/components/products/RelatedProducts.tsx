@@ -64,6 +64,7 @@ export const RelatedProducts = ({ productSlug }: RelatedProductsProps) => {
                         ? {
                             id: mainVariant.id,
                             price: mainVariant.price,
+                            compareAtPrice: mainVariant.compareAtPrice,
                             sizeML: mainVariant.sizeML,
                             stock: mainVariant.stock,
                           }

@@ -84,6 +84,7 @@ export const SamplesPage = () => {
               name={name}
               inspiredBy={String(inspiredBy)}
               price={Number(sampleVariant?.price)}
+              compareAtPrice={Number(sampleVariant?.compareAtPrice)}
             />
 
             {/* Sample Selection */}

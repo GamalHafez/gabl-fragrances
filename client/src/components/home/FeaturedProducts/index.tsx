@@ -41,11 +41,11 @@ const FeaturedProducts = () => {
       <SectionHeader content={FeaturedProductsHeader} />
 
       <Carousel>
-        <CarouselContent className="mt-8 md:mt-6">
+        <CarouselContent className="mt-8 pb-4 md:mt-6 md:pb-8">
           {featuredProducts.map((product) => (
             <CarouselItem
               key={product.id}
-              className="basis-1/1 px-10 md:basis-1/2 lg:mx-auto lg:basis-1/4"
+              className="basis-1/1 px-10 md:basis-1/2 lg:mx-auto lg:basis-1/3"
             >
               <Link to={`/products/${product.slug}`} className="block">
                 <ProductCard

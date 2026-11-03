@@ -45,7 +45,7 @@ export const ProductQuickLinks = () => {
           key={link.href}
           href={link.href}
           className={clsx(
-            "group inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-all duration-300",
+            "group inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-150 ease-in-out focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
             isDark
               ? "border-zinc-700 bg-zinc-900/60 text-zinc-300 hover:border-amber-500 hover:bg-zinc-800 hover:text-amber-300"
               : "border-zinc-200 bg-white/70 text-zinc-700 hover:border-amber-400 hover:bg-white hover:text-zinc-900",

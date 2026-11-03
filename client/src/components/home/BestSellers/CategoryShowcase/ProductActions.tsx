@@ -28,7 +28,7 @@ export const ProductActions = ({
       <Link
         to={`/products/${productSlug}`}
         className={clsx(
-          "flex h-11 w-11 items-center justify-center rounded-full border transition-all duration-300",
+          "flex h-11 w-11 items-center justify-center rounded-full border transition-colors duration-150",
           isDark
             ? "hover:border-brand-300/40 hover:bg-brand-300/10 hover:text-brand-200 border-white/10 bg-white/5 text-zinc-300"
             : "hover:border-brand-300 hover:bg-brand-50 hover:text-brand-500 border-zinc-200 bg-white text-zinc-600",

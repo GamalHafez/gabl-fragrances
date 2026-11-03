@@ -65,7 +65,7 @@ function TabsTrigger({ className, ...props }: TabsTriggerProps) {
           "inline-flex h-full w-full flex-1 cursor-pointer items-center justify-center",
           "rounded-lg px-4 py-2",
           "text-sm font-medium tracking-wide capitalize",
-          "transition-all duration-300",
+          "transition-colors duration-150 ease-in-out",
           "focus-visible:ring-brand-500/40 focus-visible:ring-2 focus-visible:outline-none",
           "disabled:pointer-events-none disabled:opacity-50",
           "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",

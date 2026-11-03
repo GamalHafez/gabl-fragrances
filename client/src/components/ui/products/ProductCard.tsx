@@ -80,10 +80,10 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
             <div
               className={clsx(
-                "mt-3 flex",
+                "lg:mt-3 mt-2",
                 isOutOfStock
-                  ? "items-center justify-between"
-                  : "flex-row items-center justify-between",
+                  ? "flex flex-col items-start lg:flex-row lg:items-center justify-between"
+                  : "grid grid-cols-2 items-end gap-y-1 lg:gap-y-0",
               )}
             >
               <ProductPrice

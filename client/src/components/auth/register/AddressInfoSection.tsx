@@ -22,7 +22,7 @@ export const AddressInfoSection = ({
   return (
     <div
       className={clsx(
-        "grid grid-cols-1 gap-3 rounded-3xl border p-6 shadow-xl transition-all duration-300 sm:p-8",
+        "grid grid-cols-1 gap-3 rounded-3xl border p-6 shadow-xl transition-colors duration-150 sm:p-8",
         isDark
           ? "border-white/10 bg-zinc-950/70 shadow-black/30"
           : "bg-brand-100 border-zinc-200 shadow-zinc-900/5",

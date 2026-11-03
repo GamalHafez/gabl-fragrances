@@ -22,22 +22,24 @@ export const ProductPrice = ({
     : 0;
 
   return (
-    <div className="flex flex-col gap-0.5">
+    <>
       {/* Old price row. min-h keeps all cards the same height */}
       {hasDiscount && !isOutOfStock && (
-        <div className="flex min-h-5 items-center gap-2">
+        <div className="col-span-2 flex min-h-5 items-center gap-2">
           <span
             className={clsx(
-              "text-sm line-through decoration-red-500/70",
-              isDark ? "text-zinc-500" : "text-zinc-400",
+              "text-sm line-through",
+              isDark ? "text-zinc-500" : "text-zinc-400 decoration-red-500/70",
             )}
           >
             {compareAtPrice} EGP
           </span>
           <span
             className={clsx(
-              "rounded-full px-2 py-0.5 text-[11px] font-bold",
-              isDark ? "bg-red-500/15 text-red-300" : "bg-red-100 text-red-600",
+              "rounded-full px-2 text-[11px] font-bold lg:py-0.5",
+              isDark
+                ? "bg-red-500/15 text-red-300"
+                : "bg-red-50 text-red-600 lg:bg-red-100",
             )}
           >
             -{discountPercent}%
@@ -48,7 +50,8 @@ export const ProductPrice = ({
       {/* Current price */}
       <p
         className={clsx(
-          "flex items-baseline gap-1 text-xl font-bold",
+          "flex items-baseline gap-1 self-start text-xl font-bold lg:self-center",
+
           hasDiscount
             ? isDark
               ? "text-emerald-300"
@@ -68,6 +71,6 @@ export const ProductPrice = ({
           EGP
         </span>
       </p>
-    </div>
+    </>
   );
 };

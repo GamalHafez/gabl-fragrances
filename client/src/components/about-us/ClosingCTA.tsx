@@ -39,7 +39,7 @@ export const ClosingCTA = () => {
       <Link
         to="/collections"
         className={clsx(
-          "group mt-7 inline-flex items-center justify-center gap-3 rounded-full px-7 py-4 text-sm font-semibold transition-all duration-300 hover:-translate-y-1 active:scale-95",
+          "group mt-7 inline-flex items-center justify-center gap-3 rounded-full px-7 py-4 text-sm font-semibold transition-colors duration-150 hover:-translate-y-1 active:scale-95",
           "focus-visible:ring-4 focus-visible:outline-none",
           isDark
             ? "bg-amber-400 text-zinc-950 hover:bg-amber-300 focus-visible:ring-amber-400/40"

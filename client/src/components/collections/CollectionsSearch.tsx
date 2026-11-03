@@ -92,7 +92,7 @@ export const CollectionsSearch = ({
         className={clsx(
           "flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl py-3 text-sm font-semibold transition-colors md:w-40",
           isDark
-            ? "bg-white text-zinc-900 hover:bg-zinc-200"
+            ? "bg-zinc-800 text-zinc-300 hover:bg-zinc-200"
             : "bg-zinc-900 text-white hover:bg-zinc-700",
         )}
       >

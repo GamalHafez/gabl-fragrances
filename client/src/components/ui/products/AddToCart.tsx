@@ -40,7 +40,7 @@ export const AddToCart = ({
       type="button"
       aria-label="Add to cart"
       className={clsx(
-        "group relative inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border transition-all duration-300",
+        "group relative ml-auto inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border transition-colors duration-150 lg:h-11 lg:w-11",
         "hover:-translate-y-0.5 active:translate-y-0",
         "focus-visible:ring-brand-500/40 focus-visible:ring-2 focus-visible:outline-none",
         isDark
@@ -53,7 +53,7 @@ export const AddToCart = ({
         className="transition-transform duration-300 group-hover:scale-110"
       />
 
-      <span className="bg-brand-500 absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full shadow-md">
+      <span className="bg-brand-500 absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full shadow-md lg:h-5 lg:w-5">
         <Plus size={12} className="text-white" strokeWidth={2.5} />
       </span>
     </button>

@@ -3,6 +3,7 @@ import {
   ProfileOrdersCta,
   ProfileQuickLinks,
 } from "@/components/profile";
+import { EditProfile } from "@/components/profile/edit";
 import { getProfileCards } from "@/components/profile/profileCards.config.tsx";
 import { ProfileSkeleton } from "@/components/skeleton";
 import { Container, MainHeading, PageWrapper } from "@/components/ui/common";
@@ -53,10 +54,14 @@ export const AccountProfile = () => {
   return (
     <PageWrapper>
       <Container>
-        <div className="flex flex-col items-start p-5">
-          <Eyebrow eyebrow="Profile" className="mb-1 inline-block" />
-          <MainHeading title="Your Personal Details" />
-        </div>
+        <section className="mt-4 mb-10 flex items-center justify-between px-3 md:mt-8 md:mb-6">
+          <div className="flex flex-col items-start">
+            <Eyebrow eyebrow="Profile" className="mb-0 inline-block" />
+            <MainHeading title="Your Personal Details" />
+          </div>
+
+          <EditProfile />
+        </section>
 
         <div className="flex flex-col px-6">
           <div className="grid items-center gap-4 md:grid-cols-3">

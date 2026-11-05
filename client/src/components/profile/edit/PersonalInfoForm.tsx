@@ -1,7 +1,61 @@
-import { useTheme } from "@/context/theme/useTheme";
+import { useForm } from "react-hook-form";
+import {
+  updatePersonalInfo,
+  type UpdatePersonalInfoRequest,
+} from "@shared/validators/editProfileSchemas";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormField, FormSubmitButton } from "@/components/ui/forms";
+import { useAuth } from "@/context/auth/useAuth";
 
 export const PersonalInfoForm = () => {
-  const { isDark } = useTheme();
+  const { user } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<UpdatePersonalInfoRequest>({
+    resolver: zodResolver(updatePersonalInfo),
+    defaultValues: {
+      name: user?.name ?? "",
+      email: user?.email ?? "",
+    },
+  });
 
-  return <form>PersonalInfoForm</form>;
+  const onSubmit = (data: UpdatePersonalInfoRequest) => {
+    console.log(data);
+    reset();
+  };
+
+  return (
+    <form
+      noValidate
+      onSubmit={handleSubmit(onSubmit)}
+      className="mt-2 flex flex-col gap-4"
+    >
+      <FormField
+        name="name"
+        register={register}
+        errors={errors}
+        label="Updated Name"
+        placeholder="Enter your name"
+      />
+
+      <FormField
+        name="email"
+        type="email"
+        register={register}
+        errors={errors}
+        label="Updated Email"
+        placeholder="Ex: omar@gmail.com"
+      />
+
+      <FormSubmitButton
+        disabled={false}
+        label="Update Information"
+        className="gap-1"
+        //     label={false ? "Sending..." : "Submit Review"}
+      />
+    </form>
+  );
 };

@@ -11,18 +11,7 @@ import { useTheme } from "@/context/theme/useTheme";
 import { useState } from "react";
 import { EditProfileItem } from "./EditProfileItem";
 import { EditProfileDialog } from "./EditProfileDialog";
-
-export type ProfileDialog = "personal" | "password" | "addresses";
-
-const EDIT_PROFILE_ITEMS: {
-  key: ProfileDialog;
-  label: string;
-  component: React.ReactNode;
-}[] = [
-  { key: "personal", label: "Personal Information", component: <p>c</p> },
-  { key: "password", label: "Password & Security", component: <p>c</p> },
-  { key: "addresses", label: "Saved Addresses", component: <p>c</p> },
-];
+import { EDIT_PROFILE_ITEMS, type ProfileDialog } from "./EDIT_PROFILE_ITEMS";
 
 export const EditProfile = () => {
   const { isDark } = useTheme();
@@ -64,15 +53,21 @@ export const EditProfile = () => {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {EDIT_PROFILE_ITEMS.map((item) => (
-        <EditProfileDialog
-          key={item.key}
-          open={openDialog === item.key}
-          onOpenChange={(open) => setOpenDialog(open ? item.key : null)}
-        >
-          {item.component}
-        </EditProfileDialog>
-      ))}
+      {EDIT_PROFILE_ITEMS.map((item) => {
+        const { key, form, title, description } = item;
+
+        return (
+          <EditProfileDialog
+            key={key}
+            open={openDialog === key}
+            title={title}
+            description={description}
+            onOpenChange={(open) => setOpenDialog(open ? key : null)}
+          >
+            {form}
+          </EditProfileDialog>
+        );
+      })}
     </>
   );
 };

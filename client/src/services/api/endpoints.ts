@@ -9,4 +9,5 @@ export const API_ENDPOINTS = {
   PROFILE: `${BASE}/profile`,
   CONTACT: `${BASE}/contact`,
   DISCOUNTS: `${BASE}/discounts`,
+  USERS: `${BASE}/users/me`,
 } as const;

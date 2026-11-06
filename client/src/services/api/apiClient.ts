@@ -76,4 +76,12 @@ export const apiClient = {
       body: JSON.stringify(body),
     });
   },
+
+  patch<T>(endpoint: string, body?: unknown): Promise<T> {
+    return request<T>(endpoint, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+  },
 };

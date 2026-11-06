@@ -29,3 +29,19 @@ export type ProfileType = {
     locationUrl: string;
   }[];
 };
+
+export type PersonalInfoType = {
+  id: string;
+  name: string;
+  email: string;
+  updatedAt: string;
+  addresses: {
+    id: string;
+    address: string;
+    country: string;
+    city: string;
+    governorate: string;
+    postalCode: string | null;
+    locationUrl: string;
+  }[];
+};

@@ -1,0 +1,7 @@
+{
+  "workbench.editor.scrollToSwitchTabs": true,
+  "workbench.editor.showTabs": "multiple",
+  "workbench.editor.wrapTabs": true,
+  "thunder-client.restoreTabs": true,
+  "editor.wrapOnEscapedLineFeeds": true
+}

@@ -9,6 +9,7 @@ import { useAuth } from "@/context/auth/useAuth";
 import { useUpdatePersonalInfo } from "@/hooks/user/updateUserProfile";
 import type { ProfileDialog } from "./getEditProfileItems";
 import { ErrorMessage } from "@/components/ui/common";
+import { getApiErrorMessage } from "@/utils/errors";
 
 type PersonalInfoFormProps = {
   setOpenDialog: React.Dispatch<React.SetStateAction<ProfileDialog | null>>;
@@ -33,6 +34,7 @@ export const PersonalInfoForm = ({ setOpenDialog }: PersonalInfoFormProps) => {
     mutate: updatePersonalInfo,
     isPending,
     isError,
+    error,
   } = useUpdatePersonalInfo();
 
   const onSubmit = (data: UpdatePersonalInfoRequest) => {
@@ -67,9 +69,7 @@ export const PersonalInfoForm = ({ setOpenDialog }: PersonalInfoFormProps) => {
         placeholder="Ex: omar@gmail.com"
       />
 
-      {isError && (
-        <ErrorMessage message="We couldn't update your information. Please try again." />
-      )}
+      {isError && error && <ErrorMessage message={getApiErrorMessage(error)} />}
 
       <FormSubmitButton
         disabled={isPending}

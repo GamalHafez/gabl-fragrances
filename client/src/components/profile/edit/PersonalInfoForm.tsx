@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import {
-  updatePersonalInfo,
+  updatePersonalInfoSchema,
   type UpdatePersonalInfoRequest,
 } from "@shared/validators/editProfileSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,7 +15,7 @@ export const PersonalInfoForm = () => {
     reset,
     formState: { errors },
   } = useForm<UpdatePersonalInfoRequest>({
-    resolver: zodResolver(updatePersonalInfo),
+    resolver: zodResolver(updatePersonalInfoSchema),
     defaultValues: {
       name: user?.name ?? "",
       email: user?.email ?? "",

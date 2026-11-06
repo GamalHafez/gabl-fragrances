@@ -42,7 +42,7 @@ export const PasswordInput = <T extends FieldValues>({
       <button
         type="button"
         className={clsx(
-          "absolute top-6 right-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md",
+          "absolute top-7 right-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md",
           "transition-colors focus:outline-none focus-visible:ring-2",
 
           isDark

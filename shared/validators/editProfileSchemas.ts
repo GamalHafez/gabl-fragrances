@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const updatePersonalInfo = z.object({
+export const updatePersonalInfoSchema = z.object({
   name: z
     .string()
     .trim()
@@ -15,4 +15,6 @@ export const updatePersonalInfo = z.object({
     .toLowerCase(),
 });
 
-export type UpdatePersonalInfoRequest = z.infer<typeof updatePersonalInfo>;
+export type UpdatePersonalInfoRequest = z.infer<
+  typeof updatePersonalInfoSchema
+>;

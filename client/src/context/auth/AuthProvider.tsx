@@ -1,12 +1,13 @@
 import { AuthLoadingScreen } from "@/components/auth/common";
 import { authService } from "@/services/auth/auth.service";
 import type { User } from "@shared/types";
+import type { PersonalInfoType } from "@shared/types/user";
 import { createContext, useEffect, useState } from "react";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext<{
-  user: User | null;
-  setUser: (user: User | null) => void;
+  user: User | PersonalInfoType | null;
+  setUser: (user: User | PersonalInfoType | null) => void;
   isAuthenticated: boolean;
   isLoading: boolean;
 }>({
@@ -17,7 +18,7 @@ export const AuthContext = createContext<{
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | PersonalInfoType | null>(null);
   const isAuthenticated = user !== null;
   const [isLoading, setIsLoading] = useState(true);
 

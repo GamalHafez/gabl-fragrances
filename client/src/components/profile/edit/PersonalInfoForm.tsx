@@ -6,8 +6,15 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormField, FormSubmitButton } from "@/components/ui/forms";
 import { useAuth } from "@/context/auth/useAuth";
+import { useUpdatePersonalInfo } from "@/hooks/user/updateUserProfile";
+import type { ProfileDialog } from "./getEditProfileItems";
+import { ErrorMessage } from "@/components/ui/common";
 
-export const PersonalInfoForm = () => {
+type PersonalInfoFormProps = {
+  setOpenDialog: React.Dispatch<React.SetStateAction<ProfileDialog | null>>;
+};
+
+export const PersonalInfoForm = ({ setOpenDialog }: PersonalInfoFormProps) => {
   const { user } = useAuth();
   const {
     register,
@@ -22,9 +29,19 @@ export const PersonalInfoForm = () => {
     },
   });
 
+  const {
+    mutate: updatePersonalInfo,
+    isPending,
+    isError,
+  } = useUpdatePersonalInfo();
+
   const onSubmit = (data: UpdatePersonalInfoRequest) => {
-    console.log(data);
-    reset();
+    updatePersonalInfo(data, {
+      onSuccess: () => {
+        reset();
+        setOpenDialog(null); // Close the dialog
+      },
+    });
   };
 
   return (
@@ -50,11 +67,14 @@ export const PersonalInfoForm = () => {
         placeholder="Ex: omar@gmail.com"
       />
 
+      {isError && (
+        <ErrorMessage message="We couldn't update your information. Please try again." />
+      )}
+
       <FormSubmitButton
-        disabled={false}
-        label="Update Information"
+        disabled={isPending}
         className="gap-1"
-        //     label={false ? "Sending..." : "Submit Review"}
+        label={isPending ? "Updating..." : "Update Information"}
       />
     </form>
   );

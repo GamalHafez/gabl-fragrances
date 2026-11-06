@@ -11,11 +11,12 @@ import { useTheme } from "@/context/theme/useTheme";
 import { useState } from "react";
 import { EditProfileItem } from "./EditProfileItem";
 import { EditProfileDialog } from "./EditProfileDialog";
-import { EDIT_PROFILE_ITEMS, type ProfileDialog } from "./EDIT_PROFILE_ITEMS";
+import { getEditProfileItems, type ProfileDialog } from "./getEditProfileItems";
 
 export const EditProfile = () => {
   const { isDark } = useTheme();
   const [openDialog, setOpenDialog] = useState<ProfileDialog | null>(null);
+  const EDIT_PROFILE_ITEMS = getEditProfileItems(setOpenDialog);
 
   return (
     <>

@@ -50,7 +50,7 @@ export const PersonalInfoForm = ({ setOpenDialog }: PersonalInfoFormProps) => {
     <form
       noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className="mt-2 flex flex-col gap-4"
+      className="flex flex-col gap-3"
     >
       <FormField
         name="name"

@@ -1,3 +1,4 @@
+import { ChangePasswordForm } from "./ChangePasswordForm";
 import { PersonalInfoForm } from "./PersonalInfoForm";
 
 export type ProfileDialog = "personal" | "password" | "addresses";
@@ -24,7 +25,7 @@ export const getEditProfileItems = (
       label: "Password & Security",
       title: "Change Password",
       description: "Update your password and security settings.",
-      form: <p>c</p>,
+      form: <ChangePasswordForm setOpenDialog={setOpenDialog} />,
     },
     {
       key: "addresses",

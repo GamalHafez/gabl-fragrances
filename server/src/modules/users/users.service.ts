@@ -1,7 +1,16 @@
 import { prisma } from '@/config/db.js';
 import { Prisma } from '@/generated/prisma/client.js';
+import bcrypt from 'bcrypt';
 import { AppError } from '@/utils/response.js';
-import type { UpdatePersonalInfoRequest } from '@shared/validators/editProfileSchemas.js';
+import type {
+  ChangePasswordRequest,
+  UpdatePersonalInfoRequest,
+} from '@shared/validators/editProfileSchemas.js';
+import { authService } from '../auth/auth.service.js';
+import { getTokenExpiresAt, hashToken } from '@/utils/tokens.js';
+import { authConfig } from '@/config/auth.js';
+
+const SALT_ROUNDS = 12;
 
 const personalInfoSelect = {
   id: true,
@@ -59,5 +68,43 @@ export const usersService = {
       }
       throw error;
     }
+  },
+
+  async changePassword(id: string, body: ChangePasswordRequest) {
+    const { password, newPassword } = body;
+
+    const user = await authService.findUser({ id }, true);
+    if (!user) throw new AppError(404, 'User not found');
+
+    const { password: passwordHash, ...safeUser } = user;
+
+    const isMatch = await bcrypt.compare(password, passwordHash);
+    if (!isMatch)
+      throw new AppError(400, 'Your current password is incorrect.');
+
+    const hashedPassword = await bcrypt.hash(newPassword, SALT_ROUNDS);
+
+    // Fresh tokens for this session; every other session gets revoked
+    const { accessToken, refreshToken } = authService.generateTokens(safeUser);
+
+    await prisma.$transaction([
+      prisma.user.update({
+        where: { id },
+        data: { password: hashedPassword },
+      }),
+      prisma.refreshToken.updateMany({
+        where: { userId: id, revokedAt: null },
+        data: { revokedAt: new Date() },
+      }),
+      prisma.refreshToken.create({
+        data: {
+          tokenHash: hashToken(refreshToken),
+          userId: id,
+          expiresAt: getTokenExpiresAt(authConfig.refreshTokenExpiresIn),
+        },
+      }),
+    ]);
+
+    return { accessToken, refreshToken };
   },
 };

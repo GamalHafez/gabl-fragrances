@@ -41,7 +41,9 @@ export const attachUserIfPresent = async (
 
     const payload = verifyAccessToken(accessToken);
     const user = await authService.findUser({ id: payload.sub }, true);
-    if (user) req.user = user;
+    if (!user) throw new AppError(401, 'Unauthorized');
+    const { password, ...safeUser } = user;
+    req.user = safeUser;
     next();
   } catch {
     next(); // invalid/expired token → treat as guest, don't hard-fail

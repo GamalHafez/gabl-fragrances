@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import type { ProfileDialog } from "./getEditProfileItems";
 import {
   changePasswordSchema,
   type ChangePasswordRequest,
@@ -7,14 +6,12 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PasswordInput } from "@/components/auth/common";
 import { FormSubmitButton } from "@/components/ui/forms";
+import { useUpdatePassword } from "@/hooks/user/updateUserProfile";
+import { getApiErrorMessage } from "@/utils/errors";
+import { ErrorMessage } from "@/components/ui/common";
+import { SuccessfullyChangedPassword } from "./SuccessfullyChangedPassword";
 
-type ChangePasswordFormProps = {
-  setOpenDialog: React.Dispatch<React.SetStateAction<ProfileDialog | null>>;
-};
-
-export const ChangePasswordForm = ({
-  setOpenDialog,
-}: ChangePasswordFormProps) => {
+export const ChangePasswordForm = () => {
   const {
     register,
     handleSubmit,
@@ -29,14 +26,25 @@ export const ChangePasswordForm = ({
     },
   });
 
-  const onSubmit = (data: ChangePasswordRequest) => {
-    console.log(data);
+  const {
+    mutate: updatePassword,
+    isPending,
+    isError,
+    error,
+    isSuccess,
+  } = useUpdatePassword();
 
-    reset();
-    setOpenDialog(null); // Close the dialog
+  const onSubmit = (data: ChangePasswordRequest) => {
+    updatePassword(data, {
+      onSuccess: () => {
+        reset();
+      },
+    });
   };
 
-  return (
+  return isSuccess ? (
+    <SuccessfullyChangedPassword />
+  ) : (
     <form
       noValidate
       onSubmit={handleSubmit(onSubmit)}
@@ -66,13 +74,11 @@ export const ChangePasswordForm = ({
         placeholder="Ex: ********"
       />
 
-      {/* {isError && error && <ErrorMessage message={getApiErrorMessage(error)} />} */}
-
+      {isError && error && <ErrorMessage message={getApiErrorMessage(error)} />}
       <FormSubmitButton
-        disabled={false}
-        //    isLoading={isPending}
-        label="Update Password"
-        //    label={isPending ? "Logging in..." : "Log in"}
+        disabled={isPending}
+        isLoading={isPending}
+        label={isPending ? "Updating" : "Update Password"}
       />
     </form>
   );

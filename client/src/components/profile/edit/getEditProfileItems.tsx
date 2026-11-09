@@ -25,7 +25,7 @@ export const getEditProfileItems = (
       label: "Password & Security",
       title: "Change Password",
       description: "Update your password and security settings.",
-      form: <ChangePasswordForm setOpenDialog={setOpenDialog} />,
+      form: <ChangePasswordForm />,
     },
     {
       key: "addresses",

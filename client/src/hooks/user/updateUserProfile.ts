@@ -20,3 +20,9 @@ export const useUpdatePersonalInfo = () => {
     },
   });
 };
+
+export const useUpdatePassword = () => {
+  return useMutation({
+    mutationFn: editProfileService.updatePassword,
+  });
+};

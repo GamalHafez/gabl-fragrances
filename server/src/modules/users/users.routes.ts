@@ -1,7 +1,11 @@
 import { requireAuth } from '@/middlewares/auth/requireAuth.js';
 import { validateRequest } from '@/middlewares/auth/validateRequest.js';
 import { Router } from 'express';
-import { changePassword, updatePersonalInfo } from './users.controller.js';
+import {
+  changePassword,
+  getDefaultAddress,
+  updatePersonalInfo,
+} from './users.controller.js';
 import {
   changePasswordSchema,
   updatePersonalInfoSchema,
@@ -20,6 +24,7 @@ router
     changePasswordLimiter,
     validateRequest(changePasswordSchema),
     changePassword,
-  );
+  )
+  .get('/me/address/default', getDefaultAddress);
 
 export default router;

@@ -1,4 +1,5 @@
 import { ChangePasswordForm } from "./ChangePasswordForm";
+import { ManageAddressesForm } from "./ManageAddressesForm";
 import { PersonalInfoForm } from "./PersonalInfoForm";
 
 export type ProfileDialog = "personal" | "password" | "addresses";
@@ -32,7 +33,7 @@ export const getEditProfileItems = (
       label: "Saved Addresses",
       title: "Manage Addresses",
       description: "View and update your saved addresses.",
-      form: <p>c</p>,
+      form: <ManageAddressesForm />,
     },
   ];
 };

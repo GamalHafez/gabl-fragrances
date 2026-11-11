@@ -31,6 +31,16 @@ const personalInfoSelect = {
   },
 } satisfies Prisma.UserSelect;
 
+const addressSelect = {
+  id: true,
+  address: true,
+  country: true,
+  city: true,
+  governorate: true,
+  postalCode: true,
+  locationUrl: true,
+} satisfies Prisma.AddressSelect;
+
 export const usersService = {
   async updatePersonalInfo(id: string, body: UpdatePersonalInfoRequest) {
     const name = body.name?.trim();
@@ -106,5 +116,13 @@ export const usersService = {
     ]);
 
     return { accessToken, refreshToken };
+  },
+
+  async getDefaultAddress(userId: string) {
+    return await prisma.address.findFirst({
+      where: { userId, isDefault: true },
+      orderBy: { updatedAt: 'desc' },
+      select: addressSelect,
+    });
   },
 };

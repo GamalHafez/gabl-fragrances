@@ -43,3 +43,21 @@ export const changePassword = async (
     next(error);
   }
 };
+
+export const getDefaultAddress = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const defaultAddress = await usersService.getDefaultAddress(req.user!.id);
+
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Default address retrieved successfully',
+      data: { defaultAddress },
+    });
+  } catch (error) {
+    next(error);
+  }
+};

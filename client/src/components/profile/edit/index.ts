@@ -5,3 +5,4 @@ export * from "./EditProfileDialog";
 export * from "./PersonalInfoForm";
 export * from "./ChangePasswordForm";
 export * from "./SuccessfullyChangedPassword";
+export * from "./ManageAddressesForm";

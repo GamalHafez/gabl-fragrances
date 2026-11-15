@@ -1,3 +1,4 @@
+import type { DefaultAddressType } from "@shared/types/address";
 import type { PersonalInfoType } from "@shared/types/user";
 import { apiClient } from "../api/apiClient";
 import { API_ENDPOINTS } from "../api/endpoints";
@@ -19,5 +20,12 @@ export const editProfileService = {
 
   async updatePassword(body: ChangePasswordRequest): Promise<void> {
     await apiClient.patch(`${API_ENDPOINTS.USERS}/password`, body);
+  },
+
+  async getDefaultAddress() {
+    const data = await apiClient.get<{ defaultAddress: DefaultAddressType }>(
+      `${API_ENDPOINTS.USERS}/address/default`,
+    );
+    return data.defaultAddress;
   },
 };

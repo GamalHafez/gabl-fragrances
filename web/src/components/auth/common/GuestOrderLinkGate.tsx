@@ -1,6 +1,7 @@
 'use client';
+
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 
 import { useAuth } from '@/context/auth/useAuth';
 import { useFindGuestOrders } from '@/hooks/auth/useFindGuestOrders';
@@ -11,7 +12,7 @@ import type { GuestOrderSummary } from '@/types';
 import { GuestOrdersLinkPrompt } from './GuestOrdersLinkPrompt';
 
 export const GuestOrderLinkGate = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const { isAuthenticated } = useAuth();
 
@@ -50,7 +51,7 @@ export const GuestOrderLinkGate = () => {
     linkGuestOrders(undefined, {
       onSuccess: () => {
         setGuestOrders(null);
-        navigate('/orders');
+        router.push('/orders');
       },
     });
   };

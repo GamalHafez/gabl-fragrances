@@ -1,8 +1,8 @@
 'use client';
 
 import { LogOut, Package, User, UserRound } from 'lucide-react';
-import { NavLink, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
+import { useState } from 'react';
 
 import { useTheme } from '@/context/theme/useTheme';
 import { useAuth } from '@/context/auth/useAuth';
@@ -17,8 +17,7 @@ import {
 } from '@/components/ui/shadcn/drawer';
 import { useLogout } from '@/hooks/auth/useLogout';
 import { HeaderIconAction } from '@/components/layout/header';
-import { useState } from 'react';
-import { ErrorMessage } from '@/components/ui/common';
+import { ErrorMessage, NavigationLink } from '@/components/ui/common';
 import { getApiErrorMessage } from '@/utils/errors';
 
 type AccountMenuProps = {
@@ -27,26 +26,24 @@ type AccountMenuProps = {
 
 const ACCOUNT_ROUTES = ['/profile', '/orders'];
 
-const navItemClass = (isDark: boolean, active: boolean) =>
+const navItemClass = (isDark: boolean) =>
   clsx(
     'flex min-w-18 flex-col items-center gap-1 rounded-xl px-3 py-2 text-xs font-medium transition-colors duration-150 ease-in-out',
-    active
-      ? isDark
-        ? 'bg-brand-500/20 text-brand-100 shadow-brand-500/10 scale-105 shadow-lg'
-        : 'bg-brand-100 text-brand-700 scale-105 shadow-md'
-      : isDark
-        ? 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100'
-        : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900',
+    isDark
+      ? 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100'
+      : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900',
   );
+
+const activeNavItemClass = (isDark: boolean) =>
+  isDark
+    ? 'bg-brand-500/20 text-brand-100 shadow-brand-500/10 scale-105 shadow-lg'
+    : 'bg-brand-100 text-brand-700 scale-105 shadow-md';
 
 export const AccountMenu = ({ variant = 'icon' }: AccountMenuProps) => {
   const { user, isAuthenticated } = useAuth();
   const { isDark } = useTheme();
   const { mutate: logout, isPending, error } = useLogout();
   const [open, setOpen] = useState(false);
-  const { pathname } = useLocation();
-
-  const isActive = ACCOUNT_ROUTES.some((route) => pathname.startsWith(route));
 
   const handleLogout = () => {
     logout(undefined, {
@@ -57,13 +54,15 @@ export const AccountMenu = ({ variant = 'icon' }: AccountMenuProps) => {
   if (!isAuthenticated) {
     if (variant === 'nav-item') {
       return (
-        <NavLink
-          to='/login'
-          className={({ isActive }) => navItemClass(isDark, isActive)}
+        <NavigationLink
+          href='/login'
+          exact
+          className={navItemClass(isDark)}
+          activeClassName={activeNavItemClass(isDark)}
         >
           <User size={20} />
           <span>Login</span>
-        </NavLink>
+        </NavigationLink>
       );
     }
 
@@ -81,9 +80,19 @@ export const AccountMenu = ({ variant = 'icon' }: AccountMenuProps) => {
       : 'text-zinc-700 hover:bg-zinc-100',
   );
 
+  const isAccountActive = ACCOUNT_ROUTES.some(
+    (route) => route === '/profile' || route === '/orders',
+  );
+
   const trigger =
     variant === 'nav-item' ? (
-      <button type='button' className={navItemClass(isDark, isActive)}>
+      <button
+        type='button'
+        className={clsx(
+          navItemClass(isDark),
+          isAccountActive && activeNavItemClass(isDark),
+        )}
+      >
         <UserRound size={20} />
         <span>Account</span>
       </button>
@@ -124,17 +133,17 @@ export const AccountMenu = ({ variant = 'icon' }: AccountMenuProps) => {
 
         <div className='flex flex-col gap-2 p-4'>
           <DrawerClose>
-            <NavLink to='/profile' className={linkClass}>
+            <NavigationLink href='/profile' className={linkClass}>
               <User size={18} />
               <span>My Profile</span>
-            </NavLink>
+            </NavigationLink>
           </DrawerClose>
 
           <DrawerClose>
-            <NavLink to='/orders' className={linkClass}>
+            <NavigationLink href='/orders' className={linkClass}>
               <Package size={18} />
               <span>My Orders</span>
-            </NavLink>
+            </NavigationLink>
           </DrawerClose>
 
           <div
@@ -159,6 +168,7 @@ export const AccountMenu = ({ variant = 'icon' }: AccountMenuProps) => {
             <LogOut size={18} />
             <span>{isPending ? 'Logging out...' : 'Log out'}</span>
           </button>
+
           {error && <ErrorMessage message={getApiErrorMessage(error)} />}
         </div>
       </DrawerContent>

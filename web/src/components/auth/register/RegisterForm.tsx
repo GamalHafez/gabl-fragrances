@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import {
   signupSchema,
   type RegisterBody,
-} from "@shared/schemas/auth.validators.js";
+} from "@/schemas/auth.validators.js";
 import { FormSubmitButton } from "@/components/ui/forms";
 import { useNavigate } from "react-router-dom";
 import { useRegister } from "@/hooks/auth/useRegister";

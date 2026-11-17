@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 import clsx from "clsx";
 import { useTheme } from "@/context/theme/useTheme";
+import Link from "next/link";
 
 type AuthRedirectProps = {
   message: string;
@@ -24,7 +24,7 @@ export const AuthRedirect = ({
     >
       {message}
       <Link
-        to={actionHref}
+        href={actionHref}
         className={clsx(
           "ml-1.5 font-semibold transition-colors duration-200",
           isDark

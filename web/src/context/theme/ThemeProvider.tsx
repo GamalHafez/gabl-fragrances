@@ -1,5 +1,7 @@
-import { setItem } from "@/utils";
-import { createContext, useState } from "react";
+'use client';
+
+import { setItem } from '@/utils';
+import { createContext, useState } from 'react';
 
 const ThemeContext = createContext<{ isDark: boolean; toggle: () => void }>({
   isDark: false,
@@ -7,13 +9,13 @@ const ThemeContext = createContext<{ isDark: boolean; toggle: () => void }>({
 });
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const storedTheme = localStorage.getItem("theme");
+  const storedTheme = localStorage.getItem('theme');
   const initialTheme = storedTheme ? JSON.parse(storedTheme) : false;
 
   const [isDark, setIsDark] = useState(initialTheme);
   const toggle = () => {
     setIsDark((prev: boolean) => !prev);
-    setItem("theme", !isDark);
+    setItem('theme', !isDark);
   };
 
   return (

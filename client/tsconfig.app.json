@@ -23,5 +23,5 @@
     "erasableSyntaxOnly": false,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src", "../web/src/services", "../web/src/hooks", "../web/src/data"]
 }

@@ -39,11 +39,11 @@ export const ErrorPage = () => {
 
           <div className="flex flex-wrap justify-center gap-4">
             <Button>
-              <Link to="/">Back to Home</Link>
+              <Link href="/">Back to Home</Link>
             </Button>
 
             <Button variant="outline">
-              <Link to="/collections">Browse Collection</Link>
+              <Link href="/collections">Browse Collection</Link>
             </Button>
           </div>
         </section>

@@ -1,10 +1,8 @@
-import { getCartTotalQuantity } from "@/utils/cart";
-import type {
-  DiscountPreview,
-  StoredCart,
-  StoredCartItem,
-} from "@shared/types";
-import { createContext, useEffect, useState } from "react";
+'use client';
+
+import { getCartTotalQuantity } from '@/utils/cart';
+import type { DiscountPreview, StoredCart, StoredCartItem } from '@/types';
+import { createContext, useEffect, useState } from 'react';
 import {
   addItem,
   applyDiscount,
@@ -13,8 +11,8 @@ import {
   removeItem,
   replaceCart,
   updateQuantity,
-} from "./cartOperations";
-import { getItem, setItem } from "@/utils";
+} from './cartOperations';
+import { getItem, setItem } from '@/utils';
 
 type CartContextValue = {
   items: StoredCartItem[];
@@ -33,7 +31,7 @@ type CartContextValue = {
 const CartContext = createContext<CartContextValue | null>(null);
 
 const getInitialCart = (): StoredCart => {
-  const stored = getItem<StoredCart>("cart");
+  const stored = getItem<StoredCart>('cart');
   return {
     items: stored?.items ?? [],
     discount: stored?.discount ?? null, // guards against pre-existing carts without this field
@@ -73,7 +71,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   useEffect(() => {
-    setItem("cart", cart);
+    setItem('cart', cart);
   }, [cart]);
 
   return (

@@ -1,10 +1,10 @@
-import { AuthLoadingScreen } from "@/components/auth/common";
-import { authService } from "@/services/auth/auth.service";
-import type { User } from "@shared/types";
-import type { PersonalInfoType } from "@shared/types/user";
-import { createContext, useEffect, useState } from "react";
+'use client';
+import { AuthLoadingScreen } from '@/components/auth/common';
+import { authService } from '@/services/auth/auth.service';
+import { User } from '@/types';
+import { PersonalInfoType } from '@/types/user';
+import { createContext, useEffect, useState } from 'react';
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext<{
   user: User | PersonalInfoType | null;
   setUser: (user: User | PersonalInfoType | null) => void;

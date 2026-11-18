@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import { ProductCard } from "@/components/ui/products";
-import type { SearchProduct } from "@shared/types/product";
-import { SamplesCard } from "./SamplesCard";
+import { ProductCard } from '@/components/ui/products';
+import type { SearchProduct } from '@/types/product';
+import { SamplesCard } from './SamplesCard';
+import Link from 'next/link';
 
 type CollectionsGridProps = {
   products: SearchProduct[];
@@ -9,9 +9,9 @@ type CollectionsGridProps = {
 
 export const CollectionsGrid = ({ products }: CollectionsGridProps) => {
   return (
-    <section className="py-12 pt-5 md:pt-8">
-      <div className="grid grid-cols-2 gap-6 md:grid-cols-3 md:gap-22 xl:grid-cols-4 xl:gap-x-20">
-        <Link to="/collections/samples" className="block">
+    <section className='py-12 pt-5 md:pt-8'>
+      <div className='grid grid-cols-2 gap-6 md:grid-cols-3 md:gap-22 xl:grid-cols-4 xl:gap-x-20'>
+        <Link href='/collections/samples' className='block'>
           <SamplesCard />
         </Link>
 
@@ -19,8 +19,8 @@ export const CollectionsGrid = ({ products }: CollectionsGridProps) => {
           return (
             <Link
               key={product.id}
-              to={`/products/${product.slug}`}
-              className="block"
+              href={`/products/${product.slug}`}
+              className='block'
             >
               <ProductCard
                 product={{

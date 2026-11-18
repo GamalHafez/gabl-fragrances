@@ -2,13 +2,13 @@ import clsx from 'clsx';
 import { useTheme } from '@/context/theme/useTheme';
 import gabalLogo from '@/assets/logo.png';
 import { Container } from '@/components/ui/common';
-import { Link } from 'react-router-dom';
 import { scrollToTop } from '@/utils';
 import { HeaderIconAction } from '@/components/layout/header';
 import { LogIn, Moon, Sun } from 'lucide-react';
 import { useAuth } from '@/context/auth/useAuth';
 import { AccountMenu } from '@/components/auth/common';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export const CheckoutHeader = () => {
   const { isAuthenticated } = useAuth();
@@ -26,7 +26,7 @@ export const CheckoutHeader = () => {
       <Container>
         <div className='flex items-center justify-between'>
           <Link
-            to='/'
+            href='/'
             onClick={() => scrollToTop()}
             className={clsx(
               'flex items-center gap-2 text-xl font-semibold capitalize',

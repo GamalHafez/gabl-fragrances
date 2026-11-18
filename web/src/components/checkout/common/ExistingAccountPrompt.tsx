@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 import clsx from "clsx";
 import { useTheme } from "@/context/theme/useTheme";
+import Link from "next/link";
 
 export const ExistingAccountPrompt = () => {
   const { isDark } = useTheme();
@@ -16,7 +16,7 @@ export const ExistingAccountPrompt = () => {
     >
       <p>
         Already have an account?{" "}
-        <Link to="/login" className="font-semibold underline">
+        <Link href="/login" className="font-semibold underline">
           Sign in
         </Link>{" "}
         to connect this order to your account and view it from your order

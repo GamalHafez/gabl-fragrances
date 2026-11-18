@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useTheme } from "@/context/theme/useTheme";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 type EmptyCartProps = {
   onOpenChange?: (open: boolean) => void;
@@ -58,7 +58,7 @@ export const EmptyCart = ({ onOpenChange }: EmptyCartProps) => {
 
       {/* CTA */}
       <Link
-        to="/collections"
+        href="/collections"
         onClick={() => onOpenChange?.(false)}
         className={clsx(
           "mt-7 inline-flex min-w-40 items-center justify-center rounded-full px-6 py-3 text-xs font-medium tracking-[0.16em] uppercase transition-all duration-200",

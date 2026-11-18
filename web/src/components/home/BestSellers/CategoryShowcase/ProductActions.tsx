@@ -1,8 +1,8 @@
-import { AddToCart } from "@/components/ui/products";
-import { useTheme } from "@/context/theme/useTheme";
-import clsx from "clsx";
-import { ExternalLink } from "lucide-react";
-import { Link } from "react-router-dom";
+import { AddToCart } from '@/components/ui/products';
+import { useTheme } from '@/context/theme/useTheme';
+import clsx from 'clsx';
+import { ExternalLink } from 'lucide-react';
+import Link from 'next/link';
 
 type ProductActionsProps = {
   productSlug: string;
@@ -18,7 +18,7 @@ export const ProductActions = ({
   const { isDark } = useTheme();
 
   return (
-    <div className="flex items-center gap-3">
+    <div className='flex items-center gap-3'>
       <AddToCart
         productVariantId={productVariantId}
         quantity={1}
@@ -26,15 +26,15 @@ export const ProductActions = ({
       />
 
       <Link
-        to={`/products/${productSlug}`}
+        href={`/products/${productSlug}`}
         className={clsx(
-          "flex h-11 w-11 items-center justify-center rounded-full border transition-colors duration-150",
+          'flex h-11 w-11 items-center justify-center rounded-full border transition-colors duration-150',
           isDark
-            ? "hover:border-brand-300/40 hover:bg-brand-300/10 hover:text-brand-200 border-white/10 bg-white/5 text-zinc-300"
-            : "hover:border-brand-300 hover:bg-brand-50 hover:text-brand-500 border-zinc-200 bg-white text-zinc-600",
+            ? 'hover:border-brand-300/40 hover:bg-brand-300/10 hover:text-brand-200 border-white/10 bg-white/5 text-zinc-300'
+            : 'hover:border-brand-300 hover:bg-brand-50 hover:text-brand-500 border-zinc-200 bg-white text-zinc-600',
         )}
       >
-        <ExternalLink className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        <ExternalLink className='h-5 w-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5' />
       </Link>
     </div>
   );

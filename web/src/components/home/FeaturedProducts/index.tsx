@@ -4,17 +4,17 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/shadcn/carousel";
-import { Link } from "react-router-dom";
-import { SectionHeader } from "@/components/ui/home/SectionHeader";
-import { useFeaturedProducts } from "@/hooks/products";
-import { FeaturedProductsSkeleton } from "@/components/skeleton";
-import { ProductCard } from "@/components/collections";
+} from '@/components/ui/shadcn/carousel';
+import { SectionHeader } from '@/components/ui/home/SectionHeader';
+import { useFeaturedProducts } from '@/hooks/products';
+import { FeaturedProductsSkeleton } from '@/components/skeleton';
+import { ProductCard } from '@/components/collections';
+import Link from 'next/link';
 
 const FeaturedProductsHeader = {
-  eyebrow: "Shop Now",
-  title: "Featured Products",
-  description: "",
+  eyebrow: 'Shop Now',
+  title: 'Featured Products',
+  description: '',
 };
 
 const FeaturedProducts = () => {
@@ -35,19 +35,19 @@ const FeaturedProducts = () => {
 
   return (
     <section
-      id="featured-products"
-      className="mx-auto mt-14 max-w-6xl px-6 pb-28 md:mt-10"
+      id='featured-products'
+      className='mx-auto mt-14 max-w-6xl px-6 pb-28 md:mt-10'
     >
       <SectionHeader content={FeaturedProductsHeader} />
 
       <Carousel>
-        <CarouselContent className="mt-8 pb-4 md:mt-6 md:pb-8">
+        <CarouselContent className='mt-8 pb-4 md:mt-6 md:pb-8'>
           {featuredProducts.map((product) => (
             <CarouselItem
               key={product.id}
-              className="basis-1/1 px-10 md:basis-1/2 lg:mx-auto lg:basis-1/3"
+              className='basis-1/1 px-10 md:basis-1/2 lg:mx-auto lg:basis-1/3'
             >
-              <Link to={`/products/${product.slug}`} className="block">
+              <Link href={`/products/${product.slug}`} className='block'>
                 <ProductCard
                   product={{
                     id: product.id,

@@ -1,21 +1,23 @@
-import { Controller, useForm } from "react-hook-form";
-import { RatingField } from "./RatingField";
+'use client';
+
+import { Controller, useForm } from 'react-hook-form';
+import { RatingField } from './RatingField';
 import {
   reviewSchema,
   type createReviewSchema,
-} from "@shared/validators/reviewSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FormField, FormSubmitButton } from "@/components/ui/forms";
-import { useCreateReview } from "@/hooks/reviews";
-import { useParams } from "react-router-dom";
-import { ErrorMessage } from "@/components/ui/common";
-import { ReviewSuccess } from "./ReviewSuccess";
-import type z from "zod";
+} from '@/validators/reviewSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FormField, FormSubmitButton } from '@/components/ui/forms';
+import { useCreateReview } from '@/hooks/reviews';
+import { useParams } from 'next/navigation';
+import { ErrorMessage } from '@/components/ui/common';
+import { ReviewSuccess } from './ReviewSuccess';
+import type z from 'zod';
 
 type CreateReviewBody = z.infer<typeof createReviewSchema>;
 
 export const ReviewForm = () => {
-  const { productSlug } = useParams();
+  const { productSlug } = useParams<{ productSlug: string }>();
   const {
     register,
     handleSubmit,
@@ -25,8 +27,8 @@ export const ReviewForm = () => {
   } = useForm<CreateReviewBody>({
     resolver: zodResolver(reviewSchema),
     defaultValues: {
-      name: "",
-      review: "",
+      name: '',
+      review: '',
       rating: 0,
     },
   });
@@ -36,7 +38,7 @@ export const ReviewForm = () => {
     isPending,
     isError,
     isSuccess,
-  } = useCreateReview(productSlug!);
+  } = useCreateReview(productSlug);
 
   const onSubmit = (data: CreateReviewBody) => {
     createReview(data, {
@@ -54,36 +56,36 @@ export const ReviewForm = () => {
     <form
       noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className="mt-2 flex flex-col gap-4"
+      className='mt-2 flex flex-col gap-4'
     >
       <Controller
         control={control}
-        name="rating"
+        name='rating'
         render={({ field }) => (
           <RatingField
             value={field.value}
             onChange={field.onChange}
-            error={errors.rating ? (errors.rating.message ?? "") : ""}
+            error={errors.rating ? (errors.rating.message ?? '') : ''}
           />
         )}
       />
 
       <FormField
-        name="name"
+        name='name'
         register={register}
         errors={errors}
-        label="Your Name"
-        placeholder="Enter your name"
+        label='Your Name'
+        placeholder='Enter your name'
       />
 
       <FormField
         isTextarea
         rows={5}
-        name="review"
+        name='review'
         register={register}
         errors={errors}
-        label="Your Review"
-        placeholder="Tell others what you liked about this fragrance..."
+        label='Your Review'
+        placeholder='Tell others what you liked about this fragrance...'
       />
 
       {isError && (
@@ -92,7 +94,7 @@ export const ReviewForm = () => {
 
       <FormSubmitButton
         disabled={isPending}
-        label={isPending ? "Sending..." : "Submit Review"}
+        label={isPending ? 'Sending...' : 'Submit Review'}
       />
     </form>
   );

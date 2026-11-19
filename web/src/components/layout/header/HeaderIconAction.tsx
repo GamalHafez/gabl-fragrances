@@ -3,10 +3,10 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/shadcn/tooltip";
-import { useTheme } from "@/context/theme/useTheme";
-import clsx from "clsx";
-import { Link } from "react-router-dom";
+} from '@/components/ui/shadcn/tooltip';
+import { useTheme } from '@/context/theme/useTheme';
+import clsx from 'clsx';
+import Link from 'next/link';
 
 type LinkActionProps = {
   href: string;
@@ -33,25 +33,25 @@ export const HeaderIconAction = ({
   label,
   contentClassName,
   children,
-  href = "",
+  href = '',
 }: HeaderIconActionProps) => {
   const { isDark } = useTheme();
 
   const actionStyles = clsx(
-    "flex cursor-pointer items-center justify-center transition-colors",
+    'flex cursor-pointer items-center justify-center transition-colors',
     label
-      ? "h-10 shrink-0 gap-1.5 rounded-full md:px-3"
-      : "h-10 w-10 rounded-full",
+      ? 'h-10 shrink-0 gap-1.5 rounded-full md:px-3'
+      : 'h-10 w-10 rounded-full',
     isDark
-      ? "text-brand-300 hover:bg-zinc-900/10 hover:text-red-200"
-      : "hover:bg-brand-100/10 hover:text-brand-600",
+      ? 'text-brand-300 hover:bg-zinc-900/10 hover:text-red-200'
+      : 'hover:bg-brand-100/10 hover:text-brand-600',
   );
 
   const content = (
     <>
       {children}
       {label && (
-        <span className="text-sm font-medium whitespace-nowrap">{label}</span>
+        <span className='text-sm font-medium whitespace-nowrap'>{label}</span>
       )}
     </>
   );
@@ -62,13 +62,13 @@ export const HeaderIconAction = ({
         <TooltipTrigger
           render={(props) =>
             href ? (
-              <Link {...props} to={href} className={actionStyles}>
+              <Link {...props} href={href} className={actionStyles}>
                 {content}
               </Link>
             ) : (
               <button
                 {...props}
-                type="button"
+                type='button'
                 className={actionStyles}
                 onClick={onClick}
               >
@@ -79,7 +79,7 @@ export const HeaderIconAction = ({
         />
 
         <TooltipContent className={contentClassName}>
-          <p className="capitalize">{tooltip}</p>
+          <p className='capitalize'>{tooltip}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

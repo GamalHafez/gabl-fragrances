@@ -1,4 +1,4 @@
-import type { CheckoutDefaults, CheckoutFormValues } from "@shared/types";
+import type { CheckoutDefaults, CheckoutFormValues } from "@/types";
 
 export const splitName = (fullName: string) => {
   const [firstName = "", ...rest] = fullName.trim().split(/\s+/);

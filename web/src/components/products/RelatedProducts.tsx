@@ -4,13 +4,13 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/shadcn/carousel";
-import { ProductCard } from "../collections";
-import { MainHeading } from "@/components/ui/common";
-import { Link } from "react-router-dom";
-import { RelatedProductsSkeleton } from "../skeleton";
-import { useRelatedProducts } from "@/hooks/products";
-import { getMainProductVariant } from "@shared/utils/products.js";
+} from '@/components/ui/shadcn/carousel';
+import { ProductCard } from '../collections';
+import { MainHeading } from '@/components/ui/common';
+import { RelatedProductsSkeleton } from '../skeleton';
+import { useRelatedProducts } from '@/hooks/products';
+import { getMainProductVariant } from '@/utils/products.js';
+import Link from 'next/link';
 
 type RelatedProductsProps = {
   productSlug: string;
@@ -34,32 +34,35 @@ export const RelatedProducts = ({ productSlug }: RelatedProductsProps) => {
 
   return (
     <section
-      id="related-products"
-      className="mt-20 mb-18 flex flex-col lg:mt-30"
+      id='related-products'
+      className='mt-20 mb-18 flex flex-col lg:mt-30'
     >
-      <MainHeading title="Related Fragrances" className="md:self-start" />
+      <MainHeading title='Related Fragrances' className='md:self-start' />
 
       <Carousel>
-        <CarouselContent className="mt-8 pb-4 md:mt-6 md:pb-8">
+        <CarouselContent className='mt-8 pb-4 md:mt-6 md:pb-8'>
           {relatedProducts.map((p) => {
             const mainVariant = getMainProductVariant(p.variants);
 
             return (
               <CarouselItem
                 key={p.id}
-                className="basis-1/1 px-10 md:basis-1/2 lg:mx-auto lg:basis-1/3"
+                className='basis-1/1 px-10 md:basis-1/2 lg:mx-auto lg:basis-1/3'
               >
-                <Link to={`/products/${p.slug}`} className="block">
+                <Link href={`/products/${p.slug}`} className='block'>
                   <ProductCard
                     product={{
                       id: p.id,
                       slug: p.slug,
                       name: p.name,
                       gender: p.gender,
-                      images: p.images.map((img) => ({
-                        url: img.url,
-                        description: img.description ?? null,
-                      })),
+                      images: p.images.map(
+                        // Todo: Edit the image type
+                        (img: { url: string; description: string }) => ({
+                          url: img.url,
+                          description: img.description ?? null,
+                        }),
+                      ),
                       variant: mainVariant
                         ? {
                             id: mainVariant.id,

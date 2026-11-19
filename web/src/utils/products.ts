@@ -1,9 +1,10 @@
-import type { ProductBadge } from "@/components/products/ProductInfo/ProductBadges";
+import type { ProductBadge } from '@/components/products/ProductInfo/ProductBadges';
 import type {
   Product,
   ProductReview,
   ProductSample,
-} from "@shared/types/product";
+  ProductVariant,
+} from '@/types/product';
 
 export const getProductBadges = (
   product: Product | ProductSample,
@@ -15,39 +16,39 @@ export const getProductBadges = (
   if (isSample) {
     badges.push({
       label: `Sample`,
-      status: "sample",
+      status: 'sample',
     });
   }
 
   const genderLabel =
-    product.gender === "MEN"
+    product.gender === 'MEN'
       ? "Men's"
-      : product.gender === "WOMEN"
+      : product.gender === 'WOMEN'
         ? "Women's"
-        : "Unisex";
+        : 'Unisex';
 
   // Stock status first
   badges.push({
-    label: inStock ? "In Stock" : "Out of Stock",
-    status: inStock ? "stock" : "out-of-stock",
+    label: inStock ? 'In Stock' : 'Out of Stock',
+    status: inStock ? 'stock' : 'out-of-stock',
   });
 
   badges.push({
     label: `${genderLabel} Collection`,
-    status: "collection",
+    status: 'collection',
   });
 
   if (product.isNew) {
     badges.push({
-      label: "New",
-      status: "new",
+      label: 'New',
+      status: 'new',
     });
   }
 
   if (product.isBestSeller) {
     badges.push({
-      label: "Best Seller",
-      status: "best-seller",
+      label: 'Best Seller',
+      status: 'best-seller',
     });
   }
 
@@ -65,8 +66,21 @@ export const getAverageRating = (reviews: ProductReview[]): number => {
 };
 
 export const formatDate = (date: string | Date) =>
-  new Date(date).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
+  new Date(date).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
   });
+
+export function getMainProductVariant<T extends ProductVariant>(
+  variants: T[] | null | undefined,
+): T | null {
+  if (!variants?.length) return null;
+
+  const byPrice = (a: T, b: T) => Number(a.price) - Number(b.price);
+
+  const inStock = variants.filter((v) => v.stock > 0).sort(byPrice);
+  if (inStock.length) return inStock[0];
+
+  return [...variants].sort(byPrice)[0];
+}

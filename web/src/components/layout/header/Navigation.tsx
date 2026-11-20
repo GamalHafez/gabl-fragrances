@@ -1,59 +1,61 @@
-import { NavLink } from "react-router-dom";
-import clsx from "clsx";
-import { useTheme } from "@/context/theme/useTheme";
-import { scrollToTop } from "@/utils";
-import { useAuth } from "@/context/auth/useAuth";
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import clsx from 'clsx';
+import { useTheme } from '@/context/theme/useTheme';
+import { useAuth } from '@/context/auth/useAuth';
 
 const navLinkStyles = (isActive: boolean, isDark: boolean) =>
   clsx(
-    "capitalize transition-colors duration-300 ease-in-out",
+    'capitalize transition-colors duration-300 ease-in-out',
     isActive
       ? clsx(
-          "font-semibold after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-full after:transition-all after:duration-300",
+          'relative font-semibold after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-full after:transition-all after:duration-300',
           isDark
-            ? "text-brand-300  hover:text-red-200"
-            : "text-brand-800  hover:text-brand-700",
+            ? 'text-brand-300 hover:text-red-200'
+            : 'text-brand-800 hover:text-brand-700',
         )
       : clsx(
-          "relative after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:transition-all after:duration-300 hover:after:w-full",
+          'relative after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:transition-all after:duration-300 hover:after:w-full',
           isDark
-            ? "text-zinc-300 after:bg-brand-600 hover:after:bg-brand-400"
-            : "text-zinc-800 hover:text-zinc-950 after:bg-red-700 hover:after:bg-red-600",
+            ? 'text-zinc-300 after:bg-brand-600 hover:after:bg-brand-400'
+            : 'text-zinc-800 hover:text-zinc-950 after:bg-red-700 hover:after:bg-red-600',
         ),
   );
 
 export const Navigation = ({ isMobile }: { isMobile?: boolean }) => {
   const { isDark } = useTheme();
   const { isAuthenticated } = useAuth();
+  const pathname = usePathname();
 
   const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "Catalog", href: "/collections" },
+    { name: 'Home', href: '/' },
+    { name: 'Catalog', href: '/collections' },
     {
-      name: isAuthenticated ? "My Account" : "Sign Up",
-      href: isAuthenticated ? "/profile" : "/signup",
+      name: isAuthenticated ? 'My Account' : 'Sign Up',
+      href: isAuthenticated ? '/profile' : '/signup',
     },
   ];
+
+  const isActive = (href: string) =>
+    href === '/' ? pathname === '/' : pathname.startsWith(href);
 
   return (
     <nav
       className={clsx(
-        "flex",
-        isMobile ? "flex-col gap-2 px-6 pt-5" : "flex-row items-center gap-8",
+        'flex',
+        isMobile ? 'flex-col gap-2 px-6 pt-5' : 'flex-row items-center gap-8',
       )}
     >
       {navLinks.map((link) => (
-        <NavLink
+        <Link
           key={link.href}
-          to={link.href}
-          className={({ isActive }) => navLinkStyles(isActive, isDark)}
-          onClick={() => {
-            scrollToTop();
-          }}
+          href={link.href}
+          className={navLinkStyles(isActive(link.href), isDark)}
         >
-          {isMobile}
           {link.name}
-        </NavLink>
+        </Link>
       ))}
     </nav>
   );

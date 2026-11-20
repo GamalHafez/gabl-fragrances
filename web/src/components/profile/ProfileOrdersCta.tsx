@@ -1,47 +1,47 @@
-import { Link } from "react-router-dom";
-import { ArrowRight, Package } from "lucide-react";
-import clsx from "clsx";
-import { useTheme } from "@/context/theme/useTheme";
+import { ArrowRight, Package } from 'lucide-react';
+import clsx from 'clsx';
+import { useTheme } from '@/context/theme/useTheme';
+import Link from 'next/link';
 
 export const ProfileOrdersCta = () => {
   const { isDark } = useTheme();
 
   return (
     <Link
-      to="/orders"
+      href='/orders'
       className={clsx(
-        "group mt-18 flex items-center justify-between gap-4 rounded-2xl border px-6 py-6 transition-all sm:px-8",
-        "focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:outline-none",
+        'group mt-18 flex items-center justify-between gap-4 rounded-2xl border px-6 py-6 transition-all sm:px-8',
+        'focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:outline-none',
         isDark
-          ? "border-emerald-500/20 bg-emerald-500/5 hover:bg-emerald-500/10"
-          : "border-emerald-100 bg-emerald-50/60 hover:bg-emerald-50",
+          ? 'border-emerald-500/20 bg-emerald-500/5 hover:bg-emerald-500/10'
+          : 'border-emerald-100 bg-emerald-50/60 hover:bg-emerald-50',
       )}
     >
-      <div className="flex items-center gap-4">
+      <div className='flex items-center gap-4'>
         <span
           className={clsx(
-            "flex h-11 w-11 shrink-0 items-center justify-center rounded-full",
+            'flex h-11 w-11 shrink-0 items-center justify-center rounded-full',
             isDark
-              ? "bg-emerald-500/15 text-emerald-400"
-              : "bg-emerald-100 text-emerald-700",
+              ? 'bg-emerald-500/15 text-emerald-400'
+              : 'bg-emerald-100 text-emerald-700',
           )}
         >
-          <Package className="h-5 w-5" />
+          <Package className='h-5 w-5' />
         </span>
 
         <div>
           <h3
             className={clsx(
-              "mb-1 text-base font-semibold",
-              isDark ? "text-neutral-100" : "text-neutral-900",
+              'mb-1 text-base font-semibold',
+              isDark ? 'text-neutral-100' : 'text-neutral-900',
             )}
           >
             View Your Orders
           </h3>
           <p
             className={clsx(
-              "text-sm",
-              isDark ? "text-neutral-400" : "text-neutral-500",
+              'text-sm',
+              isDark ? 'text-neutral-400' : 'text-neutral-500',
             )}
           >
             Track your order history and check delivery status
@@ -51,8 +51,8 @@ export const ProfileOrdersCta = () => {
 
       <ArrowRight
         className={clsx(
-          "h-5 w-5 shrink-0 -translate-x-1 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100",
-          isDark ? "text-emerald-400" : "text-emerald-600",
+          'h-5 w-5 shrink-0 -translate-x-1 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100',
+          isDark ? 'text-emerald-400' : 'text-emerald-600',
         )}
       />
     </Link>

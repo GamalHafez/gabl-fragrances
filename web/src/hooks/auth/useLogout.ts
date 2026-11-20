@@ -1,11 +1,13 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { authService } from "@/services/auth/auth.service";
-import { useAuth } from "@/context/auth/useAuth";
-import { useNavigate } from "react-router-dom";
+'use client';
+
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { authService } from '@/services/auth/auth.service';
+import { useAuth } from '@/context/auth/useAuth';
+import { useRouter } from 'next/navigation';
 
 export const useLogout = () => {
   const { setUser } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -13,7 +15,7 @@ export const useLogout = () => {
     onSuccess: () => {
       setUser(null);
       queryClient.clear();
-      navigate("/");
+      router.push('/');
     },
   });
 };

@@ -1,28 +1,31 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { usePathname } from 'next/navigation';
 
 export const HashScrollHandler = () => {
-  const { hash } = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (!hash) return;
+    const scrollToHash = () => {
+      const hash = window.location.hash;
+      if (!hash) return;
 
-    const id = hash.slice(1);
+      const id = decodeURIComponent(hash.slice(1));
 
-    // Wait until the page has rendered
-    requestAnimationFrame(() => {
-      const element = document.getElementById(id);
-
-      if (element) {
-        element.scrollIntoView({
+      // Wait until the page has rendered
+      requestAnimationFrame(() => {
+        document.getElementById(id)?.scrollIntoView({
           behavior: 'smooth',
           block: 'start',
         });
-      }
-    });
-  }, [hash]);
+      });
+    };
+
+    scrollToHash();
+    window.addEventListener('hashchange', scrollToHash);
+    return () => window.removeEventListener('hashchange', scrollToHash);
+  }, [pathname]);
 
   return null;
 };

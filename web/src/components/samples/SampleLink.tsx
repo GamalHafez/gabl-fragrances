@@ -1,7 +1,7 @@
-import { useTheme } from "@/context/theme/useTheme";
-import clsx from "clsx";
-import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useTheme } from '@/context/theme/useTheme';
+import clsx from 'clsx';
+import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 type SampleLinkProps = {
   selectedSampleSlug: string;
@@ -12,16 +12,16 @@ export const SampleLink = ({ selectedSampleSlug }: SampleLinkProps) => {
 
   return (
     <Link
-      to={`/products/${selectedSampleSlug}`}
+      href={`/products/${selectedSampleSlug}`}
       className={clsx(
-        "group inline-flex items-center gap-2 text-sm font-medium transition-colors",
+        'group inline-flex items-center gap-2 text-sm font-medium transition-colors',
         isDark
-          ? "text-brand-300 hover:text-brand-200"
-          : "text-brand-500 hover:text-brand-600",
+          ? 'text-brand-300 hover:text-brand-200'
+          : 'text-brand-500 hover:text-brand-600',
       )}
     >
       Explore full fragrance
-      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+      <ArrowRight className='h-4 w-4 transition-transform duration-300 group-hover:translate-x-1' />
     </Link>
   );
 };

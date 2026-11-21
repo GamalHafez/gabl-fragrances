@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 import { useTheme } from '@/context/theme/useTheme';
-import gabalLogo from '@/assets/logo.png';
 import { Container } from '@/components/ui/common';
 import { scrollToTop } from '@/utils';
 import { HeaderIconAction } from '@/components/layout/header';
@@ -34,7 +33,7 @@ export const CheckoutHeader = () => {
             )}
           >
             <Image
-              src={gabalLogo}
+              src='/images/logo.png'
               alt='Gabal Fragrances'
               className='h-9 w-auto object-contain'
             />

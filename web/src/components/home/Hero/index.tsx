@@ -1,6 +1,3 @@
-import mobileBanner from '../../../assets/mobile-banner.jpg';
-import desktopBanner from '../../../assets/desktop-banner.png';
-import tabletBanner from '../../../assets/tablet-banner.png';
 import { ChevronRight } from 'lucide-react';
 import { AnnouncementBar } from './AnnouncementBar';
 import Image from 'next/image';
@@ -9,17 +6,21 @@ import Link from 'next/link';
 const Hero = () => {
   return (
     <section className='relative isolate overflow-hidden'>
-      <Image className='block w-full md:hidden' src={mobileBanner} alt='' />
+      <Image
+        className='block w-full md:hidden'
+        src='/images/mobile-banner.jpg'
+        alt=''
+      />
 
       <Image
         className='hidden h-[80vh] w-full object-cover lg:block'
-        src={desktopBanner}
+        src='/images/desktop-banner.png'
         alt=''
       />
 
       <Image
         className='hidden h-[60vh] w-full object-cover md:block lg:hidden'
-        src={tabletBanner}
+        src='/images/tablet-banner.png'
         alt=''
       />
 

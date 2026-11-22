@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
-import { RightProductPreview } from "./RightProductPreview";
-import type { BestSellerProduct } from "@shared/types/product";
+'use client';
+
+import { useEffect, useState } from 'react';
+import { RightProductPreview } from './RightProductPreview';
+import type { BestSellerProduct } from '@/types/product';
 import {
   Carousel,
   CarouselContent,
@@ -8,7 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
   type CarouselApi,
-} from "@/components/ui/shadcn/carousel";
+} from '@/components/ui/shadcn/carousel';
 
 type CategoryShowcaseProps = {
   bestSellers?: BestSellerProduct[];
@@ -30,9 +32,9 @@ const CategoryShowcase = ({ bestSellers = [] }: CategoryShowcaseProps) => {
       if (product) setSelectedProduct(product);
     };
 
-    api.on("select", handleSelect);
+    api.on('select', handleSelect);
     return () => {
-      api.off("select", handleSelect);
+      api.off('select', handleSelect);
     };
   }, [api, bestSellers]);
 
@@ -45,25 +47,25 @@ const CategoryShowcase = ({ bestSellers = [] }: CategoryShowcaseProps) => {
 
   if (bestSellers.length === 0 || !selectedProduct) {
     return (
-      <p className="py-6 text-center text-sm text-zinc-500">
+      <p className='py-6 text-center text-sm text-zinc-500'>
         No best sellers in this category yet.
       </p>
     );
   }
 
   return (
-    <article className="flex flex-col items-center justify-center px-2 md:flex-row">
-      <Carousel setApi={setApi} className="w-full">
-        <CarouselContent className="mt-4 py-4 md:mt-8">
+    <article className='flex flex-col items-center justify-center px-2 md:flex-row'>
+      <Carousel setApi={setApi} className='w-full'>
+        <CarouselContent className='mt-4 py-4 md:mt-8'>
           {bestSellers.map((product) => (
-            <CarouselItem key={product.id} className="flex justify-center">
+            <CarouselItem key={product.id} className='flex justify-center'>
               <RightProductPreview selectedProduct={product} />
             </CarouselItem>
           ))}
         </CarouselContent>
 
-        <CarouselPrevious className="md:left-8 lg:left-20" />
-        <CarouselNext className="md:right-8 lg:right-20" />
+        <CarouselPrevious className='md:left-8 lg:left-20' />
+        <CarouselNext className='md:right-8 lg:right-20' />
       </Carousel>
     </article>
   );

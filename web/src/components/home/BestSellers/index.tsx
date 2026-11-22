@@ -1,21 +1,23 @@
-import { Background } from "@/components/ui/common";
+'use client';
+
+import { Background } from '@/components/ui/common';
 import {
   Tabs,
   TabsContents,
-} from "@/components/animate-ui/components/animate/tabs";
-import { useState } from "react";
-import { CategoriesTabs } from "./CategoriesTabs";
-import CategoryShowcase from "./CategoryShowcase";
-import { TabsContent } from "@/components/animate-ui/primitives/animate/tabs";
-import { Eyebrow } from "@/components/ui/home";
-import Reveal from "@/components/ui/animation/Reveal";
-import { useBestSellers } from "@/hooks/products";
-import { CategoryShowcaseSkeleton } from "@/components/skeleton";
-import { DataError } from "@/components/ui/errors/DataError";
-import type { Gender } from "@shared/types/enums";
+} from '@/components/animate-ui/components/animate/tabs';
+import { useState } from 'react';
+import { CategoriesTabs } from './CategoriesTabs';
+import CategoryShowcase from './CategoryShowcase';
+import { TabsContent } from '@/components/animate-ui/primitives/animate/tabs';
+import { Eyebrow } from '@/components/ui/home';
+import Reveal from '@/components/ui/animation/Reveal';
+import { useBestSellers } from '@/hooks/products';
+import { CategoryShowcaseSkeleton } from '@/components/skeleton';
+import { DataError } from '@/components/ui/errors/DataError';
+import type { Gender } from '@/types/enums';
 
 const BestSellers = () => {
-  const [selectedCategory, setSelectedCategory] = useState<Gender>("MEN");
+  const [selectedCategory, setSelectedCategory] = useState<Gender>('MEN');
 
   const {
     data: bestSellers,
@@ -40,24 +42,24 @@ const BestSellers = () => {
   };
 
   return (
-    <section id="best-sellers" className="pt-15 md:pt-24">
+    <section id='best-sellers' className='pt-15 md:pt-24'>
       <Background />
 
       <Reveal>
-        <div className="relative mx-auto max-w-6xl px-6">
-          <Eyebrow eyebrow="Our best sellers" />
+        <div className='relative mx-auto max-w-6xl px-6'>
+          <Eyebrow eyebrow='Our best sellers' />
 
           {/* Tabs */}
           <Tabs
             value={selectedCategory}
             onValueChange={(value) => setSelectedCategory(value as Gender)}
           >
-            <CategoriesTabs categories={["MEN", "WOMEN", "UNISEX"]} />
+            <CategoriesTabs categories={['MEN', 'WOMEN', 'UNISEX']} />
 
             <TabsContents>
-              <TabsContent value="MEN">{renderPanelContent()}</TabsContent>
-              <TabsContent value="WOMEN">{renderPanelContent()}</TabsContent>
-              <TabsContent value="UNISEX">{renderPanelContent()}</TabsContent>
+              <TabsContent value='MEN'>{renderPanelContent()}</TabsContent>
+              <TabsContent value='WOMEN'>{renderPanelContent()}</TabsContent>
+              <TabsContent value='UNISEX'>{renderPanelContent()}</TabsContent>
             </TabsContents>
           </Tabs>
         </div>

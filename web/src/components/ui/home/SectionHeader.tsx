@@ -1,7 +1,9 @@
-import { useTheme } from "@/context/theme/useTheme";
-import clsx from "clsx";
-import { SectionHeading } from "./SectionHeading";
-import { Eyebrow } from "./Eyebrow";
+'use client';
+
+import { useTheme } from '@/context/theme/useTheme';
+import clsx from 'clsx';
+import { SectionHeading } from './SectionHeading';
+import { Eyebrow } from './Eyebrow';
 
 type SectionHeaderContent = {
   eyebrow: string;
@@ -18,15 +20,15 @@ export const SectionHeader = ({ content }: SectionHeaderProps) => {
   const { eyebrow, title, description } = content;
 
   return (
-    <div className="mx-auto max-w-3xl text-center">
+    <div className='mx-auto max-w-3xl text-center'>
       <Eyebrow eyebrow={eyebrow} />
 
       <SectionHeading title={title} />
 
       <p
         className={clsx(
-          "mt-6 text-lg leading-8",
-          isDark ? "text-zinc-400" : "text-zinc-600",
+          'mt-6 text-lg leading-8',
+          isDark ? 'text-zinc-400' : 'text-zinc-600',
         )}
       >
         {description}

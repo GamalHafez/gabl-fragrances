@@ -6,22 +6,34 @@ import Link from 'next/link';
 const Hero = () => {
   return (
     <section className='relative isolate overflow-hidden'>
+      {/* Mobile */}
       <Image
+        fill
+        priority
         className='block w-full md:hidden'
         src='/images/mobile-banner.jpg'
-        alt=''
+        alt='Gabal Fragrances collection'
+        sizes='100vw'
       />
 
+      {/* Desktop */}
       <Image
+        fill
+        priority
         className='hidden h-[80vh] w-full object-cover lg:block'
         src='/images/desktop-banner.png'
-        alt=''
+        alt='Gabal Fragrances collection'
+        sizes='100vw'
       />
 
+      {/* Tablet */}
       <Image
+        fill
+        priority
         className='hidden h-[60vh] w-full object-cover md:block lg:hidden'
         src='/images/tablet-banner.png'
-        alt=''
+        alt='Gabal Fragrances collection'
+        sizes='100vw'
       />
 
       <Link

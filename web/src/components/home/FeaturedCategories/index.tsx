@@ -9,14 +9,14 @@ const featuredCategories = [
     name: 'Men',
     href: '/collections?gender=men',
     description: 'Deep woods, spice and smoky oud for a confident signature.',
-    image: '/images/men.jpg',
+    image: '/images/men.jfif',
   },
   {
     id: 2,
     name: 'Women',
     href: '/collections?gender=women',
     description: 'Soft florals, vanilla and amber that linger beautifully.',
-    image: '/images/women.jpg',
+    image: '/images/women.jfif',
   },
 ];
 

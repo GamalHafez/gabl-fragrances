@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { ArrowRight } from 'lucide-react';
 
 type CategoryCardProps = {
   name: string;
@@ -16,8 +17,10 @@ export const CategoryCard = ({
       {/* Background */}
       <Image
         src={image}
-        alt={name}
-        className='absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110'
+        alt={`${name} fragrance collection`}
+        fill
+        sizes='(max-width: 768px) 100vw, 50vw'
+        className='object-cover transition-transform duration-700 group-hover:scale-110'
       />
 
       {/* Overlay */}
@@ -42,20 +45,7 @@ export const CategoryCard = ({
           </span>
 
           <div className='flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/10 backdrop-blur-md transition-all duration-300 group-hover:translate-x-1 group-hover:scale-110 group-hover:bg-brand-500'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              className='h-5 w-5 text-white'
-              fill='none'
-              viewBox='0 0 24 24'
-              stroke='currentColor'
-              strokeWidth={2.5}
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='M5 12h14m-6-6 6 6-6 6'
-              />
-            </svg>
+            <ArrowRight className='h-5 w-5 text-white' />
           </div>
         </div>
       </div>

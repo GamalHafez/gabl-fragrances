@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
-import { cartService } from "@/services/cart/cart.service";
-import type { DiscountPreview, StoredCartItem } from "@shared/types";
+import { useQuery } from '@tanstack/react-query';
+import { cartService } from '@/services/cart/cart.service';
+import type { DiscountPreview, StoredCartItem } from '@/types';
 
 const getCartKey = (
   items: StoredCartItem[],
@@ -10,7 +10,7 @@ const getCartKey = (
     a.productVariantId.localeCompare(b.productVariantId),
   );
 
-  return ["cart-data", sorted, discount?.code ?? null] as const;
+  return ['cart-data', sorted, discount?.code ?? null] as const;
 };
 
 export const useCartData = (

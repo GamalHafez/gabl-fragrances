@@ -9,6 +9,7 @@ import { useCart } from '@/context/cart/useCart';
 import { CartItemSkeleton } from '@/components/skeleton';
 import { DataError } from '@/components/ui/errors/DataError';
 import { useEffect } from 'react';
+import { CartVariant } from '@/types';
 
 type CartSheetProps = {
   open: boolean;
@@ -64,7 +65,7 @@ export const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
               isHomeLink={false}
             />
           ) : (
-            cartData.items.map((item) => (
+            cartData.items.map((item: CartVariant) => (
               <CartItem key={item.productVariantId} cartItem={item} />
             ))
           )}

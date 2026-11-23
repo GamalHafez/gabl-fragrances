@@ -1,22 +1,25 @@
-import { Container, PageWrapper } from "@/components/ui/common";
-import sample5mlImage from "@/assets/sample-5ml.webp";
-import clsx from "clsx";
-import { useTheme } from "@/context/theme/useTheme";
-import { useSamples } from "@/hooks/products";
-import { ProductBadges } from "@/components/products/ProductInfo/ProductBadges";
-import { useState } from "react";
-import { getProductBadges } from "@/utils";
-import { ProductHeader } from "@/components/products/ProductInfo/ProductHeader";
-import { SampleSelection } from "@/components/samples/SampleSelection";
-import { QuantitySelector } from "@/components/ui/products";
-import { ProductActions } from "@/components/products/ProductInfo/ProductActions";
-import { SampleLink } from "@/components/samples/SampleLink";
-import { RelatedProducts } from "@/components/products/RelatedProducts";
-import { ProductTrustInfo } from "@/components/products/ProductTrustInfo";
-import { SamplesPageError } from "@/components/samples/SamplesPageError";
-import { SamplesPageSkeleton } from "@/components/skeleton/SamplesPageSkeleton";
+'use client';
 
-export const SamplesPage = () => {
+import { Container, PageWrapper } from '@/components/ui/common';
+import clsx from 'clsx';
+import { useTheme } from '@/context/theme/useTheme';
+import { useSamples } from '@/hooks/products';
+import { ProductBadges } from '@/components/products/ProductInfo/ProductBadges';
+import { useState } from 'react';
+import { getProductBadges } from '@/utils';
+import { ProductHeader } from '@/components/products/ProductInfo/ProductHeader';
+import { SampleSelection } from '@/components/samples/SampleSelection';
+import { QuantitySelector } from '@/components/ui/products';
+import { ProductActions } from '@/components/products/ProductInfo/ProductActions';
+import { SampleLink } from '@/components/samples/SampleLink';
+import { RelatedProducts } from '@/components/products/RelatedProducts';
+import { ProductTrustInfo } from '@/components/products/ProductTrustInfo';
+import { SamplesPageError } from '@/components/samples/SamplesPageError';
+import { SamplesPageSkeleton } from '@/components/skeleton/SamplesPageSkeleton';
+import { ProductVariant } from '@/types/product';
+import Image from 'next/image';
+
+export default function SamplesPage() {
   const { isDark } = useTheme();
   const {
     data: samples,
@@ -43,10 +46,10 @@ export const SamplesPage = () => {
   }
 
   const selectedSample =
-    samples?.find((sample) => sample.id === selectedSampleId) ?? samples[0];
+    samples.find((sample) => sample.id === selectedSampleId) ?? samples[0];
 
   const { name, variants, inspiredBy } = selectedSample;
-  const sampleVariant = variants.find((v) => v.sizeML === 5);
+  const sampleVariant = variants.find((v: ProductVariant) => v.sizeML === 5);
   const badges = getProductBadges(selectedSample, true);
 
   const inStock = Boolean(sampleVariant?.isActive && sampleVariant?.stock > 0);
@@ -58,25 +61,28 @@ export const SamplesPage = () => {
   return (
     <PageWrapper>
       <Container>
-        <section className="grid gap-10 md:py-10 lg:grid-cols-2 lg:items-start">
+        <section className='grid gap-10 md:py-10 lg:grid-cols-2 lg:items-start'>
           {/* Shared Samples Image */}
           <div
             className={clsx(
-              "mx-auto w-4/5 overflow-hidden rounded-2xl border p-4 shadow-xl backdrop-blur-xl md:w-full md:p-8",
+              'mx-auto w-4/5 overflow-hidden rounded-2xl border p-4 shadow-xl backdrop-blur-xl md:w-full md:p-8',
               isDark
-                ? "border-zinc-700/30 bg-zinc-900/30"
-                : "border-white/20 bg-white/10",
+                ? 'border-zinc-700/30 bg-zinc-900/30'
+                : 'border-white/20 bg-white/10',
             )}
           >
-            <img
-              src={sample5mlImage}
-              alt="5ML fragrance samples"
-              className="aspect-square w-full rounded-2xl object-cover"
+            <Image
+              src='images/sample-5ml.webp'
+              alt='5ML fragrance samples'
+              fill
+              priority
+              sizes='(min-width: 1024px) 50vw, 90vw'
+              className='object-cover'
             />
           </div>
 
           {/* Samples */}
-          <div className="flex h-full flex-col justify-center space-y-5 px-4 md:px-0">
+          <div className='flex h-full flex-col justify-center space-y-5 px-4 md:px-0'>
             <ProductBadges badges={badges} />
 
             <ProductHeader
@@ -103,7 +109,7 @@ export const SamplesPage = () => {
 
             <ProductActions
               productVariantId={sampleVariant.id}
-              productImage={sample5mlImage}
+              productImage='images/sample-5ml.webp'
               quantity={quantity}
               inStock={inStock}
             />
@@ -117,4 +123,4 @@ export const SamplesPage = () => {
       </Container>
     </PageWrapper>
   );
-};
+}

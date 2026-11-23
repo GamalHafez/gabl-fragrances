@@ -5,7 +5,6 @@ import { HashScrollHandler } from '@/components/ui/common';
 import { BottomNavigation } from '@/components/layout/BottomNavigation';
 import { ScrollToTop } from '@/components/ui/animation';
 import { GuestOrderLinkGate } from '@/components/auth/common';
-import { QueryProvider } from '@/providers/QueryProvider';
 
 export default function ShopLayout({
   children,
@@ -13,24 +12,22 @@ export default function ShopLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <QueryProvider>
-      <div className='font-inter flex min-h-screen flex-col'>
-        <ScrollToTop />
+    <div className='font-inter flex min-h-screen flex-col'>
+      <ScrollToTop />
 
-        <Header />
+      <Header />
 
-        <HashScrollHandler />
+      <HashScrollHandler />
 
-        <main className='flex-1'>{children}</main>
+      <main className='flex-1'>{children}</main>
 
-        <Footer />
+      <Footer />
 
-        <GuestOrderLinkGate />
+      <GuestOrderLinkGate />
 
-        {/* Floating UI */}
-        <BottomNavigation />
-        <WhatsAppButton />
-      </div>{' '}
-    </QueryProvider>
+      {/* Floating UI */}
+      <BottomNavigation />
+      <WhatsAppButton />
+    </div>
   );
 }

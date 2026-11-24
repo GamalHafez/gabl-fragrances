@@ -1,21 +1,23 @@
-import { useTheme } from "@/context/theme/useTheme";
-import clsx from "clsx";
+'use client';
 
-type AboutSectionProps = {
+import { useTheme } from '@/context/theme/useTheme';
+import clsx from 'clsx';
+
+type DocumentSectionProps = {
   title?: string;
   children: React.ReactNode;
 };
 
-export const DocumentSection = ({ title, children }: AboutSectionProps) => {
+export const DocumentSection = ({ title, children }: DocumentSectionProps) => {
   const { isDark } = useTheme();
 
   return (
-    <section className="mt-4">
+    <section className='mt-4'>
       {title && (
         <h3
           className={clsx(
-            "mb-1 text-xl font-semibold capitalize",
-            isDark ? "text-zinc-200" : "text-zinc-800",
+            'mb-1 text-xl font-semibold capitalize',
+            isDark ? 'text-zinc-200' : 'text-zinc-800',
           )}
         >
           {title}
@@ -23,8 +25,8 @@ export const DocumentSection = ({ title, children }: AboutSectionProps) => {
       )}
       <div
         className={clsx(
-          "mb-8 text-base",
-          isDark ? "text-zinc-400" : "text-zinc-600",
+          'mb-8 text-base',
+          isDark ? 'text-zinc-400' : 'text-zinc-600',
         )}
       >
         {children}

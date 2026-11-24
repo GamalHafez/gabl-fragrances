@@ -1,15 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "@/context/theme/ThemeProvider";
-import { RootLayout } from "@/pages/layouts/RootLayout";
 import { ErrorPage } from "@/pages";
-import {
-  AboutUs,
-  Collections,
-  HomePage,
-  PrivacyPolicy,
-  ProductDetails,
-  SamplesPage,
-} from "@/pages/public";
+import { PrivacyPolicy, ProductDetails } from "@/pages/public";
 import { CartProvider } from "./context/cart/CartProvider";
 import { CheckoutLayout } from "@/pages/layouts/CheckoutLayout";
 import { Checkout, OrderConfirmation } from "@/pages/checkout";
@@ -20,13 +12,8 @@ import { AccountProfile, UserOrders } from "./pages/protected";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
-      {
-        index: true,
-        element: <HomePage />,
-      },
       {
         element: <GuestRoute />,
         children: [
@@ -58,20 +45,8 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "collections",
-        element: <Collections />,
-      },
-      {
-        path: "collections/samples",
-        element: <SamplesPage />,
-      },
-      {
         path: "products/:productSlug",
         element: <ProductDetails />,
-      },
-      {
-        path: "about-us",
-        element: <AboutUs />,
       },
       {
         path: "privacy-policy",

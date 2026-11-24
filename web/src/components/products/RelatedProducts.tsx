@@ -5,12 +5,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/shadcn/carousel';
-import { ProductCard } from '../collections';
 import { MainHeading } from '@/components/ui/common';
 import { RelatedProductsSkeleton } from '../skeleton';
 import { useRelatedProducts } from '@/hooks/products';
-import { getMainProductVariant } from '@/utils/products.js';
+import { getMainProductVariant } from '@/utils/products';
 import Link from 'next/link';
+import { ProductCard } from '../collections';
 
 type RelatedProductsProps = {
   productSlug: string;

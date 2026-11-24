@@ -1,19 +1,20 @@
-import type { Product, ProductReview } from "@shared/types/product";
-import { ProductBadges } from "./ProductBadges/index";
-import { ProductHeader } from "./ProductHeader";
-import { useTheme } from "@/context/theme/useTheme";
-import clsx from "clsx";
-import { ProductOptions } from "./ProductOptions";
-import { useState } from "react";
-import { ProductActions } from "./ProductActions";
-import { ProductQuickLinks } from "./ProductQuickLinks";
-import { getAverageRating, getProductBadges } from "@/utils";
-import sample5mlImage from "@/assets/sample-5ml.webp";
+'use client';
+
+import type { Product, ProductReview } from '@/types/product';
+import { ProductBadges } from './ProductBadges/index';
+import { ProductHeader } from './ProductHeader';
+import { useTheme } from '@/context/theme/useTheme';
+import clsx from 'clsx';
+import { ProductOptions } from './ProductOptions';
+import { useState } from 'react';
+import { ProductActions } from './ProductActions';
+import { ProductQuickLinks } from './ProductQuickLinks';
+import { getAverageRating, getProductBadges } from '@/utils';
 
 type ProductInfoProps = {
   product: Product;
   reviews: ProductReview[];
-  selectedVariant: Product["variants"][number];
+  selectedVariant: Product['variants'][number];
   setSelectedVariantId: (variant: string) => void;
 };
 
@@ -45,7 +46,7 @@ export const ProductInfo = ({
   };
 
   return (
-    <div className="flex h-full flex-col justify-center space-y-5 px-4 md:px-0">
+    <div className='flex h-full flex-col justify-center space-y-5 px-4 md:px-0'>
       <ProductBadges badges={badges} />
 
       <ProductHeader
@@ -59,8 +60,8 @@ export const ProductInfo = ({
 
       <p
         className={clsx(
-          "mt-3 mb-5 text-sm",
-          isDark ? "text-zinc-400" : "text-zinc-600",
+          'mt-3 mb-5 text-sm',
+          isDark ? 'text-zinc-400' : 'text-zinc-600',
         )}
       >
         {description}
@@ -78,7 +79,7 @@ export const ProductInfo = ({
 
       <ProductActions
         productVariantId={selectedVariant.id}
-        productImage={sample5mlImage}
+        productImage='/images/sample-5ml.webp'
         quantity={quantity}
         inStock={inStock}
       />

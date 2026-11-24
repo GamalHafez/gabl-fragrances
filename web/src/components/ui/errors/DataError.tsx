@@ -1,3 +1,5 @@
+'use client';
+
 import { RefreshCw, TriangleAlert } from 'lucide-react';
 import { useTheme } from '@/context/theme/useTheme';
 import clsx from 'clsx';

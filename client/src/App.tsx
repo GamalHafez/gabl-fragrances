@@ -1,21 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { CheckoutLayout } from "@/pages/layouts/CheckoutLayout";
 import { Checkout, OrderConfirmation } from "@/pages/checkout";
-import { ProtectedRoute, Register } from "@/pages/auth";
+import { ProtectedRoute } from "@/pages/auth";
 import { AccountProfile, UserOrders } from "./pages/protected";
 
 const router = createBrowserRouter([
   {
-    path: "/",
     children: [
-      {
-        children: [
-          {
-            path: "signup",
-            element: <Register />,
-          },
-        ],
-      },
       {
         element: <ProtectedRoute />,
         children: [

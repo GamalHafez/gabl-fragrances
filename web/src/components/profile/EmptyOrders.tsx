@@ -1,3 +1,5 @@
+'use client';
+
 import { PackageOpen } from 'lucide-react';
 import clsx from 'clsx';
 import { useTheme } from '@/context/theme/useTheme';

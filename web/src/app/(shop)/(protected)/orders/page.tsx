@@ -1,15 +1,22 @@
+'use client';
+
+import { Metadata } from 'next';
 import {
   EmptyOrders,
   OrderCard,
   ProfileQuickLinks,
-} from "@/components/profile";
-import { OrdersSkeleton } from "@/components/skeleton";
-import { Container, MainHeading, PageWrapper } from "@/components/ui/common";
-import { DataError } from "@/components/ui/errors/DataError";
-import { Eyebrow } from "@/components/ui/home";
-import { useUserOrders } from "@/hooks/user/useUserOrders";
+} from '@/components/profile';
+import { OrdersSkeleton } from '@/components/skeleton';
+import { Container, MainHeading, PageWrapper } from '@/components/ui/common';
+import { DataError } from '@/components/ui/errors/DataError';
+import { Eyebrow } from '@/components/ui/home';
+import { useUserOrders } from '@/hooks/user/useUserOrders';
 
-export const UserOrders = () => {
+export const metadata: Metadata = {
+  title: 'My Orders',
+};
+
+export default function UserOrdersPage() {
   const {
     data: orders,
     isPending,
@@ -21,9 +28,9 @@ export const UserOrders = () => {
   return (
     <PageWrapper>
       <Container>
-        <div className="flex flex-col items-start p-5">
-          <Eyebrow eyebrow="Orders" className="mb-1 inline-block" />
-          <MainHeading title="Your Order History" />
+        <div className='flex flex-col items-start p-5'>
+          <Eyebrow eyebrow='Orders' className='mb-1 inline-block' />
+          <MainHeading title='Your Order History' />
         </div>
 
         {isPending || isFetching ? (
@@ -37,7 +44,7 @@ export const UserOrders = () => {
           <EmptyOrders />
         ) : (
           <>
-            <div className="flex flex-col gap-3 px-6">
+            <div className='flex flex-col gap-3 px-6'>
               {orders.map((order) => (
                 <OrderCard key={order.id} order={order} />
               ))}
@@ -49,4 +56,4 @@ export const UserOrders = () => {
       </Container>
     </PageWrapper>
   );
-};
+}

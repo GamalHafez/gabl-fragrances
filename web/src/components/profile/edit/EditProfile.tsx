@@ -1,17 +1,19 @@
+'use client';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-} from "@/components/ui/shadcn/dropdown-menu";
-import { EditProfileTrigger } from "./EditProfileTrigger";
-import clsx from "clsx";
-import { useTheme } from "@/context/theme/useTheme";
-import { useState } from "react";
-import { EditProfileItem } from "./EditProfileItem";
-import { EditProfileDialog } from "./EditProfileDialog";
-import { getEditProfileItems, type ProfileDialog } from "./getEditProfileItems";
+} from '@/components/ui/shadcn/dropdown-menu';
+import { EditProfileTrigger } from './EditProfileTrigger';
+import clsx from 'clsx';
+import { useTheme } from '@/context/theme/useTheme';
+import { useState } from 'react';
+import { EditProfileItem } from './EditProfileItem';
+import { EditProfileDialog } from './EditProfileDialog';
+import { getEditProfileItems, type ProfileDialog } from './getEditProfileItems';
 
 export const EditProfile = () => {
   const { isDark } = useTheme();
@@ -24,23 +26,23 @@ export const EditProfile = () => {
         <EditProfileTrigger />
 
         <DropdownMenuContent
-          align="end"
+          align='end'
           className={clsx(
-            "min-w-56 rounded-xl border p-2 shadow-lg md:min-w-40",
+            'min-w-56 rounded-xl border p-2 shadow-lg md:min-w-40',
             isDark
-              ? "border-zinc-700 bg-zinc-900 text-zinc-300 shadow-black/30"
-              : "border-zinc-200 bg-white text-zinc-900 shadow-zinc-200/50",
+              ? 'border-zinc-700 bg-zinc-900 text-zinc-300 shadow-black/30'
+              : 'border-zinc-200 bg-white text-zinc-900 shadow-zinc-200/50',
           )}
         >
           <DropdownMenuGroup>
             <DropdownMenuLabel
-              className={clsx(isDark ? "text-zinc-100" : "text-zinc-900")}
+              className={clsx(isDark ? 'text-zinc-100' : 'text-zinc-900')}
             >
               Profile Settings
             </DropdownMenuLabel>
 
             <DropdownMenuSeparator
-              className={clsx(isDark ? "bg-zinc-500" : "bg-zinc-300")}
+              className={clsx(isDark ? 'bg-zinc-500' : 'bg-zinc-300')}
             />
 
             {EDIT_PROFILE_ITEMS.map((item) => (

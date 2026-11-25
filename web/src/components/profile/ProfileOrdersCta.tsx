@@ -1,3 +1,5 @@
+'use client';
+
 import { ArrowRight, Package } from 'lucide-react';
 import clsx from 'clsx';
 import { useTheme } from '@/context/theme/useTheme';

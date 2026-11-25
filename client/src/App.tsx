@@ -1,17 +1,13 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { CheckoutLayout } from "@/pages/layouts/CheckoutLayout";
 import { Checkout, OrderConfirmation } from "@/pages/checkout";
-import { AccountProfile, UserOrders } from "./pages/protected";
+import { UserOrders } from "./pages/protected";
 
 const router = createBrowserRouter([
   {
     children: [
       {
         children: [
-          {
-            path: "profile",
-            element: <AccountProfile />,
-          },
           {
             path: "orders",
             element: <UserOrders />,

@@ -1,17 +1,24 @@
+'use client';
+
+import { Metadata } from 'next';
 import {
   ProfileInfoCard,
   ProfileOrdersCta,
   ProfileQuickLinks,
-} from "@/components/profile";
-import { EditProfile } from "@/components/profile/edit";
-import { getProfileCards } from "@/components/profile/profileCards.config.tsx";
-import { ProfileSkeleton } from "@/components/skeleton";
-import { Container, MainHeading, PageWrapper } from "@/components/ui/common";
-import { DataError } from "@/components/ui/errors/DataError";
-import { Eyebrow } from "@/components/ui/home";
-import { useProfileData } from "@/hooks/user/useProfileData";
+} from '@/components/profile';
+import { EditProfile } from '@/components/profile/edit';
+import { getProfileCards } from '@/components/profile/profileCards.config';
+import { ProfileSkeleton } from '@/components/skeleton';
+import { Container, MainHeading, PageWrapper } from '@/components/ui/common';
+import { DataError } from '@/components/ui/errors/DataError';
+import { Eyebrow } from '@/components/ui/home';
+import { useProfileData } from '@/hooks/user/useProfileData';
 
-export const AccountProfile = () => {
+export const metadata: Metadata = {
+  title: 'My Profile',
+};
+
+export default function AccountProfilePage() {
   const { data: profileData, isPending, isError, refetch } = useProfileData();
 
   if (isPending) {
@@ -34,14 +41,14 @@ export const AccountProfile = () => {
   const { name, email, createdAt, addresses } = profileData;
 
   const memberSince = new Date(createdAt).toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "long",
+    year: 'numeric',
+    month: 'long',
   });
 
   const defaultAddress = addresses[0];
   const addressValue = defaultAddress
     ? `${defaultAddress.city}, ${defaultAddress.governorate}, ${defaultAddress.country}`
-    : "No default address saved";
+    : 'No default address saved';
 
   const profileCards = getProfileCards({
     name,
@@ -54,17 +61,17 @@ export const AccountProfile = () => {
   return (
     <PageWrapper>
       <Container>
-        <section className="mt-4 mb-10 flex items-center justify-between px-3 md:mt-8 md:mb-6">
-          <div className="flex flex-col items-start">
-            <Eyebrow eyebrow="Profile" className="mb-0 inline-block" />
-            <MainHeading title="Your Personal Details" />
+        <section className='mt-4 mb-10 flex items-center justify-between px-3 md:mt-8 md:mb-6'>
+          <div className='flex flex-col items-start'>
+            <Eyebrow eyebrow='Profile' className='mb-0 inline-block' />
+            <MainHeading title='Your Personal Details' />
           </div>
 
           <EditProfile />
         </section>
 
-        <div className="flex flex-col px-6">
-          <div className="grid items-center gap-4 md:grid-cols-3">
+        <div className='flex flex-col px-6'>
+          <div className='grid items-center gap-4 md:grid-cols-3'>
             {profileCards.map((card) => (
               <ProfileInfoCard key={card.label} {...card} />
             ))}
@@ -77,4 +84,4 @@ export const AccountProfile = () => {
       </Container>
     </PageWrapper>
   );
-};
+}

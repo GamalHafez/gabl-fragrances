@@ -1,3 +1,5 @@
+'use client';
+
 import { ArrowRight, Compass, Info, HelpCircle } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import clsx from 'clsx';

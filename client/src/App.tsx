@@ -1,20 +1,14 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ThemeProvider } from "@/context/theme/ThemeProvider";
-import { ErrorPage } from "@/pages";
-import { CartProvider } from "./context/cart/CartProvider";
 import { CheckoutLayout } from "@/pages/layouts/CheckoutLayout";
 import { Checkout, OrderConfirmation } from "@/pages/checkout";
-import { AuthProvider } from "./context/auth/AuthProvider";
-import { GuestRoute, Login, ProtectedRoute, Register } from "@/pages/auth";
+import { Login, ProtectedRoute, Register } from "@/pages/auth";
 import { AccountProfile, UserOrders } from "./pages/protected";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    errorElement: <ErrorPage />,
     children: [
       {
-        element: <GuestRoute />,
         children: [
           {
             path: "signup",
@@ -48,7 +42,6 @@ const router = createBrowserRouter([
   {
     path: "/checkout",
     element: <CheckoutLayout />,
-    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -63,15 +56,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return (
-    <AuthProvider>
-      <ThemeProvider>
-        <CartProvider>
-          <RouterProvider router={router} />
-        </CartProvider>
-      </ThemeProvider>
-    </AuthProvider>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

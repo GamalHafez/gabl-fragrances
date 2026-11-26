@@ -1,3 +1,5 @@
+'use client';
+
 import clsx from 'clsx';
 import { useTheme } from '@/context/theme/useTheme';
 import { Container } from '@/components/ui/common';

@@ -1,11 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { CheckoutLayout } from "@/pages/layouts/CheckoutLayout";
 import { Checkout } from "@/pages/checkout";
 
 const router = createBrowserRouter([
   {
     path: "/checkout",
-    element: <CheckoutLayout />,
     children: [
       {
         index: true,

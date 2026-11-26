@@ -1,4 +1,6 @@
-import { OrderTotals } from "@/components/checkout/order";
+'use client';
+
+import { OrderTotals } from '@/components/checkout/order';
 import {
   CustomerInfo,
   ConfirmationCard,
@@ -9,12 +11,15 @@ import {
   PaymentMethodSection,
   ShippingMethodCard,
   HelpSection,
-} from "@/components/checkout/order-confirmation";
-import { ConfirmationSkeleton } from "@/components/skeleton";
-import { Container, PageWrapper } from "@/components/ui/common";
-import { DataError } from "@/components/ui/errors/DataError";
-import { useOrder } from "@/hooks/checkout";
-import { useParams } from "react-router-dom";
+} from '@/components/checkout/order-confirmation';
+import { ConfirmationSkeleton } from '@/components/skeleton';
+import { Container, PageWrapper } from '@/components/ui/common';
+import { DataError } from '@/components/ui/errors/DataError';
+import { useOrder } from '@/hooks/checkout';
+import { Metadata } from 'next';
+import { useParams } from 'next/navigation';
+
+export const metadata: Metadata = { title: 'Order Confirmation' };
 
 export const OrderConfirmation = () => {
   const { orderId } = useParams<{ orderId: string }>();
@@ -24,7 +29,7 @@ export const OrderConfirmation = () => {
     isError,
     refetch,
     isFetching,
-  } = useOrder(orderId ?? "");
+  } = useOrder(orderId);
 
   if (isFetching || isPending) {
     return (
@@ -42,7 +47,7 @@ export const OrderConfirmation = () => {
         <Container>
           <DataError
             message="We couldn't load this order right now. Please try again in a moment."
-            onRetry={refetch}
+            onRetry={() => refetch()}
           />
         </Container>
       </PageWrapper>
@@ -70,12 +75,23 @@ export const OrderConfirmation = () => {
     total,
   } = order;
 
-  const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
+  const totalQuantity = items.reduce(
+    (
+      acc: number,
+      item: {
+        productName: string;
+        sizeML: number;
+        quantity: number;
+        unitPrice: string;
+      },
+    ) => acc + item.quantity,
+    0,
+  );
 
   return (
     <PageWrapper>
       <Container>
-        <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 md:py-2">
+        <main className='mx-auto flex w-full max-w-3xl flex-col gap-6 md:py-2'>
           <ConfirmationHeader />
           <OrderDetails
             orderNumber={orderNumber}
@@ -84,20 +100,20 @@ export const OrderConfirmation = () => {
           />
           <OrderItems items={items} />
 
-          <ConfirmationCard title="Order Summary">
+          <ConfirmationCard title='Order Summary'>
             <OrderTotals
-              subtotal={subTotal ?? "0"}
+              subtotal={subTotal ?? '0'}
               totalQuantity={totalQuantity ?? 0}
               shipping={shipping}
               discount={{
                 ...discount,
-                amount: discountAmount ?? "",
+                amount: discountAmount ?? '',
               }}
               total={total}
             />
           </ConfirmationCard>
 
-          <div className="mx-auto grid gap-6 md:w-full md:grid-cols-2">
+          <div className='mx-auto grid gap-6 md:w-full md:grid-cols-2'>
             <CustomerInfo
               customerName={customerName}
               customerContact={customerContact}

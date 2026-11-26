@@ -1,20 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { CheckoutLayout } from "@/pages/layouts/CheckoutLayout";
-import { Checkout, OrderConfirmation } from "@/pages/checkout";
+import { Checkout } from "@/pages/checkout";
 
 const router = createBrowserRouter([
-  {
-    children: [
-      {
-        children: [
-          {
-            path: "orders/:orderId",
-            element: <OrderConfirmation />,
-          },
-        ],
-      },
-    ],
-  },
   {
     path: "/checkout",
     element: <CheckoutLayout />,

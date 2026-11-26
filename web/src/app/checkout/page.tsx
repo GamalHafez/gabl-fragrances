@@ -1,58 +1,66 @@
+'use client';
+
 import {
   BillingAddressSection,
   ContactSection,
   DeliverySection,
   PaymentSection,
   ShippingSection,
-} from "@/components/checkout/sections";
-import { Container, PageWrapper } from "@/components/ui/common";
-import { zodResolver } from "@hookform/resolvers/zod";
+} from '@/components/checkout/sections';
+import { Container, PageWrapper } from '@/components/ui/common';
+import { zodResolver } from '@hookform/resolvers/zod';
 import type {
   CheckoutFormOutput,
   CheckoutFormValues,
   CreateOrderInput,
-} from "@shared/types";
-import { useForm, useWatch } from "react-hook-form";
-import { checkoutSchema } from "@shared/validators/checkoutSchema";
-import { CheckoutSaveInformation } from "@/components/checkout/common";
-import { PAYMENT_METHODS } from "@shared/constants/paymentMethods";
-import { OrderSummary, OrderSummaryMobile } from "@/components/checkout/order";
-import { FormSubmitButton } from "@/components/ui/forms";
-import { Lock } from "lucide-react";
-import { useCheckoutDefaults, useCreateOrder } from "@/hooks/checkout";
-import { useNavigate } from "react-router-dom";
-import { CheckoutError } from "@/components/checkout/layout";
-import { useCartData } from "@/hooks/cart/useCartData";
-import { useCart } from "@/context/cart/useCart";
-import { getApiErrorMessage } from "@/utils/errors";
-import { useEffect } from "react";
-import { mapDefaultsToFormValues } from "@/utils";
+} from '@/types';
+import { useForm, useWatch } from 'react-hook-form';
+import { checkoutSchema } from '@/validators/checkoutSchema';
+import { CheckoutSaveInformation } from '@/components/checkout/common';
+import { PAYMENT_METHODS } from '@/constants/paymentMethods';
+import { OrderSummary, OrderSummaryMobile } from '@/components/checkout/order';
+import { FormSubmitButton } from '@/components/ui/forms';
+import { Lock } from 'lucide-react';
+import { useCheckoutDefaults, useCreateOrder } from '@/hooks/checkout';
+import { useRouter } from 'next/navigation';
+import { CheckoutError } from '@/components/checkout/layout';
+import { useCartData } from '@/hooks/cart/useCartData';
+import { useCart } from '@/context/cart/useCart';
+import { getApiErrorMessage } from '@/utils/errors';
+import { useEffect } from 'react';
+import { mapDefaultsToFormValues } from '@/utils';
+import { Metadata } from 'next';
 
 const checkoutDefaultValues: CheckoutFormValues = {
-  contact: "",
-  country: "Egypt",
-  firstName: "",
-  lastName: "",
-  address: "",
-  city: "",
-  governorate: "",
-  postalCode: "",
-  phone: "",
+  contact: '',
+  country: 'Egypt',
+  firstName: '',
+  lastName: '',
+  address: '',
+  city: '',
+  governorate: '',
+  postalCode: '',
+  phone: '',
   saveInformation: false,
-  shippingMethodId: "",
+  shippingMethodId: '',
   paymentMethod: PAYMENT_METHODS[0].id,
   billingSameAsShipping: true,
-  billingAddress: "",
-  billingCity: "",
-  billingGovernorate: "",
-  billingCountry: "Egypt",
-  billingPostalCode: "",
-  billingPhone: "",
-  locationUrl: "",
+  billingAddress: '',
+  billingCity: '',
+  billingGovernorate: '',
+  billingCountry: 'Egypt',
+  billingPostalCode: '',
+  billingPhone: '',
+  locationUrl: '',
 };
 
-export const Checkout = () => {
-  const navigate = useNavigate();
+export const metadata: Metadata = {
+  title: 'Checkout',
+  robots: { index: false },
+};
+
+export default function CheckoutPage() {
+  const router = useRouter();
 
   const { data: checkoutDefaults } = useCheckoutDefaults();
 
@@ -77,7 +85,7 @@ export const Checkout = () => {
     }
   }, [checkoutDefaults, reset]);
 
-  const shippingMethodId = useWatch({ control, name: "shippingMethodId" });
+  const shippingMethodId = useWatch({ control, name: 'shippingMethodId' });
 
   const { mutate: createOrder, isPending, isError, error } = useCreateOrder();
 
@@ -91,10 +99,18 @@ export const Checkout = () => {
       return;
     }
 
-    const items = cartData.items.map(({ productVariantId, quantity }) => ({
-      productVariantId,
-      quantity,
-    }));
+    const items = cartData.items.map(
+      ({
+        productVariantId,
+        quantity,
+      }: {
+        productVariantId: string;
+        quantity: number;
+      }) => ({
+        productVariantId,
+        quantity,
+      }),
+    );
 
     const payload: CreateOrderInput = {
       ...data,
@@ -105,27 +121,27 @@ export const Checkout = () => {
     createOrder(payload, {
       onSuccess: (order) => {
         clearCart();
-        navigate(`/checkout/orders/${order.id}/confirmation`); // adjust route to your app
+        router.push(`/checkout/orders/${order.id}/confirmation`);
       },
     });
   };
 
   return (
     <PageWrapper>
-      <div className="lg:hidden">
+      <div className='lg:hidden'>
         <OrderSummaryMobile
           cartData={cartData}
           shippingMethodId={shippingMethodId}
         />
       </div>
       <Container>
-        <div className="mx-4 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+        <div className='mx-4 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between'>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-8 px-8 pb-20"
+            className='flex flex-col gap-8 px-8 pb-20'
           >
             <ContactSection register={register} errors={errors} />
-            <div className="flex flex-col gap-2">
+            <div className='flex flex-col gap-2'>
               <DeliverySection
                 control={control}
                 register={register}
@@ -133,7 +149,7 @@ export const Checkout = () => {
               />
               <CheckoutSaveInformation control={control} />
             </div>
-            <ShippingSection control={control} setValue={setValue} />{" "}
+            <ShippingSection control={control} setValue={setValue} />{' '}
             <PaymentSection control={control} />
             <BillingAddressSection
               control={control}
@@ -142,21 +158,21 @@ export const Checkout = () => {
             />
             {checkoutError && <CheckoutError message={checkoutError} />}
             {!cartItems.length && (
-              <CheckoutError message="Your cart is empty. Please add an item before completing your order." />
+              <CheckoutError message='Your cart is empty. Please add an item before completing your order.' />
             )}
             <FormSubmitButton
-              label="Complete order"
+              label='Complete order'
               icon={Lock}
               isLoading={isPending}
               disabled={isPending || !cartItems.length}
             />
           </form>
 
-          <aside className="hidden w-full shrink-0 lg:sticky lg:top-26 lg:block lg:w-95">
+          <aside className='hidden w-full shrink-0 lg:sticky lg:top-26 lg:block lg:w-95'>
             <OrderSummary shippingMethodId={shippingMethodId} />
           </aside>
         </div>
       </Container>
     </PageWrapper>
   );
-};
+}

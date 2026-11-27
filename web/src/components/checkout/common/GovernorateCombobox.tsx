@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Combobox,
   ComboboxContent,
@@ -5,20 +7,20 @@ import {
   ComboboxInput,
   ComboboxItem,
   ComboboxList,
-} from "@/components/ui/shadcn/combobox";
-import { EGYPT_GOVERNORATE_OPTIONS } from "@/data/EgyptGovernorates";
-import { useTheme } from "@/context/theme/useTheme";
-import { FormLabel } from "@/components/ui/forms";
-import { ErrorMessage } from "@/components/ui/common";
-import clsx from "clsx";
+} from '@/components/ui/shadcn/combobox';
+import { EGYPT_GOVERNORATE_OPTIONS } from '@/data/EgyptGovernorates';
+import { useTheme } from '@/context/theme/useTheme';
+import { FormLabel } from '@/components/ui/forms';
+import { ErrorMessage } from '@/components/ui/common';
+import clsx from 'clsx';
 import {
   Controller,
   type Control,
   type FieldErrors,
   type FieldValues,
   type Path,
-} from "react-hook-form";
-import get from "lodash/get";
+} from 'react-hook-form';
+import get from 'lodash/get';
 
 type GovernorateComboboxProps<T extends FieldValues> = {
   control: Control<T>;
@@ -31,7 +33,7 @@ export const GovernorateCombobox = <T extends FieldValues>({
   control,
   errors,
   name,
-  label = "Governorate",
+  label = 'Governorate',
 }: GovernorateComboboxProps<T>) => {
   const { isDark } = useTheme();
 
@@ -39,7 +41,7 @@ export const GovernorateCombobox = <T extends FieldValues>({
   const hasError = !!fieldError;
 
   return (
-    <div className="flex flex-col">
+    <div className='flex flex-col'>
       <FormLabel id={name}>{label}</FormLabel>
 
       <Controller
@@ -49,19 +51,19 @@ export const GovernorateCombobox = <T extends FieldValues>({
           <Combobox
             items={EGYPT_GOVERNORATE_OPTIONS}
             value={field.value as string}
-            onValueChange={(value) => field.onChange(value ?? "")}
+            onValueChange={(value) => field.onChange(value ?? '')}
           >
             <ComboboxInput
-              placeholder="Select your Governorate"
+              placeholder='Select your Governorate'
               aria-invalid={hasError}
               aria-describedby={`${name}-error`}
               className={clsx(
-                "h-10 resize-none rounded-2xl border px-2 py-3 text-sm transition-all duration-300 outline-none",
-                "focus:ring-4",
+                'h-10 resize-none rounded-2xl border px-2 py-3 text-sm transition-all duration-300 outline-none',
+                'focus:ring-4',
                 isDark
-                  ? "border-zinc-700 bg-zinc-900 text-zinc-100 placeholder:text-zinc-500 focus:border-amber-500 focus:ring-amber-500/20"
-                  : "border-zinc-300 bg-white text-zinc-900 placeholder:text-zinc-400 focus:border-amber-400 focus:ring-amber-200/50",
-                hasError && (isDark ? "border-red-500" : "border-red-400"),
+                  ? 'border-zinc-700 bg-zinc-900 text-zinc-100 placeholder:text-zinc-500 focus:border-amber-500 focus:ring-amber-500/20'
+                  : 'border-zinc-300 bg-white text-zinc-900 placeholder:text-zinc-400 focus:border-amber-400 focus:ring-amber-200/50',
+                hasError && (isDark ? 'border-red-500' : 'border-red-400'),
               )}
             />
 
@@ -80,7 +82,7 @@ export const GovernorateCombobox = <T extends FieldValues>({
         )}
       />
 
-      {hasError && <ErrorMessage message={String(fieldError?.message ?? "")} />}
+      {hasError && <ErrorMessage message={String(fieldError?.message ?? '')} />}
     </div>
   );
 };

@@ -1,9 +1,11 @@
-import { Checkbox } from "@/components/ui/shadcn/checkbox";
-import { useTheme } from "@/context/theme/useTheme";
-import clsx from "clsx";
-import type { CheckoutFormValues } from "@shared/types";
-import { Controller, type Control } from "react-hook-form";
-import { useAuth } from "@/context/auth/useAuth";
+'use client';
+
+import { Checkbox } from '@/components/ui/shadcn/checkbox';
+import { useTheme } from '@/context/theme/useTheme';
+import clsx from 'clsx';
+import type { CheckoutFormValues } from '@/types';
+import { Controller, type Control } from 'react-hook-form';
+import { useAuth } from '@/context/auth/useAuth';
 
 type CheckoutSaveInformationProps = {
   control: Control<CheckoutFormValues>;
@@ -18,13 +20,13 @@ export const CheckoutSaveInformation = ({
   return (
     isAuthenticated && (
       <Controller
-        name="saveInformation"
+        name='saveInformation'
         control={control}
         render={({ field }) => (
           <label
             className={clsx(
-              "flex cursor-pointer items-center gap-2 mt-2 text-sm",
-              isDark ? "text-zinc-300" : "text-zinc-700",
+              'flex cursor-pointer items-center gap-2 mt-2 text-sm',
+              isDark ? 'text-zinc-300' : 'text-zinc-700',
             )}
           >
             <Checkbox checked={field.value} onCheckedChange={field.onChange} />

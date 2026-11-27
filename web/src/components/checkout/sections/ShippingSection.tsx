@@ -1,19 +1,21 @@
-import { RadioGroup } from "@/components/ui/shadcn/radio-group";
+'use client';
+
+import { RadioGroup } from '@/components/ui/shadcn/radio-group';
 import {
   CheckoutHeading,
   ShippingMethod,
   ShippingMethodError,
-} from "../common";
-import type { CheckoutFormValues } from "@shared/types";
+} from '../common';
+import type { CheckoutFormValues } from '@/types';
 import {
   Controller,
   useWatch,
   type Control,
   type UseFormSetValue,
-} from "react-hook-form";
-import { useShippingMethods } from "@/hooks/checkout";
-import { ShippingMethodSkeleton } from "@/components/skeleton";
-import { useEffect } from "react";
+} from 'react-hook-form';
+import { useShippingMethods } from '@/hooks/checkout';
+import { ShippingMethodSkeleton } from '@/components/skeleton';
+import { useEffect } from 'react';
 
 type ShippingSectionProps = {
   control: Control<CheckoutFormValues>;
@@ -34,18 +36,18 @@ export const ShippingSection = ({
 
   const currentShippingMethodId = useWatch({
     control,
-    name: "shippingMethodId",
+    name: 'shippingMethodId',
   });
 
   useEffect(() => {
     if (shippingMethods?.length && !currentShippingMethodId) {
-      setValue("shippingMethodId", shippingMethods[0].id);
+      setValue('shippingMethodId', shippingMethods[0].id);
     }
   }, [shippingMethods, currentShippingMethodId, setValue]);
 
   return (
-    <section className="flex flex-col gap-2">
-      <CheckoutHeading title="Shipping method" />
+    <section className='flex flex-col gap-2'>
+      <CheckoutHeading title='Shipping method' />
 
       {isPending || isFetching ? (
         <ShippingMethodSkeleton />
@@ -53,13 +55,13 @@ export const ShippingSection = ({
         <ShippingMethodError refetch={refetch} />
       ) : (
         <Controller
-          name="shippingMethodId"
+          name='shippingMethodId'
           control={control}
           render={({ field }) => (
             <RadioGroup
               value={field.value || shippingMethods[0].id}
               onValueChange={field.onChange}
-              className="gap-3"
+              className='gap-3'
             >
               {shippingMethods.map((method) => (
                 <ShippingMethod

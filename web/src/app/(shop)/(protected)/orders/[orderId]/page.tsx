@@ -1,143 +1,18 @@
-'use client';
+import { OrderConfirmation } from '@/components/order-confirmation';
+import type { Metadata } from 'next';
 
-import { OrderTotals } from '@/components/checkout/order';
-import {
-  CustomerInfo,
-  ConfirmationCard,
-  ConfirmationHeader,
-  OrderDetails,
-  OrderItems,
-  ShippingAddressCard,
-  PaymentMethodSection,
-  ShippingMethodCard,
-  HelpSection,
-} from '@/components/checkout/order-confirmation';
-import { ConfirmationSkeleton } from '@/components/skeleton';
-import { Container, PageWrapper } from '@/components/ui/common';
-import { DataError } from '@/components/ui/errors/DataError';
-import { useOrder } from '@/hooks/checkout';
-import { Metadata } from 'next';
-import { useParams } from 'next/navigation';
-
-export const metadata: Metadata = { title: 'Order Confirmation' };
-
-export const OrderConfirmation = () => {
-  const { orderId } = useParams<{ orderId: string }>();
-  const {
-    data: order,
-    isPending,
-    isError,
-    refetch,
-    isFetching,
-  } = useOrder(orderId);
-
-  if (isFetching || isPending) {
-    return (
-      <PageWrapper>
-        <Container>
-          <ConfirmationSkeleton />
-        </Container>
-      </PageWrapper>
-    );
-  }
-
-  if (isError || !order)
-    return (
-      <PageWrapper>
-        <Container>
-          <DataError
-            message="We couldn't load this order right now. Please try again in a moment."
-            onRetry={() => refetch()}
-          />
-        </Container>
-      </PageWrapper>
-    );
-
-  const {
-    orderNumber,
-    createdAt,
-    status,
-    items,
-    subTotal,
-    shipping,
-    discount,
-    discountAmount,
-    customerName,
-    customerContact,
-    customerPhone,
-    shippingAddress,
-    shippingCity,
-    shippingGovernorate,
-    shippingCountry,
-    payments,
-    shippingMethodName,
-    shippingLocationUrl,
-    total,
-  } = order;
-
-  const totalQuantity = items.reduce(
-    (
-      acc: number,
-      item: {
-        productName: string;
-        sizeML: number;
-        quantity: number;
-        unitPrice: string;
-      },
-    ) => acc + item.quantity,
-    0,
-  );
-
-  return (
-    <PageWrapper>
-      <Container>
-        <main className='mx-auto flex w-full max-w-3xl flex-col gap-6 md:py-2'>
-          <ConfirmationHeader />
-          <OrderDetails
-            orderNumber={orderNumber}
-            createdAt={createdAt}
-            status={status}
-          />
-          <OrderItems items={items} />
-
-          <ConfirmationCard title='Order Summary'>
-            <OrderTotals
-              subtotal={subTotal ?? '0'}
-              totalQuantity={totalQuantity ?? 0}
-              shipping={shipping}
-              discount={{
-                ...discount,
-                amount: discountAmount ?? '',
-              }}
-              total={total}
-            />
-          </ConfirmationCard>
-
-          <div className='mx-auto grid gap-6 md:w-full md:grid-cols-2'>
-            <CustomerInfo
-              customerName={customerName}
-              customerContact={customerContact}
-              customerPhone={customerPhone}
-            />
-            <ShippingAddressCard
-              shippingAddress={shippingAddress}
-              shippingCity={shippingCity}
-              shippingGovernorate={shippingGovernorate}
-              shippingCountry={shippingCountry}
-              shippingLocationUrl={shippingLocationUrl}
-            />
-
-            <ShippingMethodCard
-              shippingMethodName={shippingMethodName}
-              shippingPrice={shipping}
-            />
-
-            <PaymentMethodSection payments={payments} />
-          </div>
-
-          <HelpSection />
-        </main>
-      </Container>
-    </PageWrapper>
-  );
+export const metadata: Metadata = {
+  title: 'Order Confirmation',
 };
+
+type OrderConfirmationPageProps = {
+  params: Promise<{ orderId: string }>;
+};
+
+export default async function OrderConfirmationPage({
+  params,
+}: OrderConfirmationPageProps) {
+  const { orderId } = await params;
+
+  return <OrderConfirmation orderId={orderId} />;
+}

@@ -34,7 +34,6 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.5",
-    "@tailwindcss/turbopack": "4.3.3",
     "@types/lodash": "^4.17.27",
     "@types/node": "^20",
     "@types/react": "^19",
